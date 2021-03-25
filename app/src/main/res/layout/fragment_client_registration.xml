@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context=".ClientRegistrationFragment">
 
     <com.google.android.material.textfield.TextInputLayout

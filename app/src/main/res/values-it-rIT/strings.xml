@@ -15,4 +15,5 @@
     <string name="prompt_address">Indirizzo</string>
     <string name="prompt_phone">Telefono</string>
     <string name="prompt_confirm_password">Conferma password</string>
+    <string name="prompt_rest_address">Indirizzo ristorante</string>
 </resources>

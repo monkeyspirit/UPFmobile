@@ -5,8 +5,9 @@
     <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_phone">Phone</string>
     <string name="prompt_name">Name</string>
-    <string name="prompt_surname">Surname</string>
+    <string name="prompt_surname" translatable="false">Surname</string>
     <string name="prompt_address">Address</string>
+    <string name="prompt_rest_address">Restaurant Address</string>
     <string name="prompt_password" translatable="false">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_up">Sign up</string>
