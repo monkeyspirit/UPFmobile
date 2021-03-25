@@ -10,4 +10,9 @@
     <string name="client">Cliente</string>
     <string name="manager">Ristoratore</string>
     <string name="delivery">Fattorino</string>
+    <string name="prompt_name">Nome</string>
+    <string name="prompt_surname">Cognome</string>
+    <string name="prompt_address">Indirizzo</string>
+    <string name="prompt_phone">Telefono</string>
+    <string name="prompt_confirm_password">Conferma password</string>
 </resources>

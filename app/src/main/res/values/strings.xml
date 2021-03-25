@@ -3,6 +3,10 @@
     <string name="splash" translatable="false">splash</string>
     <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="prompt_email" translatable="false">Email</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_surname">Surname</string>
+    <string name="prompt_address">Address</string>
     <string name="prompt_password" translatable="false">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_up">Sign up</string>
@@ -11,10 +15,9 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="client">Client</string>
-    <string name="manager">Manager</string>
+    <string name="manager">Restaurant manager</string>
     <string name="delivery">Delivery guy</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="prompt_confirm_password">Confirm password</string>
 
 
 </resources>
