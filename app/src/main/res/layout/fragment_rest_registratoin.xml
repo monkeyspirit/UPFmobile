@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ClientRegistrationFragment">
+    tools:context=".RestRegistratoinFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <EditText
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Cliente"
+        android:text="Ristoratore"
         android:layout_gravity="center"/>
 
     <EditText

@@ -18,7 +18,9 @@
         android:paddingRight="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <RadioGroup
+            android:id="@+id/registration_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -27,7 +29,7 @@
                 android:id="@+id/client_rdbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/client" />
+                android:text="@string/client"/>
 
             <RadioButton
                 android:id="@+id/delivery_rdbtn"
@@ -42,6 +44,13 @@
                 android:text="@string/manager" />
 
         </RadioGroup>
+
+        <fragment
+            android:id="@+id/registration_fragment"
+            android:name="mobile.android.upf.BlankFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
 
     </LinearLayout>
