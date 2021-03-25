@@ -6,7 +6,7 @@
     <string name="invalid_password">La password deve essere lunga almeno 5 caratteri</string>
     <string name="login_failed">Accesso non riuscito</string>
     <string name="action_sign_in">Accedi</string>
-    <string name="action_sign_up">Registrati</string>
+    <string name="action_register">Registrati</string>
     <string name="client">Cliente</string>
     <string name="manager">Ristoratore</string>
     <string name="delivery">Fattorino</string>
@@ -16,4 +16,5 @@
     <string name="prompt_phone">Telefono</string>
     <string name="prompt_confirm_password">Conferma password</string>
     <string name="prompt_rest_address">Indirizzo ristorante</string>
+    <string name="register_info">Seleziona la tipologia di utente per cui vuoi effettuare la registrazione:</string>
 </resources>
