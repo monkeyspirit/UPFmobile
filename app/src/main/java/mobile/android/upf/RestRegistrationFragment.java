@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RestRegistratoinFragment#newInstance} factory method to
+ * Use the {@link RestRegistrationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RestRegistratoinFragment extends Fragment {
+public class RestRegistrationFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +23,7 @@ public class RestRegistratoinFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public RestRegistratoinFragment() {
+    public RestRegistrationFragment() {
         // Required empty public constructor
     }
 
@@ -36,8 +36,8 @@ public class RestRegistratoinFragment extends Fragment {
      * @return A new instance of fragment RestRegistratoinFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RestRegistratoinFragment newInstance(String param1, String param2) {
-        RestRegistratoinFragment fragment = new RestRegistratoinFragment();
+    public static RestRegistrationFragment newInstance(String param1, String param2) {
+        RestRegistrationFragment fragment = new RestRegistrationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

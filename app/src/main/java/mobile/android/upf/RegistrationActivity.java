@@ -1,7 +1,6 @@
 package mobile.android.upf;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -29,7 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 ClientRegistrationFragment client_fragment = new ClientRegistrationFragment();
                 DeliveryRegistrationFragment delivery_fragment = new DeliveryRegistrationFragment();
-                RestRegistratoinFragment rest_fragment = new RestRegistratoinFragment();
+                RestRegistrationFragment rest_fragment = new RestRegistrationFragment();
 
                 switch (group.getCheckedRadioButtonId()){
                     case R.id.client_rdbtn:
