@@ -1,4 +1,4 @@
-package mobile.android.upf;
+package mobile.android.upf.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import mobile.android.upf.R;
 
 /**
  * A simple {@link Fragment} subclass.

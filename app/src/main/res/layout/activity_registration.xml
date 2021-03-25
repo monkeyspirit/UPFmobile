@@ -59,7 +59,7 @@
 
         <fragment
             android:id="@+id/registration_fragment"
-            android:name="mobile.android.upf.BlankFragment"
+            android:name="mobile.android.upf.fragment.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

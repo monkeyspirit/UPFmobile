@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import mobile.android.upf.fragment.ClientRegistrationFragment;
+import mobile.android.upf.fragment.DeliveryRegistrationFragment;
+import mobile.android.upf.fragment.RestRegistrationFragment;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     @Override
