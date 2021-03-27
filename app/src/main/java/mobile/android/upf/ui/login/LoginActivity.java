@@ -30,12 +30,14 @@ import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.FirstActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RegistrationActivity;
+import mobile.android.upf.data.model.User;
 import mobile.android.upf.ui.login.LoginViewModel;
 import mobile.android.upf.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private DatabaseReference mDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -143,10 +145,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Write a message to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
+                mDatabase = FirebaseDatabase.getInstance().getReference();
 
-                myRef.setValue("Hello, World!");
+
+                User user = new User("maria", "m@a.com");
+
+                mDatabase.child("users").child("1").setValue(user);
+
             }
         });
     }
