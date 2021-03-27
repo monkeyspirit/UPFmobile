@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.FirstActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RegistrationActivity;
@@ -77,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateUiWithUser(loginResult.getSuccess());
                 }
                 setResult(Activity.RESULT_OK);
-                final Intent home = new Intent(LoginActivity.this, FirstActivity.class);
+                final Intent home = new Intent(LoginActivity.this, ClientHomepageActivity.class);
                 startActivity(home);
                 //Complete and destroy login activity once successful
                 finish();

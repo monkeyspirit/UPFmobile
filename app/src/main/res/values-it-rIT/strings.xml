@@ -17,4 +17,8 @@
     <string name="prompt_confirm_password">Conferma password</string>
     <string name="prompt_rest_address">Indirizzo ristorante</string>
     <string name="register_info">Seleziona la tipologia di utente per cui vuoi effettuare la registrazione:</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="menu_orders">Ordinazioni</string>
+    <string name="menu_profile">Profilo</string>
+    <string name="menu_restourants">Ristoranti</string>
 </resources>
