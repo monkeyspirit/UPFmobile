@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "702916231076",
+    "firebase_url": "https://ultimatepizzafrisbee-default-rtdb.firebaseio.com",
+    "project_id": "ultimatepizzafrisbee",
+    "storage_bucket": "ultimatepizzafrisbee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702916231076:android:be0a00ea85329d3bcacb31",
+        "android_client_info": {
+          "package_name": "mobile.android.upf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702916231076-4uvv67816mmb92rlpbc2p3mqqki5jr9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq_RVPyT9Y7cRsbPLRe_MkZy7d9-iyFio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702916231076-4uvv67816mmb92rlpbc2p3mqqki5jr9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

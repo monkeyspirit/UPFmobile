@@ -23,6 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.FirstActivity;
 import mobile.android.upf.R;
@@ -135,6 +138,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Button add_message_db =  (Button) findViewById(R.id.add_message);
+        add_message_db.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("message");
+
+                myRef.setValue("Hello, World!");
+            }
+        });
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
