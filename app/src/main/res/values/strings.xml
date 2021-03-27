@@ -31,6 +31,6 @@
     <string name="menu_orders">Orders</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_restourants">Restourants</string>
-
+    <string name="menu_exit">Logout</string>
 
 </resources>

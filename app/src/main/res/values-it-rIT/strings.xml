@@ -21,4 +21,5 @@
     <string name="menu_orders">Ordinazioni</string>
     <string name="menu_profile">Profilo</string>
     <string name="menu_restourants">Ristoranti</string>
+    <string name="menu_exit">Esci</string>
 </resources>
