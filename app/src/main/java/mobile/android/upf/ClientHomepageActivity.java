@@ -1,5 +1,6 @@
 package mobile.android.upf;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import mobile.android.upf.ui.login.LoginActivity;
 
 public class ClientHomepageActivity extends AppCompatActivity {
 
@@ -45,6 +48,12 @@ public class ClientHomepageActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.getMenu().findItem(R.id.nav_client_logout).setOnMenuItemClickListener(menuItem -> {
+            Intent intent = new Intent(ClientHomepageActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        });
     }
 
     @Override

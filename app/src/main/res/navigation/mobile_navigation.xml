@@ -22,4 +22,10 @@
         android:name="mobile.android.upf.ui.client_restourants.ClientRestourantsFragment"
         android:label="@string/menu_restourants"
         tools:layout="@layout/fragment_restourants_client" />
+
+    <activity
+        android:id="@+id/nav_client_logout"
+        android:name="mobile.android.upf.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>
