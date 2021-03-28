@@ -18,7 +18,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        getSupportActionBar().setTitle("Registrazione a UFP");
+        getSupportActionBar().setTitle("Register on UPF");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RadioButton client = (RadioButton) findViewById(R.id.client_rdbtn);

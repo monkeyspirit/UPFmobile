@@ -22,4 +22,15 @@
     <string name="menu_profile">Profilo</string>
     <string name="menu_restourants">Ristoranti</string>
     <string name="menu_exit">Esci</string>
+
+    <string name="empty_name">Nome richiesto</string>
+    <string name="empty_surname">Cognome richiesto</string>
+    <string name="empty_password">Password richiesta</string>
+    <string name="empty_confirm_password">Per favore conferma la tua password</string>
+    <string name="short_password">La password deve avere almeno 6 caratteri</string>
+    <string name="empty_email">E-mail richiesta</string>
+    <string name="empty_phone">Numero telefonico richiesto</string>
+    <string name="empty_address">Indirizzo richiesto</string>
+    <string name="password_mismatch">Le password non corrispondono</string>
+    <string name="invalid_email">Per favore inserisci una e-mail valida</string>
 </resources>

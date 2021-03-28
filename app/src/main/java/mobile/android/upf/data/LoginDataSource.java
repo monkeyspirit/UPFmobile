@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class LoginDataSource {
 
-    public Result<User> login(String username, String password) {
+    /*public Result<User> login(String username, String password) {
 
         try {
             // TODO: handle loggedInUser authentication
@@ -21,7 +21,7 @@ public class LoginDataSource {
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }
-    }
+    }*/
 
     public void logout() {
         // TODO: revoke authentication

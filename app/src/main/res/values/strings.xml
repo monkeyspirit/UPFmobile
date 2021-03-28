@@ -33,4 +33,15 @@
     <string name="menu_restourants">Restourants</string>
     <string name="menu_exit">Logout</string>
 
+    <string name="empty_name">Name is required</string>
+    <string name="empty_surname">Surname is required</string>
+    <string name="empty_password">Password is required</string>
+    <string name="empty_confirm_password">Please confirm your password</string>
+    <string name="short_password">Password must have at least 6 characters</string>
+    <string name="empty_email">E-mail is required</string>
+    <string name="empty_phone">Phone number is required</string>
+    <string name="empty_address">Address is required</string>
+    <string name="password_mismatch">Mismatched passwords</string>
+    <string name="invalid_email">Please insert a valid e-mail</string>
+
 </resources>

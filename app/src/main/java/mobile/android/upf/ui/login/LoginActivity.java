@@ -109,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
+        /*passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
-        });
+        });*/
 
         Button registrationButton =  (Button) findViewById(R.id.registration);
         registrationButton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button add_message_db =  (Button) findViewById(R.id.add_message);
+        /*Button add_message_db =  (Button) findViewById(R.id.add_message);
         add_message_db.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 mDatabase.child("users").child("1").setValue(user);
 
             }
-        });
+        });*/
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
