@@ -129,21 +129,6 @@ public class DeliveryRegistrationFragment extends Fragment {
             editTextSurname.requestFocus();
             return;
         }
-        if (password.isEmpty()) {
-            editTextPassword.setError(getString(R.string.empty_password));
-            editTextPassword.requestFocus();
-            return;
-        }
-        if (password.length() < 6) {
-            editTextPassword.setError(getString(R.string.short_password));
-            editTextPassword.requestFocus();
-            return;
-        }
-        if (confirmPassword.isEmpty()) {
-            editTextConfirmPassword.setError(getString(R.string.empty_confirm_password));
-            editTextConfirmPassword.requestFocus();
-            return;
-        }
         if (email.isEmpty()) {
             editTextEmail.setError(getString(R.string.empty_email));
             editTextEmail.requestFocus();
@@ -157,6 +142,21 @@ public class DeliveryRegistrationFragment extends Fragment {
         if (phone.isEmpty()) {
             editTextPhone.setError(getString(R.string.empty_phone));
             editTextPhone.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            editTextPassword.setError(getString(R.string.empty_password));
+            editTextPassword.requestFocus();
+            return;
+        }
+        if (password.length() < 6) {
+            editTextPassword.setError(getString(R.string.short_password));
+            editTextPassword.requestFocus();
+            return;
+        }
+        if (confirmPassword.isEmpty()) {
+            editTextConfirmPassword.setError(getString(R.string.empty_confirm_password));
+            editTextConfirmPassword.requestFocus();
             return;
         }
         if (!confirmPassword.equals(password)) {

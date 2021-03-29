@@ -2,12 +2,14 @@ package mobile.android.upf;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,6 +24,7 @@ import mobile.android.upf.ui.login.LoginActivity;
 public class ClientHomepageActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private static final String TAG_LOG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,8 @@ public class ClientHomepageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.getMenu().findItem(R.id.nav_client_logout).setOnMenuItemClickListener(menuItem -> {
+            FirebaseAuth.getInstance().signOut();
+            Log.d(TAG_LOG, "logout:success");
             Intent intent = new Intent(ClientHomepageActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
