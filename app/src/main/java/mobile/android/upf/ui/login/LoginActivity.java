@@ -31,10 +31,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import mobile.android.upf.ClientHomepageActivity;
+import mobile.android.upf.DeliveryHomepageActivity;
 import mobile.android.upf.FirstActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RegistrationActivity;
@@ -71,64 +73,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-//
-//        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-//            @Override
-//            public void onChanged(@Nullable LoginFormState loginFormState) {
-//                if (loginFormState == null) {
-//                    return;
-//                }
-//                loginButton.setEnabled(loginFormState.isDataValid());
-//                if (loginFormState.getUsernameError() != null) {
-//                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-//                }
-//                if (loginFormState.getPasswordError() != null) {
-//                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-//                }
-//            }
-//        });
-//
-//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-//            @Override
-//            public void onChanged(@Nullable LoginResult loginResult) {
-//                if (loginResult == null) {
-//                    return;
-//                }
-//                loadingProgressBar.setVisibility(View.GONE);
-//                if (loginResult.getError() != null) {
-//                    showLoginFailed(loginResult.getError());
-//                }
-//                if (loginResult.getSuccess() != null) {
-//                    updateUiWithUser(loginResult.getSuccess());
-//                }
-//                setResult(Activity.RESULT_OK);
-//                final Intent home = new Intent(LoginActivity.this, ClientHomepageActivity.class);
-//                startActivity(home);
-//                //Complete and destroy login activity once successful
-//                finish();
-//            }
-//        });
-//
-//        TextWatcher afterTextChangedListener = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // ignore
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                // ignore
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-//                        passwordEditText.getText().toString());
-//            }
-//        };
-//        usernameEditText.addTextChangedListener(afterTextChangedListener);
-//        passwordEditText.addTextChangedListener(afterTextChangedListener);
 
 
         Button registrationButton =  (Button) findViewById(R.id.registration);
@@ -194,11 +138,53 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG_LOG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            final Intent homepage = new Intent(LoginActivity.this, ClientHomepageActivity.class);
-                            startActivity(homepage);
-                            finish();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            String userId = currentUser.getUid();
+
+
+                            mDatabase = FirebaseDatabase.getInstance().getReference();
+                            mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    }
+                                    else {
+
+                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                        int type = Integer.parseInt(String.valueOf(task.getResult().child("type").getValue()));
+
+                                        switch (type){
+                                            case 1: {
+//                                                client
+                                                final Intent client_homepage = new Intent(LoginActivity.this, ClientHomepageActivity.class);
+                                                startActivity(client_homepage);
+                                                finish();
+                                                break;
+                                            }
+                                            case 2:{
+//                                                delivery
+                                                final Intent delivery_homepage = new Intent(LoginActivity.this, DeliveryHomepageActivity.class);
+                                                startActivity(delivery_homepage);
+                                                finish();
+                                                break;
+                                            }
+                                            case 3:{
+//                                                restourant
+
+                                                break;
+                                            }
+                                            case 4:{
+//                                                admin
+
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG_LOG, "signInWithEmail:failure", task.getException());

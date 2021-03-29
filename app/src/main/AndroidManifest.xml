@@ -12,7 +12,11 @@
         <activity
             android:name=".ClientHomepageActivity"
             android:label="@string/title_activity_client_homepage"
-            android:theme="@style/Theme.UPF.NoActionBar"></activity>
+            android:theme="@style/Theme.UPF.NoActionBar" />
+        <activity
+            android:name=".DeliveryHomepageActivity"
+            android:label="@string/title_activity_delivery_homepage"
+            android:theme="@style/Theme.UPF.NoActionBar" />
         <activity
             android:name=".RegistrationActivity"
             android:parentActivityName=".ui.login.LoginActivity" />

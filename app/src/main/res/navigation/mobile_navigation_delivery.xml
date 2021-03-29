@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_delivery_orders">
+
+    <fragment
+        android:id="@+id/nav_delivery_orders"
+        android:name="mobile.android.upf.ui.client_homepage.ClientOrdersFragment"
+        android:label="@string/menu_orders"
+        tools:layout="@layout/fragment_home_client" />
+
+    <fragment
+        android:id="@+id/nav_delivery_profile"
+        android:name="mobile.android.upf.ui.client_profile.ClientProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile_client" />
+
+    <fragment
+        android:id="@+id/nav_delivery_restourants"
+        android:name="mobile.android.upf.ui.client_restourants.ClientRestourantsFragment"
+        android:label="Subscriptions"
+        tools:layout="@layout/fragment_restourants_client" />
+
+    <activity
+        android:id="@+id/nav_delivery_logout"
+        android:name="mobile.android.upf.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+</navigation>

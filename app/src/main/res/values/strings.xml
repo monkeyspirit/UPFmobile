@@ -21,6 +21,7 @@
     <string name="prompt_confirm_password">Confirm password</string>
     <string name="register_info">Select the type of user you want to register for:</string>
     <string name="title_activity_client_homepage" translatable="false">ClientHomepageActivity</string>
+    <string name="title_activity_delivery_homepage" translatable="false">DeliveryHomepageActivity</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="nav_header_title" translatable="false">Android Studio</string>
