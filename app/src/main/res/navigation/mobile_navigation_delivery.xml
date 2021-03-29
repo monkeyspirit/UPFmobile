@@ -5,6 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_delivery_orders">
 
+    <!--    DA MODIFICARE-->
     <fragment
         android:id="@+id/nav_delivery_orders"
         android:name="mobile.android.upf.ui.client_homepage.ClientOrdersFragment"
@@ -18,10 +19,10 @@
         tools:layout="@layout/fragment_profile_client" />
 
     <fragment
-        android:id="@+id/nav_delivery_restourants"
-        android:name="mobile.android.upf.ui.client_restourants.ClientRestourantsFragment"
+        android:id="@+id/nav_delivery_restaurants"
+        android:name="mobile.android.upf.ui.client_restaurants.ClientRestaurantsFragment"
         android:label="Subscriptions"
-        tools:layout="@layout/fragment_restourants_client" />
+        tools:layout="@layout/fragment_restaurants_client" />
 
     <activity
         android:id="@+id/nav_delivery_logout"

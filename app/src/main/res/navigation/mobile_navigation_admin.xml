@@ -3,28 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_client_orders">
+    app:startDestination="@+id/nav_admin_profile">
 
+<!--    DA MODIFICARE-->
     <fragment
-        android:id="@+id/nav_client_orders"
-        android:name="mobile.android.upf.ui.client_homepage.ClientOrdersFragment"
-        android:label="@string/menu_orders"
-        tools:layout="@layout/fragment_home_client" />
-
-    <fragment
-        android:id="@+id/nav_client_profile"
+        android:id="@+id/nav_admin_profile"
         android:name="mobile.android.upf.ui.client_profile.ClientProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile_client" />
 
     <fragment
-        android:id="@+id/nav_client_restaurants"
+        android:id="@+id/nav_admin_restaurants"
         android:name="mobile.android.upf.ui.client_restaurants.ClientRestaurantsFragment"
-        android:label="@string/menu_restaurants"
+        android:label="Users"
         tools:layout="@layout/fragment_restaurants_client" />
 
     <activity
-        android:id="@+id/nav_client_logout"
+        android:id="@+id/nav_admin_logout"
         android:name="mobile.android.upf.ui.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />

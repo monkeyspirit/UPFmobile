@@ -82,7 +82,7 @@ public class DeliveryRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_delivery_registration, container, false);
+        View root = inflater.inflate(R.layout.fragment_registration_delivery, container, false);
 
         editTextName = (EditText) root.findViewById(R.id.delivery_name);
         editTextSurname = (EditText) root.findViewById(R.id.delivery_surname);

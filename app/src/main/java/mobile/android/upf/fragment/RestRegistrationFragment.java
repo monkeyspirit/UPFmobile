@@ -82,7 +82,7 @@ public class RestRegistrationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_rest_registratoin, container, false);
+        View root = inflater.inflate(R.layout.fragment_registration_restaurant, container, false);
 
         editTextName = (EditText) root.findViewById(R.id.restaurateur_name);
         editTextSurname = (EditText) root.findViewById(R.id.restaurateur_surname);

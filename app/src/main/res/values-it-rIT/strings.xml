@@ -20,7 +20,7 @@
     <string name="action_settings">Impostazioni</string>
     <string name="menu_orders">Ordinazioni</string>
     <string name="menu_profile">Profilo</string>
-    <string name="menu_restourants">Ristoranti</string>
+    <string name="menu_restaurants">Ristoranti</string>
     <string name="menu_exit">Esci</string>
 
     <string name="empty_name">Nome richiesto</string>
@@ -33,4 +33,5 @@
     <string name="empty_address">Indirizzo richiesto</string>
     <string name="password_mismatch">Le password non corrispondono</string>
     <string name="invalid_email">Per favore inserisci una e-mail valida</string>
+
 </resources>

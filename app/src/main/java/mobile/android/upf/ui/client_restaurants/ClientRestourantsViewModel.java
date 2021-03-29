@@ -1,4 +1,4 @@
-package mobile.android.upf.ui.client_restourants;
+package mobile.android.upf.ui.client_restaurants;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

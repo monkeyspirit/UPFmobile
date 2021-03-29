@@ -14,6 +14,14 @@
             android:label="@string/title_activity_client_homepage"
             android:theme="@style/Theme.UPF.NoActionBar" />
         <activity
+            android:name=".RestaurantHomepageActivity"
+            android:label="@string/title_activity_restaurant_homepage"
+            android:theme="@style/Theme.UPF.NoActionBar" />
+        <activity
+            android:name=".AdminHomepageActivity"
+            android:label="@string/title_activity_admin_homepage"
+            android:theme="@style/Theme.UPF.NoActionBar" />
+        <activity
             android:name=".DeliveryHomepageActivity"
             android:label="@string/title_activity_delivery_homepage"
             android:theme="@style/Theme.UPF.NoActionBar" />

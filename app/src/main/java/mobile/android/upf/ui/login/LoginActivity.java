@@ -35,11 +35,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import mobile.android.upf.AdminHomepageActivity;
 import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.DeliveryHomepageActivity;
 import mobile.android.upf.FirstActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RegistrationActivity;
+import mobile.android.upf.RestaurantHomepageActivity;
 import mobile.android.upf.data.model.User;
 import mobile.android.upf.ui.login.LoginViewModel;
 import mobile.android.upf.ui.login.LoginViewModelFactory;
@@ -170,13 +172,17 @@ public class LoginActivity extends AppCompatActivity {
                                                 break;
                                             }
                                             case 3:{
-//                                                restourant
-
+//                                                restaurant
+                                                final Intent restaurant_homepage = new Intent(LoginActivity.this, RestaurantHomepageActivity.class);
+                                                startActivity(restaurant_homepage);
+                                                finish();
                                                 break;
                                             }
                                             case 4:{
 //                                                admin
-
+                                                final Intent admin_homepage = new Intent(LoginActivity.this, AdminHomepageActivity.class);
+                                                startActivity(admin_homepage);
+                                                finish();
                                                 break;
                                             }
                                         }

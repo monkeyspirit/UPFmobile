@@ -9,7 +9,7 @@ public class User {
 
     public String name, surname, password, email, address, phone;
     /**
-     * Il type è 1 se cliente, 2 se fattorino, 3 se ristoratore
+     * Il type è 1 se cliente, 2 se fattorino, 3 se ristoratore, 4 admin
      */
     public int type;
 

@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_baseline_person_24"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_client_restourants"
+            android:id="@+id/nav_client_restaurants"
             android:icon="@drawable/ic_baseline_food_bank_24"
-            android:title="@string/menu_restourants" />
+            android:title="@string/menu_restaurants" />
         <item
             android:id="@+id/nav_client_logout"
             android:icon="@drawable/ic_baseline_logout_24"

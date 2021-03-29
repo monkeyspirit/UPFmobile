@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import mobile.android.upf.ui.login.LoginActivity;
 
-public class DeliveryHomepageActivity extends AppCompatActivity {
+public class AdminHomepageActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
@@ -40,7 +40,7 @@ public class DeliveryHomepageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delivery_homepage);
+        setContentView(R.layout.activity_admin_homepage);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -63,16 +63,16 @@ public class DeliveryHomepageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_delivery_orders, R.id.nav_delivery_profile, R.id.nav_delivery_restaurants, R.id.nav_delivery_logout)
+                R.id.nav_admin_profile, R.id.nav_admin_restaurants, R.id.nav_admin_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        navigationView.getMenu().findItem(R.id.nav_delivery_logout).setOnMenuItemClickListener(menuItem -> {
+        navigationView.getMenu().findItem(R.id.nav_admin_logout).setOnMenuItemClickListener(menuItem -> {
             FirebaseAuth.getInstance().signOut();
             Log.d(TAG_LOG, "logout:success");
-            Intent intent = new Intent(DeliveryHomepageActivity.this, LoginActivity.class);
+            Intent intent = new Intent(AdminHomepageActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return true;
@@ -83,7 +83,7 @@ public class DeliveryHomepageActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.delivery_homepage, menu);
+        getMenuInflater().inflate(R.menu.admin_homepage, menu);
 
         TextView nav_header_email = findViewById(R.id.nav_header_email);
         TextView nav_header_user = findViewById(R.id.nav_header_user);

@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,11 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import mobile.android.upf.R;
-import mobile.android.upf.RegistrationActivity;
 import mobile.android.upf.data.model.User;
 
 
@@ -90,7 +86,7 @@ public class ClientRegistrationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_client_registration, container, false);
+        View root = inflater.inflate(R.layout.fragment_registration_client, container, false);
 
         editTextName = (EditText) root.findViewById(R.id.client_name);
         editTextSurname = (EditText) root.findViewById(R.id.client_surname);
