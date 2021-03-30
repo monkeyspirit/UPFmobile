@@ -47,4 +47,7 @@
     <string name="password_mismatch">Mismatched passwords</string>
     <string name="invalid_email">Please insert a valid e-mail</string>
 
+    <string name="change_password">Change password</string>
+    <string name="change_address">Change address</string>
+    <string name="confirm">Confirm</string>
 </resources>
