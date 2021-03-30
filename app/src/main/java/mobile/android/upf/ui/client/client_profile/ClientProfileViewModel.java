@@ -1,16 +1,16 @@
-package mobile.android.upf.ui.client_restaurants;
+package mobile.android.upf.ui.client.client_profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ClientRestourantsViewModel extends ViewModel {
+public class ClientProfileViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ClientRestourantsViewModel() {
+    public ClientProfileViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

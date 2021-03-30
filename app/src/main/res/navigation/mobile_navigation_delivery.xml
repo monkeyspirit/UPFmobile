@@ -2,27 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/mobile_navigation_delivery"
     app:startDestination="@+id/nav_delivery_orders">
 
     <!--    DA MODIFICARE-->
     <fragment
         android:id="@+id/nav_delivery_orders"
-        android:name="mobile.android.upf.ui.client_homepage.ClientOrdersFragment"
+        android:name="mobile.android.upf.ui.delivery.delivery_homepage.DeliveryOrdersFragment"
         android:label="@string/menu_orders"
-        tools:layout="@layout/fragment_home_client" />
+        tools:layout="@layout/fragment_home_delivery" />
 
     <fragment
         android:id="@+id/nav_delivery_profile"
-        android:name="mobile.android.upf.ui.client_profile.ClientProfileFragment"
+        android:name="mobile.android.upf.ui.delivery.delivery_profile.DeliveryProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile_client" />
+        tools:layout="@layout/fragment_profile_delivery" />
 
     <fragment
         android:id="@+id/nav_delivery_restaurants"
-        android:name="mobile.android.upf.ui.client_restaurants.ClientRestaurantsFragment"
+        android:name="mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment"
         android:label="Subscriptions"
-        tools:layout="@layout/fragment_restaurants_client" />
+        tools:layout="@layout/fragment_restaurants_delivery" />
 
     <activity
         android:id="@+id/nav_delivery_logout"

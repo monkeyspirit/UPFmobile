@@ -2,21 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_admin_profile">
+    android:id="@+id/mobile_navigation_admin"
+    app:startDestination="@+id/nav_admin_home">
 
 <!--    DA MODIFICARE-->
     <fragment
         android:id="@+id/nav_admin_profile"
-        android:name="mobile.android.upf.ui.client_profile.ClientProfileFragment"
+        android:name="mobile.android.upf.ui.admin.admin_profile.AdminProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile_client" />
+        tools:layout="@layout/fragment_profile_admin" />
 
     <fragment
-        android:id="@+id/nav_admin_restaurants"
-        android:name="mobile.android.upf.ui.client_restaurants.ClientRestaurantsFragment"
+        android:id="@+id/nav_admin_home"
+        android:name="mobile.android.upf.ui.admin.admin_homepage.AdminHomepageFragment"
         android:label="Users"
-        tools:layout="@layout/fragment_restaurants_client" />
+        tools:layout="@layout/fragment_home_admin" />
 
     <activity
         android:id="@+id/nav_admin_logout"

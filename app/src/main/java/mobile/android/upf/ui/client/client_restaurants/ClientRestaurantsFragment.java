@@ -1,4 +1,4 @@
-package mobile.android.upf.ui.client_homepage;
+package mobile.android.upf.ui.client.client_restaurants;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import mobile.android.upf.R;
 
-public class ClientOrdersFragment extends Fragment {
+public class ClientRestaurantsFragment extends Fragment {
 
-    private ClientOrdersViewModel clientOrdersViewModel;
+    private ClientRestourantsViewModel clientRestourantsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        clientOrdersViewModel =
-                new ViewModelProvider(this).get(ClientOrdersViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home_client, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        clientOrdersViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        clientRestourantsViewModel =
+                new ViewModelProvider(this).get(ClientRestourantsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_restaurants_client, container, false);
+        final TextView textView = root.findViewById(R.id.text_slideshow);
+        clientRestourantsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

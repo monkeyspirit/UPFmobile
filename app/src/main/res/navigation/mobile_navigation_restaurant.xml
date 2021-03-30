@@ -2,26 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/mobile_navigation_restaurant"
     app:startDestination="@+id/nav_restaurant_orders">
     <!--    DA MODIFICARE-->
     <fragment
         android:id="@+id/nav_restaurant_orders"
-        android:name="mobile.android.upf.ui.client_homepage.ClientOrdersFragment"
+        android:name="mobile.android.upf.ui.restaurant.restaurant_homepage.RestaurantOrdersFragment"
         android:label="@string/menu_orders"
-        tools:layout="@layout/fragment_home_client" />
+        tools:layout="@layout/fragment_home_restaurant" />
 
     <fragment
         android:id="@+id/nav_restaurant_profile"
-        android:name="mobile.android.upf.ui.client_profile.ClientProfileFragment"
+        android:name="mobile.android.upf.ui.restaurant.restaurant_profile.RestaurantProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile_client" />
+        tools:layout="@layout/fragment_profile_restaurant" />
 
     <fragment
         android:id="@+id/nav_restaurant_restaurants"
-        android:name="mobile.android.upf.ui.client_restaurants.ClientRestaurantsFragment"
+        android:name="mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment"
         android:label="My restaurants"
-        tools:layout="@layout/fragment_restaurants_client" />
+        tools:layout="@layout/fragment_restaurants_restaurant" />
 
     <activity
         android:id="@+id/nav_restaurant_logout"
