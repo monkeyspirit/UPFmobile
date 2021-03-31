@@ -55,11 +55,11 @@ public class ClientProfileFragment extends Fragment {
         String userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        client_name = (TextView) root.findViewById(R.id.client_name);
-        client_surname = (TextView) root.findViewById(R.id.client_surname);
-        client_phone = (TextView) root.findViewById(R.id.client_phone);
-        client_address = (TextView) root.findViewById(R.id.client_address);
-        client_email = (TextView) root.findViewById(R.id.client_emailAddress);
+        client_name = (TextView) root.findViewById(R.id.client_name_textview);
+        client_surname = (TextView) root.findViewById(R.id.client_surname_textview);
+        client_phone = (TextView) root.findViewById(R.id.client_phone_textview);
+        client_address = (TextView) root.findViewById(R.id.client_address_textview);
+        client_email = (TextView) root.findViewById(R.id.client_emailAddress_textview);
 
         client_password_insert = (EditText) root.findViewById(R.id.client_password_insert);
         client_passwordConfirm_insert = (EditText) root.findViewById(R.id.client_passwordConfirm_insert);

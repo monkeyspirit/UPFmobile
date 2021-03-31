@@ -52,10 +52,10 @@ public class DeliveryProfileFragment extends Fragment {
         String userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        delivery_name = (TextView) root.findViewById(R.id.delivery_name);
-        delivery_surname = (TextView) root.findViewById(R.id.delivery_surname);
-        delivery_phone = (TextView) root.findViewById(R.id.delivery_phone);
-        delivery_emailAddress = (TextView) root.findViewById(R.id.delivery_emailAddress);
+        delivery_name = (TextView) root.findViewById(R.id.delivery_name_textview);
+        delivery_surname = (TextView) root.findViewById(R.id.delivery_surname_textview);
+        delivery_phone = (TextView) root.findViewById(R.id.delivery_phone_textview);
+        delivery_emailAddress = (TextView) root.findViewById(R.id.delivery_emailAddress_textview);
 
         delivery_password_insert = (EditText) root.findViewById(R.id.delivery_password_insert);
         delivery_passwordConfirm_insert = (EditText) root.findViewById(R.id.delivery_passwordConfirm_insert);
@@ -94,6 +94,23 @@ public class DeliveryProfileFragment extends Fragment {
             }
         });
 
+        delivery_passwordConfirm_insert.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                enableSubmitIfReady(delivery_password_insert,delivery_passwordConfirm_insert, delivery_change_password_button);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                enableSubmitIfReady(delivery_password_insert, delivery_passwordConfirm_insert,delivery_change_password_button);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                enableSubmitIfReady(delivery_password_insert,delivery_passwordConfirm_insert, delivery_change_password_button);
+            }
+        });
+
         delivery_change_password_button = (Button) root.findViewById(R.id.delivery_change_password_button);
         delivery_change_password_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +121,19 @@ public class DeliveryProfileFragment extends Fragment {
                 updates.put("password", delivery_password_insert.getText().toString());
 
                 userRef.updateChildren(updates);
+                String newPassword = delivery_password_insert.getText().toString();
 
+                currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("firebase", "User password updated.");
+                        }
+                        else {
+                            Log.d("firebase", "User password NOT updated.");
+                        }
+                    }
+                });
                 //Clean up the edittext
                 delivery_password_insert.setText("");
                 delivery_passwordConfirm_insert.setText("");
@@ -117,7 +146,7 @@ public class DeliveryProfileFragment extends Fragment {
     }
 
     public void enableSubmitIfReady(EditText password, EditText password_confirm, Button button) {
-        boolean isReady = password.getText().toString().equals(password_confirm.getText().toString());
+        boolean isReady = password.getText().toString().equals(password_confirm.getText().toString()) && password.getText().toString().length()>5;
         button.setEnabled(isReady);
     }
 }
