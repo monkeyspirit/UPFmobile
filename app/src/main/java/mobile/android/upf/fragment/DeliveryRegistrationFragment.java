@@ -1,6 +1,7 @@
 package mobile.android.upf.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,8 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import mobile.android.upf.DeliveryHomepageActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.User;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +47,8 @@ public class DeliveryRegistrationFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private FirebaseAuth mAuth;
+
+    private ProgressBar progressBar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -90,6 +98,7 @@ public class DeliveryRegistrationFragment extends Fragment {
         editTextConfirmPassword = (EditText) root.findViewById(R.id.delivery_passwordConfirm);
         editTextPhone = (EditText) root.findViewById(R.id.delivery_phone);
         editTextEmail = (EditText) root.findViewById(R.id.delivery_emailAddress);
+        progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_delivery);
 
         Button delivery_registration_btn = (Button) root.findViewById(R.id.delivery_register_btn);
         delivery_registration_btn.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +173,9 @@ public class DeliveryRegistrationFragment extends Fragment {
             editTextConfirmPassword.requestFocus();
             return;
         }
+
+        progressBar.setVisibility(View.VISIBLE);
+
         //creo l'utente
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -179,16 +191,20 @@ public class DeliveryRegistrationFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d(TAG_LOG, "Utente fattorino registrato correttamente!");
-                                        //Toast.makeText(ClientRegistrationFragment.this, "User registered successfully", LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), getString(R.string.delivery_registration_success), LENGTH_LONG).show();
+                                        final Intent delivery_homepage = new Intent(getActivity(), DeliveryHomepageActivity.class);
+                                        startActivity(delivery_homepage);
+                                        getActivity().finish();
                                     } else {
-                                        Log.d(TAG_LOG, "Utente fattorino non registrato, errore nella scrittura nel db!");
-                                        //Toast.makeText(ClientRegistrationFragment.this, "Failed to register", LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), getString(R.string.delivery_registration_db_failed), LENGTH_LONG).show();
                                     }
                                 }
                             });
                         } else {
-                            Log.d(TAG_LOG, "Utente fattorino non registrato, errore nella scrittura in auth!");
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), getString(R.string.delivery_registration_auth_failed), LENGTH_LONG).show();
                         }
                     }
                 });

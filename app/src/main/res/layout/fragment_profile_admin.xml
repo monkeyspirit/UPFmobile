@@ -146,7 +146,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/adming_email"
+                        android:id="@+id/admin_emailAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

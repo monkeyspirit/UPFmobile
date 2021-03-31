@@ -50,4 +50,18 @@
     <string name="change_password">Change password</string>
     <string name="change_address">Change address</string>
     <string name="confirm">Confirm</string>
+
+
+    <string name="client_registration_success">Client user successfully registered</string>
+    <string name="delivery_registration_success">Delivery user successfully registered</string>
+    <string name="restaurateur_registration_success">Restaurateur user successfully registered</string>
+    <string name="client_registration_db_failed">DB writing for client user failed</string>
+    <string name="delivery_registration_db_failed">DB writing for delivery user failed</string>
+    <string name="restaurateur_registration_db_failed">DB writing for restaurateur user failed</string>
+    <string name="client_registration_auth_failed">Failing in registration of client user</string>
+    <string name="delivery_registration_auth_failed">Failing in registration of delivery user</string>
+    <string name="restaurateur_registration_auth_failed">Failing in registration of restaurateur user</string>
+
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="authentication_success">Welcome in Ultimate Pizza Frisbee</string>
 </resources>

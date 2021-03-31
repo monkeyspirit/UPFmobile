@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,31 +41,34 @@ public class RestaurantProfileFragment extends Fragment {
 
         String userId = currentUser.getUid();
 
-//        mDatabase = FirebaseDatabase.getInstance().getReference();
-//        TextView client_name_insert = root.findViewById(R.id.client_name_insert);
-//        TextView client_surname_insert = root.findViewById(R.id.client_surname_insert);
-//        TextView client_phone_insert = root.findViewById(R.id.client_phone_insert);
-//        TextView client_address_insert = root.findViewById(R.id.client_address_insert);
-//        TextView client_email_insert = root.findViewById(R.id.client_email_insert);
-//
-//
-//        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting data", task.getException());
-//                }
-//                else {
-//
-//                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                    client_name_insert.setText(String.valueOf(task.getResult().child("name").getValue()));
-//                    client_surname_insert.setText(String.valueOf(task.getResult().child("surname").getValue()));
-//                    client_phone_insert.setText(String.valueOf(task.getResult().child("phone").getValue()));
-//                    client_address_insert.setText(String.valueOf(task.getResult().child("address").getValue()));
-//                    client_email_insert.setText(String.valueOf(task.getResult().child("email").getValue()));
-//                }
-//            }
-//        });
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        TextView restaurateur_name = root.findViewById(R.id.restaurateur_name);
+        TextView restaurateur_surname = root.findViewById(R.id.restaurateur_surname);
+        TextView restaurateur_phone = root.findViewById(R.id.restaurateur_phone);
+        TextView restaurateur_address = root.findViewById(R.id.restaurateur_address);
+        TextView restaurateur_emailAddress = root.findViewById(R.id.restaurateur_emailAddress);
+
+        EditText restaurateur_password_insert = (EditText) root.findViewById(R.id.restaurateur_password_insert);
+        EditText restaurateur_passwordConfirm_insert = (EditText) root.findViewById(R.id.restaurateur_passwordConfirm_insert);
+        EditText restaurateur_address_insert = (EditText) root.findViewById(R.id.restaurateur_address_insert);
+
+        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    restaurateur_name.setText(String.valueOf(task.getResult().child("name").getValue()));
+                    restaurateur_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
+                    restaurateur_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    restaurateur_address.setText(String.valueOf(task.getResult().child("address").getValue()));
+                    restaurateur_emailAddress.setText(String.valueOf(task.getResult().child("email").getValue()));
+                }
+            }
+        });
 
 //        final TextView textView = root.findViewById(R.id.text_gallery);
 //        clientProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

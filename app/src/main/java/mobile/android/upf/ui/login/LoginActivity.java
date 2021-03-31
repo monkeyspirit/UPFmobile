@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private DatabaseReference mDatabase;
+    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private static final String TAG_LOG = "LoginActivity";
 
@@ -61,8 +62,8 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-
         final Button loginButton = findViewById(R.id.login);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_login);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -131,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-
+        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -149,11 +150,13 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                                     if (!task.isSuccessful()) {
+                                        progressBar.setVisibility(View.GONE);
                                         Log.e("firebase", "Error getting data", task.getException());
                                     }
                                     else {
-
+                                        progressBar.setVisibility(View.GONE);
                                         Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                        Toast.makeText(LoginActivity.this, getString(R.string.authentication_success), Toast.LENGTH_LONG).show();
                                         int type = Integer.parseInt(String.valueOf(task.getResult().child("type").getValue()));
 
                                         switch (type){
@@ -193,9 +196,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         } else {
                             // If sign in fails, display a message to the user.
+                            progressBar.setVisibility(View.GONE);
                             Log.w(TAG_LOG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getString(R.string.authentication_failed),
+                                    Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
                     }

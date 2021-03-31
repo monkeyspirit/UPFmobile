@@ -1,5 +1,6 @@
 package mobile.android.upf.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -20,8 +23,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.User;
+import mobile.android.upf.ui.login.LoginActivity;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 
 /**
@@ -41,6 +48,8 @@ public class ClientRegistrationFragment extends Fragment {
             editTextPassword, editTextConfirmPassword;
     //private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+
+    private ProgressBar progressBar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -96,6 +105,8 @@ public class ClientRegistrationFragment extends Fragment {
         editTextPhone = (EditText) root.findViewById(R.id.client_phone);
         editTextEmail = (EditText) root.findViewById(R.id.client_emailAddress);
 
+        progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_client);
+
 
         Button client_registration_btn = (Button) root.findViewById(R.id.client_register_btn);
         client_registration_btn.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +117,6 @@ public class ClientRegistrationFragment extends Fragment {
                     case R.id.client_register_btn:
                         registerClientUser();
                         break;
-
                 }
             }
 
@@ -188,6 +198,9 @@ public class ClientRegistrationFragment extends Fragment {
             editTextConfirmPassword.requestFocus();
             return;
         }
+
+        progressBar.setVisibility(View.VISIBLE);
+
         //creo l'utente
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -203,16 +216,21 @@ public class ClientRegistrationFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d(TAG_LOG, "Utente cliente registrato correttamente!");
-                                        //Toast.makeText(ClientRegistrationFragment.this, "User registered successfully", LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), getString(R.string.client_registration_success), LENGTH_LONG).show();
+                                        final Intent client_homepage = new Intent(getActivity(), ClientHomepageActivity.class);
+                                        startActivity(client_homepage);
+                                        getActivity().finish();
                                     } else {
-                                        Log.d(TAG_LOG, "Utente cliente non registrato, errore nella scrittura nel db!");
-                                        //Toast.makeText(ClientRegistrationFragment.this, "Failed to register", LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), getString(R.string.client_registration_db_failed), LENGTH_LONG).show();
                                     }
                                 }
                             });
                         } else {
-                            Log.d(TAG_LOG, "Utente cliente non registrato, errore nella scrittura nell'auth!");
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), getString(R.string.client_registration_auth_failed),
+                                    LENGTH_LONG).show();
                         }
                     }
                 });

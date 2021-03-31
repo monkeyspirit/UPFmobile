@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import mobile.android.upf.R;
 
@@ -40,12 +43,15 @@ public class ClientProfileFragment extends Fragment {
         String userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        TextView client_name_insert = root.findViewById(R.id.client_name_insert);
-        TextView client_surname_insert = root.findViewById(R.id.client_surname_insert);
-        TextView client_phone_insert = root.findViewById(R.id.client_phone_insert);
-        TextView client_address_insert = root.findViewById(R.id.client_address_insert);
-        TextView client_email_insert = root.findViewById(R.id.client_email_insert);
+        TextView client_name = (TextView) root.findViewById(R.id.client_name);
+        TextView client_surname = (TextView) root.findViewById(R.id.client_surname);
+        TextView client_phone = (TextView) root.findViewById(R.id.client_phone);
+        TextView client_address = (TextView) root.findViewById(R.id.client_address);
+        TextView client_email = (TextView) root.findViewById(R.id.client_emailAddress);
 
+        EditText client_password_insert = (EditText) root.findViewById(R.id.client_password_insert);
+        EditText client_passwordConfirm_insert = (EditText) root.findViewById(R.id.client_passwordConfirm_insert);
+        EditText client_address_insert = (EditText) root.findViewById(R.id.client_address_insert);
 
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -56,11 +62,11 @@ public class ClientProfileFragment extends Fragment {
                 else {
 
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    client_name_insert.setText(String.valueOf(task.getResult().child("name").getValue()));
-                    client_surname_insert.setText(String.valueOf(task.getResult().child("surname").getValue()));
-                    client_phone_insert.setText(String.valueOf(task.getResult().child("phone").getValue()));
-                    client_address_insert.setText(String.valueOf(task.getResult().child("address").getValue()));
-                    client_email_insert.setText(String.valueOf(task.getResult().child("email").getValue()));
+                    client_name.setText(String.valueOf(task.getResult().child("name").getValue()));
+                    client_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
+                    client_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    client_address.setText(String.valueOf(task.getResult().child("address").getValue()));
+                    client_email.setText(String.valueOf(task.getResult().child("email").getValue()));
                 }
             }
         });
@@ -72,8 +78,6 @@ public class ClientProfileFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
-
-
 
         return root;
     }

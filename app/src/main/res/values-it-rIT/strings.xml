@@ -36,5 +36,18 @@
 
     <string name="change_password">Cambia password</string>
     <string name="change_address">Cambia indirizzo</string>
-<string name="confirm">Conferma</string>
+    <string name="confirm">Conferma</string>
+
+    <string name="client_registration_success">Utente cliente registrato correttamente</string>
+    <string name="delivery_registration_success">Utente fattorino registrato correttamente</string>
+    <string name="restaurateur_registration_success">Utente ristoratore registrato correttamente</string>
+    <string name="client_registration_db_failed">Scrittura sul DB per utente cliente fallita</string>
+    <string name="delivery_registration_db_failed">Scrittura sul DB per utente fattorino fallita</string>
+    <string name="restaurateur_registration_db_failed">Scrittura sul DB per utente ristoratore fallita</string>
+    <string name="client_registration_auth_failed">Fallimento nella registrazione per utente cliente</string>
+    <string name="delivery_registration_auth_failed">Fallimento nella registrazione per utente fattorino</string>
+    <string name="restaurateur_registration_auth_failed">Fallimento nella registrazione per utente ristoratore</string>
+
+    <string name="authentication_failed">Autenticazione fallita</string>
+    <string name="authentication_success">Benvenuto in Ultimate Pizza Frisbee</string>
 </resources>

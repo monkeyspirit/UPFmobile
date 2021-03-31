@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,32 +40,35 @@ public class AdminProfileFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
 
         String userId = currentUser.getUid();
-//
-//        mDatabase = FirebaseDatabase.getInstance().getReference();
-//        TextView client_name_insert = root.findViewById(R.id.client_name_insert);
-//        TextView client_surname_insert = root.findViewById(R.id.client_surname_insert);
-//        TextView client_phone_insert = root.findViewById(R.id.client_phone_insert);
-//        TextView client_address_insert = root.findViewById(R.id.client_address_insert);
-//        TextView client_email_insert = root.findViewById(R.id.client_email_insert);
-//
-//
-//        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting data", task.getException());
-//                }
-//                else {
-//
-//                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                    client_name_insert.setText(String.valueOf(task.getResult().child("name").getValue()));
-//                    client_surname_insert.setText(String.valueOf(task.getResult().child("surname").getValue()));
-//                    client_phone_insert.setText(String.valueOf(task.getResult().child("phone").getValue()));
-//                    client_address_insert.setText(String.valueOf(task.getResult().child("address").getValue()));
-//                    client_email_insert.setText(String.valueOf(task.getResult().child("email").getValue()));
-//                }
-//            }
-//        });
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        TextView admin_name = root.findViewById(R.id.admin_name);
+        TextView admin_surname = root.findViewById(R.id.admin_surname);
+        TextView admin_phone = root.findViewById(R.id.admin_phone);
+        TextView admin_address = root.findViewById(R.id.admin_address);
+        TextView admin_emailAddress = root.findViewById(R.id.admin_emailAddress);
+
+        EditText admin_password_insert = (EditText) root.findViewById(R.id.admin_password_insert);
+        EditText admin_passwordConfirm_insert = (EditText) root.findViewById(R.id.admin_passwordConfirm_insert);
+        EditText admin_address_insert = (EditText) root.findViewById(R.id.admin_address_insert);
+
+        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    admin_name.setText(String.valueOf(task.getResult().child("name").getValue()));
+                    admin_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
+                    admin_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    admin_address.setText(String.valueOf(task.getResult().child("address").getValue()));
+                    admin_emailAddress.setText(String.valueOf(task.getResult().child("email").getValue()));
+                }
+            }
+        });
 
 //        final TextView textView = root.findViewById(R.id.text_gallery);
 //        clientProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
