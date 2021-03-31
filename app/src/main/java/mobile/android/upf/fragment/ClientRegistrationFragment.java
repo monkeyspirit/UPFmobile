@@ -220,7 +220,7 @@ public class ClientRegistrationFragment extends Fragment {
                                         Toast.makeText(getActivity(), getString(R.string.client_registration_success), LENGTH_LONG).show();
                                         final Intent client_homepage = new Intent(getActivity(), ClientHomepageActivity.class);
                                         startActivity(client_homepage);
-                                        getActivity().finish();
+                                        getActivity().finishAffinity();
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getActivity(), getString(R.string.client_registration_db_failed), LENGTH_LONG).show();

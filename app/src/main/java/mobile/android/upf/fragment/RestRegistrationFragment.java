@@ -202,7 +202,7 @@ public class RestRegistrationFragment extends Fragment {
                                         Toast.makeText(getActivity(), getString(R.string.restaurateur_registration_success), LENGTH_LONG).show();
                                         final Intent restaurateur_homepage = new Intent(getActivity(), RestaurantHomepageActivity.class);
                                         startActivity(restaurateur_homepage);
-                                        getActivity().finish();
+                                        getActivity().finishAffinity();
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getActivity(), getString(R.string.restaurateur_registration_db_failed), LENGTH_LONG).show();

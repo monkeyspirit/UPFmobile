@@ -195,7 +195,7 @@ public class DeliveryRegistrationFragment extends Fragment {
                                         Toast.makeText(getActivity(), getString(R.string.delivery_registration_success), LENGTH_LONG).show();
                                         final Intent delivery_homepage = new Intent(getActivity(), DeliveryHomepageActivity.class);
                                         startActivity(delivery_homepage);
-                                        getActivity().finish();
+                                        getActivity().finishAffinity();
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getActivity(), getString(R.string.delivery_registration_db_failed), LENGTH_LONG).show();
