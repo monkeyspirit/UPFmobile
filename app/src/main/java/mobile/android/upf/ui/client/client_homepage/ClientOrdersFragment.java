@@ -1,5 +1,6 @@
 package mobile.android.upf.ui.client.client_homepage;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +19,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +58,9 @@ public class ClientOrdersFragment extends Fragment {
     MaterialCardView cardview;
     LayoutParams layoutparams;
     LinearLayout linearLayout;
+
+    RecyclerView myrv;
+    RecyclerViewAdapter myAdapter;
 
 //    Solo di prova
     List<Order> lstOrder;
@@ -100,8 +108,8 @@ public class ClientOrdersFragment extends Fragment {
                     lstOrder.add(new Order(surname, surname, surname));
                     lstOrder.add(new Order(address, address, address));
 
-                    RecyclerView myrv = (RecyclerView) root.findViewById(R.id.recyclerview_id);
-                    RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(getActivity(), lstOrder);
+                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_id);
+                    myAdapter = new RecyclerViewAdapter(getActivity(), lstOrder);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
                     myrv.setAdapter(myAdapter);
@@ -113,8 +121,81 @@ public class ClientOrdersFragment extends Fragment {
 //                        Log.d("firebase", String.valueOf(entry.getKey() + " : " + entry.getValue()));
 //                    }
 
+                    ItemTouchHelper itemTouchHelperDragDrop = new ItemTouchHelper(simpleCallbackDragDrop);
+                    itemTouchHelperDragDrop.attachToRecyclerView(myrv);
+
+                    ItemTouchHelper itemTouchHelperSwipe = new ItemTouchHelper(simpleCallbackSwipe);
+                    itemTouchHelperSwipe.attachToRecyclerView(myrv);
                 }
+
+
             }
+            //Gestisco il drag and drop
+            ItemTouchHelper.SimpleCallback simpleCallbackDragDrop = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
+                    ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView,
+                       @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
+                    int fromPosition = viewHolder.getAdapterPosition();
+                    int toPosition = target.getAdapterPosition();
+
+                    Collections.swap(lstOrder, fromPosition, toPosition);
+                    recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                }
+            };
+
+            Order deletedItem = null;
+            //Gestisco gli swipe a destra e sinistra
+            ItemTouchHelper.SimpleCallback simpleCallbackSwipe = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                    int pos = viewHolder.getAdapterPosition();
+
+                    switch (direction) {
+                        case ItemTouchHelper.LEFT: //cancello l'elemento
+                            deletedItem = lstOrder.get(pos);
+                            lstOrder.remove(pos);
+                            myAdapter.notifyItemRemoved(pos);
+                            Snackbar.make(myrv, deletedItem.toString(), Snackbar.LENGTH_LONG).setAction(getString(R.string.undo), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    lstOrder.add(pos, deletedItem);
+                                    myAdapter.notifyItemInserted(pos);
+                                }
+                            }).show();
+
+                            break;
+                        case ItemTouchHelper.RIGHT: //modifico l'elemento
+                            ClientEditOrdersFragment dialogEditOrderFragment = new ClientEditOrdersFragment();
+                            dialogEditOrderFragment.show(getChildFragmentManager(), "EditFragment");
+
+                            deletedItem = lstOrder.get(pos);
+                            lstOrder.remove(pos);
+                            myAdapter.notifyItemRemoved(pos);
+                            //sarà necessario fare un aggiornamento dei dati
+                            lstOrder.add(pos, deletedItem);
+                            myAdapter.notifyItemInserted(pos);
+                            break;
+                    }
+
+                }
+            };
+
+
         });
 
 

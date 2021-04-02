@@ -64,4 +64,6 @@
 
     <string name="authentication_failed">Authentication failed</string>
     <string name="authentication_success">Welcome in Ultimate Pizza Frisbee</string>
+
+    <string name="undo">Undo</string>
 </resources>

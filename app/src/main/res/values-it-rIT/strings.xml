@@ -50,4 +50,6 @@
 
     <string name="authentication_failed">Autenticazione fallita</string>
     <string name="authentication_success">Benvenuto in Ultimate Pizza Frisbee</string>
+
+    <string name="undo">Annulla</string>
 </resources>
