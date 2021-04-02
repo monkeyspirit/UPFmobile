@@ -114,7 +114,7 @@ public class ClientOrdersFragment extends Fragment {
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_id);
                     myAdapter = new RecyclerViewAdapter(getActivity(), lstOrder);
 
-                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
 
 //                    HashMap<String, Object> data = (HashMap<String, Object>) task.getResult().getValue();
