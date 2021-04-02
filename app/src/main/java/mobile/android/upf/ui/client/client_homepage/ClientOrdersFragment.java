@@ -20,10 +20,11 @@ public class ClientOrdersFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        clientOrdersViewModel =
-                new ViewModelProvider(this).get(ClientOrdersViewModel.class);
+        clientOrdersViewModel = new ViewModelProvider(this).get(ClientOrdersViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home_client, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
+
+
         clientOrdersViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
