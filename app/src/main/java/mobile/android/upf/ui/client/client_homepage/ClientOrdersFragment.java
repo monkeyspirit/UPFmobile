@@ -2,6 +2,7 @@ package mobile.android.upf.ui.client.client_homepage;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter;
@@ -191,6 +194,21 @@ public class ClientOrdersFragment extends Fragment {
                             myAdapter.notifyItemInserted(pos);
                             break;
                     }
+
+                }
+
+                @Override
+                public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                    new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                            .addSwipeLeftBackgroundColor(ContextCompat.getColor(getActivity(), R.color.design_default_color_error))
+                            .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                            .addSwipeRightBackgroundColor(ContextCompat.getColor(getActivity(), R.color.design_default_color_secondary))
+                            .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
+                            .create()
+                            .decorate();
+
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
 
                 }
             };
