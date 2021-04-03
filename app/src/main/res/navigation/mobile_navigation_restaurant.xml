@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/nav_restaurant_restaurants"
         android:name="mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment"
-        android:label="My restaurants"
+        android:label="@string/my_restaurants"
         tools:layout="@layout/fragment_restaurants_restaurant" />
 
     <activity

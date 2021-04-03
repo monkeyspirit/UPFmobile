@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/nav_admin_home"
         android:name="mobile.android.upf.ui.admin.admin_homepage.AdminHomepageFragment"
-        android:label="Users"
+        android:label="@string/users"
         tools:layout="@layout/fragment_home_admin" />
 
     <activity

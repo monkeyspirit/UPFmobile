@@ -61,13 +61,6 @@ public class RestaurantRestaurantsFragment extends Fragment {
         restaurantRestourantsViewModel =
                 new ViewModelProvider(this).get(RestaurantRestourantsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_restaurants_restaurant, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        restaurantRestourantsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
 //        Floating button per l'aggiunta di nuovi ristoranti
         FloatingActionButton fab = root.findViewById(R.id.fab);

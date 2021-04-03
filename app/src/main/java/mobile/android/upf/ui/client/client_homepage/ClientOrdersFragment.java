@@ -63,10 +63,6 @@ public class ClientOrdersFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         clientOrdersViewModel = new ViewModelProvider(this).get(ClientOrdersViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home_client, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-
-//        context = root.getContext();
-//        linearLayout = (LinearLayout)root.findViewById(R.id.client_card_layout);
 
         lstOrder = new ArrayList<>();
 

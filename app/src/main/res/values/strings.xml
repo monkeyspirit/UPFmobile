@@ -69,4 +69,7 @@
 
     <string name="undo">Undo</string>
     <string name="add_restaurant">Add</string>
+    <string name="subscription">My subscriptions</string>
+    <string name="users">Users</string>
+    <string name="my_restaurants">My restaurants</string>
 </resources>

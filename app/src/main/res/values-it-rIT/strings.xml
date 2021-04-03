@@ -55,4 +55,7 @@
     <string name="title_activity_add_restaurant">Aggiungi un ristorante</string>
     <string name="prompt_description">Descrizione</string>
     <string name="add_restaurant">Aggiungi</string>
+    <string name="subscription">Le mie sottoscrizioni</string>
+    <string name="users">Utenti</string>
+    <string name="my_restaurants">I miei ristoranti</string>
 </resources>
