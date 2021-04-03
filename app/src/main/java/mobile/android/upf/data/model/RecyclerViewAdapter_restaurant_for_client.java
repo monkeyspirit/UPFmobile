@@ -1,9 +1,12 @@
 package mobile.android.upf.data.model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +33,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardview_item_restaurant_for_client, parent,false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mContext);
     }
 
     @Override
@@ -54,8 +57,9 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
 
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email ;
 
+        Button call_restaurant_btn, email_restaurant_btn, nav_restaurant_btn;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, Context mContext) {
             super(itemView);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element_for_client);
@@ -63,6 +67,16 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_phone_element_for_client);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_email_element_for_client);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_description_element_for_client);
+
+            call_restaurant_btn = (Button) itemView.findViewById(R.id.call_restaurant_btn);
+            call_restaurant_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent .setData(Uri.parse("tel:"+tv_restaurant_phone.getText().toString()));
+                    mContext.startActivity(callIntent);
+                }
+            });
 
         }
     }
