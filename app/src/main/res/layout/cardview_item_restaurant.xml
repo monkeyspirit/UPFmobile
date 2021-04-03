@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp">
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="prova"
+            android:textSize="13sp"
+            android:textColor="#2d2d2d"
+            android:id="@+id/restaurant_name_element">
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="prova"
+            android:textColor="#2d2d2d"
+            android:id="@+id/restaurant_address_element">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="prova"
+            android:textColor="#2d2d2d"
+            android:id="@+id/restaurant_phone_element">
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="prova"
+            android:textColor="#2d2d2d"
+            android:id="@+id/restaurant_email_element">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="prova"
+            android:textSize="13sp"
+            android:textColor="#2d2d2d"
+            android:id="@+id/restaurant_description_element">
+
+        </TextView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

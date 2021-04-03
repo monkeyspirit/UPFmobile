@@ -1,6 +1,5 @@
 package mobile.android.upf.ui.client.client_homepage;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -10,15 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -27,27 +22,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter;
-import mobile.android.upf.data.model.User;
 
 public class ClientOrdersFragment extends Fragment {
 
@@ -65,7 +54,7 @@ public class ClientOrdersFragment extends Fragment {
     RecyclerView myrv;
     RecyclerViewAdapter myAdapter;
 
-//    Solo di prova
+    //    Solo di prova
     List<Order> lstOrder;
 //
 
@@ -95,8 +84,7 @@ public class ClientOrdersFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
+                } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     String name = String.valueOf(task.getResult().child("name").getValue());
                     String surname = String.valueOf(task.getResult().child("surname").getValue());
@@ -111,7 +99,7 @@ public class ClientOrdersFragment extends Fragment {
                     lstOrder.add(new Order(surname, surname, surname));
                     lstOrder.add(new Order(address, address, address));
 
-                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_id);
+                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
                     myAdapter = new RecyclerViewAdapter(getActivity(), lstOrder);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -133,12 +121,13 @@ public class ClientOrdersFragment extends Fragment {
 
 
             }
+
             //Gestisco il drag and drop
             ItemTouchHelper.SimpleCallback simpleCallbackDragDrop = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
                     ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
                 @Override
                 public boolean onMove(@NonNull RecyclerView recyclerView,
-                       @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                                      @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
 
                     int fromPosition = viewHolder.getAdapterPosition();
                     int toPosition = target.getAdapterPosition();
@@ -226,37 +215,4 @@ public class ClientOrdersFragment extends Fragment {
         return root;
     }
 
-    public void createCards(String title, Object value, View view) {
-
-        cardview = new MaterialCardView(context);
-
-        layoutparams = new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.WRAP_CONTENT
-        );
-
-        cardview.setLayoutParams(layoutparams);
-
-        cardview.setPadding(25, 25, 25, 25);
-
-        TextView title_textview = new TextView(context);
-        TextView value_textview = new TextView(context);
-
-        title_textview.setText(title);
-        value_textview.setText(String.valueOf(value));
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-
-        title_textview.setLayoutParams(params);
-        value_textview.setLayoutParams(params);
-        value_textview.setGravity(5);
-
-        cardview.addView(title_textview);
-        cardview.addView(value_textview);
-
-        linearLayout.addView(cardview);
-    }
 }
