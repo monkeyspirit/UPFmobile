@@ -40,6 +40,7 @@ public class DeliveryRegistrationFragment extends Fragment {
 
     private EditText editTextName, editTextSurname, editTextEmail, editTextPhone,
             editTextPassword, editTextConfirmPassword;
+    private final String imageUrl = "";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -183,7 +184,7 @@ public class DeliveryRegistrationFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(name, surname, password, address, phone, email, 2);
+                            User user = new User(name, surname, password, address, phone, email, imageUrl, 2);
                             //aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

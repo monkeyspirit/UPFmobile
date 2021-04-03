@@ -1,5 +1,6 @@
 package mobile.android.upf;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,8 @@ import mobile.android.upf.ui.login.LoginActivity;
 
 public class ClientHomepageActivity extends AppCompatActivity {
 
+    public static Context contextOfApplication;
+
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -44,6 +47,8 @@ public class ClientHomepageActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        contextOfApplication = getApplicationContext();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -115,5 +120,9 @@ public class ClientHomepageActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public static Context getContextOfApplication() {
+        return contextOfApplication;
     }
 }

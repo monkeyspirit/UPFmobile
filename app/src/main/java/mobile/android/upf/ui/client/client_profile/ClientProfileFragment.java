@@ -1,5 +1,11 @@
 package mobile.android.upf.ui.client.client_profile;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,40 +13,62 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.User;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ClientProfileFragment extends Fragment {
 
     private ClientProfileViewModel clientProfileViewModel;
 
+    Context applicationContext = ClientHomepageActivity.getContextOfApplication();
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
+    private FirebaseStorage mStorage;
+    private StorageReference mStorageReference;
 
     private EditText client_address_insert, client_passwordConfirm_insert, client_password_insert;
     private TextView client_name, client_surname, client_phone, client_address, client_email;
     private Button client_change_address_button, client_change_password_button;
+    private ImageView client_pic;
+    private Uri imageUri;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,12 +82,17 @@ public class ClientProfileFragment extends Fragment {
 
         String userId = currentUser.getUid();
 
+        mStorage = FirebaseStorage.getInstance();
+        mStorageReference = mStorage.getReference();
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         client_name = (TextView) root.findViewById(R.id.client_name_textview);
         client_surname = (TextView) root.findViewById(R.id.client_surname_textview);
         client_phone = (TextView) root.findViewById(R.id.client_phone_textview);
         client_address = (TextView) root.findViewById(R.id.client_address_textview);
         client_email = (TextView) root.findViewById(R.id.client_emailAddress_textview);
+
+        client_pic = (ImageView) root.findViewById(R.id.client_pic_imageview);
 
         client_password_insert = (EditText) root.findViewById(R.id.client_password_insert);
         client_passwordConfirm_insert = (EditText) root.findViewById(R.id.client_passwordConfirm_insert);
@@ -72,7 +105,6 @@ public class ClientProfileFragment extends Fragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     client_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     client_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
@@ -80,6 +112,13 @@ public class ClientProfileFragment extends Fragment {
                     client_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     client_email.setText(String.valueOf(task.getResult().child("email").getValue()));
                 }
+            }
+        });
+
+        client_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePicture();
             }
         });
 
@@ -164,7 +203,6 @@ public class ClientProfileFragment extends Fragment {
 
                 userRef.updateChildren(updates);
 
-
                 String newPassword = client_password_insert.getText().toString();
 
                 currentUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -184,8 +222,94 @@ public class ClientProfileFragment extends Fragment {
             }
         });
 
-
         return root;
+    }
+
+    //metodo che apre una schermata per selezionare un'immagine dallo smartphone
+    private void choosePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            client_pic.setImageURI(imageUri);
+            uploadPicture();
+        }
+    }
+
+    private String getFileExtension(Uri _imageUri) {
+        ContentResolver cr = applicationContext.getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(_imageUri));
+    }
+
+    private void uploadPicture() {
+
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setTitle("Uploading image...");
+        pd.show();
+
+        //final String randomKey = UUID.randomUUID().toString();
+
+        //StorageReference picRef = mStorageReference.child(randomKey);
+        StorageReference picRef = mStorageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        StorageReference picImagesRef = mStorageReference.child("images/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+        picRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                pd.dismiss();
+                //Snackbar.make(getActivity().findViewById(android.R.id.content), "Image uploaded", Snackbar.LENGTH_LONG).show();
+                picRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String userId = currentUser.getUid();
+                        DatabaseReference userRef = mDatabase.child("Users").child(userId);
+
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("imageUrl", uri.toString());
+
+                        userRef.updateChildren(updates);
+
+                        currentUser.updatePassword(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("firebase", "imageUrl updated.");
+                                }
+                                else {
+                                    Log.d("firebase", "imageUrl not updated.");
+                                }
+                            }
+                        });
+
+                        Toast.makeText(getActivity(), "Image uploaded", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(getActivity(), "Uploading failed", Toast.LENGTH_LONG).show();
+            }
+        })
+        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                pd.setMessage("Progress: " + (int) progressPercent + "%");
+            }
+        });
+
     }
 
     public void enableSubmitIfReady(EditText editText, Button button) {

@@ -46,6 +46,9 @@ public class ClientRegistrationFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private EditText editTextName, editTextSurname, editTextAddress, editTextEmail, editTextPhone,
             editTextPassword, editTextConfirmPassword;
+
+    private final String imageUrl = "";
+
     //private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -104,6 +107,8 @@ public class ClientRegistrationFragment extends Fragment {
         editTextAddress = (EditText) root.findViewById(R.id.client_address);
         editTextPhone = (EditText) root.findViewById(R.id.client_phone);
         editTextEmail = (EditText) root.findViewById(R.id.client_emailAddress);
+
+
 
         progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_client);
 
@@ -208,7 +213,7 @@ public class ClientRegistrationFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(name, surname, password, address, phone, email, 1);
+                            User user = new User(name, surname, password, address, phone, email, imageUrl, 1);
                             //aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
