@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
         <activity
+            android:name=".AddRestaurantActivity"
+            android:label="@string/title_activity_add_restaurant">
+
+        </activity>
+        <activity
             android:name=".ClientHomepageActivity"
             android:label="@string/title_activity_client_homepage"
             android:theme="@style/Theme.UPF.NoActionBar" />

@@ -1,5 +1,6 @@
 package mobile.android.upf.ui.restaurant.restaurant_restaurants;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.ui.client.client_restaurants.ClientRestourantsViewModel;
 
@@ -39,8 +41,8 @@ public class RestaurantRestaurantsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getActivity(), AddRestaurantActivity.class);
+                startActivity(intent);
             }
         });
 

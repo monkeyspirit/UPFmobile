@@ -52,4 +52,7 @@
     <string name="authentication_success">Benvenuto in Ultimate Pizza Frisbee</string>
 
     <string name="undo">Annulla</string>
+    <string name="title_activity_add_restaurant">Aggiungi un ristorante</string>
+    <string name="prompt_description">Descrizione</string>
+    <string name="add_restaurant">Aggiungi</string>
 </resources>
