@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +45,9 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -64,6 +70,8 @@ public class ClientProfileFragment extends Fragment {
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
+    private String userId;
+
     private EditText client_address_insert, client_passwordConfirm_insert, client_password_insert;
     private TextView client_name, client_surname, client_phone, client_address, client_email;
     private Button client_change_address_button, client_change_password_button;
@@ -80,7 +88,7 @@ public class ClientProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        String userId = currentUser.getUid();
+        userId = currentUser.getUid();
 
         mStorage = FirebaseStorage.getInstance();
         mStorageReference = mStorage.getReference();
@@ -111,6 +119,14 @@ public class ClientProfileFragment extends Fragment {
                     client_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
                     client_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     client_email.setText(String.valueOf(task.getResult().child("email").getValue()));
+
+                    String uriS = String.valueOf(task.getResult().child("imageUrl").getValue());
+
+                    if (uriS != "") {
+                        Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
+                        Log.d("firebase", "Image Url: " + uri);
+                        Glide.with(applicationContext).load(uri).into(client_pic);
+                    }
                 }
             }
         });
@@ -262,6 +278,8 @@ public class ClientProfileFragment extends Fragment {
         StorageReference picRef = mStorageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
         StorageReference picImagesRef = mStorageReference.child("images/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
+
+
         picRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -270,7 +288,7 @@ public class ClientProfileFragment extends Fragment {
                 picRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        String userId = currentUser.getUid();
+
                         DatabaseReference userRef = mDatabase.child("Users").child(userId);
 
                         Map<String, Object> updates = new HashMap<>();
@@ -278,17 +296,8 @@ public class ClientProfileFragment extends Fragment {
 
                         userRef.updateChildren(updates);
 
-                        currentUser.updatePassword(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d("firebase", "imageUrl updated.");
-                                }
-                                else {
-                                    Log.d("firebase", "imageUrl not updated.");
-                                }
-                            }
-                        });
+                        // Reload information
+                        updateImageView(userId);
 
                         Toast.makeText(getActivity(), "Image uploaded", Toast.LENGTH_LONG).show();
                     }
@@ -322,14 +331,13 @@ public class ClientProfileFragment extends Fragment {
         button.setEnabled(isReady);
     }
 
-    public void updateTextView(String userId){
+    public void updateTextView(String userId) {
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
+                } else {
 
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     client_name.setText(String.valueOf(task.getResult().child("name").getValue()));
@@ -337,6 +345,23 @@ public class ClientProfileFragment extends Fragment {
                     client_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
                     client_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     client_email.setText(String.valueOf(task.getResult().child("email").getValue()));
+                }
+            }
+        });
+    }
+
+    public void updateImageView(String userId) {
+        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting image data", task.getException());
+                } else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+                    Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
+                    Log.d("firebase", "Image Url: " + uri);
+                    Glide.with(applicationContext).load(uri).into(client_pic);
                 }
             }
         });
