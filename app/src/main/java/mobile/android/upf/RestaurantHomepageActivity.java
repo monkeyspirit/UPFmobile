@@ -85,10 +85,8 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.restaurant_homepage, menu);
 
-        TextView nav_header_email = findViewById(R.id.nav_header_email);
         TextView nav_header_user = findViewById(R.id.nav_header_user);
 
-        nav_header_email.setText(currentUser.getEmail());
         String userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();

@@ -97,12 +97,9 @@ public class ClientHomepageActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.client_homepage, menu);
 
-        TextView nav_header_email = (TextView) findViewById(R.id.nav_header_email);
         TextView nav_header_user = (TextView) findViewById(R.id.nav_header_user);
         CircularImageView nav_header_image = (CircularImageView) findViewById(R.id.nav_header_imageView);
 
-
-        nav_header_email.setText(currentUser.getEmail());
         String userId = currentUser.getUid();
 
 
@@ -123,7 +120,7 @@ public class ClientHomepageActivity extends AppCompatActivity {
                         Log.d("firebase", "Image Url: " + uri);
                         Glide.with(getApplicationContext()).load(uri).into(nav_header_image);
                     }
-                    switch (String.valueOf(task.getResult().child("type").getValue())) {
+                    /*switch (String.valueOf(task.getResult().child("type").getValue())) {
                         case "1": //client
                             nav_header_image.setBorderColor(Color.GREEN);
                             break;
@@ -138,7 +135,7 @@ public class ClientHomepageActivity extends AppCompatActivity {
                             break;
                         default:
                             break;
-                    }
+                    }*/
                 }
             }
         });
