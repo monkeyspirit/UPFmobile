@@ -2,12 +2,16 @@ package mobile.android.upf;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,8 +22,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import mobile.android.upf.ui.login.LoginActivity;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ClientHomepageActivity extends AppCompatActivity {
 
     public static Context contextOfApplication;
@@ -90,25 +97,48 @@ public class ClientHomepageActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.client_homepage, menu);
 
-        TextView nav_header_email = findViewById(R.id.nav_header_email);
-        TextView nav_header_user = findViewById(R.id.nav_header_user);
+        TextView nav_header_email = (TextView) findViewById(R.id.nav_header_email);
+        TextView nav_header_user = (TextView) findViewById(R.id.nav_header_user);
+        CircularImageView nav_header_image = (CircularImageView) findViewById(R.id.nav_header_imageView);
+
 
         nav_header_email.setText(currentUser.getEmail());
         String userId = currentUser.getUid();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-
+                } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     nav_header_user.setText(String.valueOf(task.getResult().child("name").getValue())+" "+String.valueOf(task.getResult().child("surname").getValue()));
+
+                    String path = String.valueOf(task.getResult().child("imageUrl").getValue());
+                    if (path != "") {
+                        Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
+                        Log.d("firebase", "Image Url: " + uri);
+                        Glide.with(getApplicationContext()).load(uri).into(nav_header_image);
+                    }
+                    switch (String.valueOf(task.getResult().child("type").getValue())) {
+                        case "1": //client
+                            nav_header_image.setBorderColor(Color.GREEN);
+                            break;
+                        case "2": //delivery
+                            nav_header_image.setBorderColor(Color.YELLOW);
+                            break;
+                        case "3": //restaurateur
+                            nav_header_image.setBorderColor(Color.GREEN);
+                            break;
+                        case "4": //admin
+                            nav_header_image.setBorderColor(Color.RED);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         });
