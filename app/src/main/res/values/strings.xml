@@ -73,4 +73,5 @@
     <string name="subscription">My subscriptions</string>
     <string name="users">Users</string>
     <string name="my_restaurants">My restaurants</string>
+    <string name="account_info">Account information</string>
 </resources>
