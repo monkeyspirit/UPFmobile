@@ -7,18 +7,22 @@ import java.security.Timestamp;
 public class Restaurant {
 
     public String id;
-    public String name, description, email, address, phone, restaurateur_id;
+    public String name, description, email, address, phone, restaurateur_id, imageUrl;
+    int status;
 
     public Restaurant() {
     }
 
-    public Restaurant(String name, String description, String email, String address, String phone, String restaurateur_id) {
+    public Restaurant(String name, String description, String email, String address, String phone,
+                      String restaurateur_id, String imageUrl, int status) {
         this.name = name;
         this.description = description;
         this.email = email;
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
+        this.imageUrl = imageUrl;
+        this.status = status;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
         this.id = md5(name+description+email+address+phone+restaurateur_id+ts);
@@ -78,6 +82,22 @@ public class Restaurant {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPath() {
+        return imageUrl;
+    }
+
+    public void setPath(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String md5(String s) {

@@ -54,6 +54,7 @@
     <string name="change_address">Change address</string>
     <string name="confirm">Confirm</string>
 
+    <string name="load_photo">Load photo</string>
 
     <string name="client_registration_success">Client user successfully registered</string>
     <string name="delivery_registration_success">Delivery user successfully registered</string>
@@ -74,4 +75,9 @@
     <string name="users">Users</string>
     <string name="my_restaurants">My restaurants</string>
     <string name="account_info">Account information</string>
+
+    <string name="restaurant_registration_db_failed">Restaurant registration failed</string>
+    <string name="upload_success">Upload completed</string>
+    <string name="upload_failed">Upload failed</string>
+    <string name="uploading_image">Uploading image...</string>
 </resources>

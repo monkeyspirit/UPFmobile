@@ -39,6 +39,8 @@
     <string name="change_address">Cambia indirizzo</string>
     <string name="confirm">Conferma</string>
 
+    <string name="load_photo">Carica foto</string>
+
     <string name="client_registration_success">Utente cliente registrato correttamente</string>
     <string name="delivery_registration_success">Utente fattorino registrato correttamente</string>
     <string name="restaurateur_registration_success">Utente ristoratore registrato correttamente</string>
@@ -60,4 +62,9 @@
     <string name="users">Utenti</string>
     <string name="my_restaurants">I miei ristoranti</string>
     <string name="account_info">Informazioni account</string>
+
+    <string name="restaurant_registration_db_failed">Registrazione ristorante fallita</string>
+    <string name="upload_success">Upload completato</string>
+    <string name="upload_failed">Upload fallito</string>
+    <string name="uploading_image">Caricamento immagine...</string>
 </resources>
