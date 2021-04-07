@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -58,6 +60,7 @@ import mobile.android.upf.data.model.User;
 
 import static android.app.Activity.RESULT_OK;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ClientProfileFragment extends Fragment {
 
     private ClientProfileViewModel clientProfileViewModel;

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="320dp"
     android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,23 +15,46 @@
         android:layout_margin="5dp"
         android:orientation="vertical">
 
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="99dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        </TableRow>
+
         <TextView
             android:id="@+id/restaurant_name_element_for_client"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="prova"
+            android:text="Name"
             android:textColor="#2d2d2d"
-            android:textSize="13sp">
+            android:textSize="20sp">
 
         </TextView>
+        <TextView
+            android:id="@+id/restaurant_description_element_for_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Description"
+            android:textColor="#2d2d2d"
+            android:textSize="15sp">
 
+        </TextView>
         <TextView
             android:id="@+id/restaurant_address_element_for_client"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="prova"
+            android:text="Address"
             android:textColor="#2d2d2d"
             android:textSize="13sp">
 
@@ -39,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="prova"
+            android:text="Phone"
             android:textColor="#2d2d2d"
             android:textSize="13sp">
 
@@ -50,46 +76,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="prova"
+            android:text="Email"
             android:textColor="#2d2d2d"
             android:textSize="13sp">
 
         </TextView>
 
-        <TextView
-            android:id="@+id/restaurant_description_element_for_client"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="prova"
-            android:textColor="#2d2d2d"
-            android:textSize="13sp">
 
-        </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/call_restaurant_btn"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+            <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chiama" />
+                android:layout_gravity="center">
+                <Button
+                    android:id="@+id/call_restaurant_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chiama"
+                    android:drawableLeft="@drawable/ic_baseline_call_24_white"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"/>
+                <Button
+                    android:id="@+id/email_restaurant_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_email_24_white"
+                    android:text="Email"
+                    android:layout_marginStart="20dp" />
+            </TableRow>
 
-            <Button
-                android:id="@+id/email_restaurant_btn"
+            <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email" />
-
+                android:layout_gravity="center"
+                android:gravity="center">
             <Button
                 android:id="@+id/nav_restaurant_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Indicazioni" />
+                android:text="Indicazioni"
+                android:drawableLeft="@drawable/ic_baseline_location_on_24_white"/>
+            </TableRow>
         </LinearLayout>
 
     </LinearLayout>
