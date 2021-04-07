@@ -110,7 +110,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                     String.valueOf(restaurant.child("phone").getValue()),
                                     String.valueOf(restaurant.child("restaurateur_id").getValue()),
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
-                                    Integer.valueOf((Integer) restaurant.child("status").getValue())));
+                                    Integer.valueOf(String.valueOf(restaurant.child("status").getValue()))));
                         }
 
                     }
