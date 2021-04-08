@@ -1,10 +1,11 @@
 package mobile.android.upf.ui.restaurant.restaurant_restaurants;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.net.Uri;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
@@ -34,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.AddRestaurantActivity;
@@ -123,7 +122,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
             }
 
-            Restaurant deletedItem = null;
+            Restaurant swipedItem = null;
             //Gestisco gli swipe a destra e sinistra
             ItemTouchHelper.SimpleCallback simpleCallbackSwipe = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                 @Override
@@ -137,35 +136,66 @@ public class RestaurantRestaurantsFragment extends Fragment {
                     int pos = viewHolder.getAdapterPosition();
 
                     switch (direction) {
-                        case ItemTouchHelper.LEFT: //cancello l'elemento
-                            RestaurantDeleteFragment dialogDeleteFragment = new RestaurantDeleteFragment();
-                            dialogDeleteFragment.show(getChildFragmentManager(), "DeleteFragment");
+                        // DELETE
+                        case ItemTouchHelper.LEFT:
+//                            RestaurantDeleteFragment dialogDeleteFragment = new RestaurantDeleteFragment();
+//                            dialogDeleteFragment.show(getChildFragmentManager(), "DeleteFragment");
+//
+//                            //dialogDeleteFragment.setTargetFragment(getTargetFragment(), 0);
+//
+//                            //getTargetFragment().onActivityResult(getTargetRequestCode());
+//
 
-                            //dialogDeleteFragment.setTargetFragment(getTargetFragment(), 0);
+                            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getContext())
+                                    // set message, title, and icon
+                                    .setTitle("Delete")
+                                    .setMessage("Do you want to Delete")
+                                    .setIcon(R.drawable.ic_baseline_delete_24)
 
-                            //getTargetFragment().onActivityResult(getTargetRequestCode());
 
-                            deletedItem = lstRest.get(pos);
+                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            //your deleting code
+                                            dialog.dismiss();
+                                        }
+
+                                    })
+                                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                            dialog.dismiss();
+
+                                        }
+                                    })
+                                    .create();
+                            myQuittingDialogBox.show();
+
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor( getResources().getColor(R.color.design_default_color_primary));
+
+                            swipedItem = lstRest.get(pos);
                             lstRest.remove(pos);
                             myAdapter.notifyItemRemoved(pos);
-                            Snackbar.make(myrv, deletedItem.toString(), Snackbar.LENGTH_LONG).setAction(getString(R.string.undo), new View.OnClickListener() {
+                            Snackbar.make(myrv, swipedItem.toString(), Snackbar.LENGTH_LONG).setAction(getString(R.string.undo), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    lstRest.add(pos, deletedItem);
+                                    lstRest.add(pos, swipedItem);
                                     myAdapter.notifyItemInserted(pos);
                                 }
                             }).show();
-
                             break;
-                        case ItemTouchHelper.RIGHT: //modifico l'elemento
+
+                        // MODIFY
+                        case ItemTouchHelper.RIGHT:
                             ClientEditOrdersFragment dialogEditOrderFragment = new ClientEditOrdersFragment();
                             dialogEditOrderFragment.show(getChildFragmentManager(), "EditFragment");
 
-                            deletedItem = lstRest.get(pos);
+                            swipedItem = lstRest.get(pos);
                             lstRest.remove(pos);
                             myAdapter.notifyItemRemoved(pos);
                             //sarà necessario fare un aggiornamento dei dati
-                            lstRest.add(pos, deletedItem);
+                            lstRest.add(pos, swipedItem);
                             myAdapter.notifyItemInserted(pos);
                             break;
                     }

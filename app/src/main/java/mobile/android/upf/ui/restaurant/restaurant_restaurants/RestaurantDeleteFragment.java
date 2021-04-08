@@ -24,13 +24,18 @@ public class RestaurantDeleteFragment extends DialogFragment {
 
         View dialog = inflater.inflate(R.layout.dialog_fragment_delete_restaurant_restaurateur, container, false);
 
-        confirm_delete_btn = dialog.findViewById(R.id.confirm_delete_restaurant_restaurateur_btn);
-        confirm_delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        confirm_delete_btn = dialog.findViewById(R.id.confirm_delete_restaurant_restaurateur_btn);
+//        confirm_delete_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+        return dialog;
 
-            }
-        });
+
     }
-
 }
+
+
