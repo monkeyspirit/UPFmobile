@@ -32,7 +32,6 @@ import mobile.android.upf.ui.login.LoginActivity;
 
 public class RestaurantHomepageActivity extends AppCompatActivity {
 
-
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;

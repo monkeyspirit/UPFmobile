@@ -53,7 +53,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class DeliveryProfileFragment extends Fragment {
 
-
     private DeliveryProfileViewModel deliveryProfileViewModel;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
