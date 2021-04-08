@@ -1,13 +1,18 @@
 package mobile.android.upf.data.model;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -41,7 +46,13 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
+        String uriS = mData.get(position).getImageUrl();
 
+        if (uriS != "") {
+            Uri uri = Uri.parse(mData.get(position).getImageUrl());
+            Log.d("firebase", "Image Url: " + uri);
+            Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
+        }
 
     }
 
@@ -52,7 +63,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email ;
+        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
+        ImageView tv_restaurant_pic;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -64,6 +76,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_email_element);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_description_element);
 
+            tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic);
         }
     }
 }

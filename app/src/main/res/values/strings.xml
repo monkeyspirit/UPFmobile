@@ -79,5 +79,8 @@
     <string name="restaurant_registration_db_failed">Restaurant registration failed</string>
     <string name="upload_success">Upload completed</string>
     <string name="upload_failed">Upload failed</string>
-    <string name="uploading_image">Uploading image...</string>
+    <string name="uploading_image">Uploading image…</string>
+    <string name="progress">Progress…</string>
+
+    <string name="confirm_delete">Confirm to delete?</string>
 </resources>

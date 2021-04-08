@@ -224,7 +224,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                         double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Progress: " + (int) progressPercent + "%");
+                        pd.setMessage(getString(R.string.progress) + (int) progressPercent + "%");
                     }
                 });
 

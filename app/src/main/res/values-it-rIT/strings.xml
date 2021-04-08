@@ -66,5 +66,8 @@
     <string name="restaurant_registration_db_failed">Registrazione ristorante fallita</string>
     <string name="upload_success">Upload completato</string>
     <string name="upload_failed">Upload fallito</string>
-    <string name="uploading_image">Caricamento immagine...</string>
+    <string name="uploading_image">Caricamento immagine…</string>
+    <string name="progress">Progresso…</string>
+
+    <string name="confirm_delete">Confermi di cancellare?</string>
 </resources>

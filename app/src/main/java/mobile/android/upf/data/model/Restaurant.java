@@ -28,6 +28,7 @@ public class Restaurant {
         this.id = md5(name+description+email+address+phone+restaurateur_id+ts);
     }
 
+
     public String getId() {
         return id;
     }
@@ -84,11 +85,11 @@ public class Restaurant {
         this.phone = phone;
     }
 
-    public String getPath() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setPath(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

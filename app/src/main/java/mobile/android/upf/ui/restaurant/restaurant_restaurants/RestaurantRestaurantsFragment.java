@@ -11,14 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -38,12 +34,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.R;
-import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RecyclerViewAdapter;
 import mobile.android.upf.data.model.RecyclerViewAdapter_restaurant;
 import mobile.android.upf.data.model.Restaurant;
 import mobile.android.upf.ui.client.client_homepage.ClientEditOrdersFragment;
@@ -115,7 +110,6 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
                     }
 
-
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_restaurants);
                     myAdapter = new RecyclerViewAdapter_restaurant(getActivity(), lstRest);
 
@@ -144,6 +138,13 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
                     switch (direction) {
                         case ItemTouchHelper.LEFT: //cancello l'elemento
+                            RestaurantDeleteFragment dialogDeleteFragment = new RestaurantDeleteFragment();
+                            dialogDeleteFragment.show(getChildFragmentManager(), "DeleteFragment");
+
+                            //dialogDeleteFragment.setTargetFragment(getTargetFragment(), 0);
+
+                            //getTargetFragment().onActivityResult(getTargetRequestCode());
+
                             deletedItem = lstRest.get(pos);
                             lstRest.remove(pos);
                             myAdapter.notifyItemRemoved(pos);
@@ -189,21 +190,4 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
         return root;
     }
-
-    /*public void updateImageView(String restaurantId) {
-        mDatabase.child("Users").child(restaurantId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting image data", task.getException());
-                } else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-
-                    Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
-                    Log.d("firebase", "Image Url: " + uri);
-                    Glide.with(applicationContext).load(uri).into(restaurant_pic);
-                }
-            }
-        });
-    }*/
 }
