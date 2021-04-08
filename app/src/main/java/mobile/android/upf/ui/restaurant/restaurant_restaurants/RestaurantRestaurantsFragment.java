@@ -29,8 +29,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +153,24 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                         public void onClick(DialogInterface dialog, int whichButton) {
                                             //your deleting code
                                             swipedItem = lstRest.get(pos);
+                                            String swipedItemId = swipedItem.getId();
+                                            Log.d("Restaurant id: ", swipedItemId);
+                                            Query removeQuery = mDatabase.child("Restaurants").orderByChild("id").equalTo(swipedItemId);
+                                            removeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    for (DataSnapshot removeSnapshot: snapshot.getChildren()) {
+                                                        snapshot.getRef().removeValue();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                    Log.e("firebase", "Error while removing data from db");
+                                                }
+                                            });
+
+
                                             lstRest.remove(pos);
                                             myAdapter.notifyItemRemoved(pos);
 
