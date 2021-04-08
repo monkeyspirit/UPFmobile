@@ -144,12 +144,11 @@ public class RestaurantRestaurantsFragment extends Fragment {
 //                            //dialogDeleteFragment.setTargetFragment(getTargetFragment(), 0);
 //
 //                            //getTargetFragment().onActivityResult(getTargetRequestCode());
-//
 
                             AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getContext())
                                     // set message, title, and icon
                                     .setTitle("Delete")
-                                    .setMessage("Do you want to Delete")
+                                    .setMessage(getString(R.string.confirm_delete))
                                     .setIcon(R.drawable.ic_baseline_delete_24)
 
 
@@ -157,34 +156,46 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
                                         public void onClick(DialogInterface dialog, int whichButton) {
                                             //your deleting code
+                                            swipedItem = lstRest.get(pos);
+                                            lstRest.remove(pos);
+                                            myAdapter.notifyItemRemoved(pos);
                                             dialog.dismiss();
                                         }
 
                                     })
-                                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
+                                            swipedItem = lstRest.get(pos);
+                                            lstRest.remove(pos);
+                                            myAdapter.notifyItemRemoved(pos);
+                                            lstRest.add(pos, swipedItem);
+                                            myAdapter.notifyItemInserted(pos);
 
                                             dialog.dismiss();
 
+                                        }
+                                    })
+                                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            swipedItem = lstRest.get(pos);
+                                            lstRest.remove(pos);
+                                            myAdapter.notifyItemRemoved(pos);
+                                            lstRest.add(pos, swipedItem);
+                                            myAdapter.notifyItemInserted(pos);
+
+                                            dialog.dismiss(); //forse non serve nemmeno
                                         }
                                     })
                                     .create();
                             myQuittingDialogBox.show();
 
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor( getResources().getColor(R.color.design_default_color_primary));
-
-                            swipedItem = lstRest.get(pos);
-                            lstRest.remove(pos);
-                            myAdapter.notifyItemRemoved(pos);
-                            Snackbar.make(myrv, swipedItem.toString(), Snackbar.LENGTH_LONG).setAction(getString(R.string.undo), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    lstRest.add(pos, swipedItem);
-                                    myAdapter.notifyItemInserted(pos);
-                                }
-                            }).show();
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.design_default_color_primary));
                             break;
+
+
+
 
                         // MODIFY
                         case ItemTouchHelper.RIGHT:
