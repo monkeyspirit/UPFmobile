@@ -159,6 +159,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                             swipedItem = lstRest.get(pos);
                                             lstRest.remove(pos);
                                             myAdapter.notifyItemRemoved(pos);
+
                                             dialog.dismiss();
                                         }
 
@@ -166,10 +167,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             swipedItem = lstRest.get(pos);
-                                            lstRest.remove(pos);
-                                            myAdapter.notifyItemRemoved(pos);
-                                            lstRest.add(pos, swipedItem);
-                                            myAdapter.notifyItemInserted(pos);
+                                            myAdapter.notifyItemChanged(pos);
 
                                             dialog.dismiss();
 
@@ -179,10 +177,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                         @Override
                                         public void onCancel(DialogInterface dialog) {
                                             swipedItem = lstRest.get(pos);
-                                            lstRest.remove(pos);
-                                            myAdapter.notifyItemRemoved(pos);
-                                            lstRest.add(pos, swipedItem);
-                                            myAdapter.notifyItemInserted(pos);
+                                            myAdapter.notifyItemChanged(pos);
 
                                             dialog.dismiss(); //forse non serve nemmeno
                                         }
