@@ -32,6 +32,8 @@ import mobile.android.upf.ui.login.LoginActivity;
 
 public class RestaurantHomepageActivity extends AppCompatActivity {
 
+    public static Context contextOfApplication;
+
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -114,6 +116,10 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public static Context getContextOfApplication() {
+        return contextOfApplication;
     }
 
 }

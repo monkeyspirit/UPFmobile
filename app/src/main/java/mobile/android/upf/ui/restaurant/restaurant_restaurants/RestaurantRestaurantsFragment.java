@@ -183,8 +183,6 @@ public class RestaurantRestaurantsFragment extends Fragment {
                             break;
 
 
-
-
                         // MODIFY
                         case ItemTouchHelper.RIGHT:
                             ClientEditOrdersFragment dialogEditOrderFragment = new ClientEditOrdersFragment();

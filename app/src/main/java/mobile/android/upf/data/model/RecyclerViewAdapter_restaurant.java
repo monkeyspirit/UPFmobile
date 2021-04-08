@@ -1,15 +1,18 @@
 package mobile.android.upf.data.model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +20,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import mobile.android.upf.R;
+
+import static android.graphics.Color.RED;
 
 public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant.MyViewHolder> {
 
@@ -54,6 +59,10 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
         }
 
+        if (mData.get(position).getStatus() == 0) {
+            holder.tv_restaurant_card.setBackgroundColor(Color.parseColor("#ffa1a1"));
+        }
+
     }
 
     @Override
@@ -65,10 +74,12 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
         ImageView tv_restaurant_pic;
-
+        CardView tv_restaurant_card;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tv_restaurant_card = (CardView) itemView.findViewById(R.id.restaurant_card);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element);

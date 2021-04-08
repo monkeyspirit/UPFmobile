@@ -44,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.w3c.dom.Text;
 
@@ -78,7 +79,7 @@ public class ClientProfileFragment extends Fragment {
     private EditText client_address_insert, client_passwordConfirm_insert, client_password_insert;
     private TextView client_name, client_surname, client_phone, client_address, client_email;
     private Button client_change_address_button, client_change_password_button;
-    private ImageView client_pic;
+    private CircularImageView client_pic;
     private Uri imageUri;
 
 
@@ -103,7 +104,7 @@ public class ClientProfileFragment extends Fragment {
         client_address = (TextView) root.findViewById(R.id.client_address_textview);
         client_email = (TextView) root.findViewById(R.id.client_emailAddress_textview);
 
-        client_pic = (ImageView) root.findViewById(R.id.client_pic_imageview);
+        client_pic = (CircularImageView) root.findViewById(R.id.client_pic_imageview);
 
         client_password_insert = (EditText) root.findViewById(R.id.client_password_insert);
         client_passwordConfirm_insert = (EditText) root.findViewById(R.id.client_passwordConfirm_insert);
@@ -136,7 +137,7 @@ public class ClientProfileFragment extends Fragment {
 
         client_pic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 choosePicture();
             }
         });
@@ -272,7 +273,7 @@ public class ClientProfileFragment extends Fragment {
     private void uploadPicture() {
 
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setTitle("Uploading image...");
+        pd.setTitle(getString(R.string.uploading_image));
         pd.show();
 
         //final String randomKey = UUID.randomUUID().toString();
@@ -302,7 +303,7 @@ public class ClientProfileFragment extends Fragment {
                         // Reload information
                         updateImageView(userId);
 
-                        Toast.makeText(getActivity(), "Image uploaded", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getString(R.string.upload_success), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -311,14 +312,14 @@ public class ClientProfileFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(getActivity(), "Uploading failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
             }
         })
         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                 double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                pd.setMessage("Progress: " + (int) progressPercent + "%");
+                pd.setMessage(getString(R.string.progress) + (int) progressPercent + "%");
             }
         });
 
