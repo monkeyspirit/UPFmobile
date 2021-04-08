@@ -53,7 +53,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class DeliveryProfileFragment extends Fragment {
 
-    Context applicationContext = DeliveryHomepageActivity.getContextOfApplication();
 
     private DeliveryProfileViewModel deliveryProfileViewModel;
     private FirebaseAuth mAuth;
@@ -114,7 +113,7 @@ public class DeliveryProfileFragment extends Fragment {
                     if (uriS != "") {
                         Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
                         Log.d("firebase", "Image Url: " + uri);
-                        Glide.with(applicationContext).load(uri).into(delivery_pic);
+                        Glide.with(getContext()).load(uri).into(delivery_pic);
                     }
                 }
             }
@@ -220,7 +219,7 @@ public class DeliveryProfileFragment extends Fragment {
     }
 
     private String getFileExtension(Uri _imageUri) {
-        ContentResolver cr = applicationContext.getContentResolver();
+        ContentResolver cr = getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(_imageUri));
     }
@@ -286,7 +285,7 @@ public class DeliveryProfileFragment extends Fragment {
 
                     Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
                     Log.d("firebase", "Image Url: " + uri);
-                    Glide.with(applicationContext).load(uri).into(delivery_pic);
+                    Glide.with(getContext()).load(uri).into(delivery_pic);
                 }
             }
         });

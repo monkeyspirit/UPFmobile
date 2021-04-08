@@ -32,7 +32,6 @@ import mobile.android.upf.ui.login.LoginActivity;
 
 public class DeliveryHomepageActivity extends AppCompatActivity {
 
-    public static Context contextOfApplication;
 
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
@@ -119,7 +118,4 @@ public class DeliveryHomepageActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public static Context getContextOfApplication() {
-        return contextOfApplication;
-    }
 }

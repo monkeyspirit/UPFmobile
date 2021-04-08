@@ -51,8 +51,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class RestaurantProfileFragment extends Fragment {
 
-    Context applicationContext = RestaurantHomepageActivity.getContextOfApplication();
-
     private RestaurantProfileViewModel restaurantProfileViewModel;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -116,7 +114,7 @@ public class RestaurantProfileFragment extends Fragment {
                     if (uriS != "") {
                         Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
                         Log.d("firebase", "Image Url: " + uri);
-                        Glide.with(applicationContext).load(uri).into(restaurateur_pic);
+                        Glide.with(getContext()).load(uri).into(restaurateur_pic);
                     }
                 }
             }
@@ -263,7 +261,7 @@ public class RestaurantProfileFragment extends Fragment {
     }
 
     private String getFileExtension(Uri _imageUri) {
-        ContentResolver cr = applicationContext.getContentResolver();
+        ContentResolver cr = getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(_imageUri));
     }
@@ -348,7 +346,7 @@ public class RestaurantProfileFragment extends Fragment {
 
                     Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
                     Log.d("firebase", "Image Url: " + uri);
-                    Glide.with(applicationContext).load(uri).into(restaurateur_pic);
+                    Glide.with(getContext()).load(uri).into(restaurateur_pic);
                 }
             }
         });

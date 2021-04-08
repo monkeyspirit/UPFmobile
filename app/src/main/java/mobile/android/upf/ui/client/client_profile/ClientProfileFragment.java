@@ -44,7 +44,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.w3c.dom.Text;
 
@@ -66,8 +65,6 @@ public class ClientProfileFragment extends Fragment {
 
     private ClientProfileViewModel clientProfileViewModel;
 
-    Context applicationContext = ClientHomepageActivity.getContextOfApplication();
-
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
@@ -79,7 +76,7 @@ public class ClientProfileFragment extends Fragment {
     private EditText client_address_insert, client_passwordConfirm_insert, client_password_insert;
     private TextView client_name, client_surname, client_phone, client_address, client_email;
     private Button client_change_address_button, client_change_password_button;
-    private CircularImageView client_pic;
+    private ImageView client_pic;
     private Uri imageUri;
 
 
@@ -104,7 +101,7 @@ public class ClientProfileFragment extends Fragment {
         client_address = (TextView) root.findViewById(R.id.client_address_textview);
         client_email = (TextView) root.findViewById(R.id.client_emailAddress_textview);
 
-        client_pic = (CircularImageView) root.findViewById(R.id.client_pic_imageview);
+        client_pic = (ImageView) root.findViewById(R.id.client_pic_imageview);
 
         client_password_insert = (EditText) root.findViewById(R.id.client_password_insert);
         client_passwordConfirm_insert = (EditText) root.findViewById(R.id.client_passwordConfirm_insert);
@@ -129,7 +126,7 @@ public class ClientProfileFragment extends Fragment {
                     if (uriS != "") {
                         Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
                         Log.d("firebase", "Image Url: " + uri);
-                        Glide.with(applicationContext).load(uri).into(client_pic);
+                        Glide.with(getContext()).load(uri).into(client_pic);
                     }
                 }
             }
@@ -137,7 +134,7 @@ public class ClientProfileFragment extends Fragment {
 
         client_pic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 choosePicture();
             }
         });
@@ -265,7 +262,7 @@ public class ClientProfileFragment extends Fragment {
     }
 
     private String getFileExtension(Uri _imageUri) {
-        ContentResolver cr = applicationContext.getContentResolver();
+        ContentResolver cr = getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(_imageUri));
     }
@@ -273,7 +270,7 @@ public class ClientProfileFragment extends Fragment {
     private void uploadPicture() {
 
         final ProgressDialog pd = new ProgressDialog(getContext());
-        pd.setTitle(getString(R.string.uploading_image));
+        pd.setTitle("Uploading image...");
         pd.show();
 
         //final String randomKey = UUID.randomUUID().toString();
@@ -303,7 +300,7 @@ public class ClientProfileFragment extends Fragment {
                         // Reload information
                         updateImageView(userId);
 
-                        Toast.makeText(getActivity(), getString(R.string.upload_success), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Image uploaded", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -312,14 +309,14 @@ public class ClientProfileFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(getActivity(), getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Uploading failed", Toast.LENGTH_LONG).show();
             }
         })
         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                 double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                pd.setMessage(getString(R.string.progress) + (int) progressPercent + "%");
+                pd.setMessage("Progress: " + (int) progressPercent + "%");
             }
         });
 
@@ -365,7 +362,7 @@ public class ClientProfileFragment extends Fragment {
 
                     Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
                     Log.d("firebase", "Image Url: " + uri);
-                    Glide.with(applicationContext).load(uri).into(client_pic);
+                    Glide.with(getContext()).load(uri).into(client_pic);
                 }
             }
         });
