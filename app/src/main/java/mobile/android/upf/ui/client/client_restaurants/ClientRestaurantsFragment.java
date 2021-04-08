@@ -85,7 +85,7 @@ public class ClientRestaurantsFragment extends Fragment {
                                 String.valueOf(restaurant.child("phone").getValue()),
                                 String.valueOf(restaurant.child("restaurateur_id").getValue()),
                                 String.valueOf(restaurant.child("imageUrl").getValue()),
-                                0));
+                                Integer.valueOf(String.valueOf(restaurant.child("status").getValue()))));
 
 
                     }

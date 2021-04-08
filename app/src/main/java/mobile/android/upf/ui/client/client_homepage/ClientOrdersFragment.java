@@ -1,7 +1,10 @@
 package mobile.android.upf.ui.client.client_homepage;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -140,7 +143,7 @@ public class ClientOrdersFragment extends Fragment {
                 }
             };
 
-            Order deletedItem = null;
+            Order swipedItem = null;
             //Gestisco gli swipe a destra e sinistra
             ItemTouchHelper.SimpleCallback simpleCallbackSwipe = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                 @Override
@@ -155,27 +158,57 @@ public class ClientOrdersFragment extends Fragment {
 
                     switch (direction) {
                         case ItemTouchHelper.LEFT: //cancello l'elemento
-                            deletedItem = lstOrder.get(pos);
-                            lstOrder.remove(pos);
-                            myAdapter.notifyItemRemoved(pos);
-                            Snackbar.make(myrv, deletedItem.toString(), Snackbar.LENGTH_LONG).setAction(getString(R.string.undo), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    lstOrder.add(pos, deletedItem);
-                                    myAdapter.notifyItemInserted(pos);
-                                }
-                            }).show();
+                            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getContext())
+                                    // set message, title, and icon
+                                    .setTitle(getString(R.string.confirm_delete))
+                                    .setMessage(getString(R.string.confirm_delete))
+                                    .setIcon(R.drawable.ic_baseline_delete_24)
 
+                                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            //your deleting code
+                                            swipedItem = lstOrder.get(pos);
+                                            lstOrder.remove(pos);
+                                            myAdapter.notifyItemRemoved(pos);
+
+                                            dialog.dismiss();
+                                        }
+
+                                    })
+                                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            swipedItem = lstOrder.get(pos);
+                                            myAdapter.notifyItemChanged(pos);
+
+                                            dialog.dismiss();
+
+                                        }
+                                    })
+                                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            swipedItem = lstOrder.get(pos);
+                                            myAdapter.notifyItemChanged(pos);
+
+                                            dialog.dismiss(); //forse non serve nemmeno
+                                        }
+                                    })
+                                    .create();
+                            myQuittingDialogBox.show();
+
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.design_default_color_primary));
                             break;
                         case ItemTouchHelper.RIGHT: //modifico l'elemento
                             ClientEditOrdersFragment dialogEditOrderFragment = new ClientEditOrdersFragment();
                             dialogEditOrderFragment.show(getChildFragmentManager(), "EditFragment");
 
-                            deletedItem = lstOrder.get(pos);
+                            swipedItem = lstOrder.get(pos);
                             lstOrder.remove(pos);
                             myAdapter.notifyItemRemoved(pos);
                             //sarà necessario fare un aggiornamento dei dati
-                            lstOrder.add(pos, deletedItem);
+                            lstOrder.add(pos, swipedItem);
                             myAdapter.notifyItemInserted(pos);
                             break;
                     }

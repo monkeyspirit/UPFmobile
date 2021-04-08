@@ -138,21 +138,14 @@ public class RestaurantRestaurantsFragment extends Fragment {
                     switch (direction) {
                         // DELETE
                         case ItemTouchHelper.LEFT:
-//                            RestaurantDeleteFragment dialogDeleteFragment = new RestaurantDeleteFragment();
-//                            dialogDeleteFragment.show(getChildFragmentManager(), "DeleteFragment");
-//
-//                            //dialogDeleteFragment.setTargetFragment(getTargetFragment(), 0);
-//
-//                            //getTargetFragment().onActivityResult(getTargetRequestCode());
 
                             AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getContext())
                                     // set message, title, and icon
-                                    .setTitle("Delete")
+                                    .setTitle(getString(R.string.confirm_delete))
                                     .setMessage(getString(R.string.confirm_delete))
                                     .setIcon(R.drawable.ic_baseline_delete_24)
 
-
-                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
 
                                         public void onClick(DialogInterface dialog, int whichButton) {
                                             //your deleting code
@@ -164,7 +157,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                         }
 
                                     })
-                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             swipedItem = lstRest.get(pos);
                                             myAdapter.notifyItemChanged(pos);

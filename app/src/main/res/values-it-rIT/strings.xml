@@ -70,4 +70,6 @@
     <string name="progress">Progresso…</string>
 
     <string name="confirm_delete">Confermi di cancellare?</string>
+    <string name="delete">Elimina</string>
+    <string name="cancel">Annulla</string>
 </resources>

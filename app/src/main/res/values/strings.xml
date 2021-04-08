@@ -83,4 +83,6 @@
     <string name="progress">Progress…</string>
 
     <string name="confirm_delete">Confirm to delete?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>
