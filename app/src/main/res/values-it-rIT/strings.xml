@@ -72,4 +72,6 @@
     <string name="confirm_delete">Confermi di cancellare?</string>
     <string name="delete">Elimina</string>
     <string name="cancel">Annulla</string>
+    <string name="edit">Modifica</string>
+    <string name="deleted">Cancellato</string>
 </resources>

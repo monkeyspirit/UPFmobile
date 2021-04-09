@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -63,6 +64,20 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             holder.tv_restaurant_card.setBackgroundColor(Color.parseColor("#ffa1a1"));
         }
 
+        holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code to delete
+            }
+        });
+
+        holder.tv_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code to go to edit activity
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +90,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
         ImageView tv_restaurant_pic;
         CardView tv_restaurant_card;
+        Button tv_delete_btn, tv_edit_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +104,9 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_description_element);
 
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic);
+
+            tv_delete_btn = (Button) itemView.findViewById(R.id.delete_restaurant_card_btn);
+            tv_edit_btn = (Button) itemView.findViewById(R.id.edit_restaurant_card_btn);
         }
     }
 }

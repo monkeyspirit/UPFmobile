@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/restaurant_card"
-    android:layout_height="190dp"
+    android:layout_height="240dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp">
 
@@ -27,19 +27,7 @@
             android:text="prova"
             android:textSize="13sp"
             android:textColor="#2d2d2d"
-            android:id="@+id/restaurant_name_element">
-
-        </TextView>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="13sp"
-            android:text="prova"
-            android:textColor="#2d2d2d"
-            android:id="@+id/restaurant_address_element">
-
-        </TextView>
+            android:id="@+id/restaurant_name_element"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -48,9 +36,8 @@
             android:textSize="13sp"
             android:text="prova"
             android:textColor="#2d2d2d"
-            android:id="@+id/restaurant_phone_element">
+            android:id="@+id/restaurant_address_element"/>
 
-        </TextView>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,9 +45,16 @@
             android:textSize="13sp"
             android:text="prova"
             android:textColor="#2d2d2d"
-            android:id="@+id/restaurant_email_element">
+            android:id="@+id/restaurant_phone_element"/>
 
-        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="prova"
+            android:textColor="#2d2d2d"
+            android:id="@+id/restaurant_email_element"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -69,8 +63,43 @@
             android:text="prova"
             android:textSize="13sp"
             android:textColor="#2d2d2d"
-            android:id="@+id/restaurant_description_element">
+            android:id="@+id/restaurant_description_element"/>
 
-        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="6dp">
+
+            <Button
+                android:id="@+id/edit_restaurant_card_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="4dp"
+                android:text="@string/edit"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:backgroundTint="@color/teal_200"
+                android:drawableLeft="@drawable/ic_baseline_edit_24"/>
+
+            <Button
+                android:id="@+id/delete_restaurant_card_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:text="@string/delete"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:backgroundTint="@color/red"
+                android:drawableLeft="@drawable/ic_baseline_delete_24"/>
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

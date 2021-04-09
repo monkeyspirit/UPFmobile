@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -154,14 +155,17 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                             //your deleting code
                                             swipedItem = lstRest.get(pos);
                                             String swipedItemId = swipedItem.getId();
-                                            Log.d("Restaurant id: ", swipedItemId);
+                                            Log.d("id: ", swipedItemId);
+
                                             Query removeQuery = mDatabase.child("Restaurants").orderByChild("id").equalTo(swipedItemId);
                                             removeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     for (DataSnapshot removeSnapshot: snapshot.getChildren()) {
                                                         snapshot.getRef().removeValue();
+
                                                     }
+                                                    Toast.makeText(context, getString(R.string.deleted), Toast.LENGTH_SHORT).show();
                                                 }
 
                                                 @Override
