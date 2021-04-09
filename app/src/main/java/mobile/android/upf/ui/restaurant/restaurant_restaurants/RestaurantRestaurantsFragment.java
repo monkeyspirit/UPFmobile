@@ -167,15 +167,11 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                             String swipedItemId = swipedItem.getId();
                                             Log.d("id: ", swipedItemId);
 
-                                            Query removeQuery = mDatabase.child("Restaurants").orderByChild("id").equalTo(swipedItemId);
-                                            removeQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    for (DataSnapshot removeSnapshot: snapshot.getChildren()) {
-                                                        snapshot.getRef().removeValue();
-
-                                                    }
-                                                    Toast.makeText(context, getString(R.string.deleted), Toast.LENGTH_SHORT).show();
+                                                    mDatabase.child("Restaurants").child(swipedItemId).setValue(null);
+                                                    Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
                                                 }
 
                                                 @Override
