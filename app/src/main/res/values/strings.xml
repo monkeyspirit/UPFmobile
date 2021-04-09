@@ -85,6 +85,8 @@
     <string name="confirm_delete">Confirm to delete?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="view">View</string>
+
 
     <string name="edit">Edit</string>
     <string name="deleted">Cancellato</string>
