@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,7 +72,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_restaurants_restaurant, container, false);
 
 //        Floating button per l'aggiunta di nuovi ristoranti
-        FloatingActionButton fab = root.findViewById(R.id.fab);
+        ExtendedFloatingActionButton fab = root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
