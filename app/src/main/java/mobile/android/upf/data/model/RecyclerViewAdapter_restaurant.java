@@ -1,6 +1,8 @@
 package mobile.android.upf.data.model;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -11,12 +13,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -28,6 +37,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
     private Context mContext;
     private List<Restaurant> mData;
+    private DatabaseReference mDatabase;
 
     public RecyclerViewAdapter_restaurant(Context mContext, List<Restaurant> mData) {
         this.mContext = mContext;
@@ -40,6 +50,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         view = mInflater.inflate(R.layout.cardview_item_restaurant, parent,false);
         return new MyViewHolder(view);
     }
@@ -69,7 +81,51 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //code to delete
+                AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
+                        // set message, title, and icon
+                        .setTitle(R.string.confirm_delete)
+                        .setMessage(R.string.confirm_delete)
+                        .setIcon(R.drawable.ic_baseline_delete_24_black)
+                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                String toDeleteId = mData.get(position).getId();
+                                Log.d("To delete id: ", toDeleteId);
+
+                                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        mDatabase.child("Restaurants").child(toDeleteId).setValue(null);
+                                        Toast.makeText(mContext, R.string.deleted, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e("firebase", "Error while removing data from db");
+                                    }
+                                });
+
+
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                            }
+                        })
+                        .create();
+                myQuittingDialogBox.show();
+
+                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#6200EE"));
+
             }
         });
 

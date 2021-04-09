@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -51,19 +52,21 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
     private RestaurantRestourantsViewModel restaurantRestourantsViewModel;
 
+    private Button edit_restaurant_card_btn, delete_restaurant_card_btn;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
 
-    Context context;
-    MaterialCardView cardview;
-    ViewGroup.LayoutParams layoutparams;
-    LinearLayout linearLayout;
+    private Context context;
+    private MaterialCardView cardview;
+    private ViewGroup.LayoutParams layoutparams;
+    private LinearLayout linearLayout;
 
-    RecyclerView myrv;
-    RecyclerViewAdapter_restaurant myAdapter;
+    private RecyclerView myrv;
+    private RecyclerViewAdapter_restaurant myAdapter;
 
-    List<Restaurant> lstRest;
+    private List<Restaurant> lstRest;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -132,6 +135,8 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
             }
 
+
+            // SWIPE
             Restaurant swipedItem = null;
             //Gestisco gli swipe a destra e sinistra
             ItemTouchHelper.SimpleCallback simpleCallbackSwipe = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -148,12 +153,11 @@ public class RestaurantRestaurantsFragment extends Fragment {
                     switch (direction) {
                         // DELETE
                         case ItemTouchHelper.LEFT:
-
                             AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getContext())
                                     // set message, title, and icon
                                     .setTitle(getString(R.string.confirm_delete))
                                     .setMessage(getString(R.string.confirm_delete))
-                                    .setIcon(R.drawable.ic_baseline_delete_24)
+                                    .setIcon(R.drawable.ic_baseline_delete_24_black)
 
                                     .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
 
@@ -211,6 +215,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.design_default_color_primary));
+
                             break;
 
 
@@ -246,6 +251,10 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
         });
 
+
+
         return root;
     }
+
+
 }
