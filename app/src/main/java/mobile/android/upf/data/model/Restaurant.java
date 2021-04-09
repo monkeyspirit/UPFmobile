@@ -13,6 +13,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
+//    Costruttore per quando si CREA un ristorante quando si aggiunge
     public Restaurant(String name, String description, String email, String address, String phone,
                       String restaurateur_id, String imageUrl, int status) {
         this.name = name;
@@ -28,6 +29,19 @@ public class Restaurant {
         this.id = md5(name+description+email+address+phone+restaurateur_id+ts);
     }
 
+//    Costruttore per quando si LEGGE un ristorante
+    public Restaurant(String id, String name, String description, String email, String address, String phone,
+                      String restaurateur_id, String imageUrl, int status) {
+        this.name = name;
+        this.description = description;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.restaurateur_id = restaurateur_id;
+        this.imageUrl = imageUrl;
+        this.status = status;
+        this.id = id;
+    }
 
     public String getId() {
         return id;

@@ -99,9 +99,14 @@ public class RestaurantRestaurantsFragment extends Fragment {
                     Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
 
                     for (DataSnapshot restaurant : restaurants_database) {
+//                        ID del ristorante
+                        Log.d("firebase ID rest", String.valueOf(restaurant.getKey()));
+                        Log.d("firebase ID rest in iD", String.valueOf(restaurant.child("id").getValue()));
                         Log.d("firebase", String.valueOf(restaurant.child("name").getValue()));
                         if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)) {
-                            lstRest.add(new Restaurant(String.valueOf(restaurant.child("name").getValue()),
+                            lstRest.add(new Restaurant(
+                                    String.valueOf(restaurant.getKey()),
+                                    String.valueOf(restaurant.child("name").getValue()),
                                     String.valueOf(restaurant.child("description").getValue()),
                                     String.valueOf(restaurant.child("email").getValue()),
                                     String.valueOf(restaurant.child("address").getValue()),

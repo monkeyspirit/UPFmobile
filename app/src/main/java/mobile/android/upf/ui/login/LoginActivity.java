@@ -1,29 +1,19 @@
 package mobile.android.upf.ui.login;
 
-import android.app.Activity;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,13 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import mobile.android.upf.AdminHomepageActivity;
 import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.DeliveryHomepageActivity;
-import mobile.android.upf.FirstActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RegistrationActivity;
 import mobile.android.upf.RestaurantHomepageActivity;
-import mobile.android.upf.data.model.User;
-import mobile.android.upf.ui.login.LoginViewModel;
-import mobile.android.upf.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private static final String TAG_LOG = "LoginActivity";
+
+    private Button login_admin_pre_btn,login_client_pre_btn, login_rest_pre_btn,login_del_pre_btn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,9 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser();
+                controlloginUser();
             }
         });
+
 
 
 
@@ -84,6 +73,38 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent registration = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(registration);
+            }
+        });
+
+        // LOGIN RAPIDO
+
+        login_admin_pre_btn = (Button) findViewById(R.id.login_admin_pre_btn);
+        login_client_pre_btn = (Button) findViewById(R.id.login_client_pre_btn);
+        login_rest_pre_btn = (Button) findViewById(R.id.login_rest_pre_btn);
+        login_del_pre_btn = (Button) findViewById(R.id.login_del_pre_btn);
+
+        login_admin_pre_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser("admin@gmail.com", "admin1");
+            }
+        });
+        login_client_pre_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser("mario.rossi@gmail.com", "123456");
+            }
+        });
+        login_rest_pre_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser("salvo.calogero@gmail.com", "123456");
+            }
+        });
+        login_del_pre_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser("corrado.collodi@gmail.com", "123456");
             }
         });
 
@@ -113,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void loginUser(){
+    private void controlloginUser(){
         final EditText email_edittext = findViewById(R.id.email_edittext);
         final EditText password_edittext = findViewById(R.id.password_edittext);
 
@@ -134,6 +155,10 @@ public class LoginActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
+        loginUser(email, password);
+    }
+
+    private void loginUser(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
