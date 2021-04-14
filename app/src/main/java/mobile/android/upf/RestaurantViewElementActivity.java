@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +45,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
 
     private List<Dish> lstDish;
 
-
+    private Button add_restaurant_dish_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,15 +98,27 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
         });
 
         //        Floating button per l'aggiunta di nuovi piatti
-        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
-        fab.setOnClickListener(new View.OnClickListener() {
+//        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RestaurantViewElementActivity.this, AddDishRestaurantActivity.class);
+//                intent.putExtra("id", restaurant_id);
+//                startActivity(intent);
+//            }
+//        });
+
+        add_restaurant_dish_btn = findViewById(R.id.add_restaurant_dish_btn);
+        add_restaurant_dish_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(RestaurantViewElementActivity.this, AddDishRestaurantActivity.class);
                 intent.putExtra("id", restaurant_id);
                 startActivity(intent);
             }
         });
+
+
 
         lstDish = new ArrayList<>();
 
@@ -155,4 +168,5 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
