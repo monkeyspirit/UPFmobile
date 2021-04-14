@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:gravity="center">
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/restaurant_card_pic_for_client"
                 android:layout_width="match_parent"
                 android:layout_height="99dp"
                 android:layout_weight="1"

@@ -3,14 +3,18 @@ package mobile.android.upf.data.model;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -45,7 +49,13 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
 
+        String uriS = mData.get(position).getImageUrl();
 
+        if (uriS != "") {
+            Uri uri = Uri.parse(mData.get(position).getImageUrl());
+            Log.d("firebase", "Image Url: " + uri);
+            Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
+        }
     }
 
     @Override
@@ -55,7 +65,9 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email ;
+        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
+
+        ImageView tv_restaurant_pic;
 
         Button call_restaurant_btn, email_restaurant_btn, nav_restaurant_btn;
 
@@ -67,6 +79,8 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_description_element_for_client);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element_for_client);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element_for_client);
+
+            tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic_for_client);
 
             call_restaurant_btn = (Button) itemView.findViewById(R.id.call_restaurant_btn);
             call_restaurant_btn.setOnClickListener(new View.OnClickListener() {
