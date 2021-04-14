@@ -78,4 +78,5 @@
     <string name="add_dish">Aggiungi piatto</string>
     <string name="price">Prezzo</string>
     <string name="dish_add_db_failed">Errore nell\'aggiunta del piatto al db</string>
+    <string name="dish">Piatti</string>
 </resources>

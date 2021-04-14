@@ -94,4 +94,5 @@
     <string name="title_activity_view_restaurant" translatable="false">Name</string>
     <string name="price">Price</string>
     <string name="dish_add_db_failed">Failing in adding the dish to the db</string>
+    <string name="dish">Dishes</string>
 </resources>

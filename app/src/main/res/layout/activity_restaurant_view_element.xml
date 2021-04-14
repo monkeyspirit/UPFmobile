@@ -74,11 +74,17 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Piatti"
+                android:text="@string/dish"
                 android:gravity="center"
                 android:textSize="25sp"/>
-        </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_restaurant_dishes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
 
     </ScrollView>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
