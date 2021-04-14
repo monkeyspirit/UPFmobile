@@ -75,4 +75,7 @@
     <string name="edit">Modifica</string>
     <string name="deleted">Cancellato</string>
     <string name="view">Vedi</string>
+    <string name="add_dish">Aggiungi piatto</string>
+    <string name="price">Prezzo</string>
+    <string name="dish_add_db_failed">Errore nell\'aggiunta del piatto al db</string>
 </resources>

@@ -10,12 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,6 +63,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
 
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     restaurant_name_element_tv.setText(String.valueOf(task.getResult().child("name").getValue()));
+                    setTitle(String.valueOf(task.getResult().child("name").getValue()));
                     restaurant_phone_element_tv.setText(String.valueOf(task.getResult().child("phone").getValue()));
                     restaurant_address_element_tv.setText(String.valueOf(task.getResult().child("address").getValue()));
                     restaurant_emailAddress_element_tv.setText(String.valueOf(task.getResult().child("email").getValue()));
@@ -74,6 +77,17 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
                         Glide.with(getApplicationContext()).load(uri).into(restaurant_pic);
                     }
                 }
+            }
+        });
+
+        //        Floating button per l'aggiunta di nuovi piatti
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RestaurantViewElementActivity.this, AddDishRestaurantActivity.class);
+                intent.putExtra("id", restaurant_id);
+                startActivity(intent);
             }
         });
     }

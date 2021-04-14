@@ -53,7 +53,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
 
-    private static final String TAG_LOG = "RestaurantRegistrationActivity";
+    private static final String TAG_LOG = "AddRestaurantActivity";
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -71,6 +71,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         progressBar = (ProgressBar) findViewById(R.id.progress_bar_add_restaurant);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
