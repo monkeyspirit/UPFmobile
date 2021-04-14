@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:id="@+id/dish_card"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp">
@@ -14,12 +15,6 @@
         android:orientation="vertical"
         android:layout_margin="5dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/dish_name_element"
                 android:layout_width="wrap_content"
@@ -28,31 +23,66 @@
                 android:textColor="#2d2d2d"
                 android:textSize="20sp" />
 
-
-
             <TextView
                 android:id="@+id/dish_price_element"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="price"
-                android:drawableRight="@drawable/ic_baseline_euro_24"
-                android:gravity="right"
                 android:layout_marginRight="50dp"
                 android:textColor="#2d2d2d"
                 android:textSize="20sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:text="description"
+                android:textColor="#2d2d2d"
+                android:id="@+id/dish_description_element"/>
 
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:text="description"
-            android:textColor="#2d2d2d"
-            android:id="@+id/dish_description_element"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/delete_dish_card_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/red"
+                    android:drawableLeft="@drawable/ic_baseline_delete_24"
+                    android:text="@string/delete"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:layout_margin="20dp"/>
+
+                <Button
+                    android:id="@+id/edit_dish_card_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/teal_200"
+                    android:drawableLeft="@drawable/ic_baseline_edit_24"
+                    android:text="@string/edit"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:layout_margin="20dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

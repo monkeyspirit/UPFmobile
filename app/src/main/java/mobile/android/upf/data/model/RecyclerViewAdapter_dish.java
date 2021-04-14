@@ -47,7 +47,10 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
         holder.tv_dish_description.setText(mData.get(position).getDescription());
         holder.tv_dish_price.setText(String.
     valueOf(mData.get(position).getPrice()));
+
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -69,8 +72,8 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
             tv_dish_description = (TextView) itemView.findViewById(R.id.dish_description_element);
             tv_dish_price = (TextView) itemView.findViewById(R.id.dish_price_element);
 
-//            tv_delete_btn = (Button) itemView.findViewById(R.id.delete_dish_card_btn);
-//            tv_edit_btn = (Button) itemView.findViewById(R.id.edit_dish_card_btn);
+            tv_delete_btn = (Button) itemView.findViewById(R.id.delete_dish_card_btn);
+            tv_edit_btn = (Button) itemView.findViewById(R.id.edit_dish_card_btn);
 
         }
     }
