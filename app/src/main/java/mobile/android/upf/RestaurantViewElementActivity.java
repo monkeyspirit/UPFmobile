@@ -97,16 +97,16 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
             }
         });
 
-        //        Floating button per l'aggiunta di nuovi piatti
-//        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(RestaurantViewElementActivity.this, AddDishRestaurantActivity.class);
-//                intent.putExtra("id", restaurant_id);
-//                startActivity(intent);
-//            }
-//        });
+//        Floating button per l'aggiunta di nuovi piatti
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RestaurantViewElementActivity.this, AddDishRestaurantActivity.class);
+                intent.putExtra("id", restaurant_id);
+                startActivity(intent);
+            }
+        });
 
         add_restaurant_dish_btn = findViewById(R.id.add_restaurant_dish_btn);
         add_restaurant_dish_btn.setOnClickListener(new View.OnClickListener() {
