@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_upf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
+        <activity android:name=".RestaurantViewElementActivity"
+            android:label="@string/title_activity_view_restaurant"/>
         <activity
             android:name=".AddRestaurantActivity"
-            android:label="@string/title_activity_add_restaurant">
-
-        </activity>
+            android:label="@string/title_activity_add_restaurant"/>
         <activity
             android:name=".ClientHomepageActivity"
             android:label="@string/title_activity_client_homepage"

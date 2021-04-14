@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/restaurant_card"
-    android:layout_height="340dp"
+    android:layout_height="380dp"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp">
@@ -53,14 +53,16 @@
             android:textColor="#2d2d2d"
             android:id="@+id/restaurant_email_element"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="prova"
-            android:textSize="13sp"
-            android:textColor="#2d2d2d"
-            android:id="@+id/restaurant_description_element"/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="prova"-->
+<!--            android:textSize="13sp"-->
+<!--            android:textColor="#2d2d2d"-->
+<!--            android:id="@+id/restaurant_description_element"-->
+<!--            android:visibility="invisible"/>-->
+
 
         <ImageView
             android:id="@+id/restaurant_card_pic"
@@ -69,6 +71,12 @@
             android:background="#2d2d2d"
             android:scaleType="centerCrop"
             android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/view_restaurant_card_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view" />
 
 
         <LinearLayout

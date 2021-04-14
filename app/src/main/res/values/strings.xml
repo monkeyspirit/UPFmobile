@@ -26,6 +26,7 @@
     <string name="title_activity_admin_homepage" translatable="false">AdminHomepageActivity</string>
     <string name="title_activity_restaurant_homepage" translatable="false">RestaurantHomepageActivity</string>
     <string name="title_activity_add_restaurant">Add a restaurent</string>
+    <string name="title_activity_view_restaurant" translatable="false">Name</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="nav_header_title" translatable="false">Android Studio</string>

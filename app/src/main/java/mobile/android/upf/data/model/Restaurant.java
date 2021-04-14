@@ -6,9 +6,9 @@ import java.security.Timestamp;
 
 public class Restaurant {
 
-    public String id;
-    public String name, description, email, address, phone, restaurateur_id, imageUrl;
-    int status;
+    private String id;
+    private String name, description, email, address, phone, restaurateur_id, imageUrl;
+    private int status;
 
     public Restaurant() {
     }

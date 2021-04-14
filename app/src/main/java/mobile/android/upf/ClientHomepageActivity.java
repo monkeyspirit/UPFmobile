@@ -39,7 +39,6 @@ import mobile.android.upf.ui.login.LoginActivity;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ClientHomepageActivity extends AppCompatActivity {
 
-    public static Context contextOfApplication;
 
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
@@ -55,7 +54,6 @@ public class ClientHomepageActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        contextOfApplication = getApplicationContext();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -148,7 +146,5 @@ public class ClientHomepageActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public static Context getContextOfApplication() {
-        return contextOfApplication;
-    }
+
 }

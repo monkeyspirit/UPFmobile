@@ -3,6 +3,7 @@ package mobile.android.upf.data.model;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -29,7 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.R;
+import mobile.android.upf.RestaurantViewElementActivity;
 
 import static android.graphics.Color.RED;
 
@@ -61,7 +64,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
-        holder.tv_restaurant_description.setText(mData.get(position).getDescription());
+//        holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
         String uriS = mData.get(position).getImageUrl();
@@ -136,6 +139,16 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             }
         });
 
+        holder.tv_view_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code to go to edit activity
+                Intent intent = new Intent(mContext, RestaurantViewElementActivity.class);
+                intent.putExtra("id", mData.get(position).getId());
+                mContext.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -148,7 +161,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
         ImageView tv_restaurant_pic;
         CardView tv_restaurant_card;
-        Button tv_delete_btn, tv_edit_btn;
+        Button tv_delete_btn, tv_edit_btn, tv_view_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -157,14 +170,15 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element);
-            tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_phone_element);
-            tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_email_element);
-            tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_description_element);
+            tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element);
+            tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element);
+//            tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_description_element);
 
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic);
 
             tv_delete_btn = (Button) itemView.findViewById(R.id.delete_restaurant_card_btn);
             tv_edit_btn = (Button) itemView.findViewById(R.id.edit_restaurant_card_btn);
+            tv_view_btn = (Button) itemView.findViewById(R.id.view_restaurant_card_btn);
         }
     }
 }
