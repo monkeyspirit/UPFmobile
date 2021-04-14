@@ -62,6 +62,16 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        holder.tv_restaurant_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //code to go to edit activity
+                Intent intent = new Intent(mContext, RestaurantViewElementActivity.class);
+                intent.putExtra("id", mData.get(position).getId());
+                mContext.startActivity(intent);
+            }
+        });
+
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
 //        holder.tv_restaurant_description.setText(mData.get(position).getDescription());
