@@ -95,4 +95,8 @@
     <string name="price">Price</string>
     <string name="dish_add_db_failed">Failing in adding the dish to the db</string>
     <string name="dish">Dishes</string>
+
+    <string name="call">Call</string>
+    <string name="write">Write</string>
+    <string name="open_map">See on map</string>
 </resources>

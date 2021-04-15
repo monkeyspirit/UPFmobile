@@ -22,35 +22,35 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="prova"
-            android:textSize="20sp"
-            android:textColor="#2d2d2d"
+            android:textSize="@dimen/text_size_medium_large"
+            android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_name_element"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_mini"
             android:text="prova"
-            android:textColor="#2d2d2d"
+            android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_address_element"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_mini"
             android:text="prova"
-            android:textColor="#2d2d2d"
+            android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_phone_element"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_mini"
             android:text="prova"
-            android:textColor="#2d2d2d"
+            android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_email_element"/>
 
 <!--        <TextView-->
@@ -68,7 +68,7 @@
             android:id="@+id/restaurant_card_pic"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="#2d2d2d"
+            android:textColor="@color/dark_grey"
             android:scaleType="centerCrop"
             android:layout_margin="10dp"/>
 
@@ -95,7 +95,7 @@
                 android:drawableLeft="@drawable/ic_baseline_edit_24"
                 android:text="@string/edit"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_small"
                 app:layout_constraintEnd_toStartOf="@+id/delete_restaurant_card_btn"
                 android:layout_marginRight="15dp"/>
 
@@ -110,7 +110,7 @@
                 android:drawableLeft="@drawable/ic_baseline_delete_24"
                 android:text="@string/delete"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_small"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
 

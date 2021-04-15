@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Name"
-            android:textColor="#2d2d2d"
-            android:textSize="20sp">
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium_large">
 
         </TextView>
         <TextView
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Description"
-            android:textColor="#2d2d2d"
-            android:textSize="15sp">
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_small">
 
         </TextView>
         <TextView
@@ -55,8 +55,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Address"
-            android:textColor="#2d2d2d"
-            android:textSize="13sp">
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium">
 
         </TextView>
 
@@ -66,8 +66,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Phone"
-            android:textColor="#2d2d2d"
-            android:textSize="13sp">
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium">
 
         </TextView>
 
@@ -77,8 +77,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Email"
-            android:textColor="#2d2d2d"
-            android:textSize="13sp">
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium">
 
         </TextView>
 
@@ -98,8 +98,9 @@
                     android:id="@+id/call_restaurant_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chiama"
+                    android:text="@string/call"
                     android:drawableLeft="@drawable/ic_baseline_call_24_white"
+                    android:textSize="@dimen/text_size_small"
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"/>
                 <Button
@@ -108,7 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:drawableLeft="@drawable/ic_baseline_email_24_white"
-                    android:text="Email"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="@string/write"
                     android:layout_marginStart="20dp" />
             </TableRow>
 
@@ -121,7 +123,8 @@
                 android:id="@+id/nav_restaurant_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Indicazioni"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/open_map"
                 android:drawableLeft="@drawable/ic_baseline_location_on_24_white"/>
             </TableRow>
         </LinearLayout>

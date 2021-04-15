@@ -20,8 +20,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="name"
-                android:textColor="#2d2d2d"
-                android:textSize="20sp" />
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_large" />
 
             <TextView
                 android:id="@+id/dish_price_element"
@@ -29,16 +29,16 @@
                 android:layout_height="wrap_content"
                 android:text="price"
                 android:layout_marginRight="50dp"
-                android:textColor="#2d2d2d"
-                android:textSize="20sp" />
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_large" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_medium"
                 android:layout_marginTop="10dp"
                 android:text="description"
-                android:textColor="#2d2d2d"
+                android:textColor="@color/dark_grey"
                 android:id="@+id/dish_description_element"/>
 
 
@@ -58,8 +58,8 @@
                     android:drawableLeft="@drawable/ic_baseline_delete_24"
                     android:text="@string/delete"
                     android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:layout_margin="20dp"/>
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_margin="15dp"/>
 
                 <Button
                     android:id="@+id/edit_dish_card_btn"
@@ -70,8 +70,8 @@
                     android:drawableLeft="@drawable/ic_baseline_edit_24"
                     android:text="@string/edit"
                     android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:layout_margin="20dp"/>
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_margin="15dp"/>
 
 
 

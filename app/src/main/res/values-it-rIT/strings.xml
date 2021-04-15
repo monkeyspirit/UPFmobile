@@ -79,4 +79,7 @@
     <string name="price">Prezzo</string>
     <string name="dish_add_db_failed">Errore nell\'aggiunta del piatto al db</string>
     <string name="dish">Piatti</string>
+    <string name="call">Chiama</string>
+    <string name="write">Scrivi</string>
+    <string name="open_map">Indicazioni</string>
 </resources>

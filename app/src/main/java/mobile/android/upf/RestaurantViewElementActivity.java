@@ -3,11 +3,16 @@ package mobile.android.upf;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,22 +21,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.RecyclerViewAdapter_dish;
 import mobile.android.upf.data.model.RecyclerViewAdapter_restaurant;
 import mobile.android.upf.data.model.Restaurant;
+import mobile.android.upf.ui.client.client_homepage.ClientEditOrdersFragment;
 
 public class RestaurantViewElementActivity extends AppCompatActivity {
 
@@ -153,10 +163,118 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementActivity.this, 1));
                     myrv.setAdapter(myAdapter);
 
+                    ItemTouchHelper itemTouchHelperSwipe = new ItemTouchHelper(simpleCallbackSwipe);
+                    itemTouchHelperSwipe.attachToRecyclerView(myrv);
+
+                }
+            }
+            // SWIPE
+            Dish swipedItem = null;
+            //Gestisco gli swipe a destra e sinistra
+            ItemTouchHelper.SimpleCallback simpleCallbackSwipe = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
                 }
 
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            }
+                    int pos = viewHolder.getAdapterPosition();
+
+                    switch (direction) {
+                        // DELETE
+                        case ItemTouchHelper.LEFT:
+                            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getApplicationContext())
+                                    // set message, title, and icon
+                                    .setTitle(getString(R.string.confirm_delete))
+                                    .setMessage(getString(R.string.confirm_delete))
+                                    .setIcon(R.drawable.ic_baseline_delete_24_black)
+
+                                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            //your deleting code
+                                            swipedItem = lstDish.get(pos);
+                                            String swipedItemId = swipedItem.getId();
+                                            Log.d("id: ", swipedItemId);
+
+                                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    mDatabase.child("Dishes").child(swipedItemId).setValue(null);
+                                                    Toast.makeText(getApplicationContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                    Log.e("firebase", "Error while removing data from db");
+                                                }
+                                            });
+
+                                            lstDish.remove(pos);
+                                            myAdapter.notifyItemRemoved(pos);
+
+                                            dialog.dismiss();
+                                        }
+
+                                    })
+                                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            swipedItem = lstDish.get(pos);
+                                            myAdapter.notifyItemChanged(pos);
+
+                                            dialog.dismiss();
+
+                                        }
+                                    })
+                                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            swipedItem = lstDish.get(pos);
+                                            myAdapter.notifyItemChanged(pos);
+
+                                            dialog.dismiss(); //forse non serve nemmeno
+                                        }
+                                    })
+                                    .create();
+                            myQuittingDialogBox.show();
+
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.design_default_color_primary));
+
+                            break;
+
+
+                        // MODIFY
+                        case ItemTouchHelper.RIGHT:
+                            DishEditFragment dialogEditDishFragment = new DishEditFragment();
+                            dialogEditDishFragment.show(getFragmentManager(), "EditFragment");
+
+                            swipedItem = lstDish.get(pos);
+                            lstDish.remove(pos);
+                            myAdapter.notifyItemRemoved(pos);
+                            //sarà necessario fare un aggiornamento dei dati
+                            lstDish.add(pos, swipedItem);
+                            myAdapter.notifyItemInserted(pos);
+                            break;
+                    }
+
+                }
+
+                @Override
+                public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                    new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                            .addSwipeLeftBackgroundColor(ContextCompat.getColor(RestaurantViewElementActivity.this, R.color.design_default_color_error))
+                            .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                            .addSwipeRightBackgroundColor(ContextCompat.getColor(RestaurantViewElementActivity.this, R.color.design_default_color_secondary))
+                            .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
+                            .create()
+                            .decorate();
+
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                }
+            };
         });
     }
 
@@ -215,8 +333,12 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementActivity.this, 1));
                     myrv.setAdapter(myAdapter);
 
+
+
                 }
             }
+
+
 
         });
     }
