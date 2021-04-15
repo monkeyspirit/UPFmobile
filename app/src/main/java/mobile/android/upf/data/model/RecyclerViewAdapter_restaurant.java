@@ -110,6 +110,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         mDatabase.child("Restaurants").child(toDeleteId).setValue(null);
+
                                         Toast.makeText(mContext, R.string.deleted, Toast.LENGTH_SHORT).show();
                                     }
 
