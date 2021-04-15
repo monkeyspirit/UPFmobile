@@ -119,11 +119,11 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
 
                 View viewInflated = LayoutInflater.from(mContext).inflate(R.layout.dialog_styler_dish_modify, parent, false);
                 final EditText name = (EditText) viewInflated.findViewById(R.id.modify_dish_name_txedit);
-                name.setHint(mData.get(position).getName());
+                name.setText(mData.get(position).getName());
                 final EditText price = (EditText) viewInflated.findViewById(R.id.modify_dish_price_txedit);
-                price.setHint(String.valueOf(mData.get(position).getPrice()));
+                price.setText(String.valueOf(mData.get(position).getPrice()));
                 final EditText description = (EditText) viewInflated.findViewById(R.id.modify_dish_description_txedit);
-                description.setHint(mData.get(position).getDescription());
+                description.setText(mData.get(position).getDescription());
 
 
                 AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
@@ -170,7 +170,7 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
 
                                         ((RestaurantViewElementActivity)mContext).updateRecycler();
 
-                                        Toast.makeText(mContext, R.string.deleted, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, R.string.update, Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override

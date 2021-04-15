@@ -1,9 +1,6 @@
 package mobile.android.upf.data.model;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,44 +10,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementActivity;
 import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
-
-import static android.graphics.Color.RED;
 
 public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant.MyViewHolder> {
 
@@ -168,15 +150,15 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
                 View viewInflated = LayoutInflater.from(mContext).inflate(R.layout.dialog_styler_restaurant_modify, parent, false);
                 final EditText name = (EditText) viewInflated.findViewById(R.id.modify_restaurant_name_txedit);
-                name.setHint(mData.get(position).getName());
+                name.setText(mData.get(position).getName());
                 final EditText description = (EditText) viewInflated.findViewById(R.id.modify_restaurant_description_txedit);
-                description.setHint(mData.get(position).getDescription());
+                description.setText(mData.get(position).getDescription());
                 final EditText email = (EditText) viewInflated.findViewById(R.id.modify_restaurant_email_txedit);
-                email.setHint(mData.get(position).getEmail());
+                email.setText(mData.get(position).getEmail());
                 final EditText address = (EditText) viewInflated.findViewById(R.id.modify_restaurant_address_txedit);
-                address.setHint(mData.get(position).getAddress());
+                address.setText(mData.get(position).getAddress());
                 final EditText phone = (EditText) viewInflated.findViewById(R.id.modify_restaurant_phone_txedit);
-                phone.setHint(mData.get(position).getPhone());
+                phone.setText(mData.get(position).getPhone());
 
 //                final CircularImageView restaurant_pic = (CircularImageView) viewInflated.findViewById(R.id.restaurant_pic_modify);
 //                restaurant_pic.setOnClickListener(new View.OnClickListener() {
@@ -243,7 +225,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
                                         ((RestaurantRestaurantsFragment)mFragment).updateRecycler();
 
-                                        Toast.makeText(mContext, R.string.deleted, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, R.string.update, Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
