@@ -82,4 +82,5 @@
     <string name="call">Chiama</string>
     <string name="write">Scrivi</string>
     <string name="open_map">Indicazioni</string>
+    <string name="save">Salva</string>
 </resources>

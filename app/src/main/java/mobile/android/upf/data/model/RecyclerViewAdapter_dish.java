@@ -1,20 +1,24 @@
 package mobile.android.upf.data.model;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +35,7 @@ import mobile.android.upf.RestaurantViewElementActivity;
 public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewAdapter_dish.MyViewHolder> {
 
     private Context mContext;
+    private ViewGroup parent;
     private List<Dish> mData;
     private DatabaseReference mDatabase;
 
@@ -43,6 +48,7 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
     public RecyclerViewAdapter_dish.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
+        this.parent = parent;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -113,6 +119,92 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
         holder.tv_edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                View viewInflated = LayoutInflater.from(mContext).inflate(R.layout.dialog_styler, parent, false);
+                final EditText name = (EditText) viewInflated.findViewById(R.id.modify_name_txedit);
+                name.setHint(mData.get(position).getName());
+                final EditText price = (EditText) viewInflated.findViewById(R.id.modify_price_txedit);
+                price.setHint(String.valueOf(mData.get(position).getPrice()));
+                final EditText description = (EditText) viewInflated.findViewById(R.id.modify_description_txedit);
+                description.setHint(mData.get(position).getDescription());
+
+
+                AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
+                        // set message, title, and icon
+                        .setTitle(R.string.edit)
+                        .setView(viewInflated)
+                        .setIcon(R.drawable.ic_baseline_edit_24_black)
+                        .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                String toEditId = mData.get(position).getId();
+                                Log.d("Dish to edit id: ", toEditId);
+
+                                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String update_name, update_description;
+                                        double update_price;
+
+                                        if(!name.getText().toString().equals("")){
+                                            update_name = name.getText().toString();
+                                        }
+                                        else {
+                                            update_name = mData.get(position).getName();
+                                        }
+
+                                        if(!description.getText().toString().equals("")){
+                                            update_description = description.getText().toString();
+                                        }
+                                        else {
+                                            update_description = mData.get(position).getDescription();
+                                        }
+
+                                        if(!price.getText().toString().equals("")){
+                                            update_price = Double.parseDouble(price.getText().toString());
+                                        }
+                                        else {
+                                            update_price = mData.get(position).getPrice();
+                                        }
+
+                                        Dish update = new Dish(toEditId, update_name, update_description, mData.get(position).getRestaurant_id(), update_price);
+                                        mDatabase.child("Dishes").child(toEditId).setValue(update);
+
+                                        ((RestaurantViewElementActivity)mContext).updateRecycler();
+
+                                        Toast.makeText(mContext, R.string.deleted, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.e("firebase", "Error while editing data from db");
+                                    }
+                                });
+
+
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                            }
+                        })
+                        .create();
+
+
+
+                myQuittingDialogBox.show();
+
+                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#6200EE"));
 
             }
         });
