@@ -94,6 +94,8 @@ public class AddDishRestaurantActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            Intent returnIntent = new Intent();
+                            setResult(RESULT_OK, returnIntent);
                             finish();
                         } else {
                             Toast.makeText(AddDishRestaurantActivity.this, getString(R.string.dish_add_db_failed), LENGTH_LONG).show();

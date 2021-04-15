@@ -80,20 +80,26 @@
             android:textSize="25sp"/>
 
 
-          <Button
-              android:id="@+id/add_restaurant_dish_btn"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/add_dish"
-              android:layout_gravity="center"
-              android:drawableLeft="@drawable/ic_baseline_add_24_white"/>
+<!--          <Button-->
+<!--              android:id="@+id/add_restaurant_dish_btn"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content"-->
+<!--              android:text="@string/add_dish"-->
+<!--              android:layout_gravity="center"-->
+<!--              android:drawableLeft="@drawable/ic_baseline_add_24_white"/>-->
+
+
 
           <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_restaurant_dishes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </androidx.recyclerview.widget.RecyclerView>
+          </androidx.recyclerview.widget.RecyclerView>
+
+          <Space
+          android:layout_width="match_parent"
+          android:layout_height="70dp" />
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -105,7 +111,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab_dish"
             android:layout_width="wrap_content"
-            android:layout_height="68dp"
+            android:layout_height="60dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:text="@string/add_dish"
