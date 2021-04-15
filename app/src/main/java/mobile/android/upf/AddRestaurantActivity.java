@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 
 import android.app.ProgressDialog;
@@ -41,6 +42,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mobile.android.upf.data.model.Restaurant;
+import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -153,6 +155,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.GONE);
+                            Intent returnIntent = new Intent();
+                            setResult(RESULT_OK, returnIntent);
                             finish();
                         } else {
                             progressBar.setVisibility(View.GONE);
@@ -212,7 +216,9 @@ public class AddRestaurantActivity extends AppCompatActivity {
         picRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                pd.dismiss();
+                if (!AddRestaurantActivity.this.isFinishing() && pd != null) {
+                    pd.dismiss();
+                }
                 picRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -224,9 +230,10 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
                         restRef.updateChildren(updates);
 
-                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
                     }
                 });
+
             }
         })
                 .addOnFailureListener(new OnFailureListener() {

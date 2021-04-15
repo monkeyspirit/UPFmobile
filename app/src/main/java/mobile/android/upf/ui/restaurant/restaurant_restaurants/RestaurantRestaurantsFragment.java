@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -47,6 +48,8 @@ import mobile.android.upf.R;
 import mobile.android.upf.data.model.RecyclerViewAdapter_restaurant;
 import mobile.android.upf.data.model.Restaurant;
 import mobile.android.upf.ui.client.client_homepage.ClientEditOrdersFragment;
+
+import static android.app.Activity.RESULT_OK;
 
 public class RestaurantRestaurantsFragment extends Fragment {
 
@@ -81,7 +84,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddRestaurantActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -139,6 +142,19 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+
+            if (resultCode == RESULT_OK) {
+                Log.d("Update", "YES");
+                updateRecycler();
+                myAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public void updateRecycler(){

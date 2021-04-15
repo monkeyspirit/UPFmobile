@@ -119,17 +119,6 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
             }
         });
 
-//        add_restaurant_dish_btn = findViewById(R.id.add_restaurant_dish_btn);
-//        add_restaurant_dish_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(RestaurantViewElementActivity.this, AddDishRestaurantActivity.class);
-//                intent.putExtra("id", restaurant_id);
-//                startActivity(intent);
-//            }
-//        });
-
-
 
         lstDish = new ArrayList<>();
 
