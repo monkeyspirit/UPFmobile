@@ -14,7 +14,7 @@
 
         <!--Name-->
         <EditText
-            android:id="@+id/modify_name_txedit"
+            android:id="@+id/modify_dish_name_txedit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="Try"
@@ -22,7 +22,7 @@
 
         <!--Price-->
         <EditText
-            android:id="@+id/modify_price_txedit"
+            android:id="@+id/modify_dish_price_txedit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="Try"
@@ -31,7 +31,7 @@
 
         <!--Description-->
         <EditText
-            android:id="@+id/modify_description_txedit"
+            android:id="@+id/modify_dish_description_txedit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="Try"

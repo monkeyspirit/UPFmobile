@@ -67,6 +67,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
     private RecyclerViewAdapter_restaurant myAdapter;
 
     private List<Restaurant> lstRest;
+    private String userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        String userId = currentUser.getUid();
+        userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -123,7 +124,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
                     }
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_restaurants);
-                    myAdapter = new RecyclerViewAdapter_restaurant(getActivity(), lstRest);
+                    myAdapter = new RecyclerViewAdapter_restaurant(getActivity(), lstRest, RestaurantRestaurantsFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -252,5 +253,48 @@ public class RestaurantRestaurantsFragment extends Fragment {
         return root;
     }
 
+    public void updateRecycler(){
+        lstRest = new ArrayList<>();
+
+        mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
+
+                    for (DataSnapshot restaurant : restaurants_database) {
+//                        ID del ristorante
+                        Log.d("firebase ID rest", String.valueOf(restaurant.getKey()));
+                        Log.d("firebase ID rest in iD", String.valueOf(restaurant.child("id").getValue()));
+                        Log.d("firebase", String.valueOf(restaurant.child("name").getValue()));
+                        if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)) {
+                            lstRest.add(new Restaurant(
+                                    String.valueOf(restaurant.getKey()),
+                                    String.valueOf(restaurant.child("name").getValue()),
+                                    String.valueOf(restaurant.child("description").getValue()),
+                                    String.valueOf(restaurant.child("email").getValue()),
+                                    String.valueOf(restaurant.child("address").getValue()),
+                                    String.valueOf(restaurant.child("phone").getValue()),
+                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("imageUrl").getValue()),
+                                    Integer.valueOf(String.valueOf(restaurant.child("status").getValue()))));
+                        }
+
+                    }
+
+
+                    myAdapter = new RecyclerViewAdapter_restaurant(getActivity(), lstRest, RestaurantRestaurantsFragment.this);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+            }
+
+        });
+
+    }
 
 }

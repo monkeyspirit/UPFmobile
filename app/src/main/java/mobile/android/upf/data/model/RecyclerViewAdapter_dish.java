@@ -1,24 +1,20 @@
 package mobile.android.upf.data.model;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -121,12 +117,12 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
             public void onClick(View v) {
 
 
-                View viewInflated = LayoutInflater.from(mContext).inflate(R.layout.dialog_styler, parent, false);
-                final EditText name = (EditText) viewInflated.findViewById(R.id.modify_name_txedit);
+                View viewInflated = LayoutInflater.from(mContext).inflate(R.layout.dialog_styler_dish_modify, parent, false);
+                final EditText name = (EditText) viewInflated.findViewById(R.id.modify_dish_name_txedit);
                 name.setHint(mData.get(position).getName());
-                final EditText price = (EditText) viewInflated.findViewById(R.id.modify_price_txedit);
+                final EditText price = (EditText) viewInflated.findViewById(R.id.modify_dish_price_txedit);
                 price.setHint(String.valueOf(mData.get(position).getPrice()));
-                final EditText description = (EditText) viewInflated.findViewById(R.id.modify_description_txedit);
+                final EditText description = (EditText) viewInflated.findViewById(R.id.modify_dish_description_txedit);
                 description.setHint(mData.get(position).getDescription());
 
 
