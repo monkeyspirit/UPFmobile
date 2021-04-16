@@ -20,6 +20,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -66,6 +67,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
     private Restaurant restaurant;
 
+    private boolean noImageLoaded = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
         restaurant_description = (EditText) findViewById(R.id.restaurant_description);
         restaurant_pic = (CircularImageView) findViewById(R.id.restaurant_pic);
 
+
         add_restaurant_btn = (Button) findViewById(R.id.add_restaurant_btn);
 
         restaurant_pic.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +112,6 @@ public class AddRestaurantActivity extends AppCompatActivity {
                 String phone = restaurant_phone.getText().toString().trim();
                 String email = restaurant_emailAddress.getText().toString().trim();
                 String description = restaurant_description.getText().toString().trim();
-
 
                 if (name.isEmpty()) {
                     restaurant_name.setError(getString(R.string.empty_name));
@@ -147,8 +150,13 @@ public class AddRestaurantActivity extends AppCompatActivity {
                  * Status: 0 = non approvato; 1 = approvato
                  */
                 restaurant = new Restaurant(name, description, email, address, phone, restaurateur_id, "", 0);
-
                 uploadPicture();
+
+                if (noImageLoaded) {
+                    restaurant = new Restaurant(name, description, email, address, phone, restaurateur_id,
+                            "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=8eb676a6-5658-4046-98f8-d21f6764ac20", 0);
+                }
+
 
                 mDatabase.child("Restaurants").child(restaurant.getId()).setValue(restaurant).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -194,11 +202,25 @@ public class AddRestaurantActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             restaurant_pic.setImageURI(imageUri);
+
+
             //uploadPicture();
         }
     }
 
     private String getFileExtension(Uri _imageUri) {
+
+        if (_imageUri == null) {
+            String urlImage = "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=8eb676a6-5658-4046-98f8-d21f6764ac20";
+            _imageUri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=8eb676a6-5658-4046-98f8-d21f6764ac20");
+            imageUri = _imageUri;
+            noImageLoaded = true;
+
+            Glide.with(AddRestaurantActivity.this)
+                    .load(urlImage)
+                    .into(restaurant_pic);
+        }
+
         ContentResolver cr = AddRestaurantActivity.this.getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(_imageUri));
@@ -250,6 +272,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
                         pd.setMessage(getString(R.string.progress) + (int) progressPercent + "%");
                     }
                 });
+
 
     }
 

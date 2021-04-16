@@ -100,4 +100,6 @@
     <string name="write">Write</string>
     <string name="open_map">See on map</string>
     <string name="save">Save</string>
+
+    <string name="load_image_please">Load an image, please</string>
 </resources>
