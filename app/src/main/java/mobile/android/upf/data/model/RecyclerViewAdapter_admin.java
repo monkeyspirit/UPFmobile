@@ -117,16 +117,13 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
             @Override
             public void onClick(View v) {
 
-                decline_msgEditText = new EditText(mContext);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                decline_msgEditText.setLayoutParams(lp);
+                View viewInflated = LayoutInflater.from(mContext).inflate(R.layout.dialog_styler_admin_restaurant, parent, false);
+                decline_msgEditText = (EditText) viewInflated.findViewById(R.id.decline_msg_txtedit);
 
                 AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
                         // set message, title, and icon
                         .setTitle(R.string.notapproved)
-                        .setView(decline_msgEditText)
+                        .setView(viewInflated)
                         .setMessage(R.string.decline)
                         .setIcon(R.drawable.ic_baseline_close_black_24)
                         .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {

@@ -98,11 +98,6 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
         }
 
-//        Ho paura che il colore rosso di sfondo possa dare idee sbagliate all'utente: rosso = ho sbagliato. Quindi per ora lo commento
-//        Magari metterei due zone: zona approvati + zona non approvati
-//        if (mData.get(position).getStatus() == 0) {
-//            holder.tv_restaurant_card.setBackgroundColor(Color.parseColor("#ffa1a1"));
-//        }
 
         holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
