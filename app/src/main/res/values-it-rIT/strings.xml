@@ -87,4 +87,5 @@
     <string name="load_image_please">Carica un\'immagine, per favore</string>
     <string name="approved">Approva</string>
     <string name="notapproved">Rifiuta</string>
+    <string name="decline">Lascia un messaggio all\'utente per informarlo perché il suo ristorante non è stato approvato:</string>
 </resources>

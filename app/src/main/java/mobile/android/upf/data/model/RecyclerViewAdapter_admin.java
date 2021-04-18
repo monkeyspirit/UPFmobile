@@ -127,6 +127,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         // set message, title, and icon
                         .setTitle(R.string.notapproved)
                         .setView(decline_msgEditText)
+                        .setMessage(R.string.decline)
                         .setIcon(R.drawable.ic_baseline_close_black_24)
                         .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
