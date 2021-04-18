@@ -9,6 +9,7 @@ public class Restaurant {
     private String id;
     private String name, description, email, address, phone, restaurateur_id, imageUrl;
     private int status;
+    private String decline_msg;
 
     public Restaurant() {
     }
@@ -41,6 +42,20 @@ public class Restaurant {
         this.imageUrl = imageUrl;
         this.status = status;
         this.id = id;
+    }
+
+    public Restaurant(String id, String name, String description, String email, String address, String phone,
+                      String restaurateur_id, String imageUrl, int status, String decline_msg) {
+        this.name = name;
+        this.description = description;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.restaurateur_id = restaurateur_id;
+        this.imageUrl = imageUrl;
+        this.status = status;
+        this.id = id;
+        this.decline_msg = decline_msg;
     }
 
     public String getId() {
@@ -113,6 +128,14 @@ public class Restaurant {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getDecline_msg() {
+        return decline_msg;
+    }
+
+    public void setDecline_msg(String decline_msg) {
+        this.decline_msg = decline_msg;
     }
 
     public String md5(String s) {
