@@ -101,4 +101,46 @@ public class AdminHomepageFragment extends Fragment {
 
         return root;
     }
+
+    public void updateRecycler(){
+        lstRest = new ArrayList<>();
+
+        mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
+
+                    for (DataSnapshot restaurant : restaurants_database) {
+//                        ID del ristorante
+
+                        if (String.valueOf(restaurant.child("status").getValue()).equals("0")) {
+                            lstRest.add(new Restaurant(
+                                    String.valueOf(restaurant.getKey()),
+                                    String.valueOf(restaurant.child("name").getValue()),
+                                    String.valueOf(restaurant.child("description").getValue()),
+                                    String.valueOf(restaurant.child("email").getValue()),
+                                    String.valueOf(restaurant.child("address").getValue()),
+                                    String.valueOf(restaurant.child("phone").getValue()),
+                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("imageUrl").getValue()),
+                                    Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                        }
+
+                    }
+
+
+                    myAdapter = new RecyclerViewAdapter_admin(getActivity(), lstRest, AdminHomepageFragment.this);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+            }
+
+        });
+
+    }
 }

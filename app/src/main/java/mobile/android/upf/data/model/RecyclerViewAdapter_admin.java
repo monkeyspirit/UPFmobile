@@ -36,6 +36,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementActivity;
+import mobile.android.upf.ui.admin.admin_homepage.AdminHomepageFragment;
 import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
 
 public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerViewAdapter_admin.MyViewHolder>  {
@@ -87,13 +88,32 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
         }
 
-//        holder.tv_yes_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
+        holder.tv_yes_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String toEditId = mData.get(position).getId();
+                Log.d("Restaurant to edit id: ", toEditId);
+
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Restaurant update = new Restaurant(toEditId, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
+                        mDatabase.child("Restaurants").child(toEditId).setValue(update);
+
+                        ((AdminHomepageFragment) mFragment).updateRecycler();
+
+                        Toast.makeText(mContext, R.string.update, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("firebase", "Error while editing data from db");
+                    }
+                });
+            }
+            });
+
 //        holder.tv_no_btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
