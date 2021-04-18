@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="WAITING">0</integer>
+    <integer name="APPROVED">1</integer>
+    <integer name="NOT_APPROVED">2</integer>
+</resources>
