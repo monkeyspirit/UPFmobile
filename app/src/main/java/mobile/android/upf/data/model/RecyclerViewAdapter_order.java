@@ -13,12 +13,12 @@ import java.util.List;
 
 import mobile.android.upf.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class RecyclerViewAdapter_order extends RecyclerView.Adapter<RecyclerViewAdapter_order.MyViewHolder> {
 
     private Context mContext;
     private List<Order> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<Order> mData) {
+    public RecyclerViewAdapter_order(Context mContext, List<Order> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

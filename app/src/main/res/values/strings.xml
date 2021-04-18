@@ -102,4 +102,6 @@
     <string name="save">Save</string>
 
     <string name="load_image_please">Load an image, please</string>
+    <string name="approved">Approve</string>
+    <string name="notapproved">Decline</string>
 </resources>

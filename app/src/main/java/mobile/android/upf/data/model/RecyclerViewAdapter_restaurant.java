@@ -92,7 +92,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
         String uriS = mData.get(position).getImageUrl();
 
-        if (uriS != "") {
+        if (!uriS.equals("")) {
             Uri uri = Uri.parse(mData.get(position).getImageUrl());
             Log.d("firebase", "Image Url: " + uri);
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
@@ -325,9 +325,9 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element);
-//            tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_description_element);
 
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic);
+
 
             tv_delete_btn = (Button) itemView.findViewById(R.id.delete_restaurant_card_btn);
             tv_edit_btn = (Button) itemView.findViewById(R.id.edit_restaurant_card_btn);

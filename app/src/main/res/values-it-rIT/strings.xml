@@ -85,4 +85,6 @@
     <string name="save">Salva</string>
     <string name="update">Aggiornato</string>
     <string name="load_image_please">Carica un\'immagine, per favore</string>
+    <string name="approved">Approva</string>
+    <string name="notapproved">Rifiuta</string>
 </resources>

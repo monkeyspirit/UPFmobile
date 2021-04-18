@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +37,7 @@ import java.util.List;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RecyclerViewAdapter;
+import mobile.android.upf.data.model.RecyclerViewAdapter_order;
 
 public class ClientOrdersFragment extends Fragment {
 
@@ -55,7 +53,7 @@ public class ClientOrdersFragment extends Fragment {
     LinearLayout linearLayout;
 
     RecyclerView myrv;
-    RecyclerViewAdapter myAdapter;
+    RecyclerViewAdapter_order myAdapter;
 
     //    Solo di prova
     List<Order> lstOrder;
@@ -99,7 +97,7 @@ public class ClientOrdersFragment extends Fragment {
                     lstOrder.add(new Order(address, address, address));
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
-                    myAdapter = new RecyclerViewAdapter(getActivity(), lstOrder);
+                    myAdapter = new RecyclerViewAdapter_order(getActivity(), lstOrder);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);

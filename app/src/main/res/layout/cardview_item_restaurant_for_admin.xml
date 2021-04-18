@@ -5,8 +5,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/restaurant_card"
-    android:layout_height="390dp"
+    android:id="@+id/admin_restaurant_card"
+    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
@@ -32,7 +32,7 @@
             android:text="prova"
             android:textSize="@dimen/text_size_medium_large"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_name_element"/>
+            android:id="@+id/admin_restaurant_name_element"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:textSize="@dimen/text_size_mini"
             android:text="prova"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_address_element"/>
+            android:id="@+id/admin_restaurant_address_element"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:textSize="@dimen/text_size_mini"
             android:text="prova"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_phone_element"/>
+            android:id="@+id/admin_restaurant_phone_element"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -59,41 +59,42 @@
             android:textSize="@dimen/text_size_mini"
             android:text="prova"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_email_element"/>
+            android:id="@+id/admin_restaurant_email_element"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_mini"
+            android:text="prova"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/admin_restaurant_descpription_element"/>
 
         <ImageView
-            android:id="@+id/restaurant_card_pic"
+            android:id="@+id/admin_restaurant_card_pic"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:textColor="@color/dark_grey"
             android:scaleType="centerCrop"
             android:layout_margin="10dp"/>
 
-        <Button
-            android:id="@+id/view_restaurant_card_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/view"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"/>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp">
 
             <Button
-                android:id="@+id/edit_restaurant_card_btn"
+                android:id="@+id/admin_yes_restaurant_card_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:backgroundTint="@color/secondary"
-                android:drawableLeft="@drawable/ic_baseline_edit_24"
-                android:text="@string/edit"
+                android:backgroundTint="#4CAF50"
+                android:drawableLeft="@drawable/ic_baseline_check_24_white"
+                android:text="@string/approved"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size_small"
                 app:layout_constraintEnd_toStartOf="@+id/delete_restaurant_card_btn"
@@ -101,14 +102,14 @@
 
 
             <Button
-                android:id="@+id/delete_restaurant_card_btn"
+                android:id="@+id/admin_no_restaurant_card_btn"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/red"
-                android:drawableLeft="@drawable/ic_baseline_delete_24"
-                android:text="@string/delete"
+                android:drawableLeft="@drawable/ic_baseline_close_white_24"
+                android:text="@string/notapproved"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size_small"
                 android:layout_marginLeft="15dp"/>
