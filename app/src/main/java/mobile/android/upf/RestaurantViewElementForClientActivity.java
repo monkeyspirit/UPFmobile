@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurante_view_element_client);
+        setContentView(R.layout.activity_restaurant_view_element_client);
 
 //        Back arrow
         ActionBar actionBar = getSupportActionBar();
@@ -55,6 +56,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 //        Get restaurant ID
         Intent intent = getIntent();
         restaurant_id = intent.getExtras().getString("id");
+        Log.d("PASSED", restaurant_id);
 
         restaurant_name_element_tv = findViewById(R.id.restaurant_name_element_tv_client);
         restaurant_phone_element_tv = findViewById(R.id.restaurant_phone_element_tv_client);
@@ -93,18 +95,6 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             }
         });
 
-//        Floating button per l'aggiunta di nuovi piatti
-        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RestaurantViewElementForClientActivity.this, AddDishRestaurantActivity.class);
-                intent.putExtra("id", restaurant_id);
-                startActivityForResult(intent, 1);
-            }
-        });
-
-
         lstDish = new ArrayList<>();
 
         mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -131,7 +121,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
                     }
 
-                    myrv = (RecyclerView) findViewById(R.id.recyclerview_restaurant_dishes);
+                    myrv = (RecyclerView) findViewById(R.id.recyclerview_restaurant_dishes_client);
                     myAdapter = new RecyclerViewAdapter_dish(RestaurantViewElementForClientActivity.this, lstDish);
 
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementForClientActivity.this, 1));
@@ -142,5 +132,15 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_upf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
+        <activity android:name=".RestaurantViewElementForClientActivity"
+            android:label="@string/title_activity_view_restaurant"/>
         <activity android:name=".AddDishRestaurantActivity" />
         <activity
             android:name=".RestaurantViewElementActivity"

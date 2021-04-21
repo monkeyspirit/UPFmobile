@@ -45,6 +45,16 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        holder.tv_restaurant_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, RestaurantViewElementForClientActivity.class);
+                intent.putExtra("id", mData.get(position).getId());
+                Log.d("PASSED", mData.get(position).getId());
+                mContext.startActivity(intent);
+            }
+        });
+
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
         //holder.tv_restaurant_description.setText(mData.get(position).getDescription());
@@ -58,6 +68,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             Log.d("firebase", "Image Url: " + uri);
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
         }
+
     }
 
     @Override
@@ -65,7 +76,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         CardView tv_restaurant_card;
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email;
@@ -88,15 +99,6 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             call_restaurant_btn = (Button) itemView.findViewById(R.id.call_restaurant_btn);
             email_restaurant_btn = (Button) itemView.findViewById(R.id.email_restaurant_btn);
             nav_restaurant_btn = (Button) itemView.findViewById(R.id.nav_restaurant_btn);
-
-            tv_restaurant_address.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Non funziona... non va bene il contesto
-                    Intent intent = new Intent(v.getContext(), RestaurantViewElementForClientActivity.class);
-                    mContext.startActivity(intent);
-                }
-            });
 
             call_restaurant_btn.setOnClickListener(new View.OnClickListener() {
                 @Override

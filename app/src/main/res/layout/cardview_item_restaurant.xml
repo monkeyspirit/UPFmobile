@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/restaurant_card"
-    android:layout_height="390dp"
+    android:layout_height="400dp"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
@@ -18,18 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp">
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="prova"
+            android:text="name"
             android:textSize="@dimen/text_size_medium_large"
             android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_name_element"/>
@@ -39,7 +37,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="address"
             android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_address_element"/>
 
@@ -48,7 +46,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="phone"
             android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_phone_element"/>
 
@@ -57,9 +55,18 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="email"
             android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_email_element"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_mini"
+            android:text="description"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/restaurant_description_element"/>
 
         <ImageView
             android:id="@+id/restaurant_card_pic"
@@ -69,14 +76,13 @@
             android:scaleType="centerCrop"
             android:layout_margin="10dp"/>
 
-        <Button
+        <!--<Button
             android:id="@+id/view_restaurant_card_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view"
             android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"/>
-
+            android:layout_marginLeft="40dp"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,7 +119,6 @@
                 android:textSize="@dimen/text_size_small"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

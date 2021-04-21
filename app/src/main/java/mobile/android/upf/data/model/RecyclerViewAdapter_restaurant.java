@@ -78,9 +78,10 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         holder.tv_restaurant_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //code to go to edit activity
+                //code to go to view activity
                 Intent intent = new Intent(mContext, RestaurantViewElementActivity.class);
                 intent.putExtra("id", mData.get(position).getId());
+                Log.d("PASSED", mData.get(position).getId());
                 mContext.startActivity(intent);
             }
         });
@@ -287,6 +288,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             }
         });
 
+        /*
         holder.tv_view_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -296,6 +298,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                 mContext.startActivity(intent);
             }
         });
+        */
 
     }
 
@@ -306,10 +309,10 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
+        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email;
         ImageView tv_restaurant_pic;
         CardView tv_restaurant_card;
-        Button tv_delete_btn, tv_edit_btn, tv_view_btn;
+        Button tv_delete_btn, tv_edit_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -326,11 +329,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
             tv_delete_btn = (Button) itemView.findViewById(R.id.delete_restaurant_card_btn);
             tv_edit_btn = (Button) itemView.findViewById(R.id.edit_restaurant_card_btn);
-            tv_view_btn = (Button) itemView.findViewById(R.id.view_restaurant_card_btn);
+            //tv_view_btn = (Button) itemView.findViewById(R.id.view_restaurant_card_btn);
         }
     }
-
-
-
 
 }
