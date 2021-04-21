@@ -97,7 +97,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), R.integer.APPROVED);
+                        Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
                         ((AdminHomepageFragment) mFragment).updateRecycler();
@@ -187,7 +187,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                                Restaurant update = new Restaurant(toDecline, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), R.integer.NOT_APPROVED, decline_msgEditText.getText().toString());
+                                Restaurant update = new Restaurant(toDecline, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
                                 mDatabase.child("Restaurants").child(toDecline).setValue(update);
 
                                 ((AdminHomepageFragment) mFragment).updateRecycler();

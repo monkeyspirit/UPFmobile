@@ -300,7 +300,7 @@
                         android:id="@+id/client_address_insert"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:ems="@dimen/ems_small"
+                        android:ems="10"
                         android:hint="@string/prompt_address"
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"

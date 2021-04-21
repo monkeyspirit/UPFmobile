@@ -154,7 +154,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
                 if (noImageLoaded) {
                     restaurant = new Restaurant(name, description, email, address, phone, restaurateur_id,
-                            "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=4777a50d-1445-44e1-a62b-d895d9d7fb82",  R.integer.WAITING);
+                            "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=4777a50d-1445-44e1-a62b-d895d9d7fb82",  0);
                 }
 
 

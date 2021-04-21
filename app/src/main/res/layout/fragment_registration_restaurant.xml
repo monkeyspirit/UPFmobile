@@ -19,7 +19,7 @@
             android:id="@+id/restaurateur_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="textPersonName"
             android:hint="@string/prompt_name"/>
 
@@ -34,7 +34,7 @@
             android:id="@+id/restaurateur_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="textPersonName"
             android:hint="@string/prompt_surname"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -48,7 +48,7 @@
             android:id="@+id/restaurateur_emailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="textEmailAddress"
             android:hint="@string/prompt_email"
             />
@@ -63,7 +63,7 @@
             android:id="@+id/restaurateur_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="phone"
             android:hint="@string/prompt_phone"
             />
@@ -78,7 +78,7 @@
             android:id="@+id/restaurateur_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="textPersonName"
             android:hint="@string/prompt_rest_address"
             />
@@ -94,7 +94,7 @@
             android:id="@+id/restaurateur_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="textPassword"
             android:hint="@string/prompt_password"
 
@@ -110,7 +110,7 @@
             android:id="@+id/restaurateur_passwordConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="@dimen/ems_small"
+            android:ems="10"
             android:inputType="textPassword"
             android:hint="@string/prompt_confirm_password"
             />

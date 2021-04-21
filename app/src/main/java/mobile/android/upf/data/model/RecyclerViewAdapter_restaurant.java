@@ -248,7 +248,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                             update_phone = mData.get(position).getPhone();
                                         }
 
-                                        Restaurant update = new Restaurant(toEditId, update_name, update_description, update_email, update_address, update_phone, mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), R.integer.WAITING);
+                                        Restaurant update = new Restaurant(toEditId, update_name, update_description, update_email, update_address, update_phone, mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 0);
                                         mDatabase.child("Restaurants").child(toEditId).setValue(update);
 
                                         ((RestaurantRestaurantsFragment)mFragment).updateRecycler();
