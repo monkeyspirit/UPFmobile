@@ -127,7 +127,6 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementForClientActivity.this, 1));
                     myrv.setAdapter(myAdapter);
 
-
                 }
             }
 

@@ -51,6 +51,7 @@ public class ClientRestaurantsFragment extends Fragment {
     RecyclerViewAdapter_restaurant_for_client myAdapter;
 
     List<Restaurant> lstRest;
+    private String userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class ClientRestaurantsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        String userId = currentUser.getUid();
+        userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
