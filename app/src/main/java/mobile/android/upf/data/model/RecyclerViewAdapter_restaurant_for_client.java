@@ -50,10 +50,10 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, RestaurantViewElementForClientActivity.class);
                 intent.putExtra("id", mData.get(position).getId());
-                Log.d("PASSED", mData.get(position).getId());
                 mContext.startActivity(intent);
             }
         });
+
 
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
