@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.RestaurantViewElementForClientActivity;
 
 public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_for_client.MyViewHolder> {
 
@@ -65,14 +67,15 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
+        CardView tv_restaurant_card;
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email;
-
         ImageView tv_restaurant_pic;
-
         Button call_restaurant_btn, email_restaurant_btn, nav_restaurant_btn;
 
         public MyViewHolder(@NonNull View itemView, Context mContext) {
             super(itemView);
+
+            tv_restaurant_card = (CardView) itemView.findViewById(R.id.card_restaurant_client);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element_for_client);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element_for_client);
@@ -83,12 +86,41 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic_for_client);
 
             call_restaurant_btn = (Button) itemView.findViewById(R.id.call_restaurant_btn);
+            email_restaurant_btn = (Button) itemView.findViewById(R.id.email_restaurant_btn);
+            nav_restaurant_btn = (Button) itemView.findViewById(R.id.nav_restaurant_btn);
+
+            tv_restaurant_address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Non funziona... non va bene il contesto
+                    Intent intent = new Intent(v.getContext(), RestaurantViewElementForClientActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+
             call_restaurant_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent callIntent = new Intent(Intent.ACTION_DIAL);
                     callIntent .setData(Uri.parse("tel:"+tv_restaurant_phone.getText().toString()));
                     mContext.startActivity(callIntent);
+                }
+            });
+
+            email_restaurant_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent emailIntent = new Intent(Intent.ACTION_DIAL);
+                    emailIntent.setData(Uri.parse("email:"+tv_restaurant_email.getText().toString()));
+                    mContext.startActivity(emailIntent);
+                }
+            });
+
+            nav_restaurant_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent navIntent = new Intent(Intent.ACTION_DIAL);
+                    Log.d("map", "Opening the map");
                 }
             });
 

@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_restaurant_client"
     android:layout_width="match_parent"
     android:layout_height="350dp"
     android:layout_marginRight="10dp"
