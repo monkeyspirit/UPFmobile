@@ -62,7 +62,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_medium"
             android:text="@string/load_photo"/>
 
         <com.mikhaellopez.circularimageview.CircularImageView

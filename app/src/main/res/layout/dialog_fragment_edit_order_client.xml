@@ -19,7 +19,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Edit your order"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/text_size_medium"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -27,38 +27,39 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Order details"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/text_size_medium"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:text="Order details"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/text_size_medium"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:text="Order details"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/text_size_medium"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:text="Order details"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/text_size_medium"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:text="Order details"
                 android:textAlignment="center"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/text_size_medium"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textSize="@dimen/text_size_large"
                 android:text="@string/confirm"/>
 
         </LinearLayout>

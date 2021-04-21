@@ -20,4 +20,7 @@
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_medium_large">20sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_extra_large">25sp</dimen>
+
+    <dimen name="text_area_height">245dp</dimen>
 </resources>

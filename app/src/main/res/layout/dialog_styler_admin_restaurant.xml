@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="Try"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"/>
 
 
 

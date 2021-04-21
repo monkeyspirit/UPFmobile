@@ -19,7 +19,7 @@
             android:id="@+id/client_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_name"
             android:inputType="textPersonName" />
 
@@ -35,7 +35,7 @@
             android:id="@+id/client_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_surname"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,7 @@
             android:id="@+id/client_emailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,7 +65,7 @@
             android:id="@+id/client_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_phone"
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,7 @@
             android:id="@+id/client_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_address"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +96,7 @@
             android:id="@+id/client_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
 
@@ -114,7 +114,7 @@
             android:id="@+id/client_passwordConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="@dimen/ems_small"
             android:hint="@string/prompt_confirm_password"
             android:inputType="textPassword" />
 

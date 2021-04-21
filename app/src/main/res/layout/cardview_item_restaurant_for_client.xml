@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="400dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="20dp"
@@ -27,7 +27,7 @@
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/restaurant_card_pic_for_client"
                 android:layout_width="match_parent"
-                android:layout_height="99dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:src="@drawable/ic_baseline_add_photo_alternate_24" />

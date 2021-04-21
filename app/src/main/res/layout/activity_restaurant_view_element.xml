@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="name"
-                android:textSize="25sp" />
+                android:textSize="@dimen/text_size_extra_large" />
 
             <TextView
                 android:id="@+id/restaurant_address_element_tv"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="address"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/restaurant_phone_element_tv"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="phone"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_medium" />
 
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="email"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/restaurant_description_element_tv"
@@ -63,7 +63,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="desc"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_medium" />
 
             <View
                 android:id="@+id/divider2"
@@ -78,17 +78,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/dish"
-                android:textSize="25sp" />
-
-
-            <!--          <Button-->
-            <!--              android:id="@+id/add_restaurant_dish_btn"-->
-            <!--              android:layout_width="wrap_content"-->
-            <!--              android:layout_height="wrap_content"-->
-            <!--              android:text="@string/add_dish"-->
-            <!--              android:layout_gravity="center"-->
-            <!--              android:drawableLeft="@drawable/ic_baseline_add_24_white"/>-->
-
+                android:textSize="@dimen/text_size_extra_large" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_restaurant_dishes"

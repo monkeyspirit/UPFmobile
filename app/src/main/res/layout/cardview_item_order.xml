@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
-            android:background="#2d2d2d">
+            android:background="@color/dark_grey">
 
         </ImageView>
         <TextView
@@ -28,8 +28,8 @@
             android:layout_height="match_parent"
             android:text="Order"
             android:gravity="center"
-            android:textSize="13sp"
-            android:textColor="#2d2d2d"
+            android:textSize="@dimen/text_size_mini"
+            android:textColor="@color/dark_grey"
             android:id="@+id/order_id">
 
         </TextView>
