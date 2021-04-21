@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="350dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="20dp"
@@ -43,7 +43,7 @@
             android:textSize="@dimen/text_size_medium_large">
 
         </TextView>
-        <TextView
+        <!--<TextView
             android:id="@+id/restaurant_description_element_for_client"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_size_small">
 
-        </TextView>
+        </TextView>-->
         <TextView
             android:id="@+id/restaurant_address_element_for_client"
             android:layout_width="match_parent"

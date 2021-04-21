@@ -45,7 +45,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
 
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
-        holder.tv_restaurant_description.setText(mData.get(position).getDescription());
+        //holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
 
@@ -65,7 +65,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
+        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email;
 
         ImageView tv_restaurant_pic;
 
@@ -76,7 +76,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element_for_client);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element_for_client);
-            tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_description_element_for_client);
+            //tv_restaurant_description = (TextView) itemView.findViewById(R.id.restaurant_description_element_for_client);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element_for_client);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element_for_client);
 
