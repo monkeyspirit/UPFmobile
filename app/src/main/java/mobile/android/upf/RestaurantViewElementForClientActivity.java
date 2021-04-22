@@ -28,6 +28,7 @@ import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.RecyclerViewAdapter_dish;
+import mobile.android.upf.data.model.RecyclerViewAdapter_dish_client;
 
 public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             restaurant_emailAddress_element_tv, restaurant_description_element_tv;
 
     private RecyclerView myrv;
-    private RecyclerViewAdapter_dish myAdapter;
+    private RecyclerViewAdapter_dish_client myAdapter;
 
     private List<Dish> lstDish;
     private String restaurant_id;
@@ -122,7 +123,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
                     }
 
                     myrv = (RecyclerView) findViewById(R.id.recyclerview_restaurant_dishes_client);
-                    myAdapter = new RecyclerViewAdapter_dish(RestaurantViewElementForClientActivity.this, lstDish);
+                    myAdapter = new RecyclerViewAdapter_dish_client(RestaurantViewElementForClientActivity.this, lstDish);
 
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementForClientActivity.this, 1));
                     myrv.setAdapter(myAdapter);
