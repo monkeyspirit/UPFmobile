@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import mobile.android.upf.AdminHomepageActivity;
 import mobile.android.upf.ClientHomepageActivity;
@@ -31,7 +33,6 @@ import mobile.android.upf.DeliveryHomepageActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.RegistrationActivity;
 import mobile.android.upf.RestaurantHomepageActivity;
-
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
@@ -183,6 +184,8 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("firebase", String.valueOf(task.getResult().getValue()));
                                         Toast.makeText(LoginActivity.this, getString(R.string.authentication_success), Toast.LENGTH_LONG).show();
                                         int type = Integer.parseInt(String.valueOf(task.getResult().child("type").getValue()));
+
+//
 
                                         switch (type){
                                             case 1: {

@@ -1,10 +1,13 @@
 package mobile.android.upf.data.model;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,15 +17,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +51,8 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
     private ViewGroup parent;
     private List<Restaurant> mData;
     private DatabaseReference mDatabase;
+
+    private String token;
 
     private EditText decline_msgEditText;
 
@@ -68,6 +78,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
 
         this.parent = parent;
         view = mInflater.inflate(R.layout.cardview_item_restaurant_for_admin, parent,false);
+
         return new RecyclerViewAdapter_admin.MyViewHolder(view);
     }
 
@@ -94,13 +105,17 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                 String toApprove = mData.get(position).getId();
                 Log.d("R. approved id: ", toApprove);
 
+
+
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
+                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).setValue(1);
                         ((AdminHomepageFragment) mFragment).updateRecycler();
+
 
                         Toast.makeText(mContext, R.string.update, Toast.LENGTH_SHORT).show();
                     }
@@ -239,4 +254,5 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
 
         }
     }
+
 }

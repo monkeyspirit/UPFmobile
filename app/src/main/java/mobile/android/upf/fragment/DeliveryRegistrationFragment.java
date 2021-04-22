@@ -22,11 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import mobile.android.upf.DeliveryHomepageActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.User;
-
 import static android.widget.Toast.LENGTH_LONG;
 
 /**
@@ -194,6 +194,7 @@ public class DeliveryRegistrationFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getActivity(), getString(R.string.delivery_registration_success), LENGTH_LONG).show();
+
                                         final Intent delivery_homepage = new Intent(getActivity(), DeliveryHomepageActivity.class);
                                         startActivity(delivery_homepage);
                                         getActivity().finishAffinity();

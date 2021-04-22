@@ -22,11 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.User;
-import mobile.android.upf.ui.login.LoginActivity;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -223,6 +223,7 @@ public class ClientRegistrationFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getActivity(), getString(R.string.client_registration_success), LENGTH_LONG).show();
+
                                         final Intent client_homepage = new Intent(getActivity(), ClientHomepageActivity.class);
                                         startActivity(client_homepage);
                                         getActivity().finishAffinity();
