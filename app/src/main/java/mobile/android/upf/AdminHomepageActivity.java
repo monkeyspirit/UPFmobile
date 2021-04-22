@@ -66,6 +66,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.getKey().equals(currentUser.getUid())){
                     notification();
+                    mDatabase.child("Notifications").child(currentUser.getUid()).removeValue();
                 }
             }
 

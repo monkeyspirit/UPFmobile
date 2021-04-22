@@ -57,14 +57,7 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
 
@@ -92,7 +85,15 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.getKey().equals(currentUser.getUid())){
-                    notification();
+                    mDatabase.child("Notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            notification(String.valueOf(task.getResult().getValue()));
+                            mDatabase.child("Notifications").child(currentUser.getUid()).removeValue();
+                        }
+                    });
+
+
                 }
 
             }
@@ -120,7 +121,7 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
 
     }
 
-    public void notification(){
+    public void notification(String data){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel =  new NotificationChannel("n","n", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
@@ -128,10 +129,10 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "n")
-                .setContentText("Code here")
+                .setContentTitle("Restaurant update")
                 .setSmallIcon(R.drawable.ic_baseline_call_24)
                 .setAutoCancel(true)
-                .setContentText("New data is added");
+                .setContentText(data);
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
         managerCompat.notify(999, builder.build());
