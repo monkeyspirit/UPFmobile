@@ -57,6 +57,15 @@
             android:orientation="horizontal"
             android:layout_margin="6dp">
 
+            <NumberPicker
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size_small"
+                android:text="NumberPicker"
+                android:id="@+id/dish_number_picker"/>
+
             <Button
                 android:id="@+id/add_dish_client_btn"
                 android:layout_width="match_parent"

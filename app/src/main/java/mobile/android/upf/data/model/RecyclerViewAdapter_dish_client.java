@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<Recycl
     private ViewGroup parent;
     private List<Dish> mData;
     private DatabaseReference mDatabase;
+    private int numberDishes;
 
     public RecyclerViewAdapter_dish_client(Context mContext, List<Dish> mData) {
         this.mContext = mContext;
@@ -48,12 +50,26 @@ public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<Recycl
         holder.tv_dish_description.setText(mData.get(position).getDescription());
         holder.tv_dish_price.setText(String.valueOf(mData.get(position).getPrice()));
 
+        holder.tv_number_dish_picker.setMinValue(1);
+        holder.tv_number_dish_picker.setMaxValue(15);
+        holder.tv_number_dish_picker.setValue(1);
+        holder.tv_number_dish_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                //number of dishes
+                numberDishes = newVal;
+            }
+        });
+
         holder.tv_add_dish_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //code to add item to order
 
             }
         });
+
+
     }
 
 
@@ -67,6 +83,7 @@ public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<Recycl
         TextView tv_dish_name,tv_dish_description,tv_dish_price;
         CardView tv_dish_card;
         Button tv_add_dish_btn;
+        NumberPicker tv_number_dish_picker;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +95,8 @@ public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<Recycl
             tv_dish_price = (TextView) itemView.findViewById(R.id.dish_price_element_client);
 
             tv_add_dish_btn = (Button) itemView.findViewById(R.id.add_dish_client_btn);
+
+            tv_number_dish_picker = (NumberPicker) itemView.findViewById(R.id.dish_number_picker);
 
         }
     }
