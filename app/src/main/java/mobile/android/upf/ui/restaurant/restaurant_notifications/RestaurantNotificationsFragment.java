@@ -70,7 +70,7 @@ public class RestaurantNotificationsFragment extends Fragment {
                     Iterable<DataSnapshot> notifications = task.getResult().getChildren();
 
                     for (DataSnapshot notification : notifications) {
-//                        ID del ristorante
+
 
                         lstNotification.add(new Notification(
                                 String.valueOf(notification.getKey()),
@@ -80,7 +80,7 @@ public class RestaurantNotificationsFragment extends Fragment {
                                 String.valueOf(notification.child("content").getValue())
 
                         ));
-//
+
                     }
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_notifications);

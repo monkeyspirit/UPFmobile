@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.ui.login.LoginActivity;
 
 public class RestaurantHomepageActivity extends AppCompatActivity {
@@ -88,8 +89,17 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
                     mDatabase.child("Notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                            notification(String.valueOf(task.getResult().getValue()));
-//                            mDatabase.child("Notifications").child(currentUser.getUid()).removeValue();
+                            Iterable<DataSnapshot> notifications = task.getResult().getChildren();
+
+                            for (DataSnapshot notification : notifications) {
+                                if (String.valueOf(notification.child("state").getValue()).equals("new")){
+                                    notification(String.valueOf(notification.child("content").getValue()));
+                                    mDatabase.child("Notifications").child(currentUser.getUid()).child(notification.getKey()).child("state").setValue("active");
+                                }
+
+
+                            }
+
                         }
                     });
 
