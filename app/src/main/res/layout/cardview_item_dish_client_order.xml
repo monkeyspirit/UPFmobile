@@ -51,5 +51,36 @@
             android:textColor="@color/dark_grey"
             android:id="@+id/dish_description_element_client"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="6dp">
+
+            <NumberPicker
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size_small"
+                android:text="NumberPicker"
+                android:id="@+id/dish_number_picker"/>
+
+            <Button
+                android:id="@+id/add_dish_client_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="@color/secondary"
+                android:drawableLeft="@drawable/ic_baseline_add_24_white"
+                android:text="@string/add_dish"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_small"
+                android:layout_margin="15dp"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

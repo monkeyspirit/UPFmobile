@@ -124,13 +124,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center">
-            <Button
-                android:id="@+id/nav_restaurant_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_small"
-                android:text="@string/open_map"
-                android:drawableLeft="@drawable/ic_baseline_location_on_24_white"/>
+                <Button
+                    android:id="@+id/nav_restaurant_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="@string/open_map"
+                    android:drawableLeft="@drawable/ic_baseline_location_on_24_white"/>
             </TableRow>
         </LinearLayout>
 
