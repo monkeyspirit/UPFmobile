@@ -96,6 +96,17 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             }
         });
 
+        //        Floating button per l'aggiunta di nuovi piatti
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab_order);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RestaurantViewElementForClientActivity.this, AddNewOrderActivity.class);
+                intent.putExtra("id", restaurant_id);
+                startActivityForResult(intent, 1);
+            }
+        });
+
         lstDish = new ArrayList<>();
 
         mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

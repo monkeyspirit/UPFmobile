@@ -110,4 +110,6 @@
     <string name="restaurant_update">Restaurants\' updates</string>
     <string name="menu_notifications">Notifications</string>
 
+    <string name="add_order">Add order</string>
+
 </resources>

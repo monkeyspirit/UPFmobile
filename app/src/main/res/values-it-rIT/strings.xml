@@ -92,4 +92,6 @@
     <string name="notification_rest_msg_yes">" è stato approvato."</string>
     <string name="restaurant_update">Aggiornamenti sui ristoranti</string>
     <string name="menu_notifications">Notifiche</string>
+
+    <string name="add_order">Aggiungi ordine</string>
 </resources>
