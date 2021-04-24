@@ -53,8 +53,6 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
     private DatabaseReference mDatabase;
 
     private String token;
-    private int count = 0;
-
     private EditText decline_msgEditText;
 
     private FirebaseStorage mStorage;
@@ -115,12 +113,12 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
-                        mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                count = (int) task.getResult().getChildrenCount();
-                                String msg = mContext.getString(R.string.notification_rest_msg_yes);
-                                mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(count)).setValue(mData.get(position).getName()+" "+msg);
+                                String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_yes);
+                                Notification notification = new Notification(mData.get(position).getRestaurateur_id(),"24-04-2021", "new",msg);
+                                mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
                             }
                         });
 
@@ -216,12 +214,12 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                                 Restaurant update = new Restaurant(toDecline, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
                                 mDatabase.child("Restaurants").child(toDecline).setValue(update);
 
-                                mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        count = (int) task.getResult().getChildrenCount();
-                                        String msg = mContext.getString(R.string.notification_rest_msg_no);
-                                        mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(count)).setValue(mData.get(position).getName()+" "+msg);
+                                        String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_no);
+                                        Notification notification = new Notification(mData.get(position).getRestaurateur_id(),"24-04-2021", "new",msg);
+                                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
                                     }
                                 });
 

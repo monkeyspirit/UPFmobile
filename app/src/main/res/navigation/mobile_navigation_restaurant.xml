@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation_restaurant"
     app:startDestination="@+id/nav_restaurant_orders">
-    <!--    DA MODIFICARE-->
+
     <fragment
         android:id="@+id/nav_restaurant_orders"
         android:name="mobile.android.upf.ui.restaurant.restaurant_homepage.RestaurantOrdersFragment"
@@ -23,9 +23,18 @@
         android:label="@string/my_restaurants"
         tools:layout="@layout/fragment_restaurants_restaurant" />
 
+
+    <fragment
+        android:id="@+id/nav_restaurant_notification"
+        android:name="mobile.android.upf.ui.restaurant.restaurant_notifications.RestaurantNotificationsFragment"
+        android:label="@string/menu_notifications"
+        tools:layout="@layout/fragment_notifications_restaurant" />
+
     <activity
         android:id="@+id/nav_restaurant_logout"
         android:name="mobile.android.upf.ui.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+
+
 </navigation>

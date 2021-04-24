@@ -107,5 +107,7 @@
     <string name="decline">Leave a message for the user to inform he/she why the restaurant was not accepted:</string>
     <string name="notification_rest_msg_no"> was not approved.</string>
     <string name="notification_rest_msg_yes"> was approved.</string>
+    <string name="restaurant_update">Restaurants\' updates</string>
+    <string name="menu_notifications">Notifications</string>
 
 </resources>

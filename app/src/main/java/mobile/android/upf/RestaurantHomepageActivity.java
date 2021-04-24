@@ -66,7 +66,7 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_restaurant_orders, R.id.nav_restaurant_profile, R.id.nav_restaurant_restaurants, R.id.nav_restaurant_logout)
+                R.id.nav_restaurant_orders, R.id.nav_restaurant_profile, R.id.nav_restaurant_restaurants, R.id.nav_restaurant_logout, R.id.nav_restaurant_notification)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -85,11 +85,11 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.getKey().equals(currentUser.getUid())){
-                    mDatabase.child("Approvation_notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    mDatabase.child("Notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            notification(String.valueOf(task.getResult().getValue()));
-                            mDatabase.child("Approvation_notifications").child(currentUser.getUid()).removeValue();
+//                            notification(String.valueOf(task.getResult().getValue()));
+//                            mDatabase.child("Notifications").child(currentUser.getUid()).removeValue();
                         }
                     });
 
@@ -123,14 +123,14 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
 
     public void notification(String data){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel =  new NotificationChannel("n","n", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel =  new NotificationChannel("a_n","approvation_notification", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "n")
-                .setContentTitle("Restaurant update")
-                .setSmallIcon(R.drawable.ic_baseline_call_24)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "a_n")
+                .setContentTitle(getApplicationContext().getString(R.string.restaurant_update))
+                .setSmallIcon(R.drawable.ic_baseline_local_pizza_24)
                 .setAutoCancel(true)
                 .setContentText(data);
 

@@ -3,27 +3,24 @@ package mobile.android.upf.data.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Order {
-
+public class Notification {
     private String id;
     private String user_id;
-    private String restaurant_id;
+    private String date;
+    private String state;
+    private String content;
 
-    public Order() {
+    public Notification() {
     }
 
-    public Order(String id, String user_id, String restaurant_id) {
-        this.id = id;
+    public Notification(String user_id, String date, String state, String content) {
         this.user_id = user_id;
-        this.restaurant_id = restaurant_id;
-    }
-
-    public Order(String user_id, String restaurant_id) {
-        this.user_id = user_id;
-        this.restaurant_id = restaurant_id;
+        this.date = date;
+        this.state = state;
+        this.content = content;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
-        this.id = md5(user_id+restaurant_id+ts);
+        this.id = md5(user_id+date+state+ts+content);
     }
 
     public String md5(String s) {
@@ -45,6 +42,14 @@ public class Order {
         return "";
     }
 
+    public Notification(String id, String user_id, String date, String state, String content) {
+        this.id = id;
+        this.user_id = user_id;
+        this.content = content;
+        this.date = date;
+        this.state = state;
+    }
+
     public String getId() {
         return id;
     }
@@ -61,11 +66,28 @@ public class Order {
         this.user_id = user_id;
     }
 
-    public String getRestaurant_id() {
-        return restaurant_id;
+    public String getDate() {
+        return date;
     }
 
-    public void setRestaurant_id(String restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

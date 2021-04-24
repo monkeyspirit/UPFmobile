@@ -90,4 +90,6 @@
     <string name="decline">Lascia un messaggio all\'utente per informarlo del perché il suo ristorante non è stato approvato:</string>
     <string name="notification_rest_msg_no">" non è stato approvato."</string>
     <string name="notification_rest_msg_yes">" è stato approvato."</string>
+    <string name="restaurant_update">Aggiornamenti sui ristoranti</string>
+    <string name="menu_notifications">Notifiche</string>
 </resources>

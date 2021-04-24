@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mobile.android.upf">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -14,7 +15,7 @@
         android:theme="@style/Theme.UPF">
         <activity
             android:name=".RestaurantViewElementForClientActivity"
-            android:label="@string/title_activity_view_restaurant"/>
+            android:label="@string/title_activity_view_restaurant" />
         <activity android:name=".AddDishRestaurantActivity" />
         <activity
             android:name=".RestaurantViewElementActivity"
@@ -53,7 +54,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
