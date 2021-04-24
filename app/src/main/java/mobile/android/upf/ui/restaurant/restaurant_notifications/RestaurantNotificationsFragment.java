@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +46,7 @@ public class RestaurantNotificationsFragment extends Fragment {
     private List<Notification> lstNotification;
     private String userId;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private RestaurantNotificationsViewModel restaurantNotificationsViewModel;
 
@@ -92,6 +94,52 @@ public class RestaurantNotificationsFragment extends Fragment {
             }
         });
 
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_notification_restaurant);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateRecycler();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         return root;
+    }
+
+    public void updateRecycler(){
+        lstNotification = new ArrayList<>();
+
+        mDatabase.child("Notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    Iterable<DataSnapshot> notifications = task.getResult().getChildren();
+
+                    for (DataSnapshot notification : notifications) {
+
+
+                        lstNotification.add(new Notification(
+                                String.valueOf(notification.getKey()),
+                                String.valueOf(notification.child("user_id").getValue()),
+                                String.valueOf(notification.child("date").getValue()),
+                                String.valueOf(notification.child("state").getValue()),
+                                String.valueOf(notification.child("content").getValue())
+
+                        ));
+
+                    }
+
+
+                    myAdapter = new RecyclerViewAdapter_restaurant_notification(getActivity(), RestaurantNotificationsFragment.this, lstNotification);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+            }
+        });
     }
 }

@@ -7,33 +7,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_gray">
-
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:id="@+id/swipe_refresh_notification_restaurant">
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_restaurant_notifications"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_restaurant_notifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp" />
 
 
-        </ScrollView>
+                </LinearLayout>
+
+
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
