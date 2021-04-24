@@ -88,4 +88,6 @@
     <string name="approved">Approva</string>
     <string name="notapproved">Rifiuta</string>
     <string name="decline">Lascia un messaggio all\'utente per informarlo del perché il suo ristorante non è stato approvato:</string>
+    <string name="notification_rest_msg_no">" non è stato approvato."</string>
+    <string name="notification_rest_msg_yes">" è stato approvato."</string>
 </resources>

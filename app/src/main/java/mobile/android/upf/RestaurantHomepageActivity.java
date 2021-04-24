@@ -85,11 +85,11 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.getKey().equals(currentUser.getUid())){
-                    mDatabase.child("Notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    mDatabase.child("Approvation_notifications").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             notification(String.valueOf(task.getResult().getValue()));
-                            mDatabase.child("Notifications").child(currentUser.getUid()).removeValue();
+                            mDatabase.child("Approvation_notifications").child(currentUser.getUid()).removeValue();
                         }
                     });
 

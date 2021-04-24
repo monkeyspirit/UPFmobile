@@ -53,6 +53,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
     private DatabaseReference mDatabase;
 
     private String token;
+    private int count = 0;
 
     private EditText decline_msgEditText;
 
@@ -72,6 +73,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         mStorage = FirebaseStorage.getInstance();
         mStorageReference = mStorage.getReference();
@@ -113,7 +115,16 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
-                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).setValue(mData.get(position).getName()+" was approved.");
+                        mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                count = (int) task.getResult().getChildrenCount();
+                                String msg = mContext.getString(R.string.notification_rest_msg_yes);
+                                mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(count)).setValue(mData.get(position).getName()+" "+msg);
+                            }
+                        });
+
+
                         ((AdminHomepageFragment) mFragment).updateRecycler();
 
 
@@ -204,7 +215,15 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
 
                                 Restaurant update = new Restaurant(toDecline, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
                                 mDatabase.child("Restaurants").child(toDecline).setValue(update);
-                                mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).setValue(mData.get(position).getName()+" was not approved.");
+
+                                mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        count = (int) task.getResult().getChildrenCount();
+                                        String msg = mContext.getString(R.string.notification_rest_msg_no);
+                                        mDatabase.child("Approvation_notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(count)).setValue(mData.get(position).getName()+" "+msg);
+                                    }
+                                });
 
                                 ((AdminHomepageFragment) mFragment).updateRecycler();
 

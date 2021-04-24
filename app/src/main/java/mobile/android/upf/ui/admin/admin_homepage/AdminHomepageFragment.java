@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +46,8 @@ public class AdminHomepageFragment extends Fragment {
     private List<Restaurant> lstRest;
     private RecyclerView myrv;
     private RecyclerViewAdapter_admin myAdapter;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -97,6 +100,16 @@ public class AdminHomepageFragment extends Fragment {
 
             }
 
+        });
+
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_restaurant_admin);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateRecycler();
+                swipeRefreshLayout.setRefreshing(false);
+            }
         });
 
         return root;

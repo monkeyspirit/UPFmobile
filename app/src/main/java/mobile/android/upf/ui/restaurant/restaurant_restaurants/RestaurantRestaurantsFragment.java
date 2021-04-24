@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -72,6 +73,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
     private List<Restaurant> lstRest;
     private String userId;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         restaurantRestourantsViewModel =
@@ -87,6 +89,8 @@ public class RestaurantRestaurantsFragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
+
+
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -138,7 +142,6 @@ public class RestaurantRestaurantsFragment extends Fragment {
             }
 
         });
-
 
 
         return root;

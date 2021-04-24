@@ -56,6 +56,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         this.mFragment = mFragment;
     }
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -306,6 +307,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
     public int getItemCount() {
         return mData.size();
     }
+
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
