@@ -92,9 +92,9 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
                             Iterable<DataSnapshot> notifications = task.getResult().getChildren();
 
                             for (DataSnapshot notification : notifications) {
-                                if (String.valueOf(notification.child("state").getValue()).equals("new")){
+                                if (String.valueOf(notification.child("state").getValue()).equals("1")){
                                     notification(String.valueOf(notification.child("content").getValue()));
-                                    mDatabase.child("Notifications").child(currentUser.getUid()).child(notification.getKey()).child("state").setValue("active");
+                                    mDatabase.child("Notifications").child(currentUser.getUid()).child(notification.getKey()).child("state").setValue("2");
                                 }
 
 

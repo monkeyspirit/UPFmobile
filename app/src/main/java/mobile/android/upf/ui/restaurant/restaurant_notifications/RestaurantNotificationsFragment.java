@@ -78,6 +78,7 @@ public class RestaurantNotificationsFragment extends Fragment {
                                 String.valueOf(notification.getKey()),
                                 String.valueOf(notification.child("user_id").getValue()),
                                 String.valueOf(notification.child("date").getValue()),
+                                String.valueOf(notification.child("time").getValue()),
                                 String.valueOf(notification.child("state").getValue()),
                                 String.valueOf(notification.child("content").getValue())
 
@@ -126,6 +127,7 @@ public class RestaurantNotificationsFragment extends Fragment {
                                 String.valueOf(notification.getKey()),
                                 String.valueOf(notification.child("user_id").getValue()),
                                 String.valueOf(notification.child("date").getValue()),
+                                String.valueOf(notification.child("time").getValue()),
                                 String.valueOf(notification.child("state").getValue()),
                                 String.valueOf(notification.child("content").getValue())
 

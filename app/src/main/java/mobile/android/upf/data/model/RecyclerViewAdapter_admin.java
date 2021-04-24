@@ -39,6 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import mobile.android.upf.R;
@@ -116,8 +118,15 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                                Calendar cal = Calendar.getInstance();
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                String date = sdf.format(cal.getTime());
+                                SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                                String time = sdf_time.format(cal.getTime());
+
                                 String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_yes);
-                                Notification notification = new Notification(mData.get(position).getRestaurateur_id(),"24-04-2021", "new",msg);
+                                Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
                                 mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
                             }
                         });
@@ -218,7 +227,14 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                                         String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_no);
-                                        Notification notification = new Notification(mData.get(position).getRestaurateur_id(),"24-04-2021", "new",msg);
+
+                                        Calendar cal = Calendar.getInstance();
+                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                        String date = sdf.format(cal.getTime());
+                                        SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                                        String time = sdf_time.format(cal.getTime());
+
+                                        Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
                                         mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
                                     }
                                 });

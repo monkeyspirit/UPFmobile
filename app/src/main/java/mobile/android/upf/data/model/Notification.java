@@ -7,20 +7,22 @@ public class Notification {
     private String id;
     private String user_id;
     private String date;
+    private String time;
     private String state;
     private String content;
 
     public Notification() {
     }
 
-    public Notification(String user_id, String date, String state, String content) {
+    public Notification(String user_id, String date, String time, String state, String content) {
         this.user_id = user_id;
         this.date = date;
+        this.time = time;
         this.state = state;
         this.content = content;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
-        this.id = md5(user_id+date+state+ts+content);
+        this.id = md5(user_id+date+time+state+ts+content);
     }
 
     public String md5(String s) {
@@ -42,11 +44,12 @@ public class Notification {
         return "";
     }
 
-    public Notification(String id, String user_id, String date, String state, String content) {
+    public Notification(String id, String user_id, String date, String time, String state, String content) {
         this.id = id;
         this.user_id = user_id;
         this.content = content;
         this.date = date;
+        this.time = time;
         this.state = state;
     }
 
@@ -82,6 +85,13 @@ public class Notification {
         this.state = state;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getContent() {
         return content;

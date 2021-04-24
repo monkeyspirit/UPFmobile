@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,7 +49,7 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
         mStorageReference = mStorage.getReference();
 
         this.parent = parent;
-        view = mInflater.inflate(R.layout.card_notification, parent,false);
+        view = mInflater.inflate(R.layout.cardview_notification, parent,false);
         return new RecyclerViewAdapter_restaurant_notification.MyViewHolder(view);
     }
 
@@ -59,7 +57,8 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_notification_date.setText(mData.get(position).getDate());
         holder.tv_notification_message.setText(mData.get(position).getContent());
-//
+        holder.tv_notification_time.setText(mData.get(position).getTime());
+
     }
 
     @Override
@@ -71,7 +70,7 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_notification_message, tv_notification_date;
+        TextView tv_notification_message, tv_notification_date, tv_notification_time;
         CardView tv_notification_card;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -79,8 +78,10 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
 
             tv_notification_card = (CardView) itemView.findViewById(R.id.notification_card);
 
-            tv_notification_message = (TextView) itemView.findViewById(R.id.notification_message);
             tv_notification_date = (TextView) itemView.findViewById(R.id.notification_date);
+            tv_notification_time = (TextView) itemView.findViewById(R.id.notification_time);
+            tv_notification_message = (TextView) itemView.findViewById(R.id.notification_message);
+
 
         }
     }
