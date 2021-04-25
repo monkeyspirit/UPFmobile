@@ -111,5 +111,6 @@
     <string name="menu_notifications">Notifications</string>
 
     <string name="add_order">Add order</string>
+    <string name="register">Register on UPF</string>
 
 </resources>

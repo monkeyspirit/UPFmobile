@@ -1,11 +1,9 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Dish;
 
 public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<RecyclerViewAdapter_dish_client.MyViewHolder> {
 

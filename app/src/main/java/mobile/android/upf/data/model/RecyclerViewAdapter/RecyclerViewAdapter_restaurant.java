@@ -1,4 +1,4 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -32,11 +32,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.net.URL;
 import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementActivity;
+import mobile.android.upf.data.model.Restaurant;
 import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
 
 public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant.MyViewHolder> {

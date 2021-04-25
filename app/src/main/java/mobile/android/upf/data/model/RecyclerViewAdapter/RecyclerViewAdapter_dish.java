@@ -1,4 +1,4 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,6 +27,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementActivity;
+import mobile.android.upf.data.model.Dish;
 
 public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewAdapter_dish.MyViewHolder> {
 

@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel;
 import android.util.Patterns;
 
 import mobile.android.upf.data.LoginRepository;
-import mobile.android.upf.data.Result;
-import mobile.android.upf.data.model.User;
 import mobile.android.upf.R;
 
 public class LoginViewModel extends ViewModel {

@@ -1,4 +1,4 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Order;
 
 public class RecyclerViewAdapter_order extends RecyclerView.Adapter<RecyclerViewAdapter_order.MyViewHolder> {
 

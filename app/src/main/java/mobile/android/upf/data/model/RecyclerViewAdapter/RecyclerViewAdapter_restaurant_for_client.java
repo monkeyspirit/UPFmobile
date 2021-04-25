@@ -1,4 +1,4 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +21,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementForClientActivity;
+import mobile.android.upf.data.model.Restaurant;
 
 public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_for_client.MyViewHolder> {
 

@@ -1,4 +1,4 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,8 +19,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Notification;
 
-public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_notification.MyViewHolder> {
+public class RecyclerViewAdapter_delivery_notification extends RecyclerView.Adapter<RecyclerViewAdapter_delivery_notification.MyViewHolder> {
 
     private Context mContext;
     private Fragment mFragment;
@@ -31,7 +32,7 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
-    public RecyclerViewAdapter_restaurant_notification(Context mContext, Fragment mFragment, List<Notification> mData) {
+    public RecyclerViewAdapter_delivery_notification(Context mContext, Fragment mFragment, List<Notification> mData) {
         this.mContext = mContext;
         this.mFragment = mFragment;
         this.mData = mData;
@@ -39,7 +40,7 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
 
     @NonNull
     @Override
-    public RecyclerViewAdapter_restaurant_notification.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter_delivery_notification.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
@@ -50,11 +51,11 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
 
         this.parent = parent;
         view = mInflater.inflate(R.layout.cardview_notification, parent,false);
-        return new RecyclerViewAdapter_restaurant_notification.MyViewHolder(view);
+        return new RecyclerViewAdapter_delivery_notification.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter_delivery_notification.MyViewHolder holder, int position) {
         holder.tv_notification_date.setText(mData.get(position).getDate());
         holder.tv_notification_message.setText(mData.get(position).getContent());
         holder.tv_notification_time.setText(mData.get(position).getTime());

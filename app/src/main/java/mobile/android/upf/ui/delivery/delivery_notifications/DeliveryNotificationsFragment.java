@@ -1,4 +1,4 @@
-package mobile.android.upf.ui.restaurant.restaurant_notifications;
+package mobile.android.upf.ui.delivery.delivery_notifications;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -26,29 +26,29 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Notification;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_notification;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_notification;
 
-public class RestaurantNotificationsFragment extends Fragment {
+public class DeliveryNotificationsFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
 
     private RecyclerView myrv;
-    private RecyclerViewAdapter_restaurant_notification myAdapter;
+    private RecyclerViewAdapter_delivery_notification myAdapter;
 
     private List<Notification> lstNotification;
     private String userId;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private RestaurantNotificationsViewModel restaurantNotificationsViewModel;
+    private DeliveryNotificationsViewModel deliveryNotificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        restaurantNotificationsViewModel =
-                new ViewModelProvider(this).get(RestaurantNotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications_restaurant, container, false);
+        deliveryNotificationsViewModel =
+                new ViewModelProvider(this).get(DeliveryNotificationsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_notifications_delivery, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -80,8 +80,8 @@ public class RestaurantNotificationsFragment extends Fragment {
 
                     }
 
-                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_notifications);
-                    myAdapter = new RecyclerViewAdapter_restaurant_notification(getActivity(), RestaurantNotificationsFragment.this, lstNotification);
+                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_notifications);
+                    myAdapter = new RecyclerViewAdapter_delivery_notification(getActivity(), DeliveryNotificationsFragment.this, lstNotification);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -89,7 +89,8 @@ public class RestaurantNotificationsFragment extends Fragment {
             }
         });
 
-        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_notification_restaurant);
+
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_notification_delivery);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -130,7 +131,7 @@ public class RestaurantNotificationsFragment extends Fragment {
                     }
 
 
-                    myAdapter = new RecyclerViewAdapter_restaurant_notification(getActivity(), RestaurantNotificationsFragment.this, lstNotification);
+                    myAdapter = new RecyclerViewAdapter_delivery_notification(getActivity(), DeliveryNotificationsFragment.this, lstNotification);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);

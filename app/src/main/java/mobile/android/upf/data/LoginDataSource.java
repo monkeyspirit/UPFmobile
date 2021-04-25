@@ -1,9 +1,5 @@
 package mobile.android.upf.data;
 
-import mobile.android.upf.data.model.User;
-
-import java.io.IOException;
-
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */

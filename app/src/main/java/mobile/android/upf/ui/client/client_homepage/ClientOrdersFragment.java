@@ -37,7 +37,7 @@ import java.util.List;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RecyclerViewAdapter_order;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_order;
 
 public class ClientOrdersFragment extends Fragment {
 

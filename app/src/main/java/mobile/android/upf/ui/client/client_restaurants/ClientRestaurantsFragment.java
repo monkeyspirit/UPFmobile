@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.R;
-import mobile.android.upf.data.model.RecyclerViewAdapter_restaurant;
-import mobile.android.upf.data.model.RecyclerViewAdapter_restaurant_for_client;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_for_client;
 import mobile.android.upf.data.model.Restaurant;
 
 public class ClientRestaurantsFragment extends Fragment {
