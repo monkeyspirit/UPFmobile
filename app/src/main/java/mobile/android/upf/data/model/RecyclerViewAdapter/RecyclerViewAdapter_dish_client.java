@@ -24,7 +24,6 @@ public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<Recycl
     private ViewGroup parent;
     private List<Dish> mData;
     private DatabaseReference mDatabase;
-    private int numberDishes;
 
     public RecyclerViewAdapter_dish_client(Context mContext, List<Dish> mData) {
         this.mContext = mContext;

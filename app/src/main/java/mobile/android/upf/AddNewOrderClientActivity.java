@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +44,7 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
     private static final String TAG_LOG = "AddDishOrderActivity";
 
     private Dish dish;
+    private String restaurant_id;
 
     List<Dish> lstDish;
     private String userId;
@@ -53,7 +56,7 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
 
         // Get restaurant ID
         Intent intent = getIntent();
-        String restaurant_id = intent.getExtras().getString("id");
+        restaurant_id = intent.getExtras().getString("id");
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -98,5 +101,28 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
 
             }
         });
+
+        //        Floating button per l'aggiunta di nuovo ordine
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddNewOrderClientActivity.this, CartViewActivity.class);
+                intent.putExtra("id", userId);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

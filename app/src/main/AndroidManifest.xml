@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_upf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
-        <activity android:name=".ClientRegistrationActivity"
+        <activity
+            android:name=".CartViewActivity"
+            android:label="@string/title_activity_user_cart"/>
+        <activity
+            android:name=".ClientRegistrationActivity"
             android:parentActivityName=".RegistrationActivity" >
         </activity>
         <activity

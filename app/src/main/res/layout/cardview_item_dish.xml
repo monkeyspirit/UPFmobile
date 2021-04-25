@@ -84,18 +84,7 @@
                     android:textSize="@dimen/text_size_small"
                     android:layout_marginLeft="15dp"/>
 
-
-
-
-
             </LinearLayout>
-
-
-
-
-
-
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -96,4 +96,6 @@
     <string name="add_order">Aggiungi ordine</string>
     <string name="title_activity_new_order">Nuovo Ordine</string>
     <string name="register">Registrati su UPF</string>
+    <string name="shopping_cart">Carrello</string>
+    <string name="title_activity_user_cart">Il Mio Carrello</string>
 </resources>
