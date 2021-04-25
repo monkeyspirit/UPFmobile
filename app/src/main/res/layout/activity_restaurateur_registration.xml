@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.ClientRegistrationFragment">
+    tools:context=".RestaurateurRegistrationActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
@@ -16,12 +16,12 @@
 
         <!--Name-->
         <EditText
-            android:id="@+id/client_name"
+            android:id="@+id/restaurateur_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/prompt_name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:hint="@string/prompt_name"/>
 
     </com.google.android.material.textfield.TextInputLayout>
     <!--Surname-->
@@ -30,14 +30,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:boxBackgroundColor="@color/white">
-
         <EditText
-            android:id="@+id/client_surname"
+            android:id="@+id/restaurateur_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/prompt_surname"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:hint="@string/prompt_surname"/>
     </com.google.android.material.textfield.TextInputLayout>
     <!--email-->
     <com.google.android.material.textfield.TextInputLayout
@@ -45,14 +44,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:boxBackgroundColor="@color/white">
-
         <EditText
-            android:id="@+id/client_emailAddress"
+            android:id="@+id/restaurateur_emailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="textEmailAddress"
             android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <!--phone-->
     <com.google.android.material.textfield.TextInputLayout
@@ -60,14 +59,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:boxBackgroundColor="@color/white">
-
         <EditText
-            android:id="@+id/client_phone"
+            android:id="@+id/restaurateur_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="phone"
             android:hint="@string/prompt_phone"
-            android:inputType="phone" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <!--address-->
     <com.google.android.material.textfield.TextInputLayout
@@ -75,66 +74,68 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:boxBackgroundColor="@color/white">
-
         <EditText
-            android:id="@+id/client_address"
+            android:id="@+id/restaurateur_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/prompt_address"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:hint="@string/prompt_rest_address"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <!--password-->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:boxBackgroundColor="@color/white"
-        app:passwordToggleEnabled="true">
-
+        app:passwordToggleEnabled="true"
+        app:boxBackgroundColor="@color/white">
         <EditText
-            android:id="@+id/client_password"
+            android:id="@+id/restaurateur_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/prompt_password"
             android:inputType="textPassword"
+            android:hint="@string/prompt_password"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:boxBackgroundColor="@color/white"
-        app:passwordToggleEnabled="true">
-
+        app:passwordToggleEnabled="true"
+        app:boxBackgroundColor="@color/white">
         <EditText
-            android:id="@+id/client_passwordConfirm"
+            android:id="@+id/restaurateur_passwordConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="textPassword"
             android:hint="@string/prompt_confirm_password"
-            android:inputType="textPassword" />
+            />
+
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
-        android:id="@+id/progress_bar_client"
+        android:id="@+id/progress_bar_restaurateur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"/>
 
     <Button
-        android:id="@+id/client_register_btn"
+        android:id="@+id/restaurateur_register_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="true"
         android:text="@string/action_register"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"/>
+
+
 
 
 </LinearLayout>

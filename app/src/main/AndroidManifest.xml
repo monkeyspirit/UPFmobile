@@ -16,10 +16,14 @@
         <activity
             android:name=".CartViewActivity"
             android:label="@string/title_activity_user_cart"/>
-        <activity
-            android:name=".ClientRegistrationActivity"
+        <activity android:name=".RestaurateurRegistrationActivity"
             android:parentActivityName=".RegistrationActivity" >
         </activity>
+        <activity android:name=".DeliveryRegistrationActivity"
+            android:parentActivityName=".RegistrationActivity" />
+        <activity
+            android:name=".ClientRegistrationActivity"
+            android:parentActivityName=".RegistrationActivity" />
         <activity
             android:name=".AddNewOrderClientActivity"
             android:label="@string/title_activity_new_order"/>

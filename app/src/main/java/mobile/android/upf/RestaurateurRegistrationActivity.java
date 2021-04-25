@@ -1,130 +1,74 @@
-package mobile.android.upf.fragment;
+package mobile.android.upf;
 
-import android.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-
-
-import android.util.Log;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-import mobile.android.upf.DeliveryHomepageActivity;
-import mobile.android.upf.R;
 import mobile.android.upf.data.model.User;
+
 import static android.widget.Toast.LENGTH_LONG;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DeliveryRegistrationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DeliveryRegistrationFragment extends Fragment {
+public class RestaurateurRegistrationActivity extends AppCompatActivity {
 
-    private static final String TAG_LOG = "RegistrationActivity";
-
-    private EditText editTextName, editTextSurname, editTextEmail, editTextPhone,
+    private EditText editTextName, editTextSurname, editTextAddress, editTextEmail, editTextPhone,
             editTextPassword, editTextConfirmPassword;
     private final String imageUrl = "";
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     private FirebaseAuth mAuth;
 
     private ProgressBar progressBar;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DeliveryRegistrationFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DeliveryRegistrationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DeliveryRegistrationFragment newInstance(String param1, String param2) {
-        DeliveryRegistrationFragment fragment = new DeliveryRegistrationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_restaurateur_registration);
         mAuth = FirebaseAuth.getInstance();
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+        getSupportActionBar().setTitle(R.string.register);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_registration_delivery, container, false);
+        editTextName = (EditText) findViewById(R.id.restaurateur_name);
+        editTextSurname = (EditText) findViewById(R.id.restaurateur_surname);
+        editTextPassword = (EditText) findViewById(R.id.restaurateur_password);
+        editTextConfirmPassword = (EditText) findViewById(R.id.restaurateur_passwordConfirm);
+        editTextAddress = (EditText) findViewById(R.id.restaurateur_address);
+        editTextPhone = (EditText) findViewById(R.id.restaurateur_phone);
+        editTextEmail = (EditText) findViewById(R.id.restaurateur_emailAddress);
 
-        editTextName = (EditText) root.findViewById(R.id.delivery_name);
-        editTextSurname = (EditText) root.findViewById(R.id.delivery_surname);
-        editTextPassword = (EditText) root.findViewById(R.id.delivery_password);
-        editTextConfirmPassword = (EditText) root.findViewById(R.id.delivery_passwordConfirm);
-        editTextPhone = (EditText) root.findViewById(R.id.delivery_phone);
-        editTextEmail = (EditText) root.findViewById(R.id.delivery_emailAddress);
-        progressBar = (ProgressBar) root.findViewById(R.id.progress_bar_delivery);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_restaurateur);
 
-        Button delivery_registration_btn = (Button) root.findViewById(R.id.delivery_register_btn);
+        Button delivery_registration_btn = (Button) findViewById(R.id.restaurateur_register_btn);
         delivery_registration_btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.delivery_register_btn:
-                        registerDeliveryUser();
-                        break;
-
+                if (v.getId() == R.id.restaurateur_register_btn) {
+                    registerRestaurateurUser();
                 }
             }
         });
-
-        // Inflate the layout for this fragment
-        return root;
     }
 
-    public void registerDeliveryUser() {
+    public void registerRestaurateurUser() {
+
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
-        String address = "not available";
+        String address = editTextAddress.getText().toString().trim();
         String phone = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
 
@@ -149,6 +93,11 @@ public class DeliveryRegistrationFragment extends Fragment {
             editTextEmail.requestFocus();
             return;
         }
+        if (address.isEmpty()) {
+            editTextAddress.setError(getString(R.string.empty_address));
+            editTextAddress.requestFocus();
+            return;
+        }
         if (phone.isEmpty()) {
             editTextPhone.setError(getString(R.string.empty_phone));
             editTextPhone.requestFocus();
@@ -169,6 +118,7 @@ public class DeliveryRegistrationFragment extends Fragment {
             editTextConfirmPassword.requestFocus();
             return;
         }
+
         if (!confirmPassword.equals(password)) {
             editTextConfirmPassword.setError(getString(R.string.password_mismatch));
             editTextConfirmPassword.requestFocus();
@@ -184,7 +134,7 @@ public class DeliveryRegistrationFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(name, surname, password, address, phone, email, imageUrl, 2);
+                            User user = new User(name, surname, password, address, phone, email, imageUrl, 3);
                             //aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -193,20 +143,20 @@ public class DeliveryRegistrationFragment extends Fragment {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(getActivity(), getString(R.string.delivery_registration_success), LENGTH_LONG).show();
+                                        Toast.makeText(RestaurateurRegistrationActivity.this, getString(R.string.restaurateur_registration_success), LENGTH_LONG).show();
 
-                                        final Intent delivery_homepage = new Intent(getActivity(), DeliveryHomepageActivity.class);
-                                        startActivity(delivery_homepage);
-                                        getActivity().finishAffinity();
+                                        final Intent restaurateur_homepage = new Intent(RestaurateurRegistrationActivity.this, RestaurantHomepageActivity.class);
+                                        startActivity(restaurateur_homepage);
+                                        RestaurateurRegistrationActivity.this.finishAffinity();
                                     } else {
                                         progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(getActivity(), getString(R.string.delivery_registration_db_failed), LENGTH_LONG).show();
+                                        Toast.makeText(RestaurateurRegistrationActivity.this, getString(R.string.restaurateur_registration_db_failed), LENGTH_LONG).show();
                                     }
                                 }
                             });
                         } else {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getActivity(), getString(R.string.delivery_registration_auth_failed), LENGTH_LONG).show();
+                            Toast.makeText(RestaurateurRegistrationActivity.this, getString(R.string.restaurateur_registration_auth_failed), LENGTH_LONG).show();
                         }
                     }
                 });

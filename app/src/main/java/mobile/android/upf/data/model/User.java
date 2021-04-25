@@ -1,11 +1,11 @@
 package mobile.android.upf.data.model;
 
+import java.util.ArrayList;
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 public class User {
-
-    //private String userId;
 
     public String name, surname, password, email, address, phone, imageUrl;
     /**
@@ -27,4 +27,5 @@ public class User {
         this.imageUrl = imageUrl;
         this.type = type;
     }
+
 }
