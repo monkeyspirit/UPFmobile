@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter_dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter_dish_client;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_dish_client;
+
 
 public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
@@ -101,7 +101,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RestaurantViewElementForClientActivity.this, AddNewOrderActivity.class);
+                Intent intent = new Intent(RestaurantViewElementForClientActivity.this, AddNewOrderClientActivity.class);
                 intent.putExtra("id", restaurant_id);
                 startActivityForResult(intent, 1);
             }
