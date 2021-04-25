@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="mobile.android.upf">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_upf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
+        <activity
+            android:name=".AddNewOrderClientActivity"
+            android:label="@string/title_activity_new_order"/>
         <activity
             android:name=".RestaurantViewElementForClientActivity"
             android:label="@string/title_activity_view_restaurant" />
