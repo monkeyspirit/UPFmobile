@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="mobile.android.upf">
 
 
@@ -15,6 +16,9 @@
         <activity android:name=".ClientRegistrationActivity"
             android:parentActivityName=".RegistrationActivity" >
         </activity>
+        <activity
+            android:name=".AddNewOrderClientActivity"
+            android:label="@string/title_activity_new_order"/>
         <activity
             android:name=".RestaurantViewElementForClientActivity"
             android:label="@string/title_activity_view_restaurant" />

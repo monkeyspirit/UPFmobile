@@ -94,5 +94,6 @@
     <string name="menu_notifications">Notifiche</string>
 
     <string name="add_order">Aggiungi ordine</string>
+    <string name="title_activity_new_order">Nuovo Ordine</string>
     <string name="register">Registrati su UPF</string>
 </resources>

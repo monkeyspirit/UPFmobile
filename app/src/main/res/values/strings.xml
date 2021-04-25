@@ -113,4 +113,5 @@
     <string name="add_order">Add order</string>
     <string name="register">Register on UPF</string>
 
+    <string name="title_activity_new_order">New Order</string>
 </resources>

@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_dish_client;
+import mobile.android.upf.data.model.RecyclerViewAdapter_dish;
+import mobile.android.upf.data.model.RecyclerViewAdapter_dish_client;
 
 public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
