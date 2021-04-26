@@ -78,10 +78,10 @@
             android:scaleType="centerCrop"
             android:layout_margin="10dp"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="10dp">
@@ -94,14 +94,29 @@
                 android:layout_weight="1"
                 android:backgroundTint="#2196F3"
                 android:drawableLeft="@drawable/ic_baseline_notifications_24_white"
-                android:text="Subscribe"
+                android:text="@string/subscribe"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size_small"
-                android:layout_marginRight="15dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/delivery_unsubscription_restaurant_card_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="#C1C4C6"
+                android:drawableLeft="@drawable/ic_baseline_notifications_off_24"
+                android:text="@string/unsubscribe"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"/>
 
 
-        </LinearLayout>
-
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

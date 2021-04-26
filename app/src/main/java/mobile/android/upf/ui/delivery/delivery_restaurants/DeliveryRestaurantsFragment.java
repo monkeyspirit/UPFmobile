@@ -1,9 +1,11 @@
 package mobile.android.upf.ui.delivery.delivery_restaurants;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import mobile.android.upf.AddRestaurantActivity;
+import mobile.android.upf.AddSubscriptionActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_for_delivery;
 import mobile.android.upf.data.model.Restaurant;
@@ -65,6 +70,16 @@ public class DeliveryRestaurantsFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        //        Floating button per l'aggiunta di nuovi ristoranti
+        ExtendedFloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddSubscriptionActivity.class);
+                startActivity(intent);
+            }
+        });
+
         lstRest = new ArrayList<>();
 
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -77,19 +92,21 @@ public class DeliveryRestaurantsFragment extends Fragment {
                     Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
 
                     for (DataSnapshot restaurant : restaurants_database) {
-//                        ID del ristorante
 
-
-                            lstRest.add(new Restaurant(
-                                    String.valueOf(restaurant.getKey()),
-                                    String.valueOf(restaurant.child("name").getValue()),
-                                    String.valueOf(restaurant.child("description").getValue()),
-                                    String.valueOf(restaurant.child("email").getValue()),
-                                    String.valueOf(restaurant.child("address").getValue()),
-                                    String.valueOf(restaurant.child("phone").getValue()),
-                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
-                                    String.valueOf(restaurant.child("imageUrl").getValue()),
-                                    Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                            for (DataSnapshot subscriber: restaurant.child("Subscribers").getChildren()){
+                                if (subscriber.getKey().equals(currentUser.getUid())){
+                                    lstRest.add(new Restaurant(
+                                            String.valueOf(restaurant.getKey()),
+                                            String.valueOf(restaurant.child("name").getValue()),
+                                            String.valueOf(restaurant.child("description").getValue()),
+                                            String.valueOf(restaurant.child("email").getValue()),
+                                            String.valueOf(restaurant.child("address").getValue()),
+                                            String.valueOf(restaurant.child("phone").getValue()),
+                                            String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                            String.valueOf(restaurant.child("imageUrl").getValue()),
+                                            Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                                }
+                            }
 
 
                     }
@@ -121,6 +138,8 @@ public class DeliveryRestaurantsFragment extends Fragment {
         return root;
     }
 
+
+
     public void updateRecycler(){
         lstRest = new ArrayList<>();
 
@@ -137,16 +156,20 @@ public class DeliveryRestaurantsFragment extends Fragment {
 //                        ID del ristorante
 
 
-                        lstRest.add(new Restaurant(
-                                String.valueOf(restaurant.getKey()),
-                                String.valueOf(restaurant.child("name").getValue()),
-                                String.valueOf(restaurant.child("description").getValue()),
-                                String.valueOf(restaurant.child("email").getValue()),
-                                String.valueOf(restaurant.child("address").getValue()),
-                                String.valueOf(restaurant.child("phone").getValue()),
-                                String.valueOf(restaurant.child("restaurateur_id").getValue()),
-                                String.valueOf(restaurant.child("imageUrl").getValue()),
-                                Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                        for (DataSnapshot subscriber: restaurant.child("Subscribers").getChildren()){
+                            if (subscriber.getKey().equals(currentUser.getUid())){
+                                lstRest.add(new Restaurant(
+                                        String.valueOf(restaurant.getKey()),
+                                        String.valueOf(restaurant.child("name").getValue()),
+                                        String.valueOf(restaurant.child("description").getValue()),
+                                        String.valueOf(restaurant.child("email").getValue()),
+                                        String.valueOf(restaurant.child("address").getValue()),
+                                        String.valueOf(restaurant.child("phone").getValue()),
+                                        String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                        String.valueOf(restaurant.child("imageUrl").getValue()),
+                                        Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                            }
+                        }
 
 
                     }

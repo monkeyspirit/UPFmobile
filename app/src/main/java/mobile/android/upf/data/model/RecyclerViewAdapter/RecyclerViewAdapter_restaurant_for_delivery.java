@@ -1,6 +1,10 @@
 package mobile.android.upf.data.model.RecyclerViewAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,30 +13,56 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Restaurant;
+import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
+import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_for_delivery.MyViewHolder> {
 
     private Context mContext;
     private Fragment mFragment;
     private List<Restaurant> mData;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     public RecyclerViewAdapter_restaurant_for_delivery(Context mContext, Fragment mFragment, List<Restaurant> mData) {
         this.mContext = mContext;
         this.mFragment = mFragment;
         this.mData = mData;
     }
+
+    public RecyclerViewAdapter_restaurant_for_delivery(Context mContext, List<Restaurant> mData) {
+        this.mContext = mContext;
+        this.mData = mData;
+    }
+
 
     @NonNull
     @Override
@@ -47,11 +77,98 @@ public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Ad
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        String current_id = mAuth.getCurrentUser().getUid();
+
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
         holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
+
+        mDatabase.child("Users").child(current_id).child("Subscriptions").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Iterable<DataSnapshot> subscription_database = task.getResult().getChildren();
+
+
+                    if (!task.getResult().exists()){
+                        holder.subscribe_btn.setVisibility(View.VISIBLE);
+                    }
+
+                    ArrayList<String> view = new ArrayList<>();
+                    for (DataSnapshot subscription : subscription_database) {
+
+                        if(!view.contains(mData.get(position).getId()) & subscription.getKey().equals(mData.get(position).getId())){
+                            holder.unsubscribe_btn.setVisibility(View.VISIBLE);
+                            holder.subscribe_btn.setVisibility(View.INVISIBLE);
+                           view.add(mData.get(position).getId());
+                        }
+                        else if(!view.contains(mData.get(position).getId())){
+                            Log.d("Key sub: ", subscription.getKey());
+                            holder.unsubscribe_btn.setVisibility(View.INVISIBLE);
+                            holder.subscribe_btn.setVisibility(View.VISIBLE);
+
+                        }
+                    }
+                }
+
+
+            }
+
+        });
+
+
+       holder.subscribe_btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               mDatabase.child("Users").child(current_id).child("Subscriptions").child(mData.get(position).getId()).setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+                   @Override
+                   public void onComplete(@NonNull Task<Void> task) {
+                       if (task.isSuccessful()) {
+                           holder.unsubscribe_btn.setVisibility(View.VISIBLE);
+                           holder.subscribe_btn.setVisibility(View.INVISIBLE);
+                           mData.remove(position);
+                           notifyItemRemoved(position);
+                           notifyItemRangeChanged(position, mData.size());
+                       } else {
+//                           Toast.makeText(mContext, mContext.getString(R.string.restaurant_registration_db_failed), LENGTH_LONG).show();
+                       }
+                   }
+               });
+
+               mDatabase.child("Restaurants").child(mData.get(position).getId()).child("Subscribers").child(current_id).setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+                   @Override
+                   public void onComplete(@NonNull Task<Void> task) {
+                       if (task.isSuccessful()) {
+
+//                           Toast.makeText(mContext, mContext.getString(R.string.restaurant_registration_db_s), LENGTH_LONG).show();
+                       } else {
+//                           Toast.makeText(mContext, mContext.getString(R.string.restaurant_registration_db_failed), LENGTH_LONG).show();
+                       }
+                   }
+               });
+
+           }
+       });
+
+        holder.unsubscribe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabase.child("Users").child(current_id).child("Subscriptions").child(mData.get(position).getId()).removeValue();
+                mDatabase.child("Restaurants").child(mData.get(position).getId()).child("Subscribers").child(current_id).removeValue();
+                holder.unsubscribe_btn.setVisibility(View.INVISIBLE);
+                holder.subscribe_btn.setVisibility(View.VISIBLE);
+
+                mData.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mData.size());
+            }
+        });
 
         String uriS = mData.get(position).getImageUrl();
 
@@ -65,6 +182,8 @@ public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Ad
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return mData.size();
@@ -75,7 +194,8 @@ public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Ad
         CardView tv_restaurant_card;
         TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email, tv_restaurant_description;
         ImageView tv_restaurant_pic;
-        Button subscribe_btn;
+        Button subscribe_btn, unsubscribe_btn;
+
 
         public MyViewHolder(@NonNull View itemView, Context mContext) {
             super(itemView);
@@ -90,18 +210,8 @@ public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Ad
 
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.delivery_restaurant_card_pic);
 
-
-
             subscribe_btn = (Button) itemView.findViewById(R.id.delivery_subscription_restaurant_card_btn);
-
-            subscribe_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-//                    callIntent .setData(Uri.parse("tel:"+tv_restaurant_phone.getText().toString()));
-//                    mContext.startActivity(callIntent);
-                }
-            });
+            unsubscribe_btn = (Button) itemView.findViewById(R.id.delivery_unsubscription_restaurant_card_btn);
 
         }
     }

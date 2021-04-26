@@ -71,7 +71,7 @@
 
     <string name="undo">Undo</string>
     <string name="add_restaurant">Add restaurant</string>
-    <string name="subscription">My subscriptions</string>
+    <string name="subscription">Subscriptions</string>
     <string name="users">Users</string>
     <string name="my_restaurants">My restaurants</string>
     <string name="account_info">Account information</string>
@@ -115,4 +115,8 @@
     <string name="title_activity_new_order">New Order</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="title_activity_user_cart">My Cart</string>
+    <string name="restaurateur">Restaurateur</string>
+    <string name="add_subscription">Add subscription</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
 </resources>

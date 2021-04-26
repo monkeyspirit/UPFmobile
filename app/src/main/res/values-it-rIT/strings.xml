@@ -58,7 +58,7 @@
     <string name="title_activity_add_restaurant">Aggiungi un ristorante</string>
     <string name="prompt_description">Descrizione</string>
     <string name="add_restaurant">Aggiungi ristorante</string>
-    <string name="subscription">Le mie sottoscrizioni</string>
+    <string name="subscription">Iscrizioni</string>
     <string name="users">Utenti</string>
     <string name="my_restaurants">I miei ristoranti</string>
     <string name="account_info">Informazioni account</string>
@@ -98,4 +98,8 @@
     <string name="register">Registrati su UPF</string>
     <string name="shopping_cart">Carrello</string>
     <string name="title_activity_user_cart">Il Mio Carrello</string>
+    <string name="restaurateur">Ristoratore</string>
+    <string name="add_subscription">Aggiungi iscrizione</string>
+    <string name="subscribe">Iscriviti</string>
+    <string name="unsubscribe">Disiscriviti</string>
 </resources>

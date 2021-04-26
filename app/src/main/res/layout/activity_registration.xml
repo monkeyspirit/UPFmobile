@@ -29,83 +29,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/register_info" />
+                android:text="@string/register_info"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"/>
 
 
-            <Button
-                android:id="@+id/client_r_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Client" />
+        <Button
+            android:id="@+id/client_r_btn"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="#FFFFFF"
+            android:text="@string/client" />
 
             <Button
                 android:id="@+id/delivery_r_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Delivery" />
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="@string/delivery"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"/>
 
             <Button
                 android:id="@+id/restauratour_r_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rest" />
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="@string/restaurateur"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"/>
 
 
-
-
-        <!--        <RadioGroup-->
-<!--            android:id="@+id/registration_group"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/client_rdbtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/client" />-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/delivery_rdbtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/delivery" />-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rest_rdbtn"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/manager" />-->
-
-<!--        </RadioGroup>-->
-
-<!--        <View-->
-<!--            android:id="@+id/divider"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="?android:attr/listDivider" />-->
-
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fillViewport="true"-->
-<!--            android:scrollbars="vertical">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-
-
-<!--                <fragment-->
-<!--                    android:id="@+id/registration_fragment"-->
-<!--                    android:name="mobile.android.upf.fragment.BlankFragment"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" />-->
-
-
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
     </LinearLayout>
 
 </ScrollView>
