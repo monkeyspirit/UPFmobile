@@ -29,20 +29,20 @@ import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementActivity;
 import mobile.android.upf.data.model.Dish;
 
-public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewAdapter_dish.MyViewHolder> {
+public class RecyclerViewAdapter_restaurant_dish extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_dish.MyViewHolder> {
 
     private Context mContext;
     private ViewGroup parent;
     private List<Dish> mData;
     private DatabaseReference mDatabase;
 
-    public RecyclerViewAdapter_dish(Context mContext, List<Dish> mData) {
+    public RecyclerViewAdapter_restaurant_dish(Context mContext, List<Dish> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
     @NonNull
     @Override
-    public RecyclerViewAdapter_dish.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter_restaurant_dish.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
         this.parent = parent;
@@ -50,7 +50,7 @@ public class RecyclerViewAdapter_dish extends RecyclerView.Adapter<RecyclerViewA
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         view = mInflater.inflate(R.layout.cardview_item_dish, parent,false);
-        return new RecyclerViewAdapter_dish.MyViewHolder(view);
+        return new RecyclerViewAdapter_restaurant_dish.MyViewHolder(view);
     }
 
     @Override

@@ -18,31 +18,31 @@ import java.util.List;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;
 
-public class RecyclerViewAdapter_dish_client extends RecyclerView.Adapter<RecyclerViewAdapter_dish_client.MyViewHolder> {
+public class RecyclerViewAdapter_client_dish extends RecyclerView.Adapter<RecyclerViewAdapter_client_dish.MyViewHolder> {
 
     private Context mContext;
     private ViewGroup parent;
     private List<Dish> mData;
     private DatabaseReference mDatabase;
 
-    public RecyclerViewAdapter_dish_client(Context mContext, List<Dish> mData) {
+    public RecyclerViewAdapter_client_dish(Context mContext, List<Dish> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
     @NonNull
     @Override
-    public RecyclerViewAdapter_dish_client.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter_client_dish.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
         this.parent = parent;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         view = mInflater.inflate(R.layout.cardview_item_dish_client, parent,false);
-        return new RecyclerViewAdapter_dish_client.MyViewHolder(view);
+        return new RecyclerViewAdapter_client_dish.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter_dish_client.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter_client_dish.MyViewHolder holder, int position) {
         holder.tv_dish_name.setText(mData.get(position).getName());
         holder.tv_dish_description.setText(mData.get(position).getDescription());
         holder.tv_dish_price.setText(String.valueOf(mData.get(position).getPrice()));

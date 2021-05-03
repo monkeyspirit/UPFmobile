@@ -7,6 +7,7 @@ public class Dish {
     private String id;
     private String name, description, restaurant_id;
     private double price;
+    private int number;
 
     public Dish() {
     }
@@ -27,6 +28,23 @@ public class Dish {
         this.description = description;
         this.restaurant_id = restaurant_id;
         this.price = price;
+    }
+
+    public Dish(String id, String name, String description, String restaurant_id, double price, int number) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.restaurant_id = restaurant_id;
+        this.price = price;
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public String getId() {

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_dish;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_dish;
 
 public class RestaurantViewElementActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
             restaurant_emailAddress_element_tv, restaurant_description_element_tv;
 
     private RecyclerView myrv;
-    private RecyclerViewAdapter_dish myAdapter;
+    private RecyclerViewAdapter_restaurant_dish myAdapter;
 
     private List<Dish> lstDish;
     private String restaurant_id;
@@ -133,7 +133,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
                     }
 
                     myrv = (RecyclerView) findViewById(R.id.recyclerview_restaurant_dishes);
-                    myAdapter = new RecyclerViewAdapter_dish(RestaurantViewElementActivity.this, lstDish);
+                    myAdapter = new RecyclerViewAdapter_restaurant_dish(RestaurantViewElementActivity.this, lstDish);
 
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementActivity.this, 1));
                     myrv.setAdapter(myAdapter);
@@ -195,7 +195,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
 
                     }
 
-                    myAdapter = new RecyclerViewAdapter_dish(RestaurantViewElementActivity.this, lstDish);
+                    myAdapter = new RecyclerViewAdapter_restaurant_dish(RestaurantViewElementActivity.this, lstDish);
 
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementActivity.this, 1));
                     myrv.setAdapter(myAdapter);

@@ -1,19 +1,17 @@
 package mobile.android.upf;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter_order_dish_client;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_order_dish;
 
 public class AddNewOrderClientActivity extends AppCompatActivity {
 
@@ -39,7 +37,7 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     RecyclerView myrv;
-    RecyclerViewAdapter_order_dish_client myAdapter;
+    RecyclerViewAdapter_client_order_dish myAdapter;
 
     private static final String TAG_LOG = "AddDishOrderActivity";
 
@@ -53,6 +51,10 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_order);
+
+        //        Back arrow
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Get restaurant ID
         Intent intent = getIntent();
@@ -92,7 +94,7 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
                     }
 
                     myrv = (RecyclerView) findViewById(R.id.recyclerview_restaurant_dishes_client_order);
-                    myAdapter = new RecyclerViewAdapter_order_dish_client(AddNewOrderClientActivity.this, lstDish);
+                    myAdapter = new RecyclerViewAdapter_client_order_dish(AddNewOrderClientActivity.this, lstDish);
 
                     myrv.setLayoutManager(new GridLayoutManager(AddNewOrderClientActivity.this, 1));
                     myrv.setAdapter(myAdapter);
@@ -116,10 +118,34 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+
+        if (item.getItemId() == android.R.id.home) {
+            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(AddNewOrderClientActivity.this)
+                    // set message, title, and icon
+                    .setTitle("Sicuro di voler uscire?")
+                    .setMessage("Se esci il carrello verra cancellato.")
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                        }
+                    })
+                    .setPositiveButton("Esci", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mDatabase.child("Cart").child(currentUser.getUid()).removeValue();
+                            AddNewOrderClientActivity.this.finish();
+
+                        }
+                    })
+                    .create();
+            myQuittingDialogBox.show();
+
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

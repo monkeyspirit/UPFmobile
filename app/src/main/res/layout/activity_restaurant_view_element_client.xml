@@ -78,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/dish"
-                android:textSize="@dimen/text_size_extra_large" />
+                android:textSize="@dimen/text_size_extra_large"
+                android:layout_marginBottom="20dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_restaurant_dishes_client"
@@ -90,7 +91,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="80dp"
                 android:background="@color/light_gray"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

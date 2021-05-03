@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="price"
-            android:drawableRight="@drawable/ic_baseline_euro_24"
+            android:drawableRight="@drawable/ic_baseline_euro_symbol_18"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_size_large" />
 

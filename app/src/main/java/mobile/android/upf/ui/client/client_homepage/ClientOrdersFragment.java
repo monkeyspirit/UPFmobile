@@ -37,7 +37,7 @@ import java.util.List;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_order;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_view_order;
 
 public class ClientOrdersFragment extends Fragment {
 
@@ -53,7 +53,7 @@ public class ClientOrdersFragment extends Fragment {
     LinearLayout linearLayout;
 
     RecyclerView myrv;
-    RecyclerViewAdapter_order myAdapter;
+    RecyclerViewAdapter_client_view_order myAdapter;
 
     //    Solo di prova
     List<Order> lstOrder;
@@ -97,7 +97,7 @@ public class ClientOrdersFragment extends Fragment {
                     lstOrder.add(new Order(address, address, address));
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
-                    myAdapter = new RecyclerViewAdapter_order(getActivity(), lstOrder);
+                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);

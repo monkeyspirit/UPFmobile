@@ -102,4 +102,9 @@
     <string name="add_subscription">Aggiungi iscrizione</string>
     <string name="subscribe">Iscriviti</string>
     <string name="unsubscribe">Disiscriviti</string>
+    <string name="new_order_menu">Seleziona i piatti e le loro quantità dal menù del ristorante</string>
+    <string name="add_dish_to_cart_failed">Errore nell\'aggiunta del piatto al carrello</string>
+    <string name="add_dish_to_cart_success">Piatto aggiunto correttamente al carrello</string>
+    <string name="pay">Prosegui con il pagamento</string>
+    <string name="proceed">Procedi</string>
 </resources>

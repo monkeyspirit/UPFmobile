@@ -14,29 +14,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="NUOVO ORDINE"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="@string/new_order_menu"
                 android:textAlignment="center"
-                android:textSize="@dimen/text_size_large" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="20dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="4dp"
-                android:text="Menu"
-                android:textSize="@dimen/text_size_medium_large"
-                android:textAlignment="center"/>
+                android:textSize="@dimen/text_size_medium_large" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_restaurant_dishes_client_order"
@@ -47,7 +36,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="80dp"
                 android:background="@color/light_gray"/>
         </LinearLayout>
 

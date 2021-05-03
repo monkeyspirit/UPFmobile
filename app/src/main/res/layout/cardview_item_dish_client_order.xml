@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="price"
-            android:drawableRight="@drawable/ic_baseline_euro_24"
+            android:drawableRight="@drawable/ic_baseline_euro_symbol_18"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_size_large" />
 
@@ -46,6 +46,9 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="description"
             android:layout_gravity="center"
             android:textColor="@color/dark_grey"
@@ -58,9 +61,8 @@
             android:layout_margin="6dp">
 
             <NumberPicker
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="6"
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_size_small"
                 android:text="NumberPicker"

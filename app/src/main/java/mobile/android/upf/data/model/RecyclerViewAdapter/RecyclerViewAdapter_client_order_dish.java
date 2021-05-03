@@ -1,52 +1,64 @@
-package mobile.android.upf.data.model;
+package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 import mobile.android.upf.R;
-import mobile.android.upf.RestaurantViewElementForClientActivity;
+import mobile.android.upf.data.model.Dish;
 
-public class RecyclerViewAdapter_order_dish_client extends RecyclerView.Adapter<RecyclerViewAdapter_order_dish_client.MyViewHolder> {
+import static android.widget.Toast.LENGTH_LONG;
+
+public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<RecyclerViewAdapter_client_order_dish.MyViewHolder> {
 
     private Context mContext;
     private ViewGroup parent;
     private List<Dish> mData;
     private DatabaseReference mDatabase;
+
+    private FirebaseAuth mAuth;
+
     private int numberDishes;
 
-    public RecyclerViewAdapter_order_dish_client(Context mContext, List<Dish> mData) {
+    public RecyclerViewAdapter_client_order_dish(Context mContext, List<Dish> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public RecyclerViewAdapter_order_dish_client.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter_client_order_dish.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         this.parent = parent;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         view = mInflater.inflate(R.layout.cardview_item_dish_client_order, parent,false);
-        return new RecyclerViewAdapter_order_dish_client.MyViewHolder(view);
+        return new RecyclerViewAdapter_client_order_dish.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter_order_dish_client.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter_client_order_dish.MyViewHolder holder, int position) {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        String current_id = mAuth.getCurrentUser().getUid();
 
         holder.tv_dish_number_add_picker.setMinValue(1);
         holder.tv_dish_number_add_picker.setMaxValue(15);
@@ -64,8 +76,21 @@ public class RecyclerViewAdapter_order_dish_client extends RecyclerView.Adapter<
         holder.tv_dish_add_dish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, RestaurantViewElementForClientActivity.class);
-                intent.putExtra("id", mData.get(position).getId());
+                if (numberDishes == 0){
+                    numberDishes = 1;
+                }
+                Dish dish = new Dish(mData.get(position).getId(), mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getRestaurant_id(), mData.get(position).getPrice(), numberDishes);
+                mDatabase.child("Cart").child(current_id).child(mData.get(position).getId()).setValue(dish).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(mContext, R.string.add_dish_to_cart_success, LENGTH_LONG).show();
+                        } else {
+                           Toast.makeText(mContext, R.string.add_dish_to_cart_failed, LENGTH_LONG).show();
+                        }
+                    }
+                });
+
             }
         });
 

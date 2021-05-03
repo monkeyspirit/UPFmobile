@@ -14,12 +14,12 @@ import java.util.List;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
 
-public class RecyclerViewAdapter_order extends RecyclerView.Adapter<RecyclerViewAdapter_order.MyViewHolder> {
+public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_client_view_order.MyViewHolder> {
 
     private Context mContext;
     private List<Order> mData;
 
-    public RecyclerViewAdapter_order(Context mContext, List<Order> mData) {
+    public RecyclerViewAdapter_client_view_order(Context mContext, List<Order> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
