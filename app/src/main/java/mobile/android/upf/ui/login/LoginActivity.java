@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("firebase", String.valueOf(task.getResult().getValue()));
                                         Toast.makeText(LoginActivity.this, getString(R.string.authentication_success), Toast.LENGTH_LONG).show();
                                         int type = Integer.parseInt(String.valueOf(task.getResult().child("type").getValue()));
-
+                                        mDatabase.child("Cart").child(currentUser.getUid()).removeValue();
 //
 
                                         switch (type){
