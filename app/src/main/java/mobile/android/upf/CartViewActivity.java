@@ -49,10 +49,6 @@ public class CartViewActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //Get restaurant ID
-        Intent intent = getIntent();
-        restaurant_id = intent.getExtras().getString("restaurant_id");
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         userId = mAuth.getUid();
@@ -100,9 +96,8 @@ public class CartViewActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(CartViewActivity.this, CartViewActivity.class);
-//                intent.putExtra("id", userId);
-//                startActivityForResult(intent, 1);
+                Intent intent = new Intent(CartViewActivity.this, OrderAddressCardInsertActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
 

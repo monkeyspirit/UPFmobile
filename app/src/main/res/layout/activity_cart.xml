@@ -19,14 +19,12 @@
                 android:id="@+id/recyclerview_cart_dishes_client"
 
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/light_gray">
+                android:layout_height="wrap_content">
             </androidx.recyclerview.widget.RecyclerView>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@color/light_gray"/>
+                android:layout_height="80dp"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -42,8 +40,8 @@
             android:layout_gravity="bottom|center"
             android:layout_margin="@dimen/fab_margin"
             android:text="@string/proceed"
-            app:backgroundTint="@color/teal_200"
-            app:icon="@drawable/ic_baseline_add_location_24" />
+            app:backgroundTint="#FFC107"
+            app:icon="@drawable/ic_baseline_arrow_forward_24" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

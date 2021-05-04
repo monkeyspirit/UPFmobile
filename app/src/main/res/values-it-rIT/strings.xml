@@ -107,4 +107,12 @@
     <string name="add_dish_to_cart_success">Piatto aggiunto correttamente al carrello</string>
     <string name="pay">Prosegui con il pagamento</string>
     <string name="proceed">Procedi</string>
+    <string name="title_activity_user_insert_address_card">Indirizzo e pagamento</string>
+    <string name="summary">Riepilogo</string>
+    <string name="payment">Metodo di pagamento</string>
+    <string name="cash">Contanti</string>
+    <string name="card">Carta</string>
+    <string name="card_number">Numero della carta</string>
+    <string name="card_possessor">Proprietario carta</string>
+    <string name="card_expiration">Data di scadenza</string>
 </resources>

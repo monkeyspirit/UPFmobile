@@ -12,10 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_upf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
+        <activity android:name=".CartCheckout"
+            android:label="@string/summary"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBBrp17E6nETzmbVS0-s7YglOW0BKzrjUw" />
+
+        <activity
+            android:name=".OrderAddressCardInsertActivity"
+            android:label="@string/title_activity_user_insert_address_card" />
         <activity
             android:name=".AddSubscriptionActivity"
-            android:label="@string/add_subscription">
-        </activity>
+            android:label="@string/add_subscription" />
         <activity
             android:name=".CartViewActivity"
             android:label="@string/title_activity_user_cart" />

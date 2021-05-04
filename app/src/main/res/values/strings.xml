@@ -125,4 +125,16 @@
     <string name="add_dish_to_cart_success">The dish is added to the cart</string>
     <string name="pay">Go on with the payment</string>
     <string name="proceed">Proceed</string>
+
+    <string name="title_activity_user_insert_address_card">Address and payment</string>
+    <string name="summary">Summary</string>
+    <string name="payment">Payment method</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="card_number">Card number</string>
+    <string name="card_possessor">Card possessor</string>
+    <string name="card_expiration">Expiration date</string>
+    <string name="card_csv" translatable="false">CSV</string>
+    <string name="separator" translatable="false">/</string>
+
 </resources>
