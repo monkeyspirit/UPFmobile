@@ -134,7 +134,11 @@
     <string name="card_number">Card number</string>
     <string name="card_possessor">Card possessor</string>
     <string name="card_expiration">Expiration date</string>
-    <string name="card_csv" translatable="false">CSV</string>
+    <string name="card_cvv" translatable="false">CVV</string>
     <string name="separator" translatable="false">/</string>
+    <string name="empty_card">Card number is required</string>
+    <string name="empty_card_exp">Expiration date is required</string>
+    <string name="empty_card_cvv">CVV is required</string>
+    <string name="number_error">Error in the number</string>
 
 </resources>

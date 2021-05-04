@@ -3,10 +3,10 @@ package mobile.android.upf;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,12 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_cart;
 
 public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
@@ -48,7 +36,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
     private LinearLayout card_parameter;
     private RadioGroup payment_method;
     private RadioButton card_radio_btn;
-    private EditText card_1316digit,card_expmonth, card_expyear, card_namePossessor;
+    private EditText card_14digit,card_58digit,card_912digit,card_1316digit, card_cvv,card_expmonth, card_expyear, card_namePossessor;
     private Button summary_btn;
 
 
@@ -83,6 +71,11 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
         card_parameter = (LinearLayout) findViewById(R.id.card_parameter);
 
+        card_cvv = (EditText) findViewById(R.id.card_cvv);
+
+        card_14digit= (EditText) findViewById(R.id.card_14digit);
+        card_58digit= (EditText) findViewById(R.id.card_58digit);
+        card_912digit= (EditText) findViewById(R.id.card_912digit);
         card_1316digit= (EditText) findViewById(R.id.card_1316digit);
         card_expmonth= (EditText) findViewById(R.id.card_expmonth);
         card_expyear= (EditText) findViewById(R.id.card_expyear);
@@ -109,22 +102,80 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
             }
         });
 
+
         summary_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
-                String card_expiration = card_expmonth.getText().toString()+"/"+card_expyear.getText().toString();
-                String card_possessor = card_namePossessor.getText().toString();
-                String card_lastdigit = card_1316digit.getText().toString();
-                intent.putExtra("expiration", card_expiration);
-                intent.putExtra("possessor", card_possessor);
-                intent.putExtra("last_digit", card_lastdigit);
-                startActivityForResult(intent, 1);
+
+                checkCardInput();
+
+
             }
         });
 
+    }
 
+    public void checkCardInput(){
 
+        if(card_14digit.getText().toString().isEmpty()){
+            card_14digit.requestFocus();
+            card_14digit.setError(getString(R.string.empty_card));
+            return;
+        }
+        if(card_58digit.getText().toString().isEmpty()){
+            card_58digit.requestFocus();
+            card_58digit.setError(getString(R.string.empty_card));
+            return;
+        }
+        if(card_912digit.getText().toString().isEmpty()){
+            card_912digit.requestFocus();
+            card_912digit.setError(getString(R.string.empty_card));
+            return;
+        }
+        if(card_1316digit.getText().toString().isEmpty()){
+            card_1316digit.requestFocus();
+            card_1316digit.setError(getString(R.string.empty_card));
+            return;
+        }
+        if(card_namePossessor.getText().toString().isEmpty()){
+            card_namePossessor.setError(getString(R.string.empty_name));
+            card_namePossessor.requestFocus();
+            return;
+        }
+        if(card_expmonth.getText().toString().isEmpty()){
+            card_expmonth.requestFocus();
+            card_expmonth.setError(getString(R.string.empty_card_exp));
+            return;
+        }
+        if(Integer.parseInt(card_expmonth.getText().toString())>13){
+            card_expmonth.requestFocus();
+            card_expmonth.setError(getString(R.string.number_error));
+            return;
+        }
+        if(card_expyear.getText().toString().isEmpty()){
+            card_expyear.requestFocus();
+            card_expyear.setError(getString(R.string.empty_card_exp));
+            return;
+        }
+        if(Integer.parseInt(card_expyear.getText().toString())< 21){
+            card_expyear.requestFocus();
+            card_expyear.setError(getString(R.string.number_error));
+            return;
+        }
+        if(card_cvv.getText().toString().isEmpty()){
+            card_cvv.requestFocus();
+            card_cvv.setError(getString(R.string.empty_card_cvv));
+            return;
+        }
+
+        Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
+        String card_expiration = card_expmonth.getText().toString()+"/"+card_expyear.getText().toString();
+        String card_possessor = card_namePossessor.getText().toString();
+        String card_lastdigit = card_1316digit.getText().toString();
+        intent.putExtra("expiration", card_expiration);
+        intent.putExtra("possessor", card_possessor);
+        intent.putExtra("last_digit", card_lastdigit);
+        startActivityForResult(intent, 1);
 
 
     }

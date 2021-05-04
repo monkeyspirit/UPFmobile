@@ -174,7 +174,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/card_csv"
+                            android:text="@string/card_cvv"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_large">
@@ -218,7 +218,7 @@
                         </LinearLayout>
 
                         <EditText
-                            android:id="@+id/card_csv"
+                            android:id="@+id/card_cvv"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
