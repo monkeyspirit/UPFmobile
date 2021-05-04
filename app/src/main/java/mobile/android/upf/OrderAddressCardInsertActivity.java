@@ -109,6 +109,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
                 if (payment_method.getCheckedRadioButtonId() != card_radio_btn.getId()){
                     Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
                     intent.putExtra("card", false);
+                    intent.putExtra("address", order_address.getText().toString());
                     startActivityForResult(intent, 1);
                 }
                 else{
@@ -180,12 +181,11 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
         Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
         String card_expiration = card_expmonth.getText().toString()+"/"+card_expyear.getText().toString();
-        String card_possessor = card_namePossessor.getText().toString();
-        String card_lastdigits = card_1316digit.getText().toString();
         intent.putExtra("card", true);
+        intent.putExtra("address", order_address.getText().toString());
         intent.putExtra("expiration", card_expiration);
-        intent.putExtra("possessor", card_possessor);
-        intent.putExtra("last_digits", card_lastdigits);
+        intent.putExtra("possessor", card_namePossessor.getText().toString());
+        intent.putExtra("last_digits", card_1316digit.getText().toString());
         startActivityForResult(intent, 1);
 
 

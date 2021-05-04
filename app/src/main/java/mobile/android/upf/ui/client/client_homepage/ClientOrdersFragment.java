@@ -86,15 +86,15 @@ public class ClientOrdersFragment extends Fragment {
                     String name = String.valueOf(task.getResult().child("name").getValue());
                     String surname = String.valueOf(task.getResult().child("surname").getValue());
                     String address = String.valueOf(task.getResult().child("address").getValue());
-                    lstOrder.add(new Order(name, name, name));
-                    lstOrder.add(new Order(surname, surname, surname));
-                    lstOrder.add(new Order(address, address, address));
-                    lstOrder.add(new Order(name, name, name));
-                    lstOrder.add(new Order(surname, surname, surname));
-                    lstOrder.add(new Order(address, address, address));
-                    lstOrder.add(new Order(name, name, name));
-                    lstOrder.add(new Order(surname, surname, surname));
-                    lstOrder.add(new Order(address, address, address));
+//                    lstOrder.add(new Order(name, name, name));
+//                    lstOrder.add(new Order(surname, surname, surname));
+//                    lstOrder.add(new Order(address, address, address));
+//                    lstOrder.add(new Order(name, name, name));
+//                    lstOrder.add(new Order(surname, surname, surname));
+//                    lstOrder.add(new Order(address, address, address));
+//                    lstOrder.add(new Order(name, name, name));
+//                    lstOrder.add(new Order(surname, surname, surname));
+//                    lstOrder.add(new Order(address, address, address));
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
                     myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);

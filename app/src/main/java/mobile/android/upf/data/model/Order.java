@@ -2,28 +2,47 @@ package mobile.android.upf.data.model;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Order {
 
     private String id;
     private String user_id;
     private String restaurant_id;
+    private ArrayList<Dish> dishes;
+    private String total;
+    private String paymemt_method;
+    private String address;
+    private String date;
+    private String time;
 
     public Order() {
     }
 
-    public Order(String id, String user_id, String restaurant_id) {
+    public Order(String id, String user_id, String restaurant_id, ArrayList<Dish> dishes, String total, String paymemt_method, String address, String date, String time) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.dishes = dishes;
+        this.total = total;
+        this.paymemt_method = paymemt_method;
+        this.address = address;
+        this.date = date;
+        this.time = time;
     }
 
-    public Order(String user_id, String restaurant_id) {
+    public Order(String user_id, String restaurant_id, ArrayList<Dish> dishes, String total, String paymemt_method, String address, String date, String time) {
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.dishes = dishes;
+        this.total = total;
+        this.paymemt_method = paymemt_method;
+        this.address = address;
+        this.date = date;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
-        this.id = md5(user_id+restaurant_id+ts);
+        this.id = md5(user_id+restaurant_id+ts+dishes+total+paymemt_method+address+date+time);
     }
 
     public String md5(String s) {
@@ -63,6 +82,54 @@ public class Order {
 
     public String getRestaurant_id() {
         return restaurant_id;
+    }
+
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(ArrayList<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getPaymemt_method() {
+        return paymemt_method;
+    }
+
+    public void setPaymemt_method(String paymemt_method) {
+        this.paymemt_method = paymemt_method;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setRestaurant_id(String restaurant_id) {
