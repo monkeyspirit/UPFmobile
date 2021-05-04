@@ -94,7 +94,6 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
                 Log.d("Check id", String.valueOf(group.getCheckedRadioButtonId()));
                 if (group.getCheckedRadioButtonId() == card_radio_btn.getId()){
                     card_parameter.setVisibility(View.VISIBLE);
-// ADD YEAR AND MONTH CHECK!!!
                 }
                 else {
                     card_parameter.setVisibility(View.INVISIBLE);
@@ -107,8 +106,14 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                checkCardInput();
-
+                if (payment_method.getCheckedRadioButtonId() != card_radio_btn.getId()){
+                    Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
+                    intent.putExtra("card", false);
+                    startActivityForResult(intent, 1);
+                }
+                else{
+                    checkCardInput();
+                }
 
             }
         });
@@ -117,6 +122,11 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
     public void checkCardInput(){
 
+        if(order_address.getText().toString().isEmpty()){
+            order_address.requestFocus();
+            order_address.setError(getString(R.string.empty_address));
+            return;
+        }
         if(card_14digit.getText().toString().isEmpty()){
             card_14digit.requestFocus();
             card_14digit.setError(getString(R.string.empty_card));
@@ -171,10 +181,11 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
         Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
         String card_expiration = card_expmonth.getText().toString()+"/"+card_expyear.getText().toString();
         String card_possessor = card_namePossessor.getText().toString();
-        String card_lastdigit = card_1316digit.getText().toString();
+        String card_lastdigits = card_1316digit.getText().toString();
+        intent.putExtra("card", true);
         intent.putExtra("expiration", card_expiration);
         intent.putExtra("possessor", card_possessor);
-        intent.putExtra("last_digit", card_lastdigit);
+        intent.putExtra("last_digits", card_lastdigits);
         startActivityForResult(intent, 1);
 
 
