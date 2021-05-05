@@ -117,39 +117,30 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
         final boolean[] enabled = {false};
 
+        mDatabase.child("Cart").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
+                    fab.setEnabled(true);
+                    fab.setVisibility(View.VISIBLE);
+                } else {
+                    fab.setEnabled(false);
+                    fab.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDatabase.child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
-                            Log.d(TAG_LOG, "Cart is not empty");
-                            enabled[0] = true;
-                            //fab.setEnabled(true);
-                            //fab.setVisibility(View.VISIBLE);
-                        } else {
-                            Log.d(TAG_LOG, "Cart is empty");
-                            enabled[0] = false;
-                            Toast.makeText(AddNewOrderClientActivity.this, R.string.cart_empty, LENGTH_LONG).show();
-                            //fab.setEnabled(false);
-                            //fab.setVisibility(View.GONE);
-                        }
-                        if (enabled[0]) {
-                            Intent intent = new Intent(AddNewOrderClientActivity.this, CartViewActivity.class);
-                            intent.putExtra("id", userId);
-                            startActivityForResult(intent, 1);
-                        } else {
-                            Log.d(TAG_LOG, "The button is not enabled");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                Intent intent = new Intent(AddNewOrderClientActivity.this, CartViewActivity.class);
+                intent.putExtra("id", userId);
+                startActivityForResult(intent, 1);
             }
         });
     }
