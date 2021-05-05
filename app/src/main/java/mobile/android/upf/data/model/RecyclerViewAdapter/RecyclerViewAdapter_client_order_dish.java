@@ -35,7 +35,7 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
 
     private FirebaseAuth mAuth;
 
-    private int numberDishes;
+
 
     public RecyclerViewAdapter_client_order_dish(Context mContext, List<Dish> mData) {
         this.mContext = mContext;
@@ -60,15 +60,20 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
         mAuth = FirebaseAuth.getInstance();
         String current_id = mAuth.getCurrentUser().getUid();
 
+
         holder.tv_dish_number_add_picker.setMinValue(1);
         holder.tv_dish_number_add_picker.setMaxValue(15);
         holder.tv_dish_number_add_picker.setValue(1);
+
+        final int[] numberDishes = {1};
+
         holder.tv_dish_number_add_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                numberDishes = newVal;
+                numberDishes[0] = picker.getValue();
             }
         });
+
         holder.tv_dish_name.setText(mData.get(position).getName());
         holder.tv_dish_description.setText(mData.get(position).getDescription());
         holder.tv_dish_price.setText(String.valueOf(mData.get(position).getPrice()));
@@ -76,10 +81,10 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
         holder.tv_dish_add_dish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberDishes == 0){
-                    numberDishes = 1;
+                if (numberDishes[0] == 0){
+                    numberDishes[0] = 1;
                 }
-                Dish dish = new Dish(mData.get(position).getId(), mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getRestaurant_id(), mData.get(position).getPrice(), numberDishes);
+                Dish dish = new Dish(mData.get(position).getId(), mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getRestaurant_id(), mData.get(position).getPrice(), numberDishes[0]);
                 mDatabase.child("Cart").child(current_id).child(mData.get(position).getId()).setValue(dish).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

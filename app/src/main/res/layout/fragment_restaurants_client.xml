@@ -14,8 +14,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_client_restaurants"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false">
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>

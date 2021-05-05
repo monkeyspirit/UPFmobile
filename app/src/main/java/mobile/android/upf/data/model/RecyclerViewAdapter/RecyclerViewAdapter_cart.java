@@ -70,6 +70,7 @@ public class RecyclerViewAdapter_cart extends RecyclerView.Adapter<RecyclerViewA
                 mDatabase.child("Cart").child(current_id).child(mData.get(position).getId()).removeValue();
                 mData.remove(position);
                 notifyItemRemoved(position);
+//                notifyItemChanged(position);
                 notifyItemRangeChanged(position, mData.size());
             }
         });
