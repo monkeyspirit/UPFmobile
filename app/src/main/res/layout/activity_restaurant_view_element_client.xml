@@ -85,7 +85,8 @@
                 android:id="@+id/recyclerview_restaurant_dishes_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray">
+                android:background="@color/light_gray"
+                android:nestedScrollingEnabled="false">
 
             </androidx.recyclerview.widget.RecyclerView>
 

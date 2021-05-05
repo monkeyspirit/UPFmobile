@@ -40,6 +40,7 @@ public class Order {
         this.paymemt_method = paymemt_method;
         this.address = address;
         this.date = date;
+        this.time = time;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
         this.id = md5(user_id+restaurant_id+ts+dishes+total+paymemt_method+address+date+time);
