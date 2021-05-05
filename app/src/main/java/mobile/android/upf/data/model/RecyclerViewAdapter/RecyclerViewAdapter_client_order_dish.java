@@ -36,7 +36,6 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
     private FirebaseAuth mAuth;
 
 
-
     public RecyclerViewAdapter_client_order_dish(Context mContext, List<Dish> mData) {
         this.mContext = mContext;
         this.mData = mData;
@@ -60,16 +59,15 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
         mAuth = FirebaseAuth.getInstance();
         String current_id = mAuth.getCurrentUser().getUid();
 
-
         holder.tv_dish_number_add_picker.setMinValue(1);
         holder.tv_dish_number_add_picker.setMaxValue(15);
         holder.tv_dish_number_add_picker.setValue(1);
 
         final int[] numberDishes = {1};
 
-        holder.tv_dish_number_add_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        holder.tv_dish_number_add_picker.setOnValueChangedListener(new com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            public void onValueChange(com.shawnlin.numberpicker.NumberPicker picker, int oldVal, int newVal) {
                 numberDishes[0] = picker.getValue();
             }
         });
@@ -81,9 +79,6 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
         holder.tv_dish_add_dish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (numberDishes[0] == 0){
-                    numberDishes[0] = 1;
-                }
                 Dish dish = new Dish(mData.get(position).getId(), mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getRestaurant_id(), mData.get(position).getPrice(), numberDishes[0]);
                 mDatabase.child("Cart").child(current_id).child(mData.get(position).getId()).setValue(dish).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -99,7 +94,6 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
             }
         });
 
-
     }
 
     @Override
@@ -111,7 +105,7 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
             TextView tv_dish_name,tv_dish_description,tv_dish_price;
             CardView tv_dish_card;
             Button tv_dish_add_dish;
-            NumberPicker tv_dish_number_add_picker;
+            com.shawnlin.numberpicker.NumberPicker tv_dish_number_add_picker;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -123,7 +117,7 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
                 tv_dish_price = (TextView) itemView.findViewById(R.id.dish_price_element_client_order);
 
                 tv_dish_add_dish = (Button) itemView.findViewById(R.id.add_dish_client_order_btn);
-                tv_dish_number_add_picker = (NumberPicker) itemView.findViewById(R.id.dish_number_order_picker);
+                tv_dish_number_add_picker = (com.shawnlin.numberpicker.NumberPicker) itemView.findViewById(R.id.dish_number_order_picker);
             }
     }
 }

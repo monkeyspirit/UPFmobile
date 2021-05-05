@@ -3,15 +3,20 @@ package mobile.android.upf;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,14 +26,18 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_order_dish;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class AddNewOrderClientActivity extends AppCompatActivity {
 
@@ -104,14 +113,43 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
             }
         });
 
-        //        Floating button per l'aggiunta di nuovo ordine
+        // Floating button per la visione del carrello
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
+        final boolean[] enabled = {false};
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddNewOrderClientActivity.this, CartViewActivity.class);
-                intent.putExtra("id", userId);
-                startActivityForResult(intent, 1);
+                mDatabase.child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
+                            Log.d(TAG_LOG, "Cart is not empty");
+                            enabled[0] = true;
+                            //fab.setEnabled(true);
+                            //fab.setVisibility(View.VISIBLE);
+                        } else {
+                            Log.d(TAG_LOG, "Cart is empty");
+                            enabled[0] = false;
+                            Toast.makeText(AddNewOrderClientActivity.this, R.string.cart_empty, LENGTH_LONG).show();
+                            //fab.setEnabled(false);
+                            //fab.setVisibility(View.GONE);
+                        }
+                        if (enabled[0]) {
+                            Intent intent = new Intent(AddNewOrderClientActivity.this, CartViewActivity.class);
+                            intent.putExtra("id", userId);
+                            startActivityForResult(intent, 1);
+                        } else {
+                            Log.d(TAG_LOG, "The button is not enabled");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
@@ -122,8 +160,8 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             AlertDialog myQuittingDialogBox = new AlertDialog.Builder(AddNewOrderClientActivity.this)
                     // set message, title, and icon
-                    .setTitle("Sicuro di voler uscire?")
-                    .setMessage("Se esci il carrello verra cancellato.")
+                    .setTitle(getString(R.string.cart_exit))
+                    .setMessage(getString(R.string.cart_exit_delete))
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
@@ -133,7 +171,7 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
                         public void onCancel(DialogInterface dialog) {
                         }
                     })
-                    .setPositiveButton("Esci", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

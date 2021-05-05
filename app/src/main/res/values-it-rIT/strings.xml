@@ -119,4 +119,8 @@
     <string name="empty_card_exp">La data di scadenza è necessaria</string>
     <string name="empty_card_cvv">Il codice CVV è necessario</string>
     <string name="number_error">Errore nel numero</string>
+    <string name="cart_exit">Sei sicuro di voler uscire?</string>
+    <string name="cart_exit_delete">Se esci, il tuo carrello sarà svuotato</string>
+    <string name="exit">Esci</string>
+    <string name="cart_empty">Il carrello è vuoto</string>
 </resources>

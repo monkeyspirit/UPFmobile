@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.2.2'
     implementation 'com.google.firebase:firebase-messaging:21.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -64,5 +64,6 @@ dependencies {
     //libreria da github per decorare dopo gli swipe
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
 
-
+    //librearia da github per number picker orizzontale
+    implementation 'com.shawnlin:number-picker:2.4.12'
 }

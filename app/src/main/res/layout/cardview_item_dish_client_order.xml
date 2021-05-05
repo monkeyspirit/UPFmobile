@@ -68,31 +68,43 @@
 
             </LinearLayout>
 
-            <NumberPicker
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.shawnlin.numberpicker.NumberPicker
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_gravity="center"
+                app:np_orientation="horizontal"
+                app:np_textColor="@color/dark_grey"
+                app:np_textSize="@dimen/text_size_small"
+                app:np_dividerColor="@color/dark_grey"
+
+                app:np_dividerLength="40dp"
                 android:layout_marginRight="20dp"
                 android:textSize="@dimen/text_size_small"
-                android:layout_weight="1"
                 android:text="NumberPicker"
                 android:id="@+id/dish_number_order_picker"/>
 
+            <Button
+                android:id="@+id/add_dish_client_order_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="@color/secondary"
+                android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
+                android:text="@string/add_dish"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_small"
+                android:layout_margin="15dp"/>
 
         </LinearLayout>
-        <Button
-            android:id="@+id/add_dish_client_order_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:backgroundTint="@color/secondary"
-            android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
-            android:text="@string/add_dish"
-            android:textAlignment="center"
-            android:textSize="@dimen/text_size_small"
-            android:layout_margin="15dp"/>
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
