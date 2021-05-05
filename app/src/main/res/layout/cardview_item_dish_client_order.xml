@@ -65,9 +65,7 @@
                     android:layout_gravity="center"
                     android:textColor="@color/dark_grey"
                     android:id="@+id/dish_description_element_client_order"/>
-
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -84,8 +82,6 @@
                 app:np_textColor="@color/dark_grey"
                 app:np_textSize="@dimen/text_size_small"
                 app:np_dividerColor="@color/dark_grey"
-
-                app:np_dividerLength="40dp"
                 android:layout_marginRight="20dp"
                 android:textSize="@dimen/text_size_small"
                 android:text="NumberPicker"

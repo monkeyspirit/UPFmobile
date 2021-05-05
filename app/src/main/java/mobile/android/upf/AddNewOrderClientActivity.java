@@ -115,7 +115,6 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
 
         // Floating button per la visione del carrello
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
-        final boolean[] enabled = {false};
 
         mDatabase.child("Cart").addValueEventListener(new ValueEventListener() {
             @Override
@@ -145,8 +144,24 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        mDatabase.child("Cart").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (item.getItemId() == android.R.id.home) {
             AlertDialog myQuittingDialogBox = new AlertDialog.Builder(AddNewOrderClientActivity.this)
