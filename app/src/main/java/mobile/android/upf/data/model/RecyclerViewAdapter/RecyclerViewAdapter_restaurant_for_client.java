@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -113,9 +114,15 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             email_restaurant_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent emailIntent = new Intent(Intent.ACTION_DIAL);
-                    emailIntent.setData(Uri.parse("email:"+tv_restaurant_email.getText().toString()));
-                    mContext.startActivity(emailIntent);
+                    try {
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        emailIntent.setData(Uri.parse("email:"));
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, tv_restaurant_email.getText().toString());
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Informazioni ristorante");
+                        mContext.startActivity(emailIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(mContext, "There are no e-mail client installed", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 

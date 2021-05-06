@@ -56,6 +56,8 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
     List<Dish> lstDish;
     private String userId;
 
+    private boolean cartEmpty = true;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,9 +124,11 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
                 if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
                     fab.setEnabled(true);
                     fab.setVisibility(View.VISIBLE);
+                    cartEmpty = false;
                 } else {
                     fab.setEnabled(false);
                     fab.setVisibility(View.GONE);
+                    cartEmpty = true;
                 }
             }
 
@@ -147,52 +151,36 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Log.d(TAG_LOG, "Sono qui");
-        if (item.getItemId() == android.R.id.home) {
-            mDatabase.child("Cart").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
-                        Log.d(TAG_LOG, "Sono qui3");
-                        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(AddNewOrderClientActivity.this)
-                                // set message, title, and icon
-                                .setTitle(getString(R.string.cart_exit))
-                                .setMessage(getString(R.string.cart_exit_delete))
-                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                    }
-                                })
-                                .setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
+        if (item.getItemId() == android.R.id.home && !cartEmpty) {
+            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(AddNewOrderClientActivity.this)
+                    // set message, title, and icon
+                    .setTitle(getString(R.string.cart_exit))
+                    .setMessage(getString(R.string.cart_exit_delete))
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                        }
+                    })
+                    .setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
 
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mDatabase.child("Cart").child(currentUser.getUid()).removeValue();
-                                        AddNewOrderClientActivity.this.finish();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mDatabase.child("Cart").child(currentUser.getUid()).removeValue();
+                            AddNewOrderClientActivity.this.finish();
 
-                                    }
-                                })
-                                .create();
-                        myQuittingDialogBox.show();
-                    } else {
-                        Log.d(TAG_LOG, "Sono qui4");
-                        return;
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            //return true;
+                        }
+                    })
+                    .create();
+            myQuittingDialogBox.show();
+            return true;
+        } else {
+            AddNewOrderClientActivity.this.finish();
         }
-        Log.d(TAG_LOG, "Sono qui2");
+
         return super.onOptionsItemSelected(item);
     }
 

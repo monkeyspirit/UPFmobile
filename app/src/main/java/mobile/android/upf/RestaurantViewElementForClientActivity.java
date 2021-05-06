@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -20,8 +22,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +44,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
     private RecyclerView myrv;
     private RecyclerViewAdapter_client_dish myAdapter;
+    private ProgressBar progressBar;
 
     private List<Dish> lstDish;
     private String restaurant_id;
@@ -67,7 +73,6 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
         restaurant_pic =  findViewById(R.id.restaurant_pic_client);
 
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Restaurants").child(restaurant_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -76,7 +81,6 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     restaurant_name_element_tv.setText(String.valueOf(task.getResult().child("name").getValue()));
                     setTitle(String.valueOf(task.getResult().child("name").getValue()));
@@ -96,7 +100,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             }
         });
 
-        //        Floating button per l'aggiunta di nuovi piatti
+        // Floating button per l'aggiunta di nuovi piatti
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_order);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +143,9 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
                     myrv.setLayoutManager(new GridLayoutManager(RestaurantViewElementForClientActivity.this, 1));
                     myrv.setAdapter(myAdapter);
 
+
                 }
+
             }
 
         });
