@@ -68,7 +68,7 @@ public class ClientRestaurantsFragment extends Fragment {
 
         }*/
 
-        mDatabase.child("Restaurants").orderByChild("status").equalTo(0).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("Restaurants")./*orderByChild("status").equalTo(0).*/get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -94,6 +94,7 @@ public class ClientRestaurantsFragment extends Fragment {
 
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_restaurants);
+                    //myrv.setNestedScrollingEnabled(true);
                     myAdapter = new RecyclerViewAdapter_restaurant_for_client(getActivity(), lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));

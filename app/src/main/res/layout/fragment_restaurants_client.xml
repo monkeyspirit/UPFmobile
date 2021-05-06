@@ -6,16 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.client.client_restaurants.ClientRestaurantsFragment">
 
-    <ScrollView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_client_restaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_gray">
+        android:nestedScrollingEnabled="false">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_client_restaurants"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
