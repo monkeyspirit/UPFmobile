@@ -19,8 +19,10 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +93,25 @@ public class CartViewActivity extends AppCompatActivity {
             }
         });
 
-        //        Floating button per l'aggiunta di nuovo ordine
+        // Floating button per l'aggiunta di nuovo ordine
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
+        mDatabase.child("Cart").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
+                    fab.setEnabled(true);
+                    fab.setVisibility(View.VISIBLE);
+                } else {
+                    fab.setEnabled(false);
+                    fab.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
