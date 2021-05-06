@@ -127,7 +127,7 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
                     cartEmpty = false;
                 } else {
                     fab.setEnabled(false);
-                    fab.setVisibility(View.GONE);
+                    fab.setVisibility(View.INVISIBLE);
                     cartEmpty = true;
                 }
             }

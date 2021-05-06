@@ -1,6 +1,7 @@
 package mobile.android.upf;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +102,7 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             }
         });
 
-        // Floating button per l'aggiunta di nuovi piatti
+
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_order);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,8 +125,11 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
                     Iterable<DataSnapshot> dishes_database = task.getResult().getChildren();
 
                     for (DataSnapshot dish : dishes_database) {
+
                         Log.d("firebase", String.valueOf(dish.child("name").getValue()));
                         if (String.valueOf(dish.child("restaurant_id").getValue()).equals(restaurant_id)) {
+                            fab.setEnabled(true);
+                            fab.setVisibility(View.VISIBLE);
                             lstDish.add(new Dish(
                                             String.valueOf(dish.getKey()),
                                             String.valueOf(dish.child("name").getValue()),

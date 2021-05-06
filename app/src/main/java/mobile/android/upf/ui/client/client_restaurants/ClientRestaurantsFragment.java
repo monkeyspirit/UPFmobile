@@ -65,9 +65,6 @@ public class ClientRestaurantsFragment extends Fragment {
 
         lstRest = new ArrayList<>();
 
-        /*mDatabase.child("Restaurants").orderByChild("status").equalTo(0).on('value', function(snapshot)) {
-
-        }*/
 
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -82,35 +79,16 @@ public class ClientRestaurantsFragment extends Fragment {
                         Log.d("firebase", String.valueOf(restaurant.child("name").getValue()));
 
                         if (Integer.parseInt(String.valueOf(restaurant.child("status").getValue())) == 1) {
-                            String key = String.valueOf(restaurant.getKey());
-                            mDatabase.child("Dishes").orderByChild("restaurant_id").equalTo(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    if (!task.isSuccessful()) {
-                                        Log.e("firebase", "Error getting data", task.getException());
-                                    } else {
-                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                                        Iterable<DataSnapshot> dishes_database = task.getResult().getChildren();
-
-                                        int counter = 0;
-                                        for (DataSnapshot dish : dishes_database) {
-                                            counter++;
-                                        }
-                                        if (counter > 0) {
-                                            lstRest.add(new Restaurant(
-                                                    String.valueOf(restaurant.getKey()),
-                                                    String.valueOf(restaurant.child("name").getValue()),
-                                                    String.valueOf(restaurant.child("description").getValue()),
-                                                    String.valueOf(restaurant.child("email").getValue()),
-                                                    String.valueOf(restaurant.child("address").getValue()),
-                                                    String.valueOf(restaurant.child("phone").getValue()),
-                                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
-                                                    String.valueOf(restaurant.child("imageUrl").getValue()),
-                                                    Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
-                                        }
-                                    }
-                                }
-                            });
+                            lstRest.add(new Restaurant(
+                                    String.valueOf(restaurant.getKey()),
+                                    String.valueOf(restaurant.child("name").getValue()),
+                                    String.valueOf(restaurant.child("description").getValue()),
+                                    String.valueOf(restaurant.child("email").getValue()),
+                                    String.valueOf(restaurant.child("address").getValue()),
+                                    String.valueOf(restaurant.child("phone").getValue()),
+                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("imageUrl").getValue()),
+                                    Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                         }
                     }
 
