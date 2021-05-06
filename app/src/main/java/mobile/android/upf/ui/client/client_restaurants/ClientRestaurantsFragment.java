@@ -68,7 +68,7 @@ public class ClientRestaurantsFragment extends Fragment {
 
         }*/
 
-        mDatabase.child("Restaurants")./*orderByChild("status").equalTo(0).*/get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -80,16 +80,18 @@ public class ClientRestaurantsFragment extends Fragment {
                     for (DataSnapshot restaurant: restaurants_database) {
                         Log.d("firebase", String.valueOf(restaurant.child("name").getValue()));
 
-                        lstRest.add(new Restaurant(
-                                String.valueOf(restaurant.getKey()),
-                                String.valueOf(restaurant.child("name").getValue()),
-                                String.valueOf(restaurant.child("description").getValue()),
-                                String.valueOf(restaurant.child("email").getValue()),
-                                String.valueOf(restaurant.child("address").getValue()),
-                                String.valueOf(restaurant.child("phone").getValue()),
-                                String.valueOf(restaurant.child("restaurateur_id").getValue()),
-                                String.valueOf(restaurant.child("imageUrl").getValue()),
-                                Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                        if (Integer.parseInt(String.valueOf(restaurant.child("status").getValue())) == 1) {
+                            lstRest.add(new Restaurant(
+                                    String.valueOf(restaurant.getKey()),
+                                    String.valueOf(restaurant.child("name").getValue()),
+                                    String.valueOf(restaurant.child("description").getValue()),
+                                    String.valueOf(restaurant.child("email").getValue()),
+                                    String.valueOf(restaurant.child("address").getValue()),
+                                    String.valueOf(restaurant.child("phone").getValue()),
+                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("imageUrl").getValue()),
+                                    Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+                        }
                     }
 
 
