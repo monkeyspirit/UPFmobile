@@ -30,14 +30,14 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardview_item_order, parent,false);
+        view = mInflater.inflate(R.layout.cardview_item_order_client, parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.tv_order_id.setText(mData.get(position).getId());
+        holder.tv_order_id.setText(mData.get(position).getDishes_summary());
 
     }
 
@@ -54,7 +54,7 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tv_order_id = (TextView) itemView.findViewById(R.id.order_id);
+            tv_order_id = (TextView) itemView.findViewById(R.id.client_order_dishes_summary);
 
 
         }

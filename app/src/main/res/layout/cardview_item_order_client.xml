@@ -16,13 +16,7 @@
         android:orientation="vertical"
         android:layout_margin="5dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            android:background="@color/dark_grey">
 
-        </ImageView>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +24,7 @@
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
             android:textColor="@color/dark_grey"
-            android:id="@+id/order_id">
+            android:id="@+id/client_order_dishes_summary">
 
         </TextView>
     </LinearLayout>

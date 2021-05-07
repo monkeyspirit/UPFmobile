@@ -127,6 +127,8 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     public void notification(String data){

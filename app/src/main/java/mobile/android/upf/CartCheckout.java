@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
+import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -64,7 +65,7 @@ public class CartCheckout extends AppCompatActivity {
         order_total_summary = (TextView) findViewById(R.id.order_total_summary);
         order_payment_summary = (TextView) findViewById(R.id.order_payment_summary);
 
-
+        final String[] summary_dishes = {""};
         mDatabase.child("Cart").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -76,7 +77,7 @@ public class CartCheckout extends AppCompatActivity {
 
 
                     restaurant_id = "";
-                    String summary_dishes = "";
+
                     double total_order = 0;
 
                     for (DataSnapshot dish : dishes_database) {
@@ -91,14 +92,14 @@ public class CartCheckout extends AppCompatActivity {
                                 )
                         );
                         double total_price = Double.parseDouble(String.valueOf(dish.child("price").getValue())) * Integer.parseInt(String.valueOf(dish.child("number").getValue()));
-                        summary_dishes = summary_dishes + String.valueOf(dish.child("name").getValue()) + " (x"+Integer.parseInt(String.valueOf(dish.child("number").getValue()))+") "+total_price+"\n";
+                        summary_dishes[0] = summary_dishes[0] + String.valueOf(dish.child("name").getValue()) + " (x"+Integer.parseInt(String.valueOf(dish.child("number").getValue()))+") "+total_price+"\n";
                         total_order += total_price;
                         restaurant_id = String.valueOf(dish.child("restaurant_id").getValue());
 
 
                     }
                     order_total_summary.setText(String.valueOf(total_order));
-                    order_dishes_summary.setText(summary_dishes);
+                    order_dishes_summary.setText(summary_dishes[0]);
                 }
             }
         });
@@ -134,13 +135,35 @@ public class CartCheckout extends AppCompatActivity {
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
                 String time = sdf_time.format(cal.getTime());
 
-                Order order = new Order(mAuth.getCurrentUser().getUid(), restaurant_id, dishes, order_total_summary.getText().toString(), order_payment_summary.getText().toString(), address, date, time);
+                Order order = new Order(mAuth.getCurrentUser().getUid(), restaurant_id, dishes, summary_dishes[0], order_total_summary.getText().toString(), order_payment_summary.getText().toString(), address, date, time);
 
+                final String[] restaurateur_id = {""};
+                final String[] restaurant_name = {""};
+                mDatabase.child("Restaurants").child(restaurant_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        restaurateur_id[0] = String.valueOf(task.getResult().child("restaurateur_id").getValue());
+                        restaurant_name[0] = String.valueOf(task.getResult().child("name").getValue());
+                    }
+                });
 
                 mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Orders").child(order.getId()).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            Calendar cal = Calendar.getInstance();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            String date = sdf.format(cal.getTime());
+                            SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                            String time = sdf_time.format(cal.getTime());
+
+                            String msg = "New order for " + restaurant_name[0] +".";
+                            Notification notification = new Notification(mAuth.getCurrentUser().getUid(),date, time, "1",msg);
+
+
+                            mDatabase.child("Notifications").child(restaurateur_id[0]).child(String.valueOf(notification.getId())).setValue(notification);
+
+
                             Intent returnIntent = new Intent();
                             setResult(RESULT_OK, returnIntent);
                             finish();

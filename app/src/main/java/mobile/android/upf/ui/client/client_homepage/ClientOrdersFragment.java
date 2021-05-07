@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_view_order;
 
@@ -54,6 +56,9 @@ public class ClientOrdersFragment extends Fragment {
 
     RecyclerView myrv;
     RecyclerViewAdapter_client_view_order myAdapter;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     //    Solo di prova
     List<Order> lstOrder;
@@ -75,26 +80,31 @@ public class ClientOrdersFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-        mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("Users").child(userId).child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    String name = String.valueOf(task.getResult().child("name").getValue());
-                    String surname = String.valueOf(task.getResult().child("surname").getValue());
-                    String address = String.valueOf(task.getResult().child("address").getValue());
-//                    lstOrder.add(new Order(name, name, name));
-//                    lstOrder.add(new Order(surname, surname, surname));
-//                    lstOrder.add(new Order(address, address, address));
-//                    lstOrder.add(new Order(name, name, name));
-//                    lstOrder.add(new Order(surname, surname, surname));
-//                    lstOrder.add(new Order(address, address, address));
-//                    lstOrder.add(new Order(name, name, name));
-//                    lstOrder.add(new Order(surname, surname, surname));
-//                    lstOrder.add(new Order(address, address, address));
+
+                    Iterable<DataSnapshot> orders = task.getResult().getChildren();
+
+                    for (DataSnapshot order : orders) {
+
+                        lstOrder.add(new Order(
+                                String.valueOf(order.child("id").getValue()),
+                                String.valueOf(order.child("user_id").getValue()),
+                                String.valueOf(order.child("restaurant_id").getValue()),
+                                String.valueOf(order.child("dishes_summary").getValue()),
+                                String.valueOf(order.child("total").getValue()),
+                                String.valueOf(order.child("paymemt_method").getValue()),
+                                String.valueOf(order.child("address").getValue()),
+                                String.valueOf(order.child("date").getValue()),
+                                String.valueOf(order.child("time").getValue()))
+                        );
+                    }
+
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
                     myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
@@ -102,144 +112,72 @@ public class ClientOrdersFragment extends Fragment {
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
 
-//                    HashMap<String, Object> data = (HashMap<String, Object>) task.getResult().getValue();
-//                    for(Map.Entry<String, Object> entry: data.entrySet()) {
-////                        createCards(entry.getKey(), entry.getValue(), root);
-//
-//                        Log.d("firebase", String.valueOf(entry.getKey() + " : " + entry.getValue()));
-//                    }
-
-                    ItemTouchHelper itemTouchHelperDragDrop = new ItemTouchHelper(simpleCallbackDragDrop);
-                    itemTouchHelperDragDrop.attachToRecyclerView(myrv);
-
-                    ItemTouchHelper itemTouchHelperSwipe = new ItemTouchHelper(simpleCallbackSwipe);
-                    itemTouchHelperSwipe.attachToRecyclerView(myrv);
                 }
 
 
             }
 
-            //Gestisco il drag and drop
-            ItemTouchHelper.SimpleCallback simpleCallbackDragDrop = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
-                    ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView,
-                                      @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-
-                    int fromPosition = viewHolder.getAdapterPosition();
-                    int toPosition = target.getAdapterPosition();
-
-                    Collections.swap(lstOrder, fromPosition, toPosition);
-                    recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
-
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-                }
-            };
-
-            Order swipedItem = null;
-            //Gestisco gli swipe a destra e sinistra
-            ItemTouchHelper.SimpleCallback simpleCallbackSwipe = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-                    int pos = viewHolder.getAdapterPosition();
-
-                    switch (direction) {
-                        case ItemTouchHelper.LEFT: //cancello l'elemento
-                            AlertDialog myQuittingDialogBox = new AlertDialog.Builder(getContext())
-                                    // set message, title, and icon
-                                    .setTitle(getString(R.string.confirm_delete))
-                                    .setMessage(getString(R.string.confirm_delete))
-                                    .setIcon(R.drawable.ic_baseline_delete_24)
-
-                                    .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
-
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                            //your deleting code
-                                            swipedItem = lstOrder.get(pos);
-                                            lstOrder.remove(pos);
-                                            myAdapter.notifyItemRemoved(pos);
-
-                                            dialog.dismiss();
-                                        }
-
-                                    })
-                                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            swipedItem = lstOrder.get(pos);
-                                            myAdapter.notifyItemChanged(pos);
-
-                                            dialog.dismiss();
-
-                                        }
-                                    })
-                                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                        @Override
-                                        public void onCancel(DialogInterface dialog) {
-                                            swipedItem = lstOrder.get(pos);
-                                            myAdapter.notifyItemChanged(pos);
-
-                                            dialog.dismiss(); //forse non serve nemmeno
-                                        }
-                                    })
-                                    .create();
-                            myQuittingDialogBox.show();
-
-                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.design_default_color_primary));
-                            break;
-                        case ItemTouchHelper.RIGHT: //modifico l'elemento
-                            ClientEditOrdersFragment dialogEditOrderFragment = new ClientEditOrdersFragment();
-                            dialogEditOrderFragment.show(getChildFragmentManager(), "EditFragment");
-
-                            swipedItem = lstOrder.get(pos);
-                            lstOrder.remove(pos);
-                            myAdapter.notifyItemRemoved(pos);
-                            //sarà necessario fare un aggiornamento dei dati
-                            lstOrder.add(pos, swipedItem);
-                            myAdapter.notifyItemInserted(pos);
-                            break;
-                    }
-
-                }
-
-                @Override
-                public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                    new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                            .addSwipeLeftBackgroundColor(ContextCompat.getColor(getActivity(), R.color.design_default_color_error))
-                            .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
-                            .addSwipeRightBackgroundColor(ContextCompat.getColor(getActivity(), R.color.design_default_color_secondary))
-                            .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
-                            .create()
-                            .decorate();
-
-                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-
-
-                }
-            };
 
 
         });
 
 
-//        clientOrdersViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_order_client);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateRecycler();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+
         return root;
+    }
+
+    private void updateRecycler() {
+        lstOrder = new ArrayList<>();
+        mDatabase.child("Users").child(currentUser.getUid()).child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+                    Iterable<DataSnapshot> orders = task.getResult().getChildren();
+
+                    for (DataSnapshot order : orders) {
+
+                        lstOrder.add(new Order(
+                                String.valueOf(order.child("id").getValue()),
+                                String.valueOf(order.child("user_id").getValue()),
+                                String.valueOf(order.child("restaurant_id").getValue()),
+                                String.valueOf(order.child("dishes_summary").getValue()),
+                                String.valueOf(order.child("total").getValue()),
+                                String.valueOf(order.child("paymemt_method").getValue()),
+                                String.valueOf(order.child("address").getValue()),
+                                String.valueOf(order.child("date").getValue()),
+                                String.valueOf(order.child("time").getValue()))
+                        );
+                    }
+
+                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+
+                }
+
+
+            }
+
+
+
+        });
+
     }
 
 }
