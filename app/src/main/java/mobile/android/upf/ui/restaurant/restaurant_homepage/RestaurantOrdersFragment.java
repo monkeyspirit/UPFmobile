@@ -100,7 +100,7 @@ public class RestaurantOrdersFragment extends Fragment {
 
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_orders);
-                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
+                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -157,7 +157,7 @@ public class RestaurantOrdersFragment extends Fragment {
                         );
                     }
 
-                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
+                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);

@@ -102,7 +102,7 @@ public class ClientOrdersFragment extends Fragment {
 
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
-                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
+                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, ClientOrdersFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -132,7 +132,7 @@ public class ClientOrdersFragment extends Fragment {
         return root;
     }
 
-    private void updateRecycler() {
+    public void updateRecycler() {
         lstOrder = new ArrayList<>();
         mDatabase.child("Users").child(currentUser.getUid()).child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -160,7 +160,7 @@ public class ClientOrdersFragment extends Fragment {
                         );
                     }
 
-                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder);
+                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, ClientOrdersFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
