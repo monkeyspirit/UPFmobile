@@ -49,20 +49,14 @@ public class ClientOrdersFragment extends Fragment {
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
 
-    Context context;
-    MaterialCardView cardview;
-    LayoutParams layoutparams;
-    LinearLayout linearLayout;
 
     RecyclerView myrv;
     RecyclerViewAdapter_client_view_order myAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-
-    //    Solo di prova
     List<Order> lstOrder;
-//
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -101,7 +95,8 @@ public class ClientOrdersFragment extends Fragment {
                                 String.valueOf(order.child("paymemt_method").getValue()),
                                 String.valueOf(order.child("address").getValue()),
                                 String.valueOf(order.child("date").getValue()),
-                                String.valueOf(order.child("time").getValue()))
+                                String.valueOf(order.child("time").getValue()),
+                                Integer.parseInt(String.valueOf(order.child("state").getValue())))
                         );
                     }
 
@@ -160,7 +155,8 @@ public class ClientOrdersFragment extends Fragment {
                                 String.valueOf(order.child("paymemt_method").getValue()),
                                 String.valueOf(order.child("address").getValue()),
                                 String.valueOf(order.child("date").getValue()),
-                                String.valueOf(order.child("time").getValue()))
+                                String.valueOf(order.child("time").getValue()),
+                                Integer.parseInt(String.valueOf(order.child("state").getValue())))
                         );
                     }
 

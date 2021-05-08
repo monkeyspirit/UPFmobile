@@ -135,7 +135,7 @@ public class CartCheckout extends AppCompatActivity {
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
                 String time = sdf_time.format(cal.getTime());
 
-                Order order = new Order(mAuth.getCurrentUser().getUid(), restaurant_id, dishes, summary_dishes[0], order_total_summary.getText().toString(), order_payment_summary.getText().toString(), address, date, time);
+                Order order = new Order(mAuth.getCurrentUser().getUid(), restaurant_id, dishes, summary_dishes[0], order_total_summary.getText().toString(), order_payment_summary.getText().toString(), address, date, time, 1);
 
                 final String[] restaurateur_id = {""};
                 final String[] restaurant_name = {""};

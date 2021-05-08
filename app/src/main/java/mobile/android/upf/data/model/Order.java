@@ -17,11 +17,12 @@ public class Order {
     private String address;
     private String date;
     private String time;
+    private int state;
 
     public Order() {
     }
 
-    public Order(String id, String user_id, String restaurant_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time) {
+    public Order(String id, String user_id, String restaurant_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
@@ -32,9 +33,10 @@ public class Order {
         this.address = address;
         this.date = date;
         this.time = time;
+        this.state = state;
     }
 
-    public Order(String id, String user_id, String restaurant_id, String dishes_summary, String total, String paymemt_method, String address, String date, String time) {
+    public Order(String id, String user_id, String restaurant_id, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
@@ -44,10 +46,11 @@ public class Order {
         this.address = address;
         this.date = date;
         this.time = time;
+        this.state = state;
     }
 
 
-    public Order(String user_id, String restaurant_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time) {
+    public Order(String user_id, String restaurant_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
         this.dishes = dishes;
@@ -57,9 +60,10 @@ public class Order {
         this.address = address;
         this.date = date;
         this.time = time;
+        this.state = state;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
-        this.id = md5(user_id+restaurant_id+ts+dishes+dishes_summary+total+paymemt_method+address+date+time);
+        this.id = md5(user_id+restaurant_id+ts+dishes+dishes_summary+total+paymemt_method+address+date+time+state);
     }
 
     public String md5(String s) {
@@ -159,5 +163,13 @@ public class Order {
 
     public void setDishes_summary(String dishes_summary) {
         this.dishes_summary = dishes_summary;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
