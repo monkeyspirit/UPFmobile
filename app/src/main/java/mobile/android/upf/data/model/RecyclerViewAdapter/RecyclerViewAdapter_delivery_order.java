@@ -57,19 +57,8 @@ public class RecyclerViewAdapter_delivery_order extends RecyclerView.Adapter<Rec
 
         holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
         holder.tv_order_address.setText(mData.get(position).getAddress());
+        holder.tv_order_restaurant.setText(mData.get(position).getRestaurant_id());
 
-        final String[] restaurant_name = new String[1];
-        String restaurant_id = mData.get(position).getRestaurant_id();
-        Log.d("Restaurant", restaurant_id);
-
-        mDatabase.child("Restaurants").child(restaurant_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                Log.d("Restaurant", String.valueOf(task.getResult()));
-                restaurant_name[0] = String.valueOf(task.getResult().child("name").getValue());
-            }
-        });
-        holder.tv_order_restaurant.setText(restaurant_name[0]);
 
         holder.tv_add_order_btn.setOnClickListener(new View.OnClickListener() {
             @Override
