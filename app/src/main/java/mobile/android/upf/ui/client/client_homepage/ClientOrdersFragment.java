@@ -53,7 +53,6 @@ public class ClientOrdersFragment extends Fragment {
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
 
-
     RecyclerView myrv;
     RecyclerViewAdapter_client_view_order myAdapter;
 
@@ -62,8 +61,6 @@ public class ClientOrdersFragment extends Fragment {
     List<Order> lstOrder;
     ArrayList<String> lstOrdersId;
     String userId;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -202,7 +199,7 @@ public class ClientOrdersFragment extends Fragment {
                     }
 
 
-                    Log.d("lenght id", String.valueOf(lstOrdersId.size()));
+                    Log.d("length id", String.valueOf(lstOrdersId.size()));
                     for (String order_id : lstOrdersId){
                         Log.d("firebase id", String.valueOf(order_id));
                         mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

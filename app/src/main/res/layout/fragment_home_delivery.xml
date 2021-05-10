@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.delivery.delivery_homepage.DeliveryOrdersFragment">
+    tools:context=".ui.delivery.delivery_homepage.DeliveryOrdersFragment"
+    android:layout_gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/text_home"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_size_medium_large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_refresh_order_delivery">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_delivery_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

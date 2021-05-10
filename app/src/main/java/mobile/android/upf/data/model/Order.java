@@ -10,6 +10,7 @@ public class Order {
     private String id;
     private String user_id;
     private String restaurant_id;
+    private String delivery_id;
     private ArrayList<Dish> dishes;
     private String total;
     private String paymemt_method;
@@ -22,10 +23,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(String id, String user_id, String restaurant_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String id, String user_id, String restaurant_id, String delivery_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.delivery_id = delivery_id;
         this.dishes = dishes;
         this.dishes_summary = dishes_summary;
         this.total = total;
@@ -50,9 +52,10 @@ public class Order {
     }
 
 
-    public Order(String user_id, String restaurant_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String user_id, String restaurant_id, String delivery_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.delivery_id = delivery_id;
         this.dishes = dishes;
         this.dishes_summary = dishes_summary;
         this.total = total;
@@ -105,6 +108,10 @@ public class Order {
         return restaurant_id;
     }
 
+    public String getDelivery_id() {
+        return delivery_id;
+    }
+
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
@@ -155,6 +162,10 @@ public class Order {
 
     public void setRestaurant_id(String restaurant_id) {
         this.restaurant_id = restaurant_id;
+    }
+
+    public void setDelivery_id(String delivery_id) {
+        this.delivery_id = delivery_id;
     }
 
     public String getDishes_summary() {

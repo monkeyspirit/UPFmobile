@@ -123,4 +123,7 @@
     <string name="cart_exit_delete">Se esci, il tuo carrello sarà svuotato</string>
     <string name="exit">Esci</string>
     <string name="cart_empty">Il carrello è vuoto</string>
+    <string name="confirm_order_delete">Il suo ordine sarà cancellato e rimborsato</string>
+    <string name="delivery_add_order_btn">Aggiungi ordine</string>
+    <string name="delivery_remove_order_btn">Rimuovi ordine</string>
 </resources>

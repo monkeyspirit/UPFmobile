@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +35,7 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
     private Context mContext;
     private Fragment mFragment;
     private List<Order> mData;
+    private ViewGroup parent;
 
     private DatabaseReference mDatabase;
 
@@ -45,12 +45,12 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
         this.mFragment = mFragment;
     }
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
+        this.parent = parent;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         view = mInflater.inflate(R.layout.cardview_item_order_client, parent, false);
@@ -63,20 +63,22 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
         holder.tv_order_id.setText(mData.get(position).getDishes_summary());
         if (mData.get(position).getState() == 1){
             holder.tv_delete_btn.setEnabled(true);
-            holder.tv_edit_btn.setEnabled(true);
 
             holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
                             .setTitle(R.string.confirm_delete)
-                            .setMessage(R.string.confirm_delete)
+                            .setMessage(R.string.confirm_order_delete)
                             .setIcon(R.drawable.ic_baseline_delete_24_black)
                             .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    //Id del ristorante con l'ordine
                                     String toDeleteRestId = mData.get(position).getRestaurant_id();
+                                    //Id dell'utente con l'ordine
                                     String toDeleteUserId = mData.get(position).getUser_id();
+                                    //Id dell'ordine
                                     String toDeleteId = mData.get(position).getId();
                                     Log.d("Order to delete id: ", toDeleteId);
 
@@ -87,6 +89,7 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
                                                     .child("Orders").child(toDeleteId).setValue(null);
                                             mDatabase.child("Users").child(toDeleteUserId)
                                                     .child("Orders").child(toDeleteId).setValue(null);
+                                            mDatabase.child("Orders").child(toDeleteId).setValue(null);
 
                                             ((ClientOrdersFragment) mFragment).updateRecycler();
 
@@ -118,17 +121,8 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
                 }
             });
 
-            holder.tv_edit_btn.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-        }
-        else {
+        } else {
             holder.tv_delete_btn.setEnabled(false);
-            holder.tv_edit_btn.setEnabled(false);
         }
 
     }
@@ -141,13 +135,12 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_order_id;
-        Button tv_edit_btn, tv_delete_btn;
+        Button tv_delete_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_order_id = (TextView) itemView.findViewById(R.id.client_order_dishes_summary);
-            tv_edit_btn = (Button) itemView.findViewById(R.id.client_edit_order_btn);
             tv_delete_btn = (Button) itemView.findViewById(R.id.client_delete_order_btn);
 
         }

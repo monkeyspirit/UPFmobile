@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    card_view:cardCornerRadius="@dimen/cardview_corner_radius"
+    card_view:cardElevation="@dimen/cardview_elevation"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/delivery_order_restaurant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Restaurant"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_mini"/>
+
+        <TextView
+            android:id="@+id/delivery_order_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Address"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_mini"/>
+
+        <TextView
+            android:id="@+id/delivery_order_dishes_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Order"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_mini"/>
+
+        <Button
+            android:id="@+id/delivery_add_order_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/secondary"
+            android:text="@string/delivery_add_order_btn"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small"/>
+
+        <Button
+            android:id="@+id/delivery_remove_order_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/red"
+            android:enabled="false"
+            android:text="@string/delivery_remove_order_btn"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

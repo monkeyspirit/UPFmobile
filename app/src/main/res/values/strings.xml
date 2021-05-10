@@ -145,4 +145,8 @@
     <string name="cart_exit">Are you sure you want to quit?</string>
     <string name="cart_exit_delete">If you quit, your cart will be emptied</string>
     <string name="cart_empty">The cart is empty</string>
+    <string name="confirm_order_delete">The order will be deleted and the cost will be refund</string>
+
+    <string name="delivery_add_order_btn">Add order</string>
+    <string name="delivery_remove_order_btn">Remove order</string>
 </resources>
