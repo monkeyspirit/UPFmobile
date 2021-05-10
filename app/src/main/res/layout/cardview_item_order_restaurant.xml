@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="@dimen/cardview_elevation"
+    card_view:cardCornerRadius="@dimen/cardview_corner_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Order"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_mini"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/restaurant_order_dishes_summary">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/order_restaurant_yes_card_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="#4CAF50"
+                android:drawableLeft="@drawable/ic_baseline_check_24_white"
+                android:text="@string/approved"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_small"
+                android:layout_marginRight="15dp"/>
+
+
+            <Button
+                android:id="@+id/order_restaurant_no_card_btn"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"
+                android:drawableLeft="@drawable/ic_baseline_close_white_24"
+                android:text="@string/notapproved"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_small"
+                android:layout_marginLeft="15dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

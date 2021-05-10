@@ -20,7 +20,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +32,7 @@ import java.util.List;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_view_order;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_view_order;
 import mobile.android.upf.ui.client.client_homepage.ClientOrdersViewModel;
 
 public class RestaurantOrdersFragment extends Fragment {
@@ -44,7 +47,7 @@ public class RestaurantOrdersFragment extends Fragment {
     RecyclerView myrv;
 
 //    SOLO PER PROVARE
-    RecyclerViewAdapter_client_view_order myAdapter;
+    RecyclerViewAdapter_restaurant_view_order myAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -100,7 +103,7 @@ public class RestaurantOrdersFragment extends Fragment {
 
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_orders);
-                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
+                    myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -113,6 +116,35 @@ public class RestaurantOrdersFragment extends Fragment {
 
 
         });
+
+        mDatabase.child("Restaurants").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                updateRecycler();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_order_restaurant);
@@ -131,7 +163,7 @@ public class RestaurantOrdersFragment extends Fragment {
 
     private void updateRecycler() {
         lstOrder = new ArrayList<>();
-        mDatabase.child("Restaurants").child(currentUser.getUid()).child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -139,25 +171,33 @@ public class RestaurantOrdersFragment extends Fragment {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
 
-                    Iterable<DataSnapshot> orders = task.getResult().getChildren();
+                    Iterable<DataSnapshot> restaurants = task.getResult().getChildren();
 
-                    for (DataSnapshot order : orders) {
+                    for(DataSnapshot restaurant: restaurants){
+                        if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(currentUser.getUid())){
 
-                        lstOrder.add(new Order(
-                                String.valueOf(order.child("id").getValue()),
-                                String.valueOf(order.child("user_id").getValue()),
-                                String.valueOf(order.child("restaurant_id").getValue()),
-                                String.valueOf(order.child("dishes_summary").getValue()),
-                                String.valueOf(order.child("total").getValue()),
-                                String.valueOf(order.child("paymemt_method").getValue()),
-                                String.valueOf(order.child("address").getValue()),
-                                String.valueOf(order.child("date").getValue()),
-                                String.valueOf(order.child("time").getValue()),
-                                Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                        );
+                            Iterable<DataSnapshot> orders = restaurant.child("Orders").getChildren();
+                            for (DataSnapshot order : orders) {
+
+                                lstOrder.add(new Order(
+                                        String.valueOf(order.child("id").getValue()),
+                                        String.valueOf(order.child("user_id").getValue()),
+                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                        String.valueOf(order.child("total").getValue()),
+                                        String.valueOf(order.child("paymemt_method").getValue()),
+                                        String.valueOf(order.child("address").getValue()),
+                                        String.valueOf(order.child("date").getValue()),
+                                        String.valueOf(order.child("time").getValue()),
+                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                );
+                            }
+                        }
                     }
 
-                    myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
+
+
+                    myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);

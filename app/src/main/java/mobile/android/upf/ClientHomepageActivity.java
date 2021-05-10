@@ -109,22 +109,7 @@ public class ClientHomepageActivity extends AppCompatActivity {
                         Log.d("firebase", "Image Url: " + uri);
                         Glide.with(getApplicationContext()).load(uri).into(nav_header_image);
                     }
-                    /*switch (String.valueOf(task.getResult().child("type").getValue())) {
-                        case "1": //client
-                            nav_header_image.setBorderColor(Color.GREEN);
-                            break;
-                        case "2": //delivery
-                            nav_header_image.setBorderColor(Color.YELLOW);
-                            break;
-                        case "3": //restaurateur
-                            nav_header_image.setBorderColor(Color.GREEN);
-                            break;
-                        case "4": //admin
-                            nav_header_image.setBorderColor(Color.RED);
-                            break;
-                        default:
-                            break;
-                    }*/
+
                 }
             }
         });

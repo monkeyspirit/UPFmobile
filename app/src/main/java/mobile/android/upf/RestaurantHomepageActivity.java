@@ -144,6 +144,7 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .setContentText(data);
 
+
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
         managerCompat.notify(999, builder.build());
     }
