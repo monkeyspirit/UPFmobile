@@ -42,6 +42,18 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
     public void onBindViewHolder(@NonNull RecyclerViewAdapter_restaurant_view_order.MyViewHolder holder, int position) {
 
         holder.tv_order_id.setText(mData.get(position).getDishes_summary());
+        holder.tv_yes_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        holder.tv_no_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

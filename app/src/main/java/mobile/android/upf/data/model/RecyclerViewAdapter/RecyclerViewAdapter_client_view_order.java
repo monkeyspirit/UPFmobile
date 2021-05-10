@@ -61,67 +61,75 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tv_order_id.setText(mData.get(position).getDishes_summary());
+        if (mData.get(position).getState() == 1){
+            holder.tv_delete_btn.setEnabled(true);
+            holder.tv_edit_btn.setEnabled(true);
 
-        holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
-                        .setTitle(R.string.confirm_delete)
-                        .setMessage(R.string.confirm_delete)
-                        .setIcon(R.drawable.ic_baseline_delete_24_black)
-                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String toDeleteRestId = mData.get(position).getRestaurant_id();
-                                String toDeleteUserId = mData.get(position).getUser_id();
-                                String toDeleteId = mData.get(position).getId();
-                                Log.d("Order to delete id: ", toDeleteId);
+            holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog myQuittingDialogBox = new AlertDialog.Builder(mContext)
+                            .setTitle(R.string.confirm_delete)
+                            .setMessage(R.string.confirm_delete)
+                            .setIcon(R.drawable.ic_baseline_delete_24_black)
+                            .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String toDeleteRestId = mData.get(position).getRestaurant_id();
+                                    String toDeleteUserId = mData.get(position).getUser_id();
+                                    String toDeleteId = mData.get(position).getId();
+                                    Log.d("Order to delete id: ", toDeleteId);
 
-                                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                        mDatabase.child("Restaurants").child(toDeleteRestId)
-                                                .child("Orders").child(toDeleteId).setValue(null);
-                                        mDatabase.child("Users").child(toDeleteUserId)
-                                                .child("Orders").child(toDeleteId).setValue(null);
+                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                            mDatabase.child("Restaurants").child(toDeleteRestId)
+                                                    .child("Orders").child(toDeleteId).setValue(null);
+                                            mDatabase.child("Users").child(toDeleteUserId)
+                                                    .child("Orders").child(toDeleteId).setValue(null);
 
-                                        ((ClientOrdersFragment) mFragment).updateRecycler();
+                                            ((ClientOrdersFragment) mFragment).updateRecycler();
 
-                                        Toast.makeText(mContext, "Ordine cancellato", Toast.LENGTH_SHORT).show();
-                                    }
+                                            Toast.makeText(mContext, "Ordine cancellato", Toast.LENGTH_SHORT).show();
+                                        }
 
-                                    @Override
-                                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                                        Log.e("firebase", "Error while removing data from db");
-                                    }
-                                });
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                            }
-                        })
-                        .create();
-                myQuittingDialogBox.show();
-                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.RED);
-            }
-        });
+                                        @Override
+                                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                                            Log.e("firebase", "Error while removing data from db");
+                                        }
+                                    });
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                }
+                            })
+                            .create();
+                    myQuittingDialogBox.show();
+                    myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                    myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.RED);
+                }
+            });
 
-        holder.tv_edit_btn.setOnClickListener(new View.OnClickListener() {
+            holder.tv_edit_btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
-            }
-        });
+                }
+            });
+        }
+        else {
+            holder.tv_delete_btn.setEnabled(false);
+            holder.tv_edit_btn.setEnabled(false);
+        }
 
     }
 

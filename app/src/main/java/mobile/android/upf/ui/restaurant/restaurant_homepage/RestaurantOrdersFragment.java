@@ -33,6 +33,7 @@ import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_view_order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_view_order;
+import mobile.android.upf.ui.client.client_homepage.ClientOrdersFragment;
 import mobile.android.upf.ui.client.client_homepage.ClientOrdersViewModel;
 
 public class RestaurantOrdersFragment extends Fragment {
@@ -44,9 +45,12 @@ public class RestaurantOrdersFragment extends Fragment {
     private DatabaseReference mDatabase;
 
     List<Order> lstOrder;
+    ArrayList<String> lstOrdersId;
+    String userId;
+
     RecyclerView myrv;
 
-//    SOLO PER PROVARE
+
     RecyclerViewAdapter_restaurant_view_order myAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -58,12 +62,12 @@ public class RestaurantOrdersFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home_restaurant, container, false);
 
         lstOrder = new ArrayList<>();
-
+        lstOrdersId = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        String userId = currentUser.getUid();
+        userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -78,35 +82,44 @@ public class RestaurantOrdersFragment extends Fragment {
                     Iterable<DataSnapshot> restaurants = task.getResult().getChildren();
 
                     for(DataSnapshot restaurant: restaurants){
+                        lstOrdersId = new ArrayList<>();
                         if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(currentUser.getUid())){
 
-                            Iterable<DataSnapshot> orders = restaurant.child("Orders").getChildren();
-                            for (DataSnapshot order : orders) {
+                            Iterable<DataSnapshot> orders_id = restaurant.child("Orders").getChildren();
+                            for (DataSnapshot order_id : orders_id) {
+                                lstOrdersId.add(order_id.getKey());
+                            }
 
-                                lstOrder.add(new Order(
-                                        String.valueOf(order.child("id").getValue()),
-                                        String.valueOf(order.child("user_id").getValue()),
-                                        String.valueOf(order.child("restaurant_id").getValue()),
-                                        String.valueOf(order.child("dishes_summary").getValue()),
-                                        String.valueOf(order.child("total").getValue()),
-                                        String.valueOf(order.child("paymemt_method").getValue()),
-                                        String.valueOf(order.child("address").getValue()),
-                                        String.valueOf(order.child("date").getValue()),
-                                        String.valueOf(order.child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                                );
+                            for (String order_id : lstOrdersId){
+
+                                mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                                        Log.d("Order", String.valueOf(task.getResult()));
+                                        lstOrder.add(new Order(
+                                                String.valueOf(task.getResult().child("id").getValue()),
+                                                String.valueOf(task.getResult().child("user_id").getValue()),
+                                                String.valueOf(task.getResult().child("restaurant_id").getValue()),
+                                                String.valueOf(task.getResult().child("dishes_summary").getValue()),
+                                                String.valueOf(task.getResult().child("total").getValue()),
+                                                String.valueOf(task.getResult().child("paymemt_method").getValue()),
+                                                String.valueOf(task.getResult().child("address").getValue()),
+                                                String.valueOf(task.getResult().child("date").getValue()),
+                                                String.valueOf(task.getResult().child("time").getValue()),
+                                                Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
+                                        );
+
+                                        myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_orders);
+                                        myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
+
+                                        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                        myrv.setAdapter(myAdapter);
+                                    }
+                                });
                             }
                         }
                     }
-
-
-
-
-                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_orders);
-                    myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
-
-                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                    myrv.setAdapter(myAdapter);
 
                 }
 
@@ -117,7 +130,7 @@ public class RestaurantOrdersFragment extends Fragment {
 
         });
 
-        mDatabase.child("Restaurants").addChildEventListener(new ChildEventListener() {
+        mDatabase.child("Orders").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
@@ -163,6 +176,8 @@ public class RestaurantOrdersFragment extends Fragment {
 
     private void updateRecycler() {
         lstOrder = new ArrayList<>();
+        lstOrdersId = new ArrayList<>();
+
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -174,33 +189,43 @@ public class RestaurantOrdersFragment extends Fragment {
                     Iterable<DataSnapshot> restaurants = task.getResult().getChildren();
 
                     for(DataSnapshot restaurant: restaurants){
+                        lstOrdersId = new ArrayList<>();
                         if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(currentUser.getUid())){
 
-                            Iterable<DataSnapshot> orders = restaurant.child("Orders").getChildren();
-                            for (DataSnapshot order : orders) {
+                            Iterable<DataSnapshot> orders_id = restaurant.child("Orders").getChildren();
+                            for (DataSnapshot order_id : orders_id) {
+                                lstOrdersId.add(order_id.getKey());
+                            }
+                            for (String order_id : lstOrdersId){
 
-                                lstOrder.add(new Order(
-                                        String.valueOf(order.child("id").getValue()),
-                                        String.valueOf(order.child("user_id").getValue()),
-                                        String.valueOf(order.child("restaurant_id").getValue()),
-                                        String.valueOf(order.child("dishes_summary").getValue()),
-                                        String.valueOf(order.child("total").getValue()),
-                                        String.valueOf(order.child("paymemt_method").getValue()),
-                                        String.valueOf(order.child("address").getValue()),
-                                        String.valueOf(order.child("date").getValue()),
-                                        String.valueOf(order.child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                                );
+                                mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                                        Log.d("Order", String.valueOf(task.getResult()));
+                                        lstOrder.add(new Order(
+                                                String.valueOf(task.getResult().child("id").getValue()),
+                                                String.valueOf(task.getResult().child("user_id").getValue()),
+                                                String.valueOf(task.getResult().child("restaurant_id").getValue()),
+                                                String.valueOf(task.getResult().child("dishes_summary").getValue()),
+                                                String.valueOf(task.getResult().child("total").getValue()),
+                                                String.valueOf(task.getResult().child("paymemt_method").getValue()),
+                                                String.valueOf(task.getResult().child("address").getValue()),
+                                                String.valueOf(task.getResult().child("date").getValue()),
+                                                String.valueOf(task.getResult().child("time").getValue()),
+                                                Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
+                                        );
+
+
+                                        myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
+
+                                        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                        myrv.setAdapter(myAdapter);
+                                    }
+                                });
                             }
                         }
                     }
-
-
-
-                    myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
-
-                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                    myrv.setAdapter(myAdapter);
 
                 }
 
@@ -210,7 +235,6 @@ public class RestaurantOrdersFragment extends Fragment {
 
 
         });
-
     }
 
 

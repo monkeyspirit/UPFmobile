@@ -147,7 +147,7 @@ public class CartCheckout extends AppCompatActivity {
                     }
                 });
 
-                mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Orders").child(order.getId()).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
+                mDatabase.child("Orders").child(order.getId()).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
@@ -173,24 +173,9 @@ public class CartCheckout extends AppCompatActivity {
                     }
                 });
 
-                mDatabase.child("Restaurants").child(restaurant_id).child("Orders").child(order.getId()).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Intent returnIntent = new Intent();
-                            setResult(RESULT_OK, returnIntent);
-                            finish();
-                        } else {
-                            Toast.makeText(CartCheckout.this, getString(R.string.dish_add_db_failed), LENGTH_LONG).show();
-                        }
-                    }
-                });
+                mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Orders").child(order.getId()).setValue(order.getId());
 
-
-
-
-
-
+                mDatabase.child("Restaurants").child(restaurant_id).child("Orders").child(order.getId()).setValue(order.getId());
 
 
                 mDatabase.child("Cart").child(mAuth.getCurrentUser().getUid()).removeValue();
