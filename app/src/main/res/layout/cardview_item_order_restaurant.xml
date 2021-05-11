@@ -46,11 +46,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:backgroundTint="#4CAF50"
+                android:backgroundTint="@color/light_gray"
                 android:drawableLeft="@drawable/ic_baseline_check_24_white"
                 android:text="@string/approved"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size_small"
+                android:enabled="false"
                 android:layout_marginRight="15dp"/>
 
 
@@ -60,11 +61,12 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/light_gray"
                 android:drawableLeft="@drawable/ic_baseline_close_white_24"
                 android:text="@string/notapproved"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size_small"
+                android:enabled="false"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
 

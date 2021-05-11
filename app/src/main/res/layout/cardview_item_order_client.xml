@@ -23,7 +23,7 @@
             android:gravity="center"
             android:text="Order"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_mini">
+            android:textSize="@dimen/text_size_small">
 
         </TextView>
 
@@ -35,10 +35,22 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/light_gray"
             android:enabled="false"
             android:text="@string/delete"
             android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/client_order_text"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Progress ...."
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_large">
+
+        </TextView>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

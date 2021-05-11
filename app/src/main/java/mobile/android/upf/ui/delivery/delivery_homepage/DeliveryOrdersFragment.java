@@ -31,7 +31,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_order;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_view_order;
 
 public class DeliveryOrdersFragment extends Fragment {
 
@@ -42,7 +42,7 @@ public class DeliveryOrdersFragment extends Fragment {
     private DatabaseReference mDatabase;
 
     RecyclerView myrv;
-    RecyclerViewAdapter_delivery_order myAdapter;
+    RecyclerViewAdapter_delivery_view_order myAdapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -64,51 +64,6 @@ public class DeliveryOrdersFragment extends Fragment {
         userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                if(!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-
-                    Iterable<DataSnapshot> orders_id = task.getResult().getChildren();
-                    for (DataSnapshot order_id : orders_id) {
-                        lstOrdersId.add(order_id.getKey());
-                    }
-
-                    for (String order_id : lstOrdersId) {
-                        Log.d("firebase_id", String.valueOf(order_id));
-                        mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                                Log.d("Order", String.valueOf(task.getResult()));
-                                lstOrder.add(new Order(
-                                        String.valueOf(task.getResult().child("user_id").getValue()),
-                                        String.valueOf(task.getResult().child("restaurant_id").getValue()),
-                                        String.valueOf(task.getResult().child("delivery_id").getValue()),
-                                        String.valueOf(task.getResult().child("dishes_summary").getValue()),
-                                        String.valueOf(task.getResult().child("total").getValue()),
-                                        String.valueOf(task.getResult().child("payment_method").getValue()),
-                                        String.valueOf(task.getResult().child("address").getValue()),
-                                        String.valueOf(task.getResult().child("date").getValue()),
-                                        String.valueOf(task.getResult().child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
-                                );
-
-                                myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
-                                myAdapter = new RecyclerViewAdapter_delivery_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
-
-                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                                myrv.setAdapter(myAdapter);
-
-                            }
-                        });
-                    }
-
-                }
-            }
-        });
 
         mDatabase.child("Orders").addChildEventListener(new ChildEventListener() {
             @Override
@@ -137,6 +92,57 @@ public class DeliveryOrdersFragment extends Fragment {
             }
         });
 
+
+        mDatabase.child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+
+                    Iterable<DataSnapshot> orders_id = task.getResult().getChildren();
+                    for (DataSnapshot order_id : orders_id) {
+                        lstOrdersId.add(order_id.getKey());
+                    }
+
+                    for (String order_id : lstOrdersId) {
+                        Log.d("firebase_id", String.valueOf(order_id));
+                        mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+                                Log.d("Order", String.valueOf(task.getResult()));
+                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue()))==2){
+                                    lstOrder.add(new Order(
+                                            String.valueOf(task.getResult().child("id").getValue()),
+                                            String.valueOf(task.getResult().child("user_id").getValue()),
+                                            String.valueOf(task.getResult().child("restaurant_id").getValue()),
+                                            String.valueOf(task.getResult().child("delivery_id").getValue()),
+                                            String.valueOf(task.getResult().child("dishes_summary").getValue()),
+                                            String.valueOf(task.getResult().child("total").getValue()),
+                                            String.valueOf(task.getResult().child("payment_method").getValue()),
+                                            String.valueOf(task.getResult().child("address").getValue()),
+                                            String.valueOf(task.getResult().child("date").getValue()),
+                                            String.valueOf(task.getResult().child("time").getValue()),
+                                            Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
+                                    );
+                                }
+
+                                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
+                                    myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                    myrv.setAdapter(myAdapter);
+
+
+                            }
+                        });
+                    }
+
+                }
+            }
+        });
+
+
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_order_delivery);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -154,48 +160,51 @@ public class DeliveryOrdersFragment extends Fragment {
         lstOrder = new ArrayList<>();
         lstOrdersId = new ArrayList<>();
 
-        mDatabase.child("Users").child(userId).child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
+                if(!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
-                    Iterable<DataSnapshot> orders_id = task.getResult().getChildren();
 
+                    Iterable<DataSnapshot> orders_id = task.getResult().getChildren();
                     for (DataSnapshot order_id : orders_id) {
                         lstOrdersId.add(order_id.getKey());
                     }
 
-                    Log.d("length id", String.valueOf(lstOrdersId.size()));
                     for (String order_id : lstOrdersId) {
-                        Log.d("firebase id", String.valueOf(order_id));
+                        Log.d("firebase_id", String.valueOf(order_id));
                         mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
                                 Log.d("Order", String.valueOf(task.getResult()));
-                                lstOrder.add(new Order(
-                                    String.valueOf(task.getResult().child("user_id").getValue()),
-                                    String.valueOf(task.getResult().child("restaurant_id").getValue()),
-                                        String.valueOf(task.getResult().child("delivery_id").getValue()),
-                                        String.valueOf(task.getResult().child("dishes_summary").getValue()),
-                                        String.valueOf(task.getResult().child("total").getValue()),
-                                        String.valueOf(task.getResult().child("paymernt_method").getValue()),
-                                        String.valueOf(task.getResult().child("address").getValue()),
-                                        String.valueOf(task.getResult().child("date").getValue()),
-                                        String.valueOf(task.getResult().child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(task.getResult().child("state").getValue()))
-                                ));
+                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue()))==2){
+                                    lstOrder.add(new Order(
+                                            String.valueOf(task.getResult().child("id").getValue()),
+                                            String.valueOf(task.getResult().child("user_id").getValue()),
+                                            String.valueOf(task.getResult().child("restaurant_id").getValue()),
+                                            String.valueOf(task.getResult().child("delivery_id").getValue()),
+                                            String.valueOf(task.getResult().child("dishes_summary").getValue()),
+                                            String.valueOf(task.getResult().child("total").getValue()),
+                                            String.valueOf(task.getResult().child("payment_method").getValue()),
+                                            String.valueOf(task.getResult().child("address").getValue()),
+                                            String.valueOf(task.getResult().child("date").getValue()),
+                                            String.valueOf(task.getResult().child("time").getValue()),
+                                            Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
+                                    );
+                                }
 
-                                myAdapter = new RecyclerViewAdapter_delivery_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
                                 myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                                 myrv.setAdapter(myAdapter);
+
+
                             }
                         });
                     }
 
                 }
-
             }
         });
     }

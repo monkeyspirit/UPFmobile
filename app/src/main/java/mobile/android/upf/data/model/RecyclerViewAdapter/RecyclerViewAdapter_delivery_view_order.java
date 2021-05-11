@@ -18,15 +18,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
 
-public class RecyclerViewAdapter_delivery_order extends RecyclerView.Adapter<RecyclerViewAdapter_delivery_order.MyViewHolder> {
+public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_delivery_view_order.MyViewHolder> {
 
     private Context mContext;
     private Fragment mFragment;
@@ -35,7 +32,7 @@ public class RecyclerViewAdapter_delivery_order extends RecyclerView.Adapter<Rec
 
     private DatabaseReference mDatabase;
 
-    public RecyclerViewAdapter_delivery_order(Context mContext, List<Order> mData, Fragment mFragment) {
+    public RecyclerViewAdapter_delivery_view_order(Context mContext, List<Order> mData, Fragment mFragment) {
         this.mContext = mContext;
         this.mFragment = mFragment;
         this.mData = mData;
@@ -57,7 +54,22 @@ public class RecyclerViewAdapter_delivery_order extends RecyclerView.Adapter<Rec
 
         holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
         holder.tv_order_address.setText(mData.get(position).getAddress());
-        holder.tv_order_restaurant.setText(mData.get(position).getRestaurant_id());
+        mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
+                    for (DataSnapshot restaurant: restaurants_database) {
+                        if (mData.get(position).getRestaurant_id().equals(restaurant.getKey())) {
+                            holder.tv_order_restaurant.setText(String.valueOf(restaurant.child("name").getValue()));
+                        }
+                    }
+                }
+            }
+        });
+
 
 
         holder.tv_add_order_btn.setOnClickListener(new View.OnClickListener() {

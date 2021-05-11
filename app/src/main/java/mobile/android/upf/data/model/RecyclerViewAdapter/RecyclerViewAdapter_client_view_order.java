@@ -61,9 +61,10 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tv_order_id.setText(mData.get(position).getDishes_summary());
+
         if (mData.get(position).getState() == 1){
             holder.tv_delete_btn.setEnabled(true);
-
+            holder.tv_delete_btn.setBackgroundColor(Color.RED);
             holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,25 +83,32 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
                                     String toDeleteId = mData.get(position).getId();
                                     Log.d("Order to delete id: ", toDeleteId);
 
-                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                            mDatabase.child("Restaurants").child(toDeleteRestId)
-                                                    .child("Orders").child(toDeleteId).setValue(null);
-                                            mDatabase.child("Users").child(toDeleteUserId)
-                                                    .child("Orders").child(toDeleteId).setValue(null);
-                                            mDatabase.child("Orders").child(toDeleteId).setValue(null);
+                                    if(mData.get(position).getState()!=1){
+                                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                                mDatabase.child("Restaurants").child(toDeleteRestId)
+                                                        .child("Orders").child(toDeleteId).removeValue();
+                                                mDatabase.child("Users").child(toDeleteUserId)
+                                                        .child("Orders").child(toDeleteId).removeValue();
+                                                mDatabase.child("Orders").child(toDeleteId).removeValue();
 
-                                            ((ClientOrdersFragment) mFragment).updateRecycler();
+                                                ((ClientOrdersFragment) mFragment).updateRecycler();
 
-                                            Toast.makeText(mContext, "Ordine cancellato", Toast.LENGTH_SHORT).show();
-                                        }
+                                                Toast.makeText(mContext, "Ordine cancellato", Toast.LENGTH_SHORT).show();
+                                            }
 
-                                        @Override
-                                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                                            Log.e("firebase", "Error while removing data from db");
-                                        }
-                                    });
+                                            @Override
+                                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                                                Log.e("firebase", "Error while removing data from db");
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        Toast.makeText(mContext, "Ordine non cancellabile, è già stato accettato dl ristorante.", Toast.LENGTH_SHORT).show();
+                                    }
+
+
                                     dialog.dismiss();
                                 }
                             })
@@ -121,8 +129,20 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
                 }
             });
 
-        } else {
+        }
+        else if(mData.get(position).getState() == 2) {
             holder.tv_delete_btn.setEnabled(false);
+            holder.tv_delete_btn.setVisibility(View.GONE);
+            holder.order_text.setText("Order in progress.");
+            holder.order_text.setTextColor(Color.DKGRAY);
+            holder.order_text.setVisibility(View.VISIBLE);
+        }
+        else if(mData.get(position).getState() == -1) {
+            holder.tv_delete_btn.setEnabled(false);
+            holder.tv_delete_btn.setVisibility(View.GONE);
+            holder.order_text.setText("Order declined.");
+            holder.order_text.setTextColor(Color.RED);
+            holder.order_text.setVisibility(View.VISIBLE);
         }
 
     }
@@ -134,13 +154,14 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_order_id;
+        TextView tv_order_id, order_text;
         Button tv_delete_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_order_id = (TextView) itemView.findViewById(R.id.client_order_dishes_summary);
+            order_text = (TextView) itemView.findViewById(R.id.client_order_text);
             tv_delete_btn = (Button) itemView.findViewById(R.id.client_delete_order_btn);
 
         }
