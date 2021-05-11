@@ -126,7 +126,7 @@ public class DeliveryOrdersFragment extends Fragment {
 
                     for (DataSnapshot order : orders) {
                         if(busy == null) {
-                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 || Integer.parseInt(String.valueOf(order.child("state").getValue()))==3){
+                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 ){
                                 lstOrder.add(new Order(
                                         String.valueOf(order.child("id").getValue()),
                                         String.valueOf(order.child("user_id").getValue()),
@@ -211,7 +211,7 @@ public class DeliveryOrdersFragment extends Fragment {
 
                     for (DataSnapshot order : orders) {
                         if(busy == null) {
-                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 || Integer.parseInt(String.valueOf(order.child("state").getValue()))==3){
+                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 ){
                                 lstOrder.add(new Order(
                                         String.valueOf(order.child("id").getValue()),
                                         String.valueOf(order.child("user_id").getValue()),
