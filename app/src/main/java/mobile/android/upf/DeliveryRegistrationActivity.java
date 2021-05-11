@@ -132,7 +132,7 @@ public class DeliveryRegistrationActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            User user = new User(name, surname, password, address, phone, email, imageUrl, 2);
+                            User user = new User(name, surname, password, address, phone, email, imageUrl, 2, null);
                             //aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

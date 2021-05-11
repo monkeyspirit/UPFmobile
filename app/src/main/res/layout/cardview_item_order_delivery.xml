@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/secondary"
+            android:enabled="false"
+            android:backgroundTint="@color/light_gray"
             android:text="@string/delivery_add_order_btn"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_small"/>
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/light_gray"
             android:enabled="false"
             android:text="@string/delivery_remove_order_btn"
             android:textSize="@dimen/text_size_small"

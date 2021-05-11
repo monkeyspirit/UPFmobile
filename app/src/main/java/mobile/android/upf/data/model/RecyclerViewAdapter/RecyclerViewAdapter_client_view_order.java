@@ -144,6 +144,13 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
             holder.order_text.setTextColor(Color.RED);
             holder.order_text.setVisibility(View.VISIBLE);
         }
+        else if(mData.get(position).getState() == 3) {
+            holder.tv_delete_btn.setEnabled(false);
+            holder.tv_delete_btn.setVisibility(View.GONE);
+            holder.order_text.setText("Order accepted by the delivery.");
+            holder.order_text.setTextColor(Color.GREEN);
+            holder.order_text.setVisibility(View.VISIBLE);
+        }
 
     }
 

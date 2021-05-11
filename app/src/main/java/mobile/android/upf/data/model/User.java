@@ -13,6 +13,8 @@ public class User {
      */
     public int type;
 
+    public String busy;
+
     public User() {
 
     }
@@ -28,8 +30,24 @@ public class User {
         this.type = type;
     }
 
+//    Fattorino
+    public User(String name, String surname, String password, String address, String phone, String email, String imageUrl, int type, String busy) {
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.imageUrl = imageUrl;
+        this.type = type;
+        this.busy = busy;
+    }
 
+    public String isBusy() {
+        return busy;
+    }
 
-
-
+    public void setBusy(String busy) {
+        this.busy = busy;
+    }
 }

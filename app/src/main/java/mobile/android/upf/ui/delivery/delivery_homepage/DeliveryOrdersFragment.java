@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -50,6 +51,8 @@ public class DeliveryOrdersFragment extends Fragment {
     ArrayList<String> lstOrdersId;
     String userId;
 
+    String busy = null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         deliveryOrdersViewModel = new ViewModelProvider(this).get(DeliveryOrdersViewModel.class);
@@ -64,6 +67,24 @@ public class DeliveryOrdersFragment extends Fragment {
         userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("Users").child(currentUser.getUid()).child("busy").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null){
+                    busy = String.valueOf(snapshot.getValue());
+                }
+                else{
+                    busy = null;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         mDatabase.child("Orders").addChildEventListener(new ChildEventListener() {
             @Override
@@ -100,42 +121,58 @@ public class DeliveryOrdersFragment extends Fragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
 
-                    Iterable<DataSnapshot> orders_id = task.getResult().getChildren();
-                    for (DataSnapshot order_id : orders_id) {
-                        lstOrdersId.add(order_id.getKey());
-                    }
-
-                    for (String order_id : lstOrdersId) {
-                        Log.d("firebase_id", String.valueOf(order_id));
-                        mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                                Log.d("Order", String.valueOf(task.getResult()));
-                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue()))==2){
-                                    lstOrder.add(new Order(
-                                            String.valueOf(task.getResult().child("id").getValue()),
-                                            String.valueOf(task.getResult().child("user_id").getValue()),
-                                            String.valueOf(task.getResult().child("restaurant_id").getValue()),
-                                            String.valueOf(task.getResult().child("delivery_id").getValue()),
-                                            String.valueOf(task.getResult().child("dishes_summary").getValue()),
-                                            String.valueOf(task.getResult().child("total").getValue()),
-                                            String.valueOf(task.getResult().child("payment_method").getValue()),
-                                            String.valueOf(task.getResult().child("address").getValue()),
-                                            String.valueOf(task.getResult().child("date").getValue()),
-                                            String.valueOf(task.getResult().child("time").getValue()),
-                                            Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
-                                    );
-                                }
-
-                                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
-                                    myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
-
-                                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                                    myrv.setAdapter(myAdapter);
+                    Iterable<DataSnapshot> orders = task.getResult().getChildren();
 
 
+                    for (DataSnapshot order : orders) {
+                        if(busy == null) {
+                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 || Integer.parseInt(String.valueOf(order.child("state").getValue()))==3){
+                                lstOrder.add(new Order(
+                                        String.valueOf(order.child("id").getValue()),
+                                        String.valueOf(order.child("user_id").getValue()),
+                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                        String.valueOf(order.child("delivery_id").getValue()),
+                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                        String.valueOf(order.child("total").getValue()),
+                                        String.valueOf(order.child("payment_method").getValue()),
+                                        String.valueOf(order.child("address").getValue()),
+                                        String.valueOf(order.child("date").getValue()),
+                                        String.valueOf(order.child("time").getValue()),
+                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                );
                             }
-                        });
+                            myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
+                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                            myrv.setAdapter(myAdapter);
+
+                        }
+                        else {
+                            if (String.valueOf(order.child("id").getValue()).equals(busy)) {
+
+                                lstOrder.add(new Order(
+                                        String.valueOf(order.child("id").getValue()),
+                                        String.valueOf(order.child("user_id").getValue()),
+                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                        String.valueOf(order.child("delivery_id").getValue()),
+                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                        String.valueOf(order.child("total").getValue()),
+                                        String.valueOf(order.child("payment_method").getValue()),
+                                        String.valueOf(order.child("address").getValue()),
+                                        String.valueOf(order.child("date").getValue()),
+                                        String.valueOf(order.child("time").getValue()),
+                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                );
+                            }
+                            myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
+                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                            myrv.setAdapter(myAdapter);
+                        }
+
+
                     }
 
                 }
@@ -167,41 +204,60 @@ public class DeliveryOrdersFragment extends Fragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
 
-                    Iterable<DataSnapshot> orders_id = task.getResult().getChildren();
-                    for (DataSnapshot order_id : orders_id) {
-                        lstOrdersId.add(order_id.getKey());
-                    }
-
-                    for (String order_id : lstOrdersId) {
-                        Log.d("firebase_id", String.valueOf(order_id));
-                        mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                                Log.d("Order", String.valueOf(task.getResult()));
-                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue()))==2){
-                                    lstOrder.add(new Order(
-                                            String.valueOf(task.getResult().child("id").getValue()),
-                                            String.valueOf(task.getResult().child("user_id").getValue()),
-                                            String.valueOf(task.getResult().child("restaurant_id").getValue()),
-                                            String.valueOf(task.getResult().child("delivery_id").getValue()),
-                                            String.valueOf(task.getResult().child("dishes_summary").getValue()),
-                                            String.valueOf(task.getResult().child("total").getValue()),
-                                            String.valueOf(task.getResult().child("payment_method").getValue()),
-                                            String.valueOf(task.getResult().child("address").getValue()),
-                                            String.valueOf(task.getResult().child("date").getValue()),
-                                            String.valueOf(task.getResult().child("time").getValue()),
-                                            Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
-                                    );
-                                }
-
-                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
-
-                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                                myrv.setAdapter(myAdapter);
 
 
+                    Iterable<DataSnapshot> orders = task.getResult().getChildren();
+
+
+                    for (DataSnapshot order : orders) {
+                        if(busy == null) {
+                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 || Integer.parseInt(String.valueOf(order.child("state").getValue()))==3){
+                                lstOrder.add(new Order(
+                                        String.valueOf(order.child("id").getValue()),
+                                        String.valueOf(order.child("user_id").getValue()),
+                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                        String.valueOf(order.child("delivery_id").getValue()),
+                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                        String.valueOf(order.child("total").getValue()),
+                                        String.valueOf(order.child("payment_method").getValue()),
+                                        String.valueOf(order.child("address").getValue()),
+                                        String.valueOf(order.child("date").getValue()),
+                                        String.valueOf(order.child("time").getValue()),
+                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                );
                             }
-                        });
+
+                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                            myrv.setAdapter(myAdapter);
+
+                        }
+                        else {
+                            if (String.valueOf(order.child("id").getValue()).equals(busy)) {
+
+                                lstOrder.add(new Order(
+                                        String.valueOf(order.child("id").getValue()),
+                                        String.valueOf(order.child("user_id").getValue()),
+                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                        String.valueOf(order.child("delivery_id").getValue()),
+                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                        String.valueOf(order.child("total").getValue()),
+                                        String.valueOf(order.child("payment_method").getValue()),
+                                        String.valueOf(order.child("address").getValue()),
+                                        String.valueOf(order.child("date").getValue()),
+                                        String.valueOf(order.child("time").getValue()),
+                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                );
+                            }
+
+                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                            myrv.setAdapter(myAdapter);
+                        }
+
+
                     }
 
                 }
