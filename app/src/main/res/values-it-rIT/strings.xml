@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">UPF</string>
     <string name="welcome">Benvenuto !</string>
     <string name="invalid_username">Username non valido</string>
     <string name="invalid_password">La password deve essere lunga almeno 5 caratteri</string>
@@ -124,11 +123,20 @@
     <string name="exit">Esci</string>
     <string name="cart_empty">Il carrello è vuoto</string>
     <string name="confirm_order_delete">Il suo ordine sarà cancellato e rimborsato</string>
-    <string name="delivery_add_order_btn">Aggiungi ordine</string>
+    <string name="delivery_add_order_btn">Prendi in consegna</string>
     <string name="delivery_remove_order_btn">Rimuovi ordine</string>
     <string name="order_ready">Pronto</string>
     <string name="order_completed">Ordine completato</string>
     <string name="order_accepted">Ordine accettato</string>
     <string name="order_rejected">Ordine rifiutato</string>
     <string name="wait_for_shipping">Ordine in attesa di invio</string>
+    <string name="order_accepted_delivery">Ordine preso in consegna</string>
+    <string name="order_cancelled_delivery">Ordine annullato</string>
+    <string name="delivered">Consegnato</string>
+    <string name="order_deleted">Ordine cancellato</string>
+    <string name="order_cannot_delete">L\'ordine non può essere cancellato, il ristorante lo sta processando</string>
+    <string name="confirm_delivered">Consegna confermata</string>
+    <string name="order_delivered">Ordine consegnato</string>
+    <string name="order_waiting">Ordine in attesa</string>
+    <string name="order_ready_wait">Ordine pronto ed in attesa di spedizione</string>
 </resources>

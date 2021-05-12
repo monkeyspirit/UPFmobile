@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UPF</string>
+    <string name="app_name" translatable="false">UPF</string>
     <string name="splash" translatable="false">splash</string>
     <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="prompt_email" translatable="false">Email</string>
@@ -147,12 +147,20 @@
     <string name="cart_empty">The cart is empty</string>
     <string name="confirm_order_delete">The order will be deleted and the cost will be refund</string>
 
-    <string name="delivery_add_order_btn">Add order</string>
+    <string name="delivery_add_order_btn">Take it over</string>
     <string name="delivery_remove_order_btn">Remove order</string>
     <string name="order_ready">Ready</string>
-
+    <string name="order_ready_wait">Ready and waiting for shipping</string>
     <string name="order_completed">Order completed</string>
     <string name="order_accepted">Order accepted</string>
     <string name="order_rejected">Order rejected</string>
+    <string name="order_waiting">Order is waiting</string>
     <string name="wait_for_shipping">Order is waiting for shipping</string>
+    <string name="order_accepted_delivery">Order taken over</string>
+    <string name="order_cancelled_delivery">Order cancelled</string>
+    <string name="delivered">Delivered</string>
+    <string name="confirm_delivered">Delivery confirmed</string>
+    <string name="order_deleted">Order deleted</string>
+    <string name="order_delivered">Order delivered</string>
+    <string name="order_cannot_delete">The order cannot be deleted, the restaurant is already processing</string>
 </resources>

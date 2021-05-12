@@ -85,7 +85,7 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
             holder.tv_complete_btn.setVisibility(View.VISIBLE);
             holder.tv_complete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) { // 4 = ORDINE COMPLETATO E PRONTO PER LA CONSEGNA
+                public void onClick(View v) { // 3 = ORDINE COMPLETATO E PRONTO PER LA CONSEGNA
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
                     Toast.makeText(mContext, R.string.order_completed, Toast.LENGTH_SHORT).show();
                 }

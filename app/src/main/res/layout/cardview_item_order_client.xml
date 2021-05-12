@@ -15,42 +15,60 @@
         android:layout_margin="5dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/client_order_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Restaurant"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/dark_grey"/>
 
         <TextView
             android:id="@+id/client_order_dishes_summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="Order"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_small">
-
-        </TextView>
-
+            android:textSize="@dimen/text_size_small"/>
 
         <Button
             android:id="@+id/client_delete_order_btn"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/light_gray"
-            android:enabled="false"
+            android:backgroundTint="@color/red"
             android:text="@string/delete"
-            android:textSize="@dimen/text_size_small" />
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/client_order_text"
-            android:visibility="invisible"
+            android:id="@+id/client_order_progress"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Progress ...."
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_large">
+            android:textSize="@dimen/text_size_medium"/>
 
-        </TextView>
+        <Button
+            android:id="@+id/client_order_delivered_btn"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:backgroundTint="@color/teal_700"
+            android:text="@string/delivered"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"/>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

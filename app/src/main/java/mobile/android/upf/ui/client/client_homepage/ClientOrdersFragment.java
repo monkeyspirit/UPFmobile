@@ -200,7 +200,6 @@ public class ClientOrdersFragment extends Fragment {
                         lstOrdersId.add(order_id.getKey());
                     }
 
-
                     Log.d("length id", String.valueOf(lstOrdersId.size()));
                     for (String order_id : lstOrdersId){
                         Log.d("firebase id", String.valueOf(order_id));
@@ -221,8 +220,6 @@ public class ClientOrdersFragment extends Fragment {
                                                 String.valueOf(task.getResult().child("time").getValue()),
                                                 Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
                                 );
-
-
 
                                 myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, ClientOrdersFragment.this);
 

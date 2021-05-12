@@ -23,7 +23,7 @@
             android:gravity="center"
             android:text="Restaurant"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_mini"/>
+            android:textSize="@dimen/text_size_small"/>
 
         <TextView
             android:id="@+id/delivery_order_address"
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="Address"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_mini"/>
+            android:textSize="@dimen/text_size_small"/>
 
         <TextView
             android:id="@+id/delivery_order_dishes_summary"
@@ -47,25 +47,40 @@
 
         <Button
             android:id="@+id/delivery_add_order_btn"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:layout_margin="4dp"
-            android:enabled="false"
-            android:backgroundTint="@color/light_gray"
+            android:backgroundTint="@color/teal_700"
             android:text="@string/delivery_add_order_btn"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_small"/>
 
         <Button
             android:id="@+id/delivery_remove_order_btn"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:layout_margin="4dp"
-            android:backgroundTint="@color/light_gray"
-            android:enabled="false"
+            android:backgroundTint="@color/red"
             android:text="@string/delivery_remove_order_btn"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/delivery_delivered_btn"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/dark_green"
+            android:text="@string/delivered"
             android:textSize="@dimen/text_size_small"
             android:textColor="@color/white"/>
 

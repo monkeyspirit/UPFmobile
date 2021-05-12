@@ -1,5 +1,6 @@
 package mobile.android.upf.data.model.RecyclerViewAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -80,33 +81,43 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
             }
         });
 
-        if(mData.get(position).getState() == 3){
-            holder.tv_add_order_btn.setEnabled(true);
-            holder.tv_add_order_btn.setBackgroundColor(Color.parseColor("#03A9F4"));
-        }
-        else{
-            holder.tv_remove_order_btn.setEnabled(true);
-            holder.tv_remove_order_btn.setBackgroundColor(Color.RED);
-        }
+        if(mData.get(position).getState() == 3) {
+            holder.tv_add_order_btn.setVisibility(View.VISIBLE);
 
-        holder.tv_add_order_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //                3 = ORDINE ACCETTATO DAL FATTORINO
-                mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(4);
-                Toast.makeText(mContext, "Ordine preso in carico.", Toast.LENGTH_SHORT).show();
-                mDatabase.child("Users").child(currentUser.getUid()).child("busy").setValue(mData.get(position).getId());
-            }
-        });
+            holder.tv_add_order_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { // 4 = ORDINE ACCETTATO DAL FATTORINO
+                    mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(4);
+                    Toast.makeText(mContext, R.string.order_accepted_delivery, Toast.LENGTH_SHORT).show();
+                    mDatabase.child("Users").child(currentUser.getUid()).child("busy").setValue(mData.get(position).getId());
+                }
+            });
+        }
+        if (mData.get(position).getState() == 4) {
+            holder.tv_remove_order_btn.setVisibility(View.VISIBLE);
 
-        holder.tv_remove_order_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(2);
-                Toast.makeText(mContext, "Ordine annullato.", Toast.LENGTH_SHORT).show();
-                mDatabase.child("Users").child(currentUser.getUid()).child("busy").setValue(null);
-            }
-        });
+            holder.tv_remove_order_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { // 3 = ORDINE RIMESSO IN ATTESA DAL FATTORINO
+                    mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
+                    Toast.makeText(mContext, R.string.order_cancelled_delivery, Toast.LENGTH_SHORT).show();
+                    mDatabase.child("Users").child(currentUser.getUid()).child("busy").removeValue();
+                }
+            });
+        }
+        if (mData.get(position).getState() == 5) {
+            holder.tv_delivered_btn.setVisibility(View.VISIBLE);
+
+            holder.tv_delivered_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(6);
+                    Toast.makeText(mContext, R.string.confirm_delivered, Toast.LENGTH_SHORT).show();
+                    //Il fattorino è di nuovo libero
+                    mDatabase.child("Users").child(currentUser.getUid()).child("busy").removeValue();
+                }
+            });
+        }
     }
 
     @Override
@@ -116,7 +127,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_order_summary, tv_order_address, tv_order_restaurant;
-        Button tv_add_order_btn, tv_remove_order_btn;
+        Button tv_add_order_btn, tv_remove_order_btn, tv_delivered_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +138,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
 
             tv_add_order_btn = (Button) itemView.findViewById(R.id.delivery_add_order_btn);
             tv_remove_order_btn = (Button) itemView.findViewById(R.id.delivery_remove_order_btn);
+            tv_delivered_btn = (Button) itemView.findViewById(R.id.delivery_delivered_btn);
         }
     }
 }
