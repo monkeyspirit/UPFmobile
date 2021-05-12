@@ -20,17 +20,25 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="20dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/restaurant_order_address"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Order"
+            android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_order_dishes_summary">
-
-        </TextView>
+            android:id="@+id/restaurant_order_dishes_summary"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +50,7 @@
 
             <Button
                 android:id="@+id/order_restaurant_yes_card_btn"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -57,6 +66,7 @@
 
             <Button
                 android:id="@+id/order_restaurant_no_card_btn"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -69,6 +79,31 @@
                 android:enabled="false"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/order_restaurant_complete_card_btn"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:text="@string/order_ready"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/teal_700"/>
+
+        <TextView
+            android:id="@+id/restaurant_order_shipping"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/wait_for_shipping"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/dark_grey"
+            android:layout_margin="4dp"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

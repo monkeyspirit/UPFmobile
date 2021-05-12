@@ -157,9 +157,6 @@ public class RestaurantOrdersFragment extends Fragment {
             }
         });
 
-
-
-
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_order_restaurant);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -169,7 +166,6 @@ public class RestaurantOrdersFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
 
         return root;
     }

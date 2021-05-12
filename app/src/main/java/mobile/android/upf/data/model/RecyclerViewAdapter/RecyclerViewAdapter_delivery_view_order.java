@@ -80,7 +80,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
             }
         });
 
-        if(mData.get(position).getState() == 2){
+        if(mData.get(position).getState() == 3){
             holder.tv_add_order_btn.setEnabled(true);
             holder.tv_add_order_btn.setBackgroundColor(Color.parseColor("#03A9F4"));
         }
@@ -93,7 +93,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
             @Override
             public void onClick(View v) {
                 //                3 = ORDINE ACCETTATO DAL FATTORINO
-                mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
+                mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(4);
                 Toast.makeText(mContext, "Ordine preso in carico.", Toast.LENGTH_SHORT).show();
                 mDatabase.child("Users").child(currentUser.getUid()).child("busy").setValue(mData.get(position).getId());
             }

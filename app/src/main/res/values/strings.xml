@@ -149,4 +149,10 @@
 
     <string name="delivery_add_order_btn">Add order</string>
     <string name="delivery_remove_order_btn">Remove order</string>
+    <string name="order_ready">Ready</string>
+
+    <string name="order_completed">Order completed</string>
+    <string name="order_accepted">Order accepted</string>
+    <string name="order_rejected">Order rejected</string>
+    <string name="wait_for_shipping">Order is waiting for shipping</string>
 </resources>

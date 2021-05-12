@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import mobile.android.upf.R;
@@ -48,40 +50,51 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter_restaurant_view_order.MyViewHolder holder, int position) {
+        holder.tv_order_address.setText(mData.get(position).getAddress());
+        holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
 
-        holder.tv_order_id.setText(mData.get(position).getDishes_summary());
-        if(mData.get(position).getState()==1){
+        if(mData.get(position).getState() == 1) {
+            holder.tv_yes_btn.setVisibility(View.VISIBLE);
+            holder.tv_no_btn.setVisibility(View.VISIBLE);
+
             holder.tv_yes_btn.setEnabled(true);
             holder.tv_yes_btn.setBackgroundColor(Color.GREEN);
             holder.tv_no_btn.setEnabled(true);
             holder.tv_no_btn.setBackgroundColor(Color.RED);
+
+
+            holder.tv_yes_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //                2 = ORDINE ACCETTATO
+                    mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(2);
+                    Toast.makeText(mContext, "Ordine accettato.", Toast.LENGTH_SHORT).show();
+                }
+            });
+            holder.tv_no_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //                -1 = ORDINE NON ACCETTATO
+                    mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(-1);
+                    Toast.makeText(mContext, "Ordine non accettato.", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-        else{
-            holder.tv_yes_btn.setEnabled(false);
-            holder.tv_yes_btn.setBackgroundColor(Color.LTGRAY);
-            holder.tv_no_btn.setEnabled(false);
-            holder.tv_no_btn.setBackgroundColor(Color.LTGRAY);
+
+        if(mData.get(position).getState()==2) {
+            holder.tv_complete_btn.setVisibility(View.VISIBLE);
+            holder.tv_complete_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { // 4 = ORDINE COMPLETATO E PRONTO PER LA CONSEGNA
+                    mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
+                    Toast.makeText(mContext, R.string.order_completed, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
-
-        holder.tv_yes_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            //                2 = ORDINE ACCETTATO
-                mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(2);
-                Toast.makeText(mContext, "Ordine accettato.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        holder.tv_no_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //                -1 = ORDINE NON ACCETTATO
-                mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(-1);
-                Toast.makeText(mContext, "Ordine non accettato.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        if(mData.get(position).getState()==3) {
+            holder.tv_order_wait_for_shipping.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -91,17 +104,19 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_order_id;
-        Button tv_yes_btn, tv_no_btn;
+        TextView tv_order_summary, tv_order_address, tv_order_wait_for_shipping;
+        Button tv_yes_btn, tv_no_btn, tv_complete_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tv_order_id = (TextView) itemView.findViewById(R.id.restaurant_order_dishes_summary);
+            tv_order_summary = (TextView) itemView.findViewById(R.id.restaurant_order_dishes_summary);
+            tv_order_address = (TextView) itemView.findViewById(R.id.restaurant_order_address);
+            tv_order_wait_for_shipping = (TextView) itemView.findViewById(R.id.restaurant_order_shipping);
 
             tv_yes_btn = (Button) itemView.findViewById(R.id.order_restaurant_yes_card_btn);
             tv_no_btn = (Button) itemView.findViewById(R.id.order_restaurant_no_card_btn);
-
+            tv_complete_btn = (Button) itemView.findViewById(R.id.order_restaurant_complete_card_btn);
         }
     }
 

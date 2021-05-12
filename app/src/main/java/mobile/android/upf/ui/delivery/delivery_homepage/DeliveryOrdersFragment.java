@@ -72,9 +72,11 @@ public class DeliveryOrdersFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null){
+                    Log.d("BUSY", "Fattorino impegnato");
                     busy = String.valueOf(snapshot.getValue());
                 }
                 else{
+                    Log.d("BUSY", "Fattorino libero");
                     busy = null;
                 }
 
@@ -120,13 +122,11 @@ public class DeliveryOrdersFragment extends Fragment {
                 if(!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
-
                     Iterable<DataSnapshot> orders = task.getResult().getChildren();
-
 
                     for (DataSnapshot order : orders) {
                         if(busy == null) {
-                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 ){
+                            if(Integer.parseInt(String.valueOf(order.child("state").getValue())) == 3) {
                                 lstOrder.add(new Order(
                                         String.valueOf(order.child("id").getValue()),
                                         String.valueOf(order.child("user_id").getValue()),
@@ -141,14 +141,7 @@ public class DeliveryOrdersFragment extends Fragment {
                                         Integer.parseInt(String.valueOf(order.child("state").getValue())))
                                 );
                             }
-                            myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
-                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
-
-                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                            myrv.setAdapter(myAdapter);
-
-                        }
-                        else {
+                        } else {
                             if (String.valueOf(order.child("id").getValue()).equals(busy)) {
 
                                 lstOrder.add(new Order(
@@ -165,13 +158,13 @@ public class DeliveryOrdersFragment extends Fragment {
                                         Integer.parseInt(String.valueOf(order.child("state").getValue())))
                                 );
                             }
-                            myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
-                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
-                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                            myrv.setAdapter(myAdapter);
                         }
 
+                        myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
+                        myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+                        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                        myrv.setAdapter(myAdapter);
 
                     }
 
@@ -211,7 +204,7 @@ public class DeliveryOrdersFragment extends Fragment {
 
                     for (DataSnapshot order : orders) {
                         if(busy == null) {
-                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))==2 ){
+                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))== 3){
                                 lstOrder.add(new Order(
                                         String.valueOf(order.child("id").getValue()),
                                         String.valueOf(order.child("user_id").getValue()),
