@@ -218,12 +218,13 @@ public class DeliveryOrdersFragment extends Fragment {
                                         String.valueOf(order.child("time").getValue()),
                                         Integer.parseInt(String.valueOf(order.child("state").getValue())))
                                 );
+                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                myrv.setAdapter(myAdapter);
                             }
 
-                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
-                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                            myrv.setAdapter(myAdapter);
 
                         }
                         else {
@@ -242,12 +243,13 @@ public class DeliveryOrdersFragment extends Fragment {
                                         String.valueOf(order.child("time").getValue()),
                                         Integer.parseInt(String.valueOf(order.child("state").getValue())))
                                 );
+                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+
+                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                myrv.setAdapter(myAdapter);
                             }
 
-                            myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
-                            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                            myrv.setAdapter(myAdapter);
                         }
 
 
