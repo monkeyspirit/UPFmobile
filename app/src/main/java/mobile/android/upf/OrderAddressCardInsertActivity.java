@@ -227,6 +227,4 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
     }
 
 
-
-
 }

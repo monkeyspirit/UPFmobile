@@ -211,14 +211,12 @@ public class CartCheckout extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
