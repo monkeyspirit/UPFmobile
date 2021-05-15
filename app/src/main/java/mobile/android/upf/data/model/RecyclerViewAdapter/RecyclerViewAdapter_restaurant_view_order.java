@@ -84,7 +84,7 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                     mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
 
 
-                    Toast.makeText(mContext, "Ordine accettato.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.order_accepted, Toast.LENGTH_SHORT).show();
                 }
             });
             holder.tv_no_btn.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                     Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
                     mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
 
-                    Toast.makeText(mContext, "Ordine non accettato.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.order_rejected, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -115,6 +115,18 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                 @Override
                 public void onClick(View v) { // 3 = ORDINE COMPLETATO E PRONTO PER LA CONSEGNA
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
+
+//                    String msg = mContext.getString(R.string.msg_notification_order_ready_to_delivery);
+//
+//                    Calendar cal = Calendar.getInstance();
+//                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//                    String date = sdf.format(cal.getTime());
+//                    SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+//                    String time = sdf_time.format(cal.getTime());
+//
+//                    Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
+//                    mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
+
                     Toast.makeText(mContext, R.string.order_completed, Toast.LENGTH_SHORT).show();
                 }
             });

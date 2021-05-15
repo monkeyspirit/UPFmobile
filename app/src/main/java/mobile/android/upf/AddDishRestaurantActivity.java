@@ -22,6 +22,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.Restaurant;
 
@@ -70,7 +73,6 @@ public class AddDishRestaurantActivity extends AppCompatActivity {
                 String description = dish_description.getText().toString().trim();
                 String price = dish_price.getText().toString().trim();
 
-
                 if (name.isEmpty()) {
                     dish_name.setError(getString(R.string.empty_name));
                     dish_name.requestFocus();
@@ -82,13 +84,26 @@ public class AddDishRestaurantActivity extends AppCompatActivity {
                     return;
                 }
                 if (price.isEmpty()) {
-                    dish_price.setError(getString(R.string.empty_email));
+                    dish_price.setError(getString(R.string.empty_price));
+                    dish_price.requestFocus();
+                    return;
+                }
+                Pattern pattern = Pattern.compile("[0-9]*\\.?[0-9]+");
+                Matcher matcher = pattern.matcher(price);
+                boolean matchFound = matcher.find();
+                if(!matchFound) {
+                    dish_price.setError(getString(R.string.invalid_price));
+                    dish_price.requestFocus();
+                    return;
+                }
+                if (Double.parseDouble(price) == 0) {
+                    dish_price.setError(getString(R.string.price_zero));
                     dish_price.requestFocus();
                     return;
                 }
 
 
-               dish = new Dish(name,description,restaurant_id, Double.parseDouble(price));
+                dish = new Dish(name, description, restaurant_id, Double.parseDouble(price));
 
                 mDatabase.child("Dishes").child(dish.getId()).setValue(dish).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

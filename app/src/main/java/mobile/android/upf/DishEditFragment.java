@@ -17,7 +17,7 @@ public class DishEditFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        return inflater.inflate(R.layout.dialog_fragment_edit_order_client, container, false);
+        return inflater.inflate(R.layout.dialog_styler_dish_modify, container, false);
     }
 
     public void show(FragmentManager fragmentManager, String editFragment) {

@@ -11,7 +11,8 @@
         android:id="@+id/recyclerview_client_restaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="false">
+        android:nestedScrollingEnabled="false"
+        android:background="@color/light_gray">
 
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -79,7 +86,9 @@ public class RecyclerViewAdapter_client_order_dish extends RecyclerView.Adapter<
         holder.tv_dish_add_dish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Dish dish = new Dish(mData.get(position).getId(), mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getRestaurant_id(), mData.get(position).getPrice(), numberDishes[0]);
+
                 mDatabase.child("Cart").child(current_id).child(mData.get(position).getId()).setValue(dish).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

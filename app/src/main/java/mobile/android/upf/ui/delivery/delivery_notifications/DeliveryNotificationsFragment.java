@@ -67,7 +67,6 @@ public class DeliveryNotificationsFragment extends Fragment {
 
                     for (DataSnapshot notification : notifications) {
 
-
                         lstNotification.add(new Notification(
                                 String.valueOf(notification.getKey()),
                                 String.valueOf(notification.child("user_id").getValue()),
@@ -116,7 +115,6 @@ public class DeliveryNotificationsFragment extends Fragment {
                     Iterable<DataSnapshot> notifications = task.getResult().getChildren();
 
                     for (DataSnapshot notification : notifications) {
-
 
                         lstNotification.add(new Notification(
                                 String.valueOf(notification.getKey()),

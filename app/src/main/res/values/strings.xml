@@ -142,6 +142,9 @@
     <string name="empty_card_exp">Expiration date is required</string>
     <string name="empty_card_cvv">CVV is required</string>
     <string name="number_error">Error in the number</string>
+    <string name="empty_price">Price is required</string>
+    <string name="price_zero">Price cannot be zero</string>
+    <string name="invalid_price">Invalid price</string>
 
     <string name="exit">Exit</string>
     <string name="cart_exit">Are you sure you want to quit?</string>
@@ -170,6 +173,8 @@
 
     <string name="msg_notification_order_take_over">Your order was took over by the delivery guy.</string>
     <string name="msg_notification_order_not_take_over">Your order has been put on hold due to a mishap.</string>
+    <string name="msg_notification_order_ready_to_delivery">Your order is ready for delivery</string>
     <string name="proceed">Proceed</string>
+
 
 </resources>

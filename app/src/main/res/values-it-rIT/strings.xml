@@ -146,4 +146,8 @@
     <string name="address_payment">Indirizzo e pagamento</string>
     <string name="address_payment_stepview">Indirizzo e \\npagamento</string>
     <string name="payment_stepview">Metodo di \\npagamento</string>
+    <string name="msg_notification_order_ready_to_delivery">Il tuo ordine è pronto per il trasporto</string>
+    <string name="empty_price">Il prezzo è richiesto</string>
+    <string name="price_zero">Il prezzo non può essere zero</string>
+    <string name="invalid_price">Prezzo non valido</string>
 </resources>

@@ -12,7 +12,10 @@
     android:layout_marginLeft="10dp"
     card_view:cardUseCompatPadding="true"
     card_view:cardElevation="@dimen/cardview_elevation"
-    card_view:cardCornerRadius="@dimen/cardview_corner_radius">
+    card_view:cardCornerRadius="@dimen/cardview_corner_radius"
+    android:foreground="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,7 +99,7 @@
                 android:drawableLeft="@drawable/ic_baseline_check_24_white"
                 android:text="@string/approved"
                 android:textAlignment="center"
-                android:textSize="@dimen/text_size_small"
+                android:textSize="@dimen/text_size_mini"
                 app:layout_constraintEnd_toStartOf="@+id/delete_restaurant_card_btn"
                 android:layout_marginRight="15dp"/>
 
@@ -111,7 +114,7 @@
                 android:drawableLeft="@drawable/ic_baseline_close_white_24"
                 android:text="@string/notapproved"
                 android:textAlignment="center"
-                android:textSize="@dimen/text_size_small"
+                android:textSize="@dimen/text_size_mini"
                 android:layout_marginLeft="15dp"/>
         </LinearLayout>
 

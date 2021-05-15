@@ -115,7 +115,7 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
                 @Override
                 public void onClick(View v) {
                     try {
-                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                         emailIntent.setData(Uri.parse("email:"));
                         emailIntent.putExtra(Intent.EXTRA_EMAIL, tv_restaurant_email.getText().toString());
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Informazioni ristorante");

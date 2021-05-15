@@ -78,13 +78,6 @@ public class ClientOrdersFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-
-
-
-
-
-
         mDatabase.child("Orders").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -125,7 +118,6 @@ public class ClientOrdersFragment extends Fragment {
                         lstOrdersId.add(order_id.getKey());
                     }
 
-
                     for (String order_id : lstOrdersId){
                         Log.d("firebase id", String.valueOf(order_id));
                         mDatabase.child("Orders").child(order_id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -140,7 +132,7 @@ public class ClientOrdersFragment extends Fragment {
                                         String.valueOf(task.getResult().child("restaurant_name").getValue()),
                                         String.valueOf(task.getResult().child("dishes_summary").getValue()),
                                         String.valueOf(task.getResult().child("total").getValue()),
-                                        String.valueOf(task.getResult().child("paymemt_method").getValue()),
+                                        String.valueOf(task.getResult().child("payment_method").getValue()),
                                         String.valueOf(task.getResult().child("address").getValue()),
                                         String.valueOf(task.getResult().child("date").getValue()),
                                         String.valueOf(task.getResult().child("time").getValue()),
@@ -152,7 +144,6 @@ public class ClientOrdersFragment extends Fragment {
 
                                 myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                                 myrv.setAdapter(myAdapter);
-
 
                             }
                         });
