@@ -132,6 +132,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
                     intent.putExtra("card", false);
                     intent.putExtra("address", order_address.getText().toString());
                     startActivityForResult(intent, 1);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
                 else{
                     checkCardInput();
@@ -208,6 +209,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
         intent.putExtra("possessor", card_namePossessor.getText().toString());
         intent.putExtra("last_digits", card_1316digit.getText().toString());
         startActivityForResult(intent, 1);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
 
     }
@@ -215,11 +217,12 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            return true;
         }
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         return super.onOptionsItemSelected(item);
     }
 

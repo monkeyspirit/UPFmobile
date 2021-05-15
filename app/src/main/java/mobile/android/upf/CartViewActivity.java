@@ -140,6 +140,7 @@ public class CartViewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CartViewActivity.this, OrderAddressCardInsertActivity.class);
                 startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
