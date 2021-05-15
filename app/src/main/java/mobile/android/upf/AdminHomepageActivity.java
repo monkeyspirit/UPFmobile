@@ -63,36 +63,6 @@ public class AdminHomepageActivity extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
-        mDatabase.child("Notifications").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.getKey().equals(currentUser.getUid())){
-                    notification();
-                    mDatabase.child("Notifications").child(currentUser.getUid()).removeValue();
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -115,23 +85,6 @@ public class AdminHomepageActivity extends AppCompatActivity {
 
     }
 
-
-    public void notification(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel =  new NotificationChannel("n","n", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "n")
-                .setContentText("Code here")
-                .setSmallIcon(R.drawable.ic_baseline_call_24)
-                .setAutoCancel(true)
-                .setContentText("New data is added");
-
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
-        managerCompat.notify(999, builder.build());
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

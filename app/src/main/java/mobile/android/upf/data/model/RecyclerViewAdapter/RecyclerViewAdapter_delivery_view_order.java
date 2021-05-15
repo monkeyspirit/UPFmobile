@@ -23,9 +23,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
 
 public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_delivery_view_order.MyViewHolder> {
@@ -89,6 +92,18 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
                 public void onClick(View v) { // 4 = ORDINE ACCETTATO DAL FATTORINO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(4);
                     Toast.makeText(mContext, R.string.order_accepted_delivery, Toast.LENGTH_SHORT).show();
+
+                    String msg = mContext.getString(R.string.msg_notification_order_take_over);
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String date = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                    String time = sdf_time.format(cal.getTime());
+
+                    Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
+                    mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
+
                     mDatabase.child("Users").child(currentUser.getUid()).child("busy").setValue(mData.get(position).getId());
                 }
             });
@@ -101,6 +116,18 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
                 public void onClick(View v) { // 3 = ORDINE RIMESSO IN ATTESA DAL FATTORINO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
                     Toast.makeText(mContext, R.string.order_cancelled_delivery, Toast.LENGTH_SHORT).show();
+
+                    String msg = mContext.getString(R.string.msg_notification_order_not_take_over);
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String date = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                    String time = sdf_time.format(cal.getTime());
+
+                    Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
+                    mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
+
                     mDatabase.child("Users").child(currentUser.getUid()).child("busy").removeValue();
                 }
             });

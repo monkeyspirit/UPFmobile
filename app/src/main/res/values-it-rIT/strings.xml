@@ -139,4 +139,8 @@
     <string name="order_delivered">Ordine consegnato</string>
     <string name="order_waiting">Ordine in attesa</string>
     <string name="order_ready_wait">Ordine pronto ed in attesa di spedizione</string>
+    <string name="msg_notification_order_accepted">Il tuo ordine è stato accettato.</string>
+    <string name="msg_notification_order_not_accepted">Il tuo ordine non è stato accettato.</string>
+    <string name="msg_notification_order_take_over">Il tuo ordine è stato preso in carico dal ragazzo delle consegne.</string>
+    <string name="msg_notification_order_not_take_over">Il tuo ordine è stato rimesso in attesa a causa di un disguido.</string>
 </resources>

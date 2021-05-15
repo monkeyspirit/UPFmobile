@@ -19,9 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
 
 public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_view_order.MyViewHolder>{
@@ -68,6 +71,19 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                 public void onClick(View v) {
                     //                2 = ORDINE ACCETTATO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(2);
+
+                    String msg = mData.get(position).getRestaurant_name()+"\n"+mContext.getString(R.string.msg_notification_order_accepted);
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String date = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                    String time = sdf_time.format(cal.getTime());
+
+                    Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
+                    mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
+
+
                     Toast.makeText(mContext, "Ordine accettato.", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -76,6 +92,18 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                 public void onClick(View v) {
                     //                -1 = ORDINE NON ACCETTATO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(-1);
+
+                    String msg = mContext.getString(R.string.msg_notification_order_not_accepted);
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String date = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                    String time = sdf_time.format(cal.getTime());
+
+                    Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
+                    mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
+
                     Toast.makeText(mContext, "Ordine non accettato.", Toast.LENGTH_SHORT).show();
                 }
             });

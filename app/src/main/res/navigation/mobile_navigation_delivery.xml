@@ -5,8 +5,6 @@
     android:id="@+id/mobile_navigation_delivery"
     app:startDestination="@+id/nav_delivery_orders">
 
-    <!--    DA MODIFICARE-->
-
     <fragment
         android:id="@+id/nav_delivery_notifications"
         android:name="mobile.android.upf.ui.delivery.delivery_notifications.DeliveryNotificationsFragment"

@@ -110,21 +110,16 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
-                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        Calendar cal = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        String date = sdf.format(cal.getTime());
+                        SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                        String time = sdf_time.format(cal.getTime());
 
-                                Calendar cal = Calendar.getInstance();
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                String date = sdf.format(cal.getTime());
-                                SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
-                                String time = sdf_time.format(cal.getTime());
+                        String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_yes);
+                        Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
+                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
 
-                                String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_yes);
-                                Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
-                                mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
-                            }
-                        });
 
 
                         ((AdminHomepageFragment) mFragment).updateRecycler();
@@ -218,21 +213,17 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                                 Restaurant update = new Restaurant(toDecline, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
                                 mDatabase.child("Restaurants").child(toDecline).setValue(update);
 
-                                mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_no);
 
-                                        Calendar cal = Calendar.getInstance();
-                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                        String date = sdf.format(cal.getTime());
-                                        SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
-                                        String time = sdf_time.format(cal.getTime());
+                                String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_no);
 
-                                        Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
-                                        mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
-                                    }
-                                });
+                                Calendar cal = Calendar.getInstance();
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                String date = sdf.format(cal.getTime());
+                                SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                                String time = sdf_time.format(cal.getTime());
+
+                                Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
+                                mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
 
                                 ((AdminHomepageFragment) mFragment).updateRecycler();
 

@@ -16,14 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Notification;
 
-public class RecyclerViewAdapter_client_notifications extends RecyclerView.Adapter<RecyclerViewAdapter_client_notifications.MyViewHolder> {
+public class RecyclerViewAdapter_client_notification extends RecyclerView.Adapter<RecyclerViewAdapter_client_notification.MyViewHolder> {
 
     private Context mContext;
     private Fragment mFragment;
@@ -34,7 +32,7 @@ public class RecyclerViewAdapter_client_notifications extends RecyclerView.Adapt
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
-    public RecyclerViewAdapter_client_notifications(Context mContext, Fragment mFragment, List<Notification> mData) {
+    public RecyclerViewAdapter_client_notification(Context mContext, Fragment mFragment, List<Notification> mData) {
         this.mContext = mContext;
         this.mFragment = mFragment;
         this.mData = mData;
@@ -42,7 +40,8 @@ public class RecyclerViewAdapter_client_notifications extends RecyclerView.Adapt
 
     @NonNull
     @Override
-    public RecyclerViewAdapter_client_notifications.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter_client_notification.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -51,22 +50,27 @@ public class RecyclerViewAdapter_client_notifications extends RecyclerView.Adapt
         mStorageReference = mStorage.getReference();
 
         this.parent = parent;
-        view = mInflater.inflate(R.layout.cardview_client_notification, parent, false);
-        return new RecyclerViewAdapter_client_notifications.MyViewHolder(view);
+        view = mInflater.inflate(R.layout.cardview_client_notification, parent,false);
+        return new RecyclerViewAdapter_client_notification.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.tv_notification_message.setText(mData.get(position).getContent());
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter_client_notification.MyViewHolder holder, int position) {
         holder.tv_notification_date.setText(mData.get(position).getDate());
+        holder.tv_notification_message.setText(mData.get(position).getContent());
         holder.tv_notification_time.setText(mData.get(position).getTime());
+
     }
 
+    @Override
     public int getItemCount() {
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+
         TextView tv_notification_message, tv_notification_date, tv_notification_time;
         CardView tv_notification_card;
 
@@ -78,6 +82,9 @@ public class RecyclerViewAdapter_client_notifications extends RecyclerView.Adapt
             tv_notification_message = (TextView) itemView.findViewById(R.id.client_notification_message);
             tv_notification_date = (TextView) itemView.findViewById(R.id.client_notification_date);
             tv_notification_time = (TextView) itemView.findViewById(R.id.client_notification_time);
+
         }
     }
+
+
 }

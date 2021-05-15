@@ -163,4 +163,10 @@
     <string name="order_deleted">Order deleted</string>
     <string name="order_delivered">Order delivered</string>
     <string name="order_cannot_delete">The order cannot be deleted, the restaurant is already processing</string>
+    <string name="msg_notification_order_accepted">Your order was accepted.</string>
+    <string name="msg_notification_order_not_accepted">Your order was not accepted.</string>
+
+    <string name="msg_notification_order_take_over">Your order was took over by the delivery guy.</string>
+    <string name="msg_notification_order_not_take_over">Your order has been put on hold due to a mishap.</string>
+
 </resources>

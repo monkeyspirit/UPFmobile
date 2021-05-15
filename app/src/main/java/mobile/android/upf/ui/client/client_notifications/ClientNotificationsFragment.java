@@ -26,7 +26,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Notification;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_notifications;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_notification;
 
 public class ClientNotificationsFragment extends Fragment {
 
@@ -35,7 +35,7 @@ public class ClientNotificationsFragment extends Fragment {
     private DatabaseReference mDatabase;
 
     private RecyclerView myrv;
-    private RecyclerViewAdapter_client_notifications myAdapter;
+    private RecyclerViewAdapter_client_notification myAdapter;
 
     private List<Notification> lstNotification;
     private String userId;
@@ -76,7 +76,7 @@ public class ClientNotificationsFragment extends Fragment {
                     }
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_notifications);
-                    myAdapter = new RecyclerViewAdapter_client_notifications(getActivity(), ClientNotificationsFragment.this, lstNotification);
+                    myAdapter = new RecyclerViewAdapter_client_notification(getActivity(), ClientNotificationsFragment.this, lstNotification);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -120,10 +120,10 @@ public class ClientNotificationsFragment extends Fragment {
                         ));
                     }
 
-                    myAdapter = new RecyclerViewAdapter_client_notifications(getActivity(), ClientNotificationsFragment.this, lstNotification);
+                    myAdapter = new RecyclerViewAdapter_client_notification(getActivity(), ClientNotificationsFragment.this, lstNotification);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                    myrv.setLayoutManager(myAdapter);
+                    myrv.setAdapter(myAdapter);
                 }
             }
         });

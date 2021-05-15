@@ -5,7 +5,8 @@
     android:id="@+id/mobile_navigation_admin"
     app:startDestination="@+id/nav_admin_home">
 
-<!--    DA MODIFICARE-->
+
+
     <fragment
         android:id="@+id/nav_admin_profile"
         android:name="mobile.android.upf.ui.admin.admin_profile.AdminProfileFragment"

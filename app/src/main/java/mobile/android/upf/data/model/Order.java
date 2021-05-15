@@ -10,6 +10,7 @@ public class Order {
     private String id;
     private String user_id;
     private String restaurant_id;
+    private String restaurant_name;
     private String delivery_id;
     private ArrayList<Dish> dishes;
     private String total;
@@ -23,10 +24,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(String id, String user_id, String restaurant_id, String delivery_id, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String id, String user_id, String restaurant_id, String restaurant_name, String delivery_id, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.restaurant_name = restaurant_name;
         this.delivery_id = delivery_id;
         this.dishes_summary = dishes_summary;
         this.total = total;
@@ -37,10 +39,11 @@ public class Order {
         this.state = state;
     }
 
-    public Order(String id, String user_id, String restaurant_id, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String id, String user_id, String restaurant_id, String restaurant_name, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.restaurant_name = restaurant_name;
         this.dishes_summary = dishes_summary;
         this.total = total;
         this.paymemt_method = paymemt_method;
@@ -51,9 +54,10 @@ public class Order {
     }
 
 
-    public Order(String user_id, String restaurant_id, String delivery_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String user_id, String restaurant_id, String restaurant_name, String delivery_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
+        this.restaurant_name = restaurant_name;
         this.delivery_id = delivery_id;
         this.dishes = dishes;
         this.dishes_summary = dishes_summary;
@@ -181,5 +185,13 @@ public class Order {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getRestaurant_name() {
+        return restaurant_name;
+    }
+
+    public void setRestaurant_name(String restaurant_name) {
+        this.restaurant_name = restaurant_name;
     }
 }
