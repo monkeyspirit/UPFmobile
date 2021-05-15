@@ -23,6 +23,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shuhart.stepview.StepView;
+
+import java.util.ArrayList;
 
 public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
@@ -68,6 +71,24 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
                 }
             }}
         );
+
+        StepView stepView = findViewById(R.id.step_view);
+        stepView.getState()
+                // You should specify only stepsNumber or steps array of strings.
+                // In case you specify both steps array is chosen.
+                .steps(new ArrayList<String>() {{
+                    add(getApplicationContext().getString(R.string.address_payment));
+                    add(getApplicationContext().getString(R.string.summary));
+                    add(getApplicationContext().getString(R.string.payment));
+                }})
+
+                .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .stepLineWidth(1)
+                .textSize(getResources().getDimensionPixelSize(R.dimen.text_size_small))
+                .stepNumberTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_small))
+                .commit();
+        stepView.go(1,false);
+
 
         card_parameter = (LinearLayout) findViewById(R.id.card_parameter);
 

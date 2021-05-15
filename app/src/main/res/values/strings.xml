@@ -124,11 +124,13 @@
     <string name="add_dish_to_cart_failed">Failed to add the dish to the cart</string>
     <string name="add_dish_to_cart_success">The dish is added to the cart</string>
     <string name="pay">Go on with the payment</string>
-    <string name="proceed">Proceed</string>
+    <string name="address_payment">Address and payment</string>
+    <string name="address_payment_stepview">Address and \npayment</string>
 
     <string name="title_activity_user_insert_address_card">Address and payment</string>
     <string name="summary">Summary</string>
     <string name="payment">Payment method</string>
+    <string name="payment_stepview">Payment \nmethod</string>
     <string name="cash">Cash</string>
     <string name="card">Card</string>
     <string name="card_number">Card number</string>
@@ -168,5 +170,6 @@
 
     <string name="msg_notification_order_take_over">Your order was took over by the delivery guy.</string>
     <string name="msg_notification_order_not_take_over">Your order has been put on hold due to a mishap.</string>
+    <string name="proceed">Proceed</string>
 
 </resources>

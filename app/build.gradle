@@ -66,4 +66,5 @@ dependencies {
 
     //librearia da github per number picker orizzontale
     implementation 'com.shawnlin:number-picker:2.4.12'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
 }

@@ -143,4 +143,7 @@
     <string name="msg_notification_order_not_accepted">Il tuo ordine non è stato accettato.</string>
     <string name="msg_notification_order_take_over">Il tuo ordine è stato preso in carico dal ragazzo delle consegne.</string>
     <string name="msg_notification_order_not_take_over">Il tuo ordine è stato rimesso in attesa a causa di un disguido.</string>
+    <string name="address_payment">Indirizzo e pagamento</string>
+    <string name="address_payment_stepview">Indirizzo e \\npagamento</string>
+    <string name="payment_stepview">Metodo di \\npagamento</string>
 </resources>

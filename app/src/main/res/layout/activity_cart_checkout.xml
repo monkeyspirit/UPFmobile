@@ -15,6 +15,31 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical" >
+            <com.shuhart.stepview.StepView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/step_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:sv_selectedCircleColor="#BFBFBF"
+                app:sv_selectedTextColor="#BFBFBF"
+                app:sv_stepLineWidth="1dp"
+                app:sv_stepPadding="4dp"
+                app:sv_nextTextColor="@color/dark_grey"
+                app:sv_nextStepLineColor="@color/dark_grey"
+                app:sv_doneCircleColor="@color/teal_200"
+                app:sv_doneStepLineColor="@color/teal_200"
+                app:sv_doneCircleRadius="12dp"
+                app:sv_selectedCircleRadius="12dp"
+                app:sv_selectedStepNumberColor="@color/white"
+                app:sv_stepViewStyle="@style/StepView"
+                app:sv_doneStepMarkColor="@color/white"
+                app:sv_doneTextColor="@color/teal_200"
+                app:sv_stepNumberTextSize="12sp"
+                app:sv_animationType="Line"/>
 
             <TextView
                 android:id="@+id/textView2"
@@ -65,14 +90,21 @@
                 android:text="TextView"
                 android:gravity="center"/>
 
-            <Button
-                android:id="@+id/payment_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:text="@string/pay" />
         </LinearLayout>
     </ScrollView>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/payment_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/fab_margin"
+            android:text="@string/pay"
+            app:backgroundTint="@color/teal_200"
+            app:icon="@drawable/ic_baseline_payment_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

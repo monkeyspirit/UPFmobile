@@ -10,8 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,11 +27,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
+import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_cart;
 
 public class CartViewActivity extends AppCompatActivity {
@@ -58,6 +64,23 @@ public class CartViewActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         lstCartItem = new ArrayList<>();
+
+        StepView stepView = findViewById(R.id.step_view);
+        stepView.getState()
+                // You should specify only stepsNumber or steps array of strings.
+                // In case you specify both steps array is chosen.
+                .steps(new ArrayList<String>() {{
+                    add(getApplicationContext().getString(R.string.address_payment));
+                    add(getApplicationContext().getString(R.string.summary));
+                    add(getApplicationContext().getString(R.string.payment));
+                }})
+
+                .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .stepLineWidth(1)
+                .textSize(getResources().getDimensionPixelSize(R.dimen.text_size_small))
+                .stepNumberTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_small))
+                .commit();
+
 
         mDatabase.child("Cart").child(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -93,7 +116,7 @@ public class CartViewActivity extends AppCompatActivity {
             }
         });
 
-        // Floating button per l'aggiunta di nuovo ordine
+
         ExtendedFloatingActionButton fab = findViewById(R.id.fab_dish);
         mDatabase.child("Cart").addValueEventListener(new ValueEventListener() {
             @Override

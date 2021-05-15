@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shuhart.stepview.StepView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +65,24 @@ public class CartCheckout extends AppCompatActivity {
         order_dishes_summary = (TextView) findViewById(R.id.order_dishes_summary);
         order_total_summary = (TextView) findViewById(R.id.order_total_summary);
         order_payment_summary = (TextView) findViewById(R.id.order_payment_summary);
+
+        StepView stepView = findViewById(R.id.step_view);
+        stepView.getState()
+                // You should specify only stepsNumber or steps array of strings.
+                // In case you specify both steps array is chosen.
+                .steps(new ArrayList<String>() {{
+                    add(getApplicationContext().getString(R.string.address_payment));
+                    add(getApplicationContext().getString(R.string.summary));
+                    add(getApplicationContext().getString(R.string.payment));
+                }})
+
+                .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .stepLineWidth(1)
+                .textSize(getResources().getDimensionPixelSize(R.dimen.text_size_small))
+                .stepNumberTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_small))
+                .commit();
+        stepView.go(2,false);
+
 
         final String[] summary_dishes = {""};
         mDatabase.child("Cart").child(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
