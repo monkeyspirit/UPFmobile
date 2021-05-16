@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:autofillHints="Try"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:hint="@string/prompt_name"/>
 
         <!--Price-->
         <EditText
@@ -27,7 +28,8 @@
             android:layout_height="match_parent"
             android:autofillHints="Try"
             android:selectAllOnFocus="true"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:hint="@string/price"/>
 
         <!--Description-->
         <EditText
@@ -36,7 +38,8 @@
             android:layout_height="match_parent"
             android:autofillHints="Try"
             android:selectAllOnFocus="true"
-            android:inputType="textMultiLine"/>
+            android:inputType="textMultiLine"
+            android:hint="@string/prompt_description"/>
 
 
     </LinearLayout>

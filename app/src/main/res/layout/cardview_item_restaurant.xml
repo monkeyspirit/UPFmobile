@@ -6,10 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/restaurant_card"
-    android:layout_height="400dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
+    android:layout_height="365dp"
+    android:layout_margin="10dp"
     card_view:cardUseCompatPadding="true"
     card_view:cardElevation="@dimen/cardview_elevation"
     card_view:cardCornerRadius="@dimen/cardview_corner_radius"
@@ -89,24 +87,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp">
+            android:layout_margin="10dp">
 
             <Button
                 android:id="@+id/edit_restaurant_card_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
+                android:layout_margin="4dp"
                 android:backgroundTint="@color/secondary"
                 android:drawableLeft="@drawable/ic_baseline_edit_24"
                 android:text="@string/edit"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size_mini"
-                app:layout_constraintEnd_toStartOf="@+id/delete_restaurant_card_btn"
-                android:layout_marginRight="15dp"/>
+                app:layout_constraintEnd_toStartOf="@+id/delete_restaurant_card_btn" />
 
 
             <Button
@@ -114,13 +111,13 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="4dp"
                 android:backgroundTint="@color/red"
                 android:drawableLeft="@drawable/ic_baseline_delete_24"
                 android:text="@string/delete"
                 android:textAlignment="center"
-                android:textSize="@dimen/text_size_mini"
-                android:layout_marginLeft="15dp"/>
+                android:textSize="@dimen/text_size_mini"/>
         </LinearLayout>
 
     </LinearLayout>

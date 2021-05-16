@@ -139,6 +139,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
                     restaurant_phone.requestFocus();
                     return;
                 }
+                if (!Patterns.PHONE.matcher(phone).matches()) {
+                    restaurant_phone.setError(getString(R.string.invalid_phone_number));
+                    restaurant_phone.requestFocus();
+                    return;
+                }
                 if (address.isEmpty()) {
                     restaurant_address.setError(getString(R.string.empty_address));
                     restaurant_address.requestFocus();

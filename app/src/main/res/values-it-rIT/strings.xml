@@ -150,4 +150,6 @@
     <string name="empty_price">Il prezzo è richiesto</string>
     <string name="price_zero">Il prezzo non può essere zero</string>
     <string name="invalid_price">Prezzo non valido</string>
+    <string name="name">Nome</string>
+    <string name="invalid_phone_number">Numero di telefono non valido</string>
 </resources>

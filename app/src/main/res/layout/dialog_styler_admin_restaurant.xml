@@ -19,8 +19,6 @@
             android:autofillHints="Try"
             android:selectAllOnFocus="true"/>
 
-
-
     </LinearLayout>
 
 </FrameLayout>
