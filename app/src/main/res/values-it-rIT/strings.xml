@@ -150,6 +150,7 @@
     <string name="empty_price">Il prezzo è richiesto</string>
     <string name="price_zero">Il prezzo non può essere zero</string>
     <string name="invalid_price">Prezzo non valido</string>
-    <string name="name">Nome</string>
     <string name="invalid_phone_number">Numero di telefono non valido</string>
+    <string name="msg_notification_order_received_by_client">Il cliente ha confermato di aver ricevuto l\'ordine</string>
+    <string name="msg_notification_order_delivered_success">L\'ordine è arrivato al cliente con successo</string>
 </resources>

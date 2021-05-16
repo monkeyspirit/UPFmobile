@@ -175,6 +175,8 @@
     <string name="msg_notification_order_take_over">Your order was took over by the delivery guy.</string>
     <string name="msg_notification_order_not_take_over">Your order has been put on hold due to a mishap.</string>
     <string name="msg_notification_order_ready_to_delivery">Your order is ready for delivery</string>
+    <string name="msg_notification_order_received_by_client">The client confirmed receiving the order</string>
+    <string name="msg_notification_order_delivered_success">The order was delivered to the client with success</string>
     <string name="proceed">Proceed</string>
 
 </resources>

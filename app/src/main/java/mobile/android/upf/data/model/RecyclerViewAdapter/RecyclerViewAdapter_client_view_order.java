@@ -25,9 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.ui.client.client_homepage.ClientOrdersFragment;
 
@@ -148,6 +151,18 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
                 @Override
                 public void onClick(View v) { // ORDINE IMPOSTATO CON STATO 5 - CONSEGNATO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(5);
+
+                    String msg = mContext.getString(R.string.msg_notification_order_received_by_client);
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String date = sdf.format(cal.getTime());
+                    SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                    String time = sdf_time.format(cal.getTime());
+
+                    Notification notification = new Notification(mData.get(position).getDelivery_id(),date, time, "1", msg);
+                    mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
+
                     Toast.makeText(mContext, R.string.confirm_delivered, Toast.LENGTH_SHORT).show();
                 }
             });

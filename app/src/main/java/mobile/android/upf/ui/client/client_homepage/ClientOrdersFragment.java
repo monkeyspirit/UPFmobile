@@ -204,7 +204,7 @@ public class ClientOrdersFragment extends Fragment {
                                                 String.valueOf(task.getResult().child("id").getValue()),
                                                 String.valueOf(task.getResult().child("user_id").getValue()),
                                                 String.valueOf(task.getResult().child("restaurant_id").getValue()),
-                                        String.valueOf(task.getResult().child("restaurant_name").getValue()),
+                                                String.valueOf(task.getResult().child("restaurant_name").getValue()),
                                                 String.valueOf(task.getResult().child("dishes_summary").getValue()),
                                                 String.valueOf(task.getResult().child("total").getValue()),
                                                 String.valueOf(task.getResult().child("paymemt_method").getValue()),

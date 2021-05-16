@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -139,11 +140,37 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
                 @Override
                 public void onClick(View v) {
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(6);
+
+                    final String[] restaurateur_id = new String[1];
+                    mDatabase.child("Restaurants").child(mData.get(position).getRestaurant_id()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                        @Override
+                        public void onSuccess(DataSnapshot dataSnapshot) {
+                            restaurateur_id[0] = String.valueOf(dataSnapshot.child("restaurateur_id").getValue());
+                            Log.d("RISTORATORE", restaurateur_id[0]);
+
+                            String msg = mContext.getString(R.string.msg_notification_order_delivered_success);
+
+                            Calendar cal = Calendar.getInstance();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            String date = sdf.format(cal.getTime());
+                            SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+                            String time = sdf_time.format(cal.getTime());
+
+                            Notification notification = new Notification(restaurateur_id[0],date, time, "1",msg);
+                            mDatabase.child("Notifications").child(restaurateur_id[0]).child(String.valueOf(notification.getId())).setValue(notification);
+
+                            holder.tv_delivered_btn.setVisibility(View.GONE);
+                        }
+                    });
+
                     Toast.makeText(mContext, R.string.confirm_delivered, Toast.LENGTH_SHORT).show();
                     //Il fattorino è di nuovo libero
                     mDatabase.child("Users").child(currentUser.getUid()).child("busy").removeValue();
                 }
             });
+        }
+        if (mData.get(position).getState() == 6) {
+            holder.tv_delivered_btn.setVisibility(View.GONE);
         }
     }
 
