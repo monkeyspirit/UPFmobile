@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.R;
-import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_for_client;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_restaurant;
 import mobile.android.upf.data.model.Restaurant;
 
 public class ClientRestaurantsFragment extends Fragment {
@@ -45,7 +44,7 @@ public class ClientRestaurantsFragment extends Fragment {
     LinearLayout linearLayout;
 
     RecyclerView myrv;
-    RecyclerViewAdapter_restaurant_for_client myAdapter;
+    RecyclerViewAdapter_client_restaurant myAdapter;
 
     List<Restaurant> lstRest;
     private String userId;
@@ -95,7 +94,7 @@ public class ClientRestaurantsFragment extends Fragment {
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_restaurants);
                     //myrv.setNestedScrollingEnabled(true);
-                    myAdapter = new RecyclerViewAdapter_restaurant_for_client(getActivity(), lstRest);
+                    myAdapter = new RecyclerViewAdapter_client_restaurant(getActivity(), lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);

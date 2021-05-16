@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,12 +25,12 @@ import mobile.android.upf.R;
 import mobile.android.upf.RestaurantViewElementForClientActivity;
 import mobile.android.upf.data.model.Restaurant;
 
-public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_for_client.MyViewHolder> {
+public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<RecyclerViewAdapter_client_restaurant.MyViewHolder> {
 
     private Context mContext;
     private List<Restaurant> mData;
 
-    public RecyclerViewAdapter_restaurant_for_client(Context mContext, List<Restaurant> mData) {
+    public RecyclerViewAdapter_client_restaurant(Context mContext, List<Restaurant> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -71,6 +72,40 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
         }
 
+        holder.call_restaurant_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                String number = String.format("tel:%s", mData.get(position).getPhone());
+                callIntent.setData(Uri.parse(number));
+                mContext.startActivity(callIntent);
+            }
+        });
+
+        holder.email_restaurant_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {Intent emailSelectorIntent = new Intent(Intent.ACTION_SENDTO);
+                emailSelectorIntent.setData(Uri.parse("mailto:"));
+
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"address@mail.com"});
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                emailIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                emailIntent.setSelector( emailSelectorIntent );
+                mContext.startActivity(emailIntent);
+
+            }
+        });
+
+        holder.nav_restaurant_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent navIntent = new Intent(Intent.ACTION_DIAL);
+                Log.d("map", "Opening the map");
+            }
+        });
+
+
     }
 
     @Override
@@ -102,37 +137,6 @@ public class RecyclerViewAdapter_restaurant_for_client extends RecyclerView.Adap
             email_restaurant_btn = (Button) itemView.findViewById(R.id.email_restaurant_btn);
             nav_restaurant_btn = (Button) itemView.findViewById(R.id.nav_restaurant_btn);
 
-            call_restaurant_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent .setData(Uri.parse("tel:"+tv_restaurant_phone.getText().toString()));
-                    mContext.startActivity(callIntent);
-                }
-            });
-
-            email_restaurant_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                        emailIntent.setData(Uri.parse("email:"));
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL, tv_restaurant_email.getText().toString());
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Informazioni ristorante");
-                        mContext.startActivity(emailIntent);
-                    } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(mContext, "There are no e-mail client installed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-            nav_restaurant_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent navIntent = new Intent(Intent.ACTION_DIAL);
-                    Log.d("map", "Opening the map");
-                }
-            });
 
         }
     }

@@ -22,9 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_for_delivery;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_restaurant;
 import mobile.android.upf.data.model.Restaurant;
-import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
 
 public class AddSubscriptionActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class AddSubscriptionActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     private RecyclerView myrv;
-    private RecyclerViewAdapter_restaurant_for_delivery myAdapter;
+    private RecyclerViewAdapter_delivery_restaurant myAdapter;
 
     private List<Restaurant> lstRest;
     private String userId;
@@ -104,7 +103,7 @@ public class AddSubscriptionActivity extends AppCompatActivity {
                     }
 
                     myrv = (RecyclerView) findViewById(R.id.recyclerview_delivery_restaurants);
-                    myAdapter = new RecyclerViewAdapter_restaurant_for_delivery(AddSubscriptionActivity.this, lstRest);
+                    myAdapter = new RecyclerViewAdapter_delivery_restaurant(AddSubscriptionActivity.this, lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(AddSubscriptionActivity.this, 1));
                     myrv.setAdapter(myAdapter);
@@ -185,7 +184,7 @@ public class AddSubscriptionActivity extends AppCompatActivity {
                     }
 
 
-                    myAdapter = new RecyclerViewAdapter_restaurant_for_delivery(AddSubscriptionActivity.this, lstRest);
+                    myAdapter = new RecyclerViewAdapter_delivery_restaurant(AddSubscriptionActivity.this, lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(AddSubscriptionActivity.this, 1));
                     myrv.setAdapter(myAdapter);

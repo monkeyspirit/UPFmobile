@@ -1,10 +1,6 @@
 package mobile.android.upf.data.model.RecyclerViewAdapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,38 +9,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Restaurant;
-import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
-import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
 
-import static android.widget.Toast.LENGTH_LONG;
-
-public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_for_delivery.MyViewHolder> {
+public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapter<RecyclerViewAdapter_delivery_restaurant.MyViewHolder> {
 
     private Context mContext;
     private Fragment mFragment;
@@ -52,13 +37,13 @@ public class RecyclerViewAdapter_restaurant_for_delivery extends RecyclerView.Ad
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    public RecyclerViewAdapter_restaurant_for_delivery(Context mContext, Fragment mFragment, List<Restaurant> mData) {
+    public RecyclerViewAdapter_delivery_restaurant(Context mContext, Fragment mFragment, List<Restaurant> mData) {
         this.mContext = mContext;
         this.mFragment = mFragment;
         this.mData = mData;
     }
 
-    public RecyclerViewAdapter_restaurant_for_delivery(Context mContext, List<Restaurant> mData) {
+    public RecyclerViewAdapter_delivery_restaurant(Context mContext, List<Restaurant> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

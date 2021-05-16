@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -30,10 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import mobile.android.upf.AddRestaurantActivity;
 import mobile.android.upf.AddSubscriptionActivity;
 import mobile.android.upf.R;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_for_delivery;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_restaurant;
 import mobile.android.upf.data.model.Restaurant;
 
 public class DeliveryRestaurantsFragment extends Fragment {
@@ -48,7 +46,7 @@ public class DeliveryRestaurantsFragment extends Fragment {
     private LinearLayout linearLayout;
 
     private RecyclerView myrv;
-    private RecyclerViewAdapter_restaurant_for_delivery myAdapter;
+    private RecyclerViewAdapter_delivery_restaurant myAdapter;
 
     private List<Restaurant> lstRest;
     private String userId;
@@ -112,7 +110,7 @@ public class DeliveryRestaurantsFragment extends Fragment {
                     }
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_restaurants);
-                    myAdapter = new RecyclerViewAdapter_restaurant_for_delivery(getActivity(), DeliveryRestaurantsFragment.this, lstRest);
+                    myAdapter = new RecyclerViewAdapter_delivery_restaurant(getActivity(), DeliveryRestaurantsFragment.this, lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
@@ -174,7 +172,7 @@ public class DeliveryRestaurantsFragment extends Fragment {
 
                     }
 
-                    myAdapter = new RecyclerViewAdapter_restaurant_for_delivery(getActivity(), DeliveryRestaurantsFragment.this, lstRest);
+                    myAdapter = new RecyclerViewAdapter_delivery_restaurant(getActivity(), DeliveryRestaurantsFragment.this, lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
                     myrv.setAdapter(myAdapter);
