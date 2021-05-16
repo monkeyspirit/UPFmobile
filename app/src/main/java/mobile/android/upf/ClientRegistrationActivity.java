@@ -109,6 +109,11 @@ public class ClientRegistrationActivity extends AppCompatActivity {
             editTextPhone.requestFocus();
             return;
         }
+        if (!Patterns.PHONE.matcher(phone).matches()) {
+            editTextPhone.setError(getString(R.string.invalid_phone_number));
+            editTextPhone.requestFocus();
+            return;
+        }
         if (address.isEmpty()) {
             editTextAddress.setError(getString(R.string.empty_address));
             editTextAddress.requestFocus();

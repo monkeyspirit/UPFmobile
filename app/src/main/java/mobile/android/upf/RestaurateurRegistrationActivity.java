@@ -103,6 +103,11 @@ public class RestaurateurRegistrationActivity extends AppCompatActivity {
             editTextPhone.requestFocus();
             return;
         }
+        if (!Patterns.PHONE.matcher(phone).matches()) {
+            editTextPhone.setError(getString(R.string.invalid_phone_number));
+            editTextPhone.requestFocus();
+            return;
+        }
         if (password.isEmpty()) {
             editTextPassword.setError(getString(R.string.empty_password));
             editTextPassword.requestFocus();
