@@ -3,6 +3,7 @@ package mobile.android.upf.data.model.RecyclerViewAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaActionSound;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
+import mobile.android.upf.data.model.RestStats;
 
 public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_view_order.MyViewHolder>{
 
@@ -82,7 +88,26 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
 
                     Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
                     mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
-
+                    
+                    Log.d("PIATTI", String.valueOf(mData.get(position).getDishes_summary()));
+                    String lstDishes = mData.get(position).getDishes_summary();
+                    
+                    
+//                    for (Dish dish : mData.get(position).getDishes()) {
+//                        String name = dish.getName();
+//                        int number = dish.getNumber();
+//
+//                        mDatabase.child("RestStats").child(mData.get(position).getRestaurant_id()).child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+//                            @Override
+//                            public void onSuccess(DataSnapshot dataSnapshot) {
+//                                Log.d("DATI", String.valueOf(dataSnapshot.getValue()));
+//
+//                            }
+//                        });
+//
+//                        RestStats restStats = new RestStats(name, number);
+//                        mDatabase.child("RestStats").child(mData.get(position).getRestaurant_id()).child(name).setValue(restStats);
+//                    }
 
                     Toast.makeText(mContext, R.string.order_accepted, Toast.LENGTH_SHORT).show();
                 }

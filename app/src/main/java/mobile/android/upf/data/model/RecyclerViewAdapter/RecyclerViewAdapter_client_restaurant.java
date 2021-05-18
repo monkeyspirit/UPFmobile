@@ -106,7 +106,6 @@ public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<
                 Intent navIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("google.navigation:q="+address+"+"+city));
                 mContext.startActivity(navIntent);
-                Log.d("map", "Opening the map at: "+address+city);
             }
         });
 
