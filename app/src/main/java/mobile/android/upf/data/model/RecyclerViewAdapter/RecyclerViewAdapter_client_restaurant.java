@@ -100,8 +100,13 @@ public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<
         holder.nav_restaurant_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent navIntent = new Intent(Intent.ACTION_DIAL);
-                Log.d("map", "Opening the map");
+                String city = "Brescia";
+                String address = holder.tv_restaurant_address.getText().toString();
+                address = address.replace(" ", "+");
+                Intent navIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation:q="+address+"+"+city));
+                mContext.startActivity(navIntent);
+                Log.d("map", "Opening the map at: "+address+city);
             }
         });
 
