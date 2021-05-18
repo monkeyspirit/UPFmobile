@@ -15,23 +15,29 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RestStats;
+import mobile.android.upf.data.model.Restaurant;
 
 public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_view_order.MyViewHolder>{
 
@@ -88,26 +94,41 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
 
                     Notification notification = new Notification(mData.get(position).getUser_id(),date, time, "1",msg);
                     mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
-                    
-                    Log.d("PIATTI", String.valueOf(mData.get(position).getDishes_summary()));
-                    String lstDishes = mData.get(position).getDishes_summary();
-                    
-                    
-//                    for (Dish dish : mData.get(position).getDishes()) {
-//                        String name = dish.getName();
-//                        int number = dish.getNumber();
-//
-//                        mDatabase.child("RestStats").child(mData.get(position).getRestaurant_id()).child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-//                            @Override
-//                            public void onSuccess(DataSnapshot dataSnapshot) {
-//                                Log.d("DATI", String.valueOf(dataSnapshot.getValue()));
-//
-//                            }
-//                        });
-//
-//                        RestStats restStats = new RestStats(name, number);
-//                        mDatabase.child("RestStats").child(mData.get(position).getRestaurant_id()).child(name).setValue(restStats);
-//                    }
+
+                    HashMap<String, Integer> lstDishesInOrder = new HashMap<String, Integer>();
+
+                    mDatabase.child("Orders").child(mData.get(position).getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+
+                            DataSnapshot dishes_snapshot = task.getResult().child("dishes");;
+                            Log.d("ORDINE", String.valueOf(task.getResult().child("dishes").getValue()));
+
+                            for (DataSnapshot dish: dishes_snapshot.getChildren()) {
+                                String name = String.valueOf(dish.child("name").getValue());
+                                int number = Integer.parseInt(String.valueOf(dish.child("number").getValue()));
+                                Log.d("PIATTO", name+" "+number);
+                                lstDishesInOrder.put(name, number);
+                            }
+
+                            for (Map.Entry<String, Integer> entry : lstDishesInOrder.entrySet()) {
+                                String name = entry.getKey();
+                                final Integer[] number = {entry.getValue()};
+                                mDatabase.child("RestStats").child(mData.get(position).getUser_id()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.child("number").getValue() != null) {
+                                            int oldNumber = Integer.parseInt(String.valueOf(dataSnapshot.child("number").getValue()));
+                                            number[0] = number[0] + oldNumber;
+                                        }
+
+                                        RestStats restStats = new RestStats(name, number[0]);
+                                        mDatabase.child("RestStats").child(mData.get(position).getUser_id()).child(name).setValue(restStats);
+                                    }
+                                });
+                            }
+                        }
+                    });
 
                     Toast.makeText(mContext, R.string.order_accepted, Toast.LENGTH_SHORT).show();
                 }
