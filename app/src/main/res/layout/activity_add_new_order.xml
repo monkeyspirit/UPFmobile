@@ -31,13 +31,14 @@
                 android:id="@+id/recyclerview_restaurant_dishes_client_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_gray">
+                android:background="@color/light_grey"
+                tools:listitem="@layout/cardview_item_dish_client_order">
             </androidx.recyclerview.widget.RecyclerView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@color/light_gray"/>
+                android:background="@color/light_grey"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

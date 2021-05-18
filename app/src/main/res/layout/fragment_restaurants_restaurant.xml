@@ -9,7 +9,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_gray">
+        android:background="@color/light_grey">
 
 
 
@@ -22,7 +22,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_restaurant_restaurants"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/cardview_item_restaurant">
 
                     </androidx.recyclerview.widget.RecyclerView>
 

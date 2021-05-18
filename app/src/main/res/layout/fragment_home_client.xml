@@ -16,7 +16,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_client_orders"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/cardview_item_order_client">
 
             </androidx.recyclerview.widget.RecyclerView>
 

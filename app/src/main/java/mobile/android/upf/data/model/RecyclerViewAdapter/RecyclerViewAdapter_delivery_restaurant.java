@@ -55,7 +55,7 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardview_restaurant_delivery, parent,false);
+        view = mInflater.inflate(R.layout.cardview_item_restaurant_delivery, parent,false);
         return new MyViewHolder(view, mContext);
     }
 

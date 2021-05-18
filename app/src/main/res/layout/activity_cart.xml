@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/light_grey">
 
 
     <androidx.core.widget.NestedScrollView
@@ -26,12 +26,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                app:sv_selectedCircleColor="#BFBFBF"
-                app:sv_selectedTextColor="#BFBFBF"
+                app:sv_selectedCircleColor="@color/dark_grey"
+                app:sv_selectedTextColor="@color/dark_grey"
                 app:sv_stepLineWidth="1dp"
                 app:sv_stepPadding="4dp"
-                app:sv_nextTextColor="@color/dark_grey"
-                app:sv_nextStepLineColor="@color/dark_grey"
+                app:sv_nextTextColor="#BFBFBF"
+                app:sv_nextStepLineColor="#BFBFBF"
                 app:sv_doneCircleColor="@color/teal_200"
                 app:sv_doneStepLineColor="@color/teal_200"
                 app:sv_doneCircleRadius="12dp"
@@ -47,7 +47,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_cart_dishes_client"
-
+                tools:listitem="@layout/cardview_item_cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </androidx.recyclerview.widget.RecyclerView>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
+    android:background="@color/light_grey"
     tools:context=".CartCheckout">
 
     <ScrollView
@@ -25,12 +25,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                app:sv_selectedCircleColor="#BFBFBF"
-                app:sv_selectedTextColor="#BFBFBF"
+                app:sv_selectedCircleColor="@color/dark_grey"
+                app:sv_selectedTextColor="@color/dark_grey"
                 app:sv_stepLineWidth="1dp"
                 app:sv_stepPadding="4dp"
-                app:sv_nextTextColor="@color/dark_grey"
-                app:sv_nextStepLineColor="@color/dark_grey"
+                app:sv_nextTextColor="#BFBFBF"
+                app:sv_nextStepLineColor="#BFBFBF"
                 app:sv_doneCircleColor="@color/teal_200"
                 app:sv_doneStepLineColor="@color/teal_200"
                 app:sv_doneCircleRadius="12dp"
