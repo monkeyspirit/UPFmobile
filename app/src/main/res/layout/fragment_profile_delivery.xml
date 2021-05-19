@@ -25,7 +25,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/design_default_color_primary">
+                    android:background="@color/orange_500">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="30dp"
                     android:paddingBottom="20dp"
-                    android:background="@color/design_default_color_primary"
+                    android:background="@color/orange_500"
                     android:gravity="center">
 
                     <com.mikhaellopez.circularimageview.CircularImageView

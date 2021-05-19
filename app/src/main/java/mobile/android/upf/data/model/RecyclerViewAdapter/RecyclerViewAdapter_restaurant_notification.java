@@ -50,7 +50,7 @@ public class RecyclerViewAdapter_restaurant_notification extends RecyclerView.Ad
         mStorageReference = mStorage.getReference();
 
         this.parent = parent;
-        view = mInflater.inflate(R.layout.cardview_notification, parent,false);
+        view = mInflater.inflate(R.layout.cardview_item_notification, parent,false);
         return new RecyclerViewAdapter_restaurant_notification.MyViewHolder(view);
     }
 

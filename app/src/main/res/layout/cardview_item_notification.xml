@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="date"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_large"/>
+            android:textSize="@dimen/text_size_medium"/>
         <TextView
             android:id="@+id/notification_time"
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_gravity="center"
             android:text="message"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_large" />
+            android:textSize="@dimen/text_size_medium" />
 
 
     </LinearLayout>

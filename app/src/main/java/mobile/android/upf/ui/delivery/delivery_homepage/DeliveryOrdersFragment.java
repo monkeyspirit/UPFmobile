@@ -1,5 +1,6 @@
 package mobile.android.upf.ui.delivery.delivery_homepage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,8 +28,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
@@ -160,7 +167,33 @@ public class DeliveryOrdersFragment extends Fragment {
                             }
 
                         }
+                        Collections.sort(lstOrder, new Comparator<Order>() {
+                            @SuppressLint("SimpleDateFormat")
+                            final
+                            DateFormat f = new SimpleDateFormat("hh:mm");
+                            @Override
+                            public int compare(Order lhs, Order rhs) {
+                                try {
+                                    return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
+                                } catch (ParseException e) {
+                                    throw new IllegalArgumentException(e);
+                                }
+                            }
+                        });
 
+                        Collections.sort(lstOrder, new Comparator<Order>() {
+                            @SuppressLint("SimpleDateFormat")
+                            final
+                            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                            @Override
+                            public int compare(Order lhs, Order rhs) {
+                                try {
+                                    return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
+                                } catch (ParseException e) {
+                                    throw new IllegalArgumentException(e);
+                                }
+                            }
+                        });
                         myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
                         myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
                         myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -218,10 +251,9 @@ public class DeliveryOrdersFragment extends Fragment {
                                         String.valueOf(order.child("time").getValue()),
                                         Integer.parseInt(String.valueOf(order.child("state").getValue())))
                                 );
-                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
-                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                                myrv.setAdapter(myAdapter);
+
+
                             }
 
 
@@ -243,16 +275,42 @@ public class DeliveryOrdersFragment extends Fragment {
                                         String.valueOf(order.child("time").getValue()),
                                         Integer.parseInt(String.valueOf(order.child("state").getValue())))
                                 );
-                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
-                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                                myrv.setAdapter(myAdapter);
                             }
 
 
                         }
+                        Collections.sort(lstOrder, new Comparator<Order>() {
+                            @SuppressLint("SimpleDateFormat")
+                            final
+                            DateFormat f = new SimpleDateFormat("hh:mm");
+                            @Override
+                            public int compare(Order lhs, Order rhs) {
+                                try {
+                                    return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
+                                } catch (ParseException e) {
+                                    throw new IllegalArgumentException(e);
+                                }
+                            }
+                        });
 
+                        Collections.sort(lstOrder, new Comparator<Order>() {
+                            @SuppressLint("SimpleDateFormat")
+                            final
+                            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                            @Override
+                            public int compare(Order lhs, Order rhs) {
+                                try {
+                                    return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
+                                } catch (ParseException e) {
+                                    throw new IllegalArgumentException(e);
+                                }
+                            }
+                        });
+                        myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
+                        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                        myrv.setAdapter(myAdapter);
                     }
 
                 }
