@@ -103,7 +103,7 @@ public class AddDishRestaurantActivity extends AppCompatActivity {
                 }
 
 
-                dish = new Dish(name, description, restaurant_id, Double.parseDouble(price));
+                dish = new Dish(name, description, restaurant_id, Double.parseDouble(price), 0);
 
                 mDatabase.child("Dishes").child(dish.getId()).setValue(dish).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -96,11 +96,12 @@ public class AddNewOrderClientActivity extends AppCompatActivity {
                         Log.d("firebase", String.valueOf(dish.child("name").getValue()));
                         if (String.valueOf(dish.child("restaurant_id").getValue()).equals(restaurant_id)) {
                             lstDish.add(new Dish(
-                                            String.valueOf(dish.getKey()),
-                                            String.valueOf(dish.child("name").getValue()),
-                                            String.valueOf(dish.child("description").getValue()),
-                                            String.valueOf(dish.child("restaurant_id").getValue()),
-                                            Double.parseDouble(String.valueOf(dish.child("price").getValue()))
+                                    String.valueOf(dish.getKey()),
+                                    String.valueOf(dish.child("name").getValue()),
+                                    String.valueOf(dish.child("description").getValue()),
+                                    String.valueOf(dish.child("restaurant_id").getValue()),
+                                    Double.parseDouble(String.valueOf(dish.child("price").getValue())),
+                                    Integer.parseInt(String.valueOf(dish.child("number").getValue()))
                                     )
                             );
                         }

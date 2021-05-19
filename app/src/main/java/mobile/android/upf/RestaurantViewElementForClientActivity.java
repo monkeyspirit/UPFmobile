@@ -131,11 +131,12 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
                             fab.setEnabled(true);
                             fab.setVisibility(View.VISIBLE);
                             lstDish.add(new Dish(
-                                            String.valueOf(dish.getKey()),
-                                            String.valueOf(dish.child("name").getValue()),
-                                            String.valueOf(dish.child("description").getValue()),
-                                            String.valueOf(dish.child("restaurant_id").getValue()),
-                                            Double.parseDouble(String.valueOf(dish.child("price").getValue()))
+                                    String.valueOf(dish.getKey()),
+                                    String.valueOf(dish.child("name").getValue()),
+                                    String.valueOf(dish.child("description").getValue()),
+                                    String.valueOf(dish.child("restaurant_id").getValue()),
+                                    Double.parseDouble(String.valueOf(dish.child("price").getValue())),
+                                    Integer.parseInt(String.valueOf(dish.child("number").getValue()))
                                     )
                             );
                         }

@@ -2,7 +2,6 @@ package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.media.MediaActionSound;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +33,6 @@ import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.Notification;
 import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RestStats;
-import mobile.android.upf.data.model.Restaurant;
 
 public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adapter<RecyclerViewAdapter_restaurant_view_order.MyViewHolder>{
 
@@ -102,28 +97,24 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                         public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
 
                             DataSnapshot dishes_snapshot = task.getResult().child("dishes");;
-                            Log.d("ORDINE", String.valueOf(task.getResult().child("dishes").getValue()));
 
                             for (DataSnapshot dish: dishes_snapshot.getChildren()) {
+                                String id = String.valueOf(dish.child("id").getValue());
                                 String name = String.valueOf(dish.child("name").getValue());
-                                int number = Integer.parseInt(String.valueOf(dish.child("number").getValue()));
-                                Log.d("PIATTO", name+" "+number);
-                                lstDishesInOrder.put(name, number);
-                            }
+                                String description = String.valueOf(dish.child("description").getValue());
+                                Double price = Double.parseDouble(String.valueOf(dish.child("price").getValue()));
+                                String rest_id = String.valueOf(dish.child("restaurant_id").getValue());
+                                final int[] number = {Integer.parseInt(String.valueOf(dish.child("number").getValue()))};
 
-                            for (Map.Entry<String, Integer> entry : lstDishesInOrder.entrySet()) {
-                                String name = entry.getKey();
-                                final Integer[] number = {entry.getValue()};
-                                mDatabase.child("RestStats").child(mData.get(position).getUser_id()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                                mDatabase.child("Dishes").child(id).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                                     @Override
                                     public void onSuccess(DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.child("number").getValue() != null) {
                                             int oldNumber = Integer.parseInt(String.valueOf(dataSnapshot.child("number").getValue()));
-                                            number[0] = number[0] + oldNumber;
+                                            number[0] += oldNumber;
                                         }
-
-                                        RestStats restStats = new RestStats(name, number[0]);
-                                        mDatabase.child("RestStats").child(mData.get(position).getUser_id()).child(name).setValue(restStats);
+                                        Dish piatto = new Dish(id, name, description, rest_id, price, number[0]);
+                                        mDatabase.child("Dishes").child(id).setValue(piatto);
                                     }
                                 });
                             }

@@ -1,4 +1,6 @@
 package mobile.android.upf.data.model;
+import com.google.firebase.database.DataSnapshot;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -12,22 +14,15 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(String name, String description, String restaurant_id, double price) {
+    public Dish(String name, String description, String restaurant_id, double price, int number) {
         this.name = name;
         this.description = description;
         this.restaurant_id = restaurant_id;
         this.price = price;
+        this.number = 0;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
         this.id = md5(name+description+restaurant_id+price+ts);
-    }
-
-    public Dish(String id, String name, String description, String restaurant_id, double price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.restaurant_id = restaurant_id;
-        this.price = price;
     }
 
     public Dish(String id, String name, String description, String restaurant_id, double price, int number) {

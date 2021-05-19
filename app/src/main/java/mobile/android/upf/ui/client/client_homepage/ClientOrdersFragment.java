@@ -150,15 +150,11 @@ public class ClientOrdersFragment extends Fragment {
 
 
                     }
-
-
                 }
 
             }
 
         });
-
-
 
         swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_order_client);
 

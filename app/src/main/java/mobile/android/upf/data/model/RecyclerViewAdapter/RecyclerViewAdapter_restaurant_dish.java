@@ -166,7 +166,8 @@ public class RecyclerViewAdapter_restaurant_dish extends RecyclerView.Adapter<Re
                                             update_price = mData.get(position).getPrice();
                                         }
 
-                                        Dish update = new Dish(toEditId, update_name, update_description, mData.get(position).getRestaurant_id(), update_price);
+                                        Dish update = new Dish(toEditId, update_name, update_description,
+                                                mData.get(position).getRestaurant_id(), update_price, mData.get(position).getNumber());
                                         mDatabase.child("Dishes").child(toEditId).setValue(update);
 
                                         ((RestaurantViewElementActivity)mContext).updateRecycler();
