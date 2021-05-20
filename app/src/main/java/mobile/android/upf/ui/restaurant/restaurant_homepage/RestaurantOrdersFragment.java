@@ -1,5 +1,6 @@
 package mobile.android.upf.ui.restaurant.restaurant_homepage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,8 +25,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
@@ -104,7 +111,33 @@ public class RestaurantOrdersFragment extends Fragment {
                                                 String.valueOf(task.getResult().child("time").getValue()),
                                                 Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
                                         );
+                                        Collections.sort(lstOrder, new Comparator<Order>() {
+                                            @SuppressLint("SimpleDateFormat")
+                                            final
+                                            DateFormat f = new SimpleDateFormat("hh:mm");
+                                            @Override
+                                            public int compare(Order lhs, Order rhs) {
+                                                try {
+                                                    return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
+                                                } catch (ParseException e) {
+                                                    throw new IllegalArgumentException(e);
+                                                }
+                                            }
+                                        });
 
+                                        Collections.sort(lstOrder, new Comparator<Order>() {
+                                            @SuppressLint("SimpleDateFormat")
+                                            final
+                                            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                                            @Override
+                                            public int compare(Order lhs, Order rhs) {
+                                                try {
+                                                    return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
+                                                } catch (ParseException e) {
+                                                    throw new IllegalArgumentException(e);
+                                                }
+                                            }
+                                        });
                                         myrv = (RecyclerView) root.findViewById(R.id.recyclerview_restaurant_orders);
                                         myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
 
@@ -208,7 +241,33 @@ public class RestaurantOrdersFragment extends Fragment {
                                                 Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
                                         );
 
+                                        Collections.sort(lstOrder, new Comparator<Order>() {
+                                            @SuppressLint("SimpleDateFormat")
+                                            final
+                                            DateFormat f = new SimpleDateFormat("hh:mm");
+                                            @Override
+                                            public int compare(Order lhs, Order rhs) {
+                                                try {
+                                                    return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
+                                                } catch (ParseException e) {
+                                                    throw new IllegalArgumentException(e);
+                                                }
+                                            }
+                                        });
 
+                                        Collections.sort(lstOrder, new Comparator<Order>() {
+                                            @SuppressLint("SimpleDateFormat")
+                                            final
+                                            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                                            @Override
+                                            public int compare(Order lhs, Order rhs) {
+                                                try {
+                                                    return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
+                                                } catch (ParseException e) {
+                                                    throw new IllegalArgumentException(e);
+                                                }
+                                            }
+                                        });
                                         myAdapter = new RecyclerViewAdapter_restaurant_view_order(getActivity(), lstOrder, RestaurantOrdersFragment.this);
 
                                         myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));

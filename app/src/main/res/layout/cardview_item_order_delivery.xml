@@ -17,7 +17,21 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:orientation="vertical">
-
+        <TextView
+            android:id="@+id/delivery_order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium"/>
+        <TextView
+            android:id="@+id/delivery_order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_marginBottom="10dp"/>
         <TextView
             android:id="@+id/delivery_order_restaurant_name"
             android:layout_width="match_parent"
@@ -26,7 +40,7 @@
             android:gravity="center"
             android:text="Restaurant"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_small"/>
+            android:textSize="@dimen/text_size_medium"/>
 
         <TextView
             android:id="@+id/delivery_order_address"
@@ -36,7 +50,7 @@
             android:gravity="center"
             android:text="Address"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_small"/>
+            android:textSize="@dimen/text_size_medium"/>
 
         <TextView
             android:id="@+id/delivery_order_dishes_summary"
@@ -46,7 +60,7 @@
             android:gravity="center"
             android:text="Order"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_mini"/>
+            android:textSize="@dimen/text_size_medium"/>
 
         <Button
             android:id="@+id/delivery_add_order_btn"

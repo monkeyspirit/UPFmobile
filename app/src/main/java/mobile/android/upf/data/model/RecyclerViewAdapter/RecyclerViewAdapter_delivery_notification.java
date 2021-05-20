@@ -50,7 +50,7 @@ public class RecyclerViewAdapter_delivery_notification extends RecyclerView.Adap
         mStorageReference = mStorage.getReference();
 
         this.parent = parent;
-        view = mInflater.inflate(R.layout.cardview_notification, parent,false);
+        view = mInflater.inflate(R.layout.cardview_item_notification, parent,false);
         return new RecyclerViewAdapter_delivery_notification.MyViewHolder(view);
     }
 

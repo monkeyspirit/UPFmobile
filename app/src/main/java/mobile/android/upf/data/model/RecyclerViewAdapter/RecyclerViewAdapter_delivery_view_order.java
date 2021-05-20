@@ -67,6 +67,9 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
 
         holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
         holder.tv_order_address.setText(mData.get(position).getAddress());
+        holder.tv_order_date.setText(mData.get(position).getDate());
+        holder.tv_order_time.setText(mData.get(position).getTime());
+
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -178,7 +181,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_order_summary, tv_order_address, tv_order_restaurant;
+        TextView tv_order_summary, tv_order_address, tv_order_restaurant, tv_order_date, tv_order_time;
         Button tv_add_order_btn, tv_remove_order_btn, tv_delivered_btn;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -187,6 +190,8 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
             tv_order_summary = (TextView) itemView.findViewById(R.id.delivery_order_dishes_summary);
             tv_order_address = (TextView) itemView.findViewById(R.id.delivery_order_address);
             tv_order_restaurant = (TextView) itemView.findViewById(R.id.delivery_order_restaurant_name);
+            tv_order_date = (TextView) itemView.findViewById(R.id.delivery_order_date);
+            tv_order_time = (TextView) itemView.findViewById(R.id.delivery_order_time);
 
             tv_add_order_btn = (Button) itemView.findViewById(R.id.delivery_add_order_btn);
             tv_remove_order_btn = (Button) itemView.findViewById(R.id.delivery_remove_order_btn);

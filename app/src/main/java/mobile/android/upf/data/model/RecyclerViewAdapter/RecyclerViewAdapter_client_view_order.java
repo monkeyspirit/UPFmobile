@@ -64,6 +64,8 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
+        holder.tv_order_date.setText(mData.get(position).getDate());
+        holder.tv_order_time.setText(mData.get(position).getTime());
 
         if (mData.get(position).getState() == 1){
             holder.tv_delete_btn.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +178,7 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_order_summary, tv_order_text;
+        TextView tv_order_summary, tv_order_text, tv_order_date, tv_order_time;
         Button tv_delete_btn, tv_delivered_btn;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -184,6 +186,9 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
 
             tv_order_summary = (TextView) itemView.findViewById(R.id.client_order_dishes_summary);
             tv_order_text = (TextView) itemView.findViewById(R.id.client_order_progress);
+            tv_order_date = (TextView) itemView.findViewById(R.id.client_order_date);
+            tv_order_time = (TextView) itemView.findViewById(R.id.client_order_time);
+
             tv_delete_btn = (Button) itemView.findViewById(R.id.client_delete_order_btn);
             tv_delivered_btn = (Button) itemView.findViewById(R.id.client_order_delivered_btn);
         }

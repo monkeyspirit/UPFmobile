@@ -17,6 +17,21 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/client_order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium"/>
+        <TextView
+            android:id="@+id/client_order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:id="@+id/client_order_id"
@@ -25,7 +40,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="Restaurant"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_medium"
             android:textColor="@color/dark_grey"/>
 
         <TextView
@@ -36,7 +51,7 @@
             android:gravity="center"
             android:text="Order"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_small"/>
+            android:textSize="@dimen/text_size_medium"/>
 
         <Button
             android:id="@+id/client_delete_order_btn"
