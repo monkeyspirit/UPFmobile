@@ -2,7 +2,6 @@ package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;

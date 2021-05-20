@@ -2,7 +2,6 @@ package mobile.android.upf.ui.restaurant.restaurant_profile;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,10 +41,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.util.HashMap;
 import java.util.Map;
 
-import mobile.android.upf.ClientHomepageActivity;
 import mobile.android.upf.R;
-import mobile.android.upf.RestaurantHomepageActivity;
-import mobile.android.upf.ui.client.client_profile.ClientProfileViewModel;
 
 import static android.app.Activity.RESULT_OK;
 

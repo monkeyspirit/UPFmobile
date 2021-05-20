@@ -2,7 +2,6 @@ package mobile.android.upf.data.model;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Timestamp;
 
 public class Restaurant {
 

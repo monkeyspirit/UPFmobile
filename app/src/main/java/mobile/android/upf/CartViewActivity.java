@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_cart;
 
 public class CartViewActivity extends AppCompatActivity {

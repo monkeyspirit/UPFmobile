@@ -1,5 +1,4 @@
 package mobile.android.upf.data.model;
-import com.google.firebase.database.DataSnapshot;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

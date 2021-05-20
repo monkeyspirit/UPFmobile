@@ -18,10 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 import mobile.android.upf.data.model.User;
-import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
 
 import static android.widget.Toast.LENGTH_LONG;
 

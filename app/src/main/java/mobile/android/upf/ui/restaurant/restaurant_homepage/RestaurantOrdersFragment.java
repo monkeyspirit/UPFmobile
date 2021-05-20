@@ -5,12 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,10 +29,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Order;
-import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_view_order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_restaurant_view_order;
-import mobile.android.upf.ui.client.client_homepage.ClientOrdersFragment;
-import mobile.android.upf.ui.client.client_homepage.ClientOrdersViewModel;
 
 public class RestaurantOrdersFragment extends Fragment {
 
@@ -49,7 +44,6 @@ public class RestaurantOrdersFragment extends Fragment {
     String userId;
 
     RecyclerView myrv;
-
 
     RecyclerViewAdapter_restaurant_view_order myAdapter;
 

@@ -7,15 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,9 +20,6 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.Restaurant;
-
-import static android.widget.Toast.LENGTH_LONG;
 
 public class RecyclerViewAdapter_cart extends RecyclerView.Adapter<RecyclerViewAdapter_cart.MyViewHolder> {
 

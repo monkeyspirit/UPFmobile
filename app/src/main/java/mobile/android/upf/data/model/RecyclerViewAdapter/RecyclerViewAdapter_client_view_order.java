@@ -1,6 +1,5 @@
 package mobile.android.upf.data.model.RecyclerViewAdapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
