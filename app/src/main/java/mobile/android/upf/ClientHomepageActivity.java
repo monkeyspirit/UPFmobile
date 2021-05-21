@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.zip.Inflater;
 
 import mobile.android.upf.ui.login.LoginActivity;
 
@@ -153,10 +156,10 @@ public class ClientHomepageActivity extends AppCompatActivity {
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
         managerCompat.notify(999, builder.build());
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+
+    public boolean onCreateOptionsMenu() {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.client_homepage, menu);
+        //getMenuInflater().inflate(R.menu.client_homepage, menu);
 
         TextView nav_header_user = (TextView) findViewById(R.id.nav_header_user);
         CircularImageView nav_header_image = (CircularImageView) findViewById(R.id.nav_header_imageView);

@@ -64,7 +64,7 @@ dependencies {
     //libreria da github per decorare dopo gli swipe
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
 
-    //librearia da github per number picker orizzontale
+    //libreria da github per number picker orizzontale
     implementation 'com.shawnlin:number-picker:2.4.12'
     implementation 'com.shuhart.stepview:stepview:1.5.1'
 }

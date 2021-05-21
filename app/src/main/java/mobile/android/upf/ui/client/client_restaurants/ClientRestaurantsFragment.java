@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -53,6 +58,7 @@ public class ClientRestaurantsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         clientRestourantsViewModel =
                 new ViewModelProvider(this).get(ClientRestourantsViewModel.class);
+        setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_restaurants_client, container, false);
 
         mAuth = FirebaseAuth.getInstance();
@@ -63,7 +69,6 @@ public class ClientRestaurantsFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         lstRest = new ArrayList<>();
-
 
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -93,7 +98,6 @@ public class ClientRestaurantsFragment extends Fragment {
 
 
                     myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_restaurants);
-                    //myrv.setNestedScrollingEnabled(true);
                     myAdapter = new RecyclerViewAdapter_client_restaurant(getActivity(), lstRest);
 
                     myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -105,8 +109,48 @@ public class ClientRestaurantsFragment extends Fragment {
             }
         });
 
-
-
         return root;
+    }
+
+    public void onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        Log.d("MENU", "CIAO");
+
+        MenuItem searchItem = menu.findItem(R.id.actionSearch);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+    }
+
+    private void filter(String text) {
+        ArrayList<Restaurant> filteredList = new ArrayList<>();
+
+        for (Restaurant item : lstRest) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(getActivity(), "No data found...", Toast.LENGTH_SHORT).show();
+        } else {
+            myAdapter = new RecyclerViewAdapter_client_restaurant(getActivity(), filteredList);
+
+            myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+            myrv.setAdapter(myAdapter);
+        }
     }
 }

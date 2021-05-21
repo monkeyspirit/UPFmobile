@@ -153,4 +153,5 @@
     <string name="invalid_phone_number">Numero di telefono non valido</string>
     <string name="msg_notification_order_received_by_client">Il cliente ha confermato di aver ricevuto l\'ordine</string>
     <string name="msg_notification_order_delivered_success">L\'ordine è arrivato al cliente con successo</string>
+    <string name="search">Cerca</string>
 </resources>
