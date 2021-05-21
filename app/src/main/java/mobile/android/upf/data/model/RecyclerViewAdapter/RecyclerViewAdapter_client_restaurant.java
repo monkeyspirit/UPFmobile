@@ -98,7 +98,7 @@ public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<
         holder.nav_restaurant_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String city = "Brescia";
+                String city = holder.tv_restaurant_city.getText().toString();
                 String address = holder.tv_restaurant_address.getText().toString();
                 address = address.replace(" ", "+");
                 Intent navIntent = new Intent(Intent.ACTION_VIEW,
