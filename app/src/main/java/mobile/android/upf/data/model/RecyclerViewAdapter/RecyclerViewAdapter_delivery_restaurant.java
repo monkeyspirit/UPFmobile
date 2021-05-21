@@ -67,6 +67,7 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
         String current_id = mAuth.getCurrentUser().getUid();
 
         holder.tv_restaurant_name.setText(mData.get(position).getName());
+        holder.tv_restaurant_city.setText(mData.get(position).getCity());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
         holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
@@ -163,11 +164,7 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
             Glide.with(mContext).load(uri).into(holder.tv_restaurant_pic);
         }
 
-
-
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -177,7 +174,8 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         CardView tv_restaurant_card;
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email, tv_restaurant_description;
+        TextView tv_restaurant_name, tv_restaurant_city, tv_restaurant_address, tv_restaurant_phone,
+                tv_restaurant_email, tv_restaurant_description;
         ImageView tv_restaurant_pic;
         Button subscribe_btn, unsubscribe_btn;
 
@@ -188,6 +186,7 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
             tv_restaurant_card = (CardView) itemView.findViewById(R.id.delivery_restaurant_card);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.delivery_restaurant_name_element);
+            tv_restaurant_city = (TextView) itemView.findViewById(R.id.delivery_restaurant_city_element);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.delivery_restaurant_address_element);
             tv_restaurant_description = (TextView) itemView.findViewById(R.id.delivery_restaurant_descpription_element);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.delivery_restaurant_phone_element);

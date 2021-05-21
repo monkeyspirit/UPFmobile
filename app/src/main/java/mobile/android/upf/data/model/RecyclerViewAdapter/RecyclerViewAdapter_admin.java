@@ -81,6 +81,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(@NonNull RecyclerViewAdapter_admin.MyViewHolder holder, int position) {
 
         holder.tv_restaurant_name.setText(mData.get(position).getName());
+        holder.tv_restaurant_city.setText(mData.get(position).getCity());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
         holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
@@ -100,12 +101,14 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                 String toApprove = mData.get(position).getId();
                 Log.d("R. approved id: ", toApprove);
 
-
-
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Restaurant update = new Restaurant(toApprove, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 1);
+                        Restaurant update = new Restaurant(toApprove, mData.get(position).getName(),
+                                mData.get(position).getDescription(), mData.get(position).getEmail(),
+                                mData.get(position).getCity(), mData.get(position).getAddress(),
+                                mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(),
+                                mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
                         Calendar cal = Calendar.getInstance();
@@ -208,7 +211,11 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                                Restaurant update = new Restaurant(toDecline, mData.get(position).getName(), mData.get(position).getDescription(), mData.get(position).getEmail(), mData.get(position).getAddress(), mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
+                                Restaurant update = new Restaurant(toDecline, mData.get(position).getName(),
+                                        mData.get(position).getDescription(), mData.get(position).getEmail(),
+                                        mData.get(position).getCity(), mData.get(position).getAddress(),
+                                        mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(),
+                                        mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
                                 mDatabase.child("Restaurants").child(toDecline).setValue(update);
 
 
@@ -251,7 +258,8 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_description,tv_restaurant_phone,tv_restaurant_email;
+        TextView tv_restaurant_name, tv_restaurant_city, tv_restaurant_address,
+                tv_restaurant_description, tv_restaurant_phone, tv_restaurant_email;
         ImageView tv_restaurant_pic;
         Button tv_yes_btn, tv_no_btn;
 
@@ -259,6 +267,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
             super(itemView);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.admin_restaurant_name_element);
+            tv_restaurant_city = (TextView) itemView.findViewById(R.id.admin_restaurant_city_element);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.admin_restaurant_address_element);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.admin_restaurant_phone_element);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.admin_restaurant_email_element);

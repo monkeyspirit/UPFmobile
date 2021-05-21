@@ -18,7 +18,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         Button client_r_btn = (Button) findViewById(R.id.client_r_btn);
         Button delivery_r_btn = (Button) findViewById(R.id.delivery_r_btn);
-        Button restauratour_r_btn = (Button) findViewById(R.id.restauratour_r_btn);
+        Button restaurateur_r_btn = (Button) findViewById(R.id.restauratour_r_btn);
 
         client_r_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
 
-        restauratour_r_btn.setOnClickListener(new View.OnClickListener() {
+        restaurateur_r_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegistrationActivity.this, RestaurateurRegistrationActivity.class);

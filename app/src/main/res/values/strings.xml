@@ -10,6 +10,7 @@
     <string name="prompt_rest_address">Restaurant Address</string>
     <string name="prompt_description">Description</string>
     <string name="prompt_password" translatable="false">Password</string>
+    <string name="prompt_city">City/Town</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
     <string name="welcome">"Welcome !"</string>
@@ -45,10 +46,10 @@
     <string name="short_password">Password must have at least 6 characters</string>
     <string name="empty_email">E-mail is required</string>
     <string name="empty_phone">Phone number is required</string>
+    <string name="empty_city">City is required</string>
     <string name="empty_address">Address is required</string>
     <string name="password_mismatch">Mismatched passwords</string>
     <string name="invalid_email">Please insert a valid e-mail</string>
-
     <string name="change_photo">Change photo</string>
     <string name="change_password">Change password</string>
     <string name="change_address">Change address</string>
@@ -178,5 +179,6 @@
     <string name="msg_notification_order_received_by_client">The client confirmed receiving the order</string>
     <string name="msg_notification_order_delivered_success">The order was delivered to the client with success</string>
     <string name="proceed">Proceed</string>
-    <string name="search">Search</string>
+    <string name="search_name">Search by Name</string>
+
 </resources>

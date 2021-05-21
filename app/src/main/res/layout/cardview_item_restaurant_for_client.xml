@@ -44,19 +44,17 @@
             android:gravity="center"
             android:text="Name"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_medium_large">
+            android:textSize="@dimen/text_size_medium_large"/>
 
-        </TextView>
-        <!--<TextView
-            android:id="@+id/restaurant_description_element_for_client"
+        <TextView
+            android:id="@+id/restaurant_city_element_for_client"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Description"
+            android:text="City"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_small">
+            android:textSize="@dimen/text_size_medium"/>
 
-        </TextView>-->
         <TextView
             android:id="@+id/restaurant_address_element_for_client"
             android:layout_width="match_parent"
@@ -64,9 +62,7 @@
             android:gravity="center"
             android:text="Address"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_medium">
-
-        </TextView>
+            android:textSize="@dimen/text_size_medium"/>
 
         <TextView
             android:id="@+id/restaurant_phone_element_for_client"
@@ -75,9 +71,7 @@
             android:gravity="center"
             android:text="Phone"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_medium">
-
-        </TextView>
+            android:textSize="@dimen/text_size_medium"/>
 
         <TextView
             android:id="@+id/restaurant_email_element_for_client"
@@ -86,11 +80,7 @@
             android:gravity="center"
             android:text="Email"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_medium">
-
-        </TextView>
-
-
+            android:textSize="@dimen/text_size_medium"/>
 
         <LinearLayout
             android:layout_width="match_parent"

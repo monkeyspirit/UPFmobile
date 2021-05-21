@@ -32,6 +32,14 @@
                 android:textSize="@dimen/text_size_extra_large" />
 
             <TextView
+                android:id="@+id/restaurant_city_element_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="city"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
                 android:id="@+id/restaurant_address_element_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

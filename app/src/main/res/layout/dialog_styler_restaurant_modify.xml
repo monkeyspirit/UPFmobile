@@ -41,6 +41,16 @@
             android:inputType="textEmailAddress"
             android:hint="@string/prompt_email"/>
 
+        <!--city-->
+        <EditText
+            android:id="@+id/modify_restaurant_city_txedit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="Try"
+            android:selectAllOnFocus="true"
+            android:inputType="textPersonName"
+            android:hint="@string/prompt_city"/>
+
         <!--address-->
         <EditText
             android:id="@+id/modify_restaurant_address_txedit"

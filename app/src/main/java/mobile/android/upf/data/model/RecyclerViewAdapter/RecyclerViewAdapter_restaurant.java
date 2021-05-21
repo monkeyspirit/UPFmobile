@@ -88,8 +88,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         });
 
         holder.tv_restaurant_name.setText(mData.get(position).getName());
+        holder.tv_restaurant_city.setText(mData.get(position).getCity());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
-//        holder.tv_restaurant_description.setText(mData.get(position).getDescription());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
         String uriS = mData.get(position).getImageUrl();
@@ -184,6 +184,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                 description.setText(mData.get(position).getDescription());
                 final EditText email = (EditText) viewInflated.findViewById(R.id.modify_restaurant_email_txedit);
                 email.setText(mData.get(position).getEmail());
+                final EditText city = (EditText) viewInflated.findViewById(R.id.modify_restaurant_city_txedit);
+                city.setText(mData.get(position).getCity());
                 final EditText address = (EditText) viewInflated.findViewById(R.id.modify_restaurant_address_txedit);
                 address.setText(mData.get(position).getAddress());
                 final EditText phone = (EditText) viewInflated.findViewById(R.id.modify_restaurant_phone_txedit);
@@ -212,44 +214,51 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        String update_name, update_description, update_address, update_phone, update_email;
+                                        String update_name, update_description, update_city,
+                                                update_address, update_phone, update_email;
 
-                                        if(!name.getText().toString().equals("")){
+                                        if (!name.getText().toString().equals("")) {
                                             update_name = name.getText().toString();
-                                        }
-                                        else {
+                                        } else {
                                             update_name = mData.get(position).getName();
                                         }
 
-                                        if(!description.getText().toString().equals("")){
+                                        if (!description.getText().toString().equals("")) {
                                             update_description = description.getText().toString();
-                                        }
-                                        else {
+                                        } else {
                                             update_description = mData.get(position).getDescription();
                                         }
 
-                                        if(!email.getText().toString().equals("")){
+                                        if (!email.getText().toString().equals("")) {
                                             update_email = email.getText().toString();
-                                        }
-                                        else {
+                                        } else {
                                             update_email = mData.get(position).getEmail();
                                         }
 
-                                        if(!address.getText().toString().equals("")){
-                                            update_address = address.getText().toString();
+                                        if (!city.getText().toString().equals("")) {
+                                            update_city = mData.get(position).getCity();
+                                        } else {
+                                            update_city = mData.get(position).getCity();
                                         }
-                                        else {
+
+                                        if (!address.getText().toString().equals("")) {
+                                            update_address = address.getText().toString();
+                                        } else {
                                             update_address = mData.get(position).getAddress();
                                         }
 
-                                        if(!phone.getText().toString().equals("")){
+                                        if (!phone.getText().toString().equals("")) {
                                             update_phone = phone.getText().toString();
-                                        }
-                                        else {
+                                        } else {
                                             update_phone = mData.get(position).getPhone();
                                         }
 
-                                        Restaurant update = new Restaurant(toEditId, update_name, update_description, update_email, update_address, update_phone, mData.get(position).getRestaurateur_id(), mData.get(position).getImageUrl(), 0);
+                                        Restaurant update = new Restaurant(toEditId, update_name,
+                                                update_description, update_email, update_city,
+                                                update_address, update_phone,
+                                                mData.get(position).getRestaurateur_id(),
+                                                mData.get(position).getImageUrl(), 0);
+
                                         mDatabase.child("Restaurants").child(toEditId).setValue(update);
 
                                         ((RestaurantRestaurantsFragment)mFragment).updateRecycler();
@@ -312,7 +321,8 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_restaurant_name,tv_restaurant_address,tv_restaurant_phone,tv_restaurant_email;
+        TextView tv_restaurant_name, tv_restaurant_city, tv_restaurant_address, tv_restaurant_phone,
+                tv_restaurant_email;
         ImageView tv_restaurant_pic;
         CardView tv_restaurant_card;
         Button tv_delete_btn, tv_edit_btn;
@@ -323,12 +333,12 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             tv_restaurant_card = (CardView) itemView.findViewById(R.id.restaurant_card);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element);
+            tv_restaurant_city = (TextView) itemView.findViewById(R.id.restaurant_city_element);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element);
 
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic);
-
 
             tv_delete_btn = (Button) itemView.findViewById(R.id.delete_restaurant_card_btn);
             tv_edit_btn = (Button) itemView.findViewById(R.id.edit_restaurant_card_btn);

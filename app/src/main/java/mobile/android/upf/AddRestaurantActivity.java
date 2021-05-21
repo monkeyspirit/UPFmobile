@@ -44,7 +44,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
     private Button add_restaurant_btn;
     private EditText restaurant_name, restaurant_phone, restaurant_address, restaurant_emailAddress,
-            restaurant_description;
+            restaurant_description, restaurant_city;
     private CircularImageView restaurant_pic;
 
     private ProgressBar progressBar;
@@ -84,8 +84,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
         restaurant_address = (EditText) findViewById(R.id.restaurant_address);
         restaurant_emailAddress = (EditText) findViewById(R.id.restaurant_emailAddress);
         restaurant_description = (EditText) findViewById(R.id.restaurant_description);
+        restaurant_city = (EditText) findViewById(R.id.restaurant_city);
         restaurant_pic = (CircularImageView) findViewById(R.id.restaurant_pic);
-
 
         add_restaurant_btn = (Button) findViewById(R.id.add_restaurant_btn);
 
@@ -102,6 +102,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
                 String name = restaurant_name.getText().toString().trim();
                 String address = restaurant_address.getText().toString().trim();
+                String city = restaurant_city.getText().toString().trim();
                 String phone = restaurant_phone.getText().toString().trim();
                 String email = restaurant_emailAddress.getText().toString().trim();
                 String description = restaurant_description.getText().toString().trim();
@@ -141,17 +142,22 @@ public class AddRestaurantActivity extends AppCompatActivity {
                     restaurant_address.requestFocus();
                     return;
                 }
+                if (city.isEmpty()) {
+                    restaurant_city.setError(getString(R.string.empty_city));
+                    restaurant_city.requestFocus();
+                    return;
+                }
 
                 progressBar.setVisibility(View.VISIBLE);
 
                 /**
                  * Status: 0 = non approvato; 1 = approvato
                  */
-                restaurant = new Restaurant(name, description, email, address, phone, restaurateur_id, "", 0);
+                restaurant = new Restaurant(name, description, email, city, address, phone, restaurateur_id, "", 0);
                 uploadPicture();
 
                 if (noImageLoaded) {
-                    restaurant = new Restaurant(name, description, email, address, phone, restaurateur_id,
+                    restaurant = new Restaurant(name, description, email, city, address, phone, restaurateur_id,
                             "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=4777a50d-1445-44e1-a62b-d895d9d7fb82",  0);
                 }
 

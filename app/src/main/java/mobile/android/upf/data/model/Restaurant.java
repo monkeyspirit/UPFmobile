@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class Restaurant {
 
     private String id;
-    private String name, description, email, address, phone, restaurateur_id, imageUrl;
+    private String name, description, email, address, city, phone, restaurateur_id, imageUrl;
     private int status;
     private String decline_msg;
 
@@ -14,11 +14,12 @@ public class Restaurant {
     }
 
 //    Costruttore per quando si CREA un ristorante quando si aggiunge
-    public Restaurant(String name, String description, String email, String address, String phone,
-                      String restaurateur_id, String imageUrl, int status) {
+    public Restaurant(String name, String description, String email, String city, String address,
+                      String phone, String restaurateur_id, String imageUrl, int status) {
         this.name = name;
         this.description = description;
         this.email = email;
+        this.city = city;
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
@@ -26,15 +27,17 @@ public class Restaurant {
         this.status = status;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
-        this.id = md5(name+description+email+address+phone+restaurateur_id+ts);
+        this.id = md5(name+description+email+city+address+phone+restaurateur_id+ts);
     }
 
 //    Costruttore per quando si LEGGE un ristorante
-    public Restaurant(String id, String name, String description, String email, String address, String phone,
-                      String restaurateur_id, String imageUrl, int status) {
+    public Restaurant(String id, String name, String description, String email, String city,
+                      String address, String phone, String restaurateur_id, String imageUrl,
+                      int status) {
         this.name = name;
         this.description = description;
         this.email = email;
+        this.city = city;
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
@@ -43,11 +46,13 @@ public class Restaurant {
         this.id = id;
     }
 
-    public Restaurant(String id, String name, String description, String email, String address, String phone,
-                      String restaurateur_id, String imageUrl, int status, String decline_msg) {
+    public Restaurant(String id, String name, String description, String email, String city,
+                      String address, String phone, String restaurateur_id, String imageUrl,
+                      int status, String decline_msg) {
         this.name = name;
         this.description = description;
         this.email = email;
+        this.city = city;
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
@@ -95,6 +100,14 @@ public class Restaurant {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getAddress() {

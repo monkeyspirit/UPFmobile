@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="prova"
+            android:text="name"
             android:textSize="@dimen/text_size_medium_large"
             android:textColor="@color/dark_grey"
             android:id="@+id/delivery_restaurant_name_element"/>
@@ -42,7 +42,16 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="city"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/delivery_restaurant_city_element"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_mini"
+            android:text="address"
             android:textColor="@color/dark_grey"
             android:id="@+id/delivery_restaurant_address_element"/>
 
@@ -51,7 +60,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="phone"
             android:textColor="@color/dark_grey"
             android:id="@+id/delivery_restaurant_phone_element"/>
 
@@ -60,7 +69,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="email"
             android:textColor="@color/dark_grey"
             android:id="@+id/delivery_restaurant_email_element"/>
 
@@ -69,7 +78,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_size_mini"
-            android:text="prova"
+            android:text="description"
             android:textColor="@color/dark_grey"
             android:id="@+id/delivery_restaurant_descpription_element"/>
 

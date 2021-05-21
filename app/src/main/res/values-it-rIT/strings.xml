@@ -15,13 +15,13 @@
     <string name="prompt_phone">Telefono</string>
     <string name="prompt_confirm_password">Conferma password</string>
     <string name="prompt_rest_address">Indirizzo ristorante</string>
+    <string name="prompt_city">Città/Paese</string>
     <string name="register_info">Seleziona la tipologia di utente per cui vuoi effettuare la registrazione:</string>
     <string name="action_settings">Impostazioni</string>
     <string name="menu_orders">Ordinazioni</string>
     <string name="menu_profile">Profilo</string>
     <string name="menu_restaurants">Ristoranti</string>
     <string name="menu_exit">Esci</string>
-
     <string name="empty_name">Nome richiesto</string>
     <string name="empty_surname">Cognome richiesto</string>
     <string name="empty_password">Password richiesta</string>
@@ -29,6 +29,7 @@
     <string name="short_password">La password deve avere almeno 6 caratteri</string>
     <string name="empty_email">E-mail richiesta</string>
     <string name="empty_phone">Numero telefonico richiesto</string>
+    <string name="empty_city">Città richiesta</string>
     <string name="empty_address">Indirizzo richiesto</string>
     <string name="password_mismatch">Le password non corrispondono</string>
     <string name="invalid_email">Per favore inserisci una e-mail valida</string>
@@ -153,5 +154,5 @@
     <string name="invalid_phone_number">Numero di telefono non valido</string>
     <string name="msg_notification_order_received_by_client">Il cliente ha confermato di aver ricevuto l\'ordine</string>
     <string name="msg_notification_order_delivered_success">L\'ordine è arrivato al cliente con successo</string>
-    <string name="search">Cerca</string>
+    <string name="search_name">Cerca per Nome</string>
 </resources>

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/restaurant_card"
-    android:layout_height="365dp"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
     card_view:cardUseCompatPadding="true"
     card_view:cardElevation="@dimen/cardview_elevation"
@@ -32,6 +32,15 @@
             android:textSize="@dimen/text_size_medium_large"
             android:textColor="@color/dark_grey"
             android:id="@+id/restaurant_name_element"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_mini"
+            android:text="city"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/restaurant_city_element"/>
 
         <TextView
             android:layout_width="match_parent"

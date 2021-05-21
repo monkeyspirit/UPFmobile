@@ -33,8 +33,8 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private ImageView restaurant_pic;
-    private TextView restaurant_name_element_tv, restaurant_phone_element_tv, restaurant_address_element_tv,
-            restaurant_emailAddress_element_tv, restaurant_description_element_tv;
+    private TextView restaurant_name_element_tv, restaurant_phone_element_tv, restaurant_city_element_tv,
+            restaurant_address_element_tv, restaurant_emailAddress_element_tv, restaurant_description_element_tv;
 
     private RecyclerView myrv;
     private RecyclerViewAdapter_restaurant_dish myAdapter;
@@ -59,6 +59,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
 
         restaurant_name_element_tv = findViewById(R.id.restaurant_name_element_tv);
         restaurant_phone_element_tv = findViewById(R.id.restaurant_phone_element_tv);
+        restaurant_city_element_tv = findViewById(R.id.restaurant_city_element_tv);
         restaurant_address_element_tv = findViewById(R.id.restaurant_address_element_tv);
         restaurant_emailAddress_element_tv = findViewById(R.id.restaurant_emailAddress_element_tv);
         restaurant_description_element_tv = findViewById(R.id.restaurant_description_element_tv);
@@ -80,6 +81,7 @@ public class RestaurantViewElementActivity extends AppCompatActivity {
                     setTitle(String.valueOf(task.getResult().child("name").getValue()));
                     restaurant_phone_element_tv.setText(String.valueOf(task.getResult().child("phone").getValue()));
                     restaurant_address_element_tv.setText(String.valueOf(task.getResult().child("address").getValue()));
+                    restaurant_city_element_tv.setText(String.valueOf(task.getResult().child("city").getValue()));
                     restaurant_emailAddress_element_tv.setText(String.valueOf(task.getResult().child("email").getValue()));
                     restaurant_description_element_tv.setText(String.valueOf(task.getResult().child("description").getValue()));
 

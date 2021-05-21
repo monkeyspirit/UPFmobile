@@ -56,6 +56,21 @@
                 app:boxBackgroundColor="@color/white">
 
                 <EditText
+                    android:id="@+id/restaurant_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="15"
+                    android:hint="@string/prompt_city"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:boxBackgroundColor="@color/white">
+
+                <EditText
                     android:id="@+id/restaurant_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
