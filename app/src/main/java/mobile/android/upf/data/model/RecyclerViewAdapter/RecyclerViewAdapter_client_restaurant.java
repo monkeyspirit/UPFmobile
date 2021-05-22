@@ -129,7 +129,7 @@ public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<
             tv_restaurant_card = (CardView) itemView.findViewById(R.id.card_restaurant_client);
 
             tv_restaurant_name = (TextView) itemView.findViewById(R.id.restaurant_name_element_for_client);
-            tv_restaurant_city = (TextView) itemView.findViewById(R.id.restaurant_city_element_tv_client);
+            tv_restaurant_city = (TextView) itemView.findViewById(R.id.restaurant_city_element_for_client);
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element_for_client);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element_for_client);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element_for_client);

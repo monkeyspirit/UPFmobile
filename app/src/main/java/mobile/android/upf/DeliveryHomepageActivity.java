@@ -3,6 +3,7 @@ package mobile.android.upf;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import mobile.android.upf.ui.login.LoginActivity;
 
@@ -151,7 +154,8 @@ public class DeliveryHomepageActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.delivery_homepage, menu);
 
 
-        TextView nav_header_user = findViewById(R.id.nav_header_user);
+        TextView nav_header_user = (TextView) findViewById(R.id.nav_header_user);
+        CircularImageView nav_header_image = (CircularImageView) findViewById(R.id.nav_header_imageView);
 
         String userId = currentUser.getUid();
 
@@ -165,6 +169,12 @@ public class DeliveryHomepageActivity extends AppCompatActivity {
 
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     nav_header_user.setText(String.valueOf(task.getResult().child("name").getValue())+" "+String.valueOf(task.getResult().child("surname").getValue()));
+                    String path = String.valueOf(task.getResult().child("imageUrl").getValue());
+                    if (path != "") {
+                        Uri uri = Uri.parse(String.valueOf(task.getResult().child("imageUrl").getValue()));
+                        Log.d("firebase", "Image Url: " + uri);
+                        Glide.with(getApplicationContext()).load(uri).into(nav_header_image);
+                    }
                 }
             }
         });

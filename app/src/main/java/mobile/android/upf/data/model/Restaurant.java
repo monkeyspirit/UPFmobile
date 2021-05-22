@@ -34,6 +34,7 @@ public class Restaurant {
     public Restaurant(String id, String name, String description, String email, String city,
                       String address, String phone, String restaurateur_id, String imageUrl,
                       int status) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.email = email;
@@ -43,12 +44,13 @@ public class Restaurant {
         this.restaurateur_id = restaurateur_id;
         this.imageUrl = imageUrl;
         this.status = status;
-        this.id = id;
+
     }
 
     public Restaurant(String id, String name, String description, String email, String city,
                       String address, String phone, String restaurateur_id, String imageUrl,
                       int status, String decline_msg) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.email = email;
@@ -58,7 +60,6 @@ public class Restaurant {
         this.restaurateur_id = restaurateur_id;
         this.imageUrl = imageUrl;
         this.status = status;
-        this.id = id;
         this.decline_msg = decline_msg;
     }
 
@@ -133,6 +134,7 @@ public class Restaurant {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 
     public int getStatus() {
         return status;

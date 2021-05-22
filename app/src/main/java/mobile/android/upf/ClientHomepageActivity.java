@@ -157,9 +157,9 @@ public class ClientHomepageActivity extends AppCompatActivity {
         managerCompat.notify(999, builder.build());
     }
 
-    public boolean onCreateOptionsMenu() {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.client_homepage, menu);
+        getMenuInflater().inflate(R.menu.client_homepage, menu);
 
         TextView nav_header_user = (TextView) findViewById(R.id.nav_header_user);
         CircularImageView nav_header_image = (CircularImageView) findViewById(R.id.nav_header_imageView);

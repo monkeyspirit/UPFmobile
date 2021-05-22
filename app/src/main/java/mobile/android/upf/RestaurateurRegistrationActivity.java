@@ -26,7 +26,7 @@ public class RestaurateurRegistrationActivity extends AppCompatActivity {
 
     private EditText editTextName, editTextSurname, editTextAddress, editTextEmail, editTextPhone,
             editTextPassword, editTextConfirmPassword;
-    private final String imageUrl = "";
+    private final String imageUrl = "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/splash.jpg?alt=media&token=6a2ea30e-8806-4e0c-8e7a-61dc8c0cd594";
     private FirebaseAuth mAuth;
 
     private ProgressBar progressBar;

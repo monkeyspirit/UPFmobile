@@ -142,29 +142,6 @@ public class ClientRestaurantsFragment extends Fragment {
         return root;
     }
 
-//    public void onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getActivity().getMenuInflater();
-//        inflater.inflate(R.menu.search_menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//        Log.d("MENU", "CIAO");
-//
-//        MenuItem searchItem = menu.findItem(R.id.actionSearch);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                filter(newText);
-//                return false;
-//            }
-//        });
-//
-//    }
 
     private void filter(String text) {
         ArrayList<Restaurant> filteredList = new ArrayList<>();
