@@ -30,9 +30,7 @@
 
                     </androidx.recyclerview.widget.RecyclerView>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp" />
+
 
 
                 </LinearLayout>
