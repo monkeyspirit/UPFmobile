@@ -130,12 +130,14 @@ public class AdminHomepageFragment extends Fragment {
                                     String.valueOf(restaurant.child("name").getValue()),
                                     String.valueOf(restaurant.child("description").getValue()),
                                     String.valueOf(restaurant.child("email").getValue()),
+                                    String.valueOf(restaurant.child("city").getValue()),
                                     String.valueOf(restaurant.child("address").getValue()),
                                     String.valueOf(restaurant.child("phone").getValue()),
                                     String.valueOf(restaurant.child("restaurateur_id").getValue()),
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
                                     Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                         }
+
 
                     }
 
