@@ -28,6 +28,8 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Restaurant;
+import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
+import mobile.android.upf.ui.restaurant.restaurant_restaurants.RestaurantRestaurantsFragment;
 
 public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapter<RecyclerViewAdapter_delivery_restaurant.MyViewHolder> {
 
@@ -139,6 +141,9 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
                    }
                });
 
+
+
+
            }
        });
 
@@ -153,7 +158,9 @@ public class RecyclerViewAdapter_delivery_restaurant extends RecyclerView.Adapte
                 mData.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mData.size());
+                ((DeliveryRestaurantsFragment)mFragment).updateRecycler();
             }
+
         });
 
         String uriS = mData.get(position).getImageUrl();

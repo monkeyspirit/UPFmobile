@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -74,7 +75,8 @@ public class DeliveryRestaurantsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddSubscriptionActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -135,7 +137,11 @@ public class DeliveryRestaurantsFragment extends Fragment {
         return root;
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        updateRecycler();
+    }
 
     public void updateRecycler(){
         lstRest = new ArrayList<>();

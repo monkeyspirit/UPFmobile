@@ -24,6 +24,7 @@ import java.util.List;
 
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_restaurant;
 import mobile.android.upf.data.model.Restaurant;
+import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
 
 public class AddSubscriptionActivity extends AppCompatActivity {
 
@@ -133,6 +134,7 @@ public class AddSubscriptionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             this.finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             return true;
         }
         return super.onOptionsItemSelected(item);
