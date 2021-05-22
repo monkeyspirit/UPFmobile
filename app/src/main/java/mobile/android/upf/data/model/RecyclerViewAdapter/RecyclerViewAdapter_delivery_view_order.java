@@ -91,7 +91,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
 
             holder.tv_add_order_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) { // 4 = ORDINE ACCETTATO DAL FATTORINO
+                public void onClick(View v) { // 3 = ORDINE ACCETTATO DAL FATTORINO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(4);
                     Toast.makeText(mContext, R.string.order_accepted_delivery, Toast.LENGTH_SHORT).show();
 
@@ -115,7 +115,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
 
             holder.tv_remove_order_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) { // 3 = ORDINE RIMESSO IN ATTESA DAL FATTORINO
+                public void onClick(View v) { // 4 = ORDINE RIMESSO IN ATTESA DAL FATTORINO
                     mDatabase.child("Orders").child(mData.get(position).getId()).child("state").setValue(3);
                     Toast.makeText(mContext, R.string.order_cancelled_delivery, Toast.LENGTH_SHORT).show();
 
