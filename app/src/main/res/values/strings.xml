@@ -180,5 +180,6 @@
     <string name="msg_notification_order_delivered_success">The order was delivered to the client with success</string>
     <string name="proceed">Proceed</string>
     <string name="search_name">Search by Name</string>
-
+    <string name="confirm_notification_delete">The notification will be deleted</string>
+    <string name="notification_deleted">Notification deleted</string>
 </resources>
