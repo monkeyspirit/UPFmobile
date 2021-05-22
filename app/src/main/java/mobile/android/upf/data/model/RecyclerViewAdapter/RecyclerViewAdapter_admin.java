@@ -185,7 +185,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                     public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
                         if (decline_msgEditText.getText().toString().length()>0){
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#6200EE"));
+                            myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#FF9800"));
                         }
                         else{
 
