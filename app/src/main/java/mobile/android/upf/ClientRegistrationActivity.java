@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileInputStream;
+
 import mobile.android.upf.data.model.User;
 
 import static android.widget.Toast.LENGTH_LONG;
