@@ -70,6 +70,7 @@ public class DeliveryRegistrationActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String address = "not available";
+        String city = "not available";
         String phone = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
 
@@ -134,7 +135,7 @@ public class DeliveryRegistrationActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            User user = new User(name, surname, password, address, phone, email, imageUrl, 2, null);
+                            User user = new User(name, surname, password, city, address, phone, email, imageUrl, 2, null);
                             //aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

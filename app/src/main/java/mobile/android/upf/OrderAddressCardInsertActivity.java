@@ -34,7 +34,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
     private String userId;
 
-    private EditText order_address;
+    private EditText order_city, order_address;
     private LinearLayout card_parameter;
     private RadioGroup payment_method;
     private RadioButton card_radio_btn;
@@ -58,6 +58,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        order_city = (EditText) findViewById(R.id.order_city);
         order_address = (EditText) findViewById(R.id.order_address);
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -65,8 +66,8 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
+                    order_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     order_address.setText(String.valueOf(task.getResult().child("address").getValue()));
-
                 }
             }}
         );
@@ -129,6 +130,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
                 if (payment_method.getCheckedRadioButtonId() != card_radio_btn.getId()){
                     Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
                     intent.putExtra("card", false);
+                    intent.putExtra("city", order_city.getText().toString());
                     intent.putExtra("address", order_address.getText().toString());
                     startActivityForResult(intent, 1);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -144,57 +146,62 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
 
     public void checkCardInput(){
 
-        if(order_address.getText().toString().isEmpty()){
+        if (order_city.getText().toString().isEmpty()) {
+            order_city.requestFocus();
+            order_city.setError(getString(R.string.empty_city));
+            return;
+        }
+        if (order_address.getText().toString().isEmpty()) {
             order_address.requestFocus();
             order_address.setError(getString(R.string.empty_address));
             return;
         }
-        if(card_14digit.getText().toString().isEmpty()){
+        if (card_14digit.getText().toString().isEmpty()) {
             card_14digit.requestFocus();
             card_14digit.setError(getString(R.string.empty_card));
             return;
         }
-        if(card_58digit.getText().toString().isEmpty()){
+        if (card_58digit.getText().toString().isEmpty()) {
             card_58digit.requestFocus();
             card_58digit.setError(getString(R.string.empty_card));
             return;
         }
-        if(card_912digit.getText().toString().isEmpty()){
+        if (card_912digit.getText().toString().isEmpty()) {
             card_912digit.requestFocus();
             card_912digit.setError(getString(R.string.empty_card));
             return;
         }
-        if(card_1316digit.getText().toString().isEmpty()){
+        if (card_1316digit.getText().toString().isEmpty()) {
             card_1316digit.requestFocus();
             card_1316digit.setError(getString(R.string.empty_card));
             return;
         }
-        if(card_namePossessor.getText().toString().isEmpty()){
+        if (card_namePossessor.getText().toString().isEmpty()) {
             card_namePossessor.setError(getString(R.string.empty_name));
             card_namePossessor.requestFocus();
             return;
         }
-        if(card_expmonth.getText().toString().isEmpty()){
+        if (card_expmonth.getText().toString().isEmpty()) {
             card_expmonth.requestFocus();
             card_expmonth.setError(getString(R.string.empty_card_exp));
             return;
         }
-        if(Integer.parseInt(card_expmonth.getText().toString())>13){
+        if (Integer.parseInt(card_expmonth.getText().toString())>13) {
             card_expmonth.requestFocus();
             card_expmonth.setError(getString(R.string.number_error));
             return;
         }
-        if(card_expyear.getText().toString().isEmpty()){
+        if (card_expyear.getText().toString().isEmpty()) {
             card_expyear.requestFocus();
             card_expyear.setError(getString(R.string.empty_card_exp));
             return;
         }
-        if(Integer.parseInt(card_expyear.getText().toString())< 21){
+        if (Integer.parseInt(card_expyear.getText().toString())< 21) {
             card_expyear.requestFocus();
             card_expyear.setError(getString(R.string.number_error));
             return;
         }
-        if(card_cvv.getText().toString().isEmpty()){
+        if (card_cvv.getText().toString().isEmpty()) {
             card_cvv.requestFocus();
             card_cvv.setError(getString(R.string.empty_card_cvv));
             return;
@@ -203,6 +210,7 @@ public class OrderAddressCardInsertActivity extends AppCompatActivity {
         Intent intent = new Intent(OrderAddressCardInsertActivity.this, CartCheckout.class);
         String card_expiration = card_expmonth.getText().toString()+"/"+card_expyear.getText().toString();
         intent.putExtra("card", true);
+        intent.putExtra("city", order_city.getText().toString());
         intent.putExtra("address", order_address.getText().toString());
         intent.putExtra("expiration", card_expiration);
         intent.putExtra("possessor", card_namePossessor.getText().toString());

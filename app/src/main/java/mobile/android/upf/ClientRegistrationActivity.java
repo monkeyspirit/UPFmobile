@@ -26,8 +26,8 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class ClientRegistrationActivity extends AppCompatActivity {
 
-    private EditText editTextName, editTextSurname, editTextAddress, editTextEmail, editTextPhone,
-            editTextPassword, editTextConfirmPassword;
+    private EditText editTextName, editTextSurname, editTextCity, editTextAddress, editTextEmail,
+            editTextPhone, editTextPassword, editTextConfirmPassword;
 
     private final String imageUrl = "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/splash.jpg?alt=media&token=6a2ea30e-8806-4e0c-8e7a-61dc8c0cd594";
 
@@ -50,6 +50,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         editTextSurname = (EditText) findViewById(R.id.client_surname);
         editTextPassword = (EditText) findViewById(R.id.client_password);
         editTextConfirmPassword = (EditText) findViewById(R.id.client_passwordConfirm);
+        editTextCity = (EditText) findViewById(R.id.client_city);
         editTextAddress = (EditText) findViewById(R.id.client_address);
         editTextPhone = (EditText) findViewById(R.id.client_phone);
         editTextEmail = (EditText) findViewById(R.id.client_emailAddress);
@@ -76,10 +77,10 @@ public class ClientRegistrationActivity extends AppCompatActivity {
         String surname = editTextSurname.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
+        String city = editTextCity.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phone = editTextPhone.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-
 
         if (name.isEmpty()) {
             editTextName.setError(getString(R.string.empty_name));
@@ -116,6 +117,11 @@ public class ClientRegistrationActivity extends AppCompatActivity {
             editTextAddress.requestFocus();
             return;
         }
+        if (city.isEmpty()) {
+            editTextCity.setError(getString(R.string.empty_city));
+            editTextCity.requestFocus();
+            return;
+        }
         if (password.isEmpty()) {
             editTextPassword.setError(getString(R.string.empty_password));
             editTextPassword.requestFocus();
@@ -146,7 +152,7 @@ public class ClientRegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(name, surname, password, address, phone, email, imageUrl, 1);
+                            User user = new User(name, surname, password, city, address, phone, email, imageUrl, 1);
 //                            aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

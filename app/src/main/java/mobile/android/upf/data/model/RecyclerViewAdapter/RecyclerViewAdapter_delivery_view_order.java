@@ -1,6 +1,8 @@
 package mobile.android.upf.data.model.RecyclerViewAdapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +68,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
+        holder.tv_order_city.setText(mData.get(position).getCity());
         holder.tv_order_address.setText(mData.get(position).getAddress());
         holder.tv_order_date.setText(mData.get(position).getDate());
         holder.tv_order_time.setText(mData.get(position).getTime());
@@ -112,6 +115,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
         }
         if (mData.get(position).getState() == 4) {
             holder.tv_remove_order_btn.setVisibility(View.VISIBLE);
+            holder.tv_map_btn.setVisibility(View.VISIBLE);
 
             holder.tv_remove_order_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,6 +135,18 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
                     mDatabase.child("Notifications").child(mData.get(position).getUser_id()).child(String.valueOf(notification.getId())).setValue(notification);
 
                     mDatabase.child("Users").child(currentUser.getUid()).child("busy").removeValue();
+                }
+            });
+
+            holder.tv_map_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String city = holder.tv_order_city.getText().toString();
+                    String address = holder.tv_order_address.getText().toString();
+                    address = address.replace(" ", "+");
+                    Intent navIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("google.navigation:q="+address+"+"+city));
+                    mContext.startActivity(navIntent);
                 }
             });
         }
@@ -181,13 +197,15 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_order_summary, tv_order_address, tv_order_restaurant, tv_order_date, tv_order_time;
-        Button tv_add_order_btn, tv_remove_order_btn, tv_delivered_btn;
+        TextView tv_order_summary, tv_order_city, tv_order_address, tv_order_restaurant,
+                tv_order_date, tv_order_time;
+        Button tv_add_order_btn, tv_remove_order_btn, tv_delivered_btn, tv_map_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_order_summary = (TextView) itemView.findViewById(R.id.delivery_order_dishes_summary);
+            tv_order_city = (TextView) itemView.findViewById(R.id.delivery_order_city);
             tv_order_address = (TextView) itemView.findViewById(R.id.delivery_order_address);
             tv_order_restaurant = (TextView) itemView.findViewById(R.id.delivery_order_restaurant_name);
             tv_order_date = (TextView) itemView.findViewById(R.id.delivery_order_date);
@@ -196,6 +214,7 @@ public class RecyclerViewAdapter_delivery_view_order extends RecyclerView.Adapte
             tv_add_order_btn = (Button) itemView.findViewById(R.id.delivery_add_order_btn);
             tv_remove_order_btn = (Button) itemView.findViewById(R.id.delivery_remove_order_btn);
             tv_delivered_btn = (Button) itemView.findViewById(R.id.delivery_delivered_btn);
+            tv_map_btn = (Button) itemView.findViewById(R.id.delivery_map_btn);
         }
     }
 }

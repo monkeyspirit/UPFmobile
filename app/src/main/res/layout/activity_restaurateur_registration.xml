@@ -77,6 +77,21 @@
                     android:hint="@string/prompt_phone"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+            <!--city-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:boxBackgroundColor="@color/white">
+                <EditText
+                    android:id="@+id/restaurateur_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="@string/prompt_city"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
             <!--address-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
@@ -89,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="@string/prompt_rest_address"
+                    android:hint="@string/prompt_address"
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <!--password-->

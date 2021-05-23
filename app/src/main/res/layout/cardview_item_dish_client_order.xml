@@ -97,7 +97,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/cyan"
                 android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
                 android:text="@string/add_dish"
                 android:textAlignment="center"

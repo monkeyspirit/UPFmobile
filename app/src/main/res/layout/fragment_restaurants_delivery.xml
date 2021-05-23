@@ -34,11 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="90dp" />
 
-
                 </LinearLayout>
-
-
-
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

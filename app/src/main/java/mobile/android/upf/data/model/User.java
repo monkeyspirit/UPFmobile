@@ -5,7 +5,7 @@ package mobile.android.upf.data.model;
  */
 public class User {
 
-    public String name, surname, password, email, address, phone, imageUrl;
+    public String name, surname, password, email, city, address, phone, imageUrl;
     /**
      * Il type è 1 se cliente, 2 se fattorino, 3 se ristoratore, 4 admin
      */
@@ -17,10 +17,11 @@ public class User {
 
     }
 
-    public User(String name, String surname, String password, String address, String phone, String email, String imageUrl, int type) {
+    public User(String name, String surname, String password, String city, String address, String phone, String email, String imageUrl, int type) {
         this.name = name;
         this.surname = surname;
         this.password = password;
+        this.city = city;
         this.address = address;
         this.email = email;
         this.phone = phone;
@@ -29,10 +30,11 @@ public class User {
     }
 
 //    Fattorino
-    public User(String name, String surname, String password, String address, String phone, String email, String imageUrl, int type, String busy) {
+    public User(String name, String surname, String password, String city, String address, String phone, String email, String imageUrl, int type, String busy) {
         this.name = name;
         this.surname = surname;
         this.password = password;
+        this.city = city;
         this.address = address;
         this.email = email;
         this.phone = phone;
