@@ -79,6 +79,21 @@
                     android:hint="@string/prompt_phone"
                     android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
+            <!--city-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:boxBackgroundColor="@color/white">
+
+                <EditText
+                    android:id="@+id/client_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/prompt_city"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!--address-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"

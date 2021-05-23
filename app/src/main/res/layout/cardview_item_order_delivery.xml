@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:orientation="vertical">
         <TextView
@@ -39,6 +39,16 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="Restaurant"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium"/>
+
+        <TextView
+            android:id="@+id/delivery_order_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="City"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_size_medium"/>
 
@@ -98,6 +108,19 @@
             android:layout_margin="4dp"
             android:backgroundTint="@color/dark_green"
             android:text="@string/delivered"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/delivery_map_btn"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/cyan"
+            android:text="@string/open_map"
             android:textSize="@dimen/text_size_small"
             android:textColor="@color/white"/>
 

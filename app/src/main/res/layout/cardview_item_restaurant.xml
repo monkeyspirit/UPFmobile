@@ -107,7 +107,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:layout_margin="4dp"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/cyan"
                 android:drawableLeft="@drawable/ic_baseline_edit_24"
                 android:text="@string/edit"
                 android:textAlignment="center"

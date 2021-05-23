@@ -14,7 +14,6 @@
     <string name="prompt_address">Indirizzo</string>
     <string name="prompt_phone">Telefono</string>
     <string name="prompt_confirm_password">Conferma password</string>
-    <string name="prompt_rest_address">Indirizzo ristorante</string>
     <string name="prompt_city">Città/Paese</string>
     <string name="register_info">Seleziona la tipologia di utente per cui vuoi effettuare la registrazione:</string>
     <string name="action_settings">Impostazioni</string>

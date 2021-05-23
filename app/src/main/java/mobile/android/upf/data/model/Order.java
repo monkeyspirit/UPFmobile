@@ -15,6 +15,7 @@ public class Order {
     private String total;
     private String paymemt_method;
     private String dishes_summary;
+    private String city;
     private String address;
     private String date;
     private String time;
@@ -23,7 +24,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(String id, String user_id, String restaurant_id, String restaurant_name, String delivery_id, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String id, String user_id, String restaurant_id, String restaurant_name,
+                 String delivery_id, String dishes_summary, String total, String paymemt_method,
+                 String city, String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
@@ -32,13 +35,16 @@ public class Order {
         this.dishes_summary = dishes_summary;
         this.total = total;
         this.paymemt_method = paymemt_method;
+        this.city = city;
         this.address = address;
         this.date = date;
         this.time = time;
         this.state = state;
     }
 
-    public Order(String id, String user_id, String restaurant_id, String restaurant_name, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String id, String user_id, String restaurant_id, String restaurant_name,
+                 String dishes_summary, String total, String paymemt_method, String city,
+                 String address, String date, String time, int state) {
         this.id = id;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
@@ -46,6 +52,7 @@ public class Order {
         this.dishes_summary = dishes_summary;
         this.total = total;
         this.paymemt_method = paymemt_method;
+        this.city = city;
         this.address = address;
         this.date = date;
         this.time = time;
@@ -53,7 +60,9 @@ public class Order {
     }
 
 
-    public Order(String user_id, String restaurant_id, String restaurant_name, String delivery_id, ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method, String address, String date, String time, int state) {
+    public Order(String user_id, String restaurant_id, String restaurant_name, String delivery_id,
+                 ArrayList<Dish> dishes, String dishes_summary, String total, String paymemt_method,
+                 String city, String address, String date, String time, int state) {
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
         this.restaurant_name = restaurant_name;
@@ -62,13 +71,14 @@ public class Order {
         this.dishes_summary = dishes_summary;
         this.total = total;
         this.paymemt_method = paymemt_method;
+        this.city = city;
         this.address = address;
         this.date = date;
         this.time = time;
         this.state = state;
         long tsLong = System.currentTimeMillis()/1000;
         String ts = Long.toString(tsLong);
-        this.id = md5(user_id+restaurant_id+ts+dishes+dishes_summary+total+paymemt_method+address+date+time+state);
+        this.id = md5(user_id+restaurant_id+ts+dishes+dishes_summary+total+paymemt_method+city+address+date+time+state);
     }
 
     public String md5(String s) {
@@ -136,6 +146,14 @@ public class Order {
 
     public void setPaymemt_method(String paymemt_method) {
         this.paymemt_method = paymemt_method;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity() {
+        this.city = city;
     }
 
     public String getAddress() {

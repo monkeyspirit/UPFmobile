@@ -38,7 +38,7 @@ public class CartCheckout extends AppCompatActivity {
     private TextView order_dishes_summary, order_total_summary, order_payment_summary;
     private Button payment_btn;
 
-    String expiration, possessor, last_digit, address;
+    String expiration, possessor, last_digit, city, address;
     String restaurant_id;
 
     private FirebaseAuth mAuth;
@@ -59,6 +59,7 @@ public class CartCheckout extends AppCompatActivity {
 
         Intent intent = getIntent();
         boolean card = intent.getExtras().getBoolean("card");
+        city = intent.getExtras().getString("city");
         address = intent.getExtras().getString("address");
 
         dishes = new ArrayList<>();
@@ -94,7 +95,6 @@ public class CartCheckout extends AppCompatActivity {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Iterable<DataSnapshot> dishes_database = task.getResult().getChildren();
 
-
                     restaurant_id = "";
 
                     double total_order = 0;
@@ -129,10 +129,10 @@ public class CartCheckout extends AppCompatActivity {
             expiration = intent.getExtras().getString("expiration");
             possessor = intent.getExtras().getString("possessor");
             last_digit = intent.getExtras().getString("last_digits");
-            order_payment_summary.setText(address + "\nCard number: **** **** **** "+last_digit+"\n"+possessor+"\n"+expiration);
+            order_payment_summary.setText(city + "\n" + address + "\nCard number: **** **** **** "+last_digit+"\n"+possessor+"\n"+expiration);
         }
         else {
-            order_payment_summary.setText(address + "\nCash at the delivery");
+            order_payment_summary.setText(city + "\n" + address + "\nCash at the delivery");
         }
 
 
@@ -162,7 +162,7 @@ public class CartCheckout extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         restaurateur_id[0] = String.valueOf(task.getResult().child("restaurateur_id").getValue());
                         restaurant_name[0] = String.valueOf(task.getResult().child("name").getValue());
-                        Order order = new Order(mAuth.getCurrentUser().getUid(), restaurant_id, restaurant_name[0], "", dishes, summary_dishes[0], order_total_summary.getText().toString(), order_payment_summary.getText().toString(), address, date, time, 1);
+                        Order order = new Order(mAuth.getCurrentUser().getUid(), restaurant_id, restaurant_name[0], "", dishes, summary_dishes[0], order_total_summary.getText().toString(), order_payment_summary.getText().toString(), city, address, date, time, 1);
 
 
                         mDatabase.child("Orders").child(order.getId()).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -194,7 +194,6 @@ public class CartCheckout extends AppCompatActivity {
                         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("Orders").child(order.getId()).setValue(order.getId());
 
                         mDatabase.child("Restaurants").child(restaurant_id).child("Orders").child(order.getId()).setValue(order.getId());
-
 
                         mDatabase.child("Cart").child(mAuth.getCurrentUser().getUid()).removeValue();
 
