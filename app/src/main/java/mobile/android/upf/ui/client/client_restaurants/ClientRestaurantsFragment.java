@@ -3,6 +3,7 @@ package mobile.android.upf.ui.client.client_restaurants;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -75,31 +76,6 @@ public class ClientRestaurantsFragment extends Fragment {
         userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        EditText searchBox = (EditText) root.findViewById(R.id.edit_text_search);
-        searchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    filter(String.valueOf(s));
-                } else {
-                    myAdapter = new RecyclerViewAdapter_client_restaurant(getActivity(), lstRest);
-
-                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                    myrv.setAdapter(myAdapter);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
 
         lstRest = new ArrayList<>();
@@ -199,6 +175,41 @@ public class ClientRestaurantsFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+
+        final SearchView searchView = (SearchView) menu.findItem(R.id.actionSearch).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (s.length() > 0) {
+                    filter(String.valueOf(s));
+                } else {
+                    myAdapter = new RecyclerViewAdapter_client_restaurant(getActivity(), lstRest);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.length() > 0) {
+                    filter(String.valueOf(s));
+                } else {
+                    myAdapter = new RecyclerViewAdapter_client_restaurant(getActivity(), lstRest);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+
+
+    }
 
     private void filter(String text) {
         ArrayList<Restaurant> filteredList = new ArrayList<>();

@@ -48,6 +48,11 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
         this.mFragment = mFragment;
     }
 
+    public RecyclerViewAdapter_client_view_order(Context mContext, List<Order> mData) {
+        this.mContext = mContext;
+        this.mData = mData;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

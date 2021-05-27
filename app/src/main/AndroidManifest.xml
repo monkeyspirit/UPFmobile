@@ -12,9 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_upf_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UPF">
-        <activity android:name=".CartCheckout"
-            android:label="@string/summary"
-            />
+        <activity android:name=".ClientOrderHistory"
+            android:label="@string/history">
+
+        </activity>
+        <activity
+            android:name=".CartCheckout"
+            android:label="@string/summary" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

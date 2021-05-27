@@ -1,39 +1,20 @@
-package mobile.android.upf.ui.client.client_homepage;
-
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ActionMenuView;
-import android.widget.LinearLayout;
+package mobile.android.upf;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -42,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,21 +31,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
-import mobile.android.upf.AddSubscriptionActivity;
-import mobile.android.upf.CartViewActivity;
-import mobile.android.upf.ClientOrderHistory;
-import mobile.android.upf.OrderAddressCardInsertActivity;
-import mobile.android.upf.R;
-import mobile.android.upf.data.model.Dish;
 import mobile.android.upf.data.model.Order;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_view_order;
+import mobile.android.upf.ui.client.client_homepage.ClientOrdersFragment;
 
-public class ClientOrdersFragment extends Fragment {
-
-    private ClientOrdersViewModel clientOrdersViewModel;
+public class ClientOrderHistory extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -80,11 +51,15 @@ public class ClientOrdersFragment extends Fragment {
     ArrayList<String> lstOrdersId;
     String userId;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        clientOrdersViewModel = new ViewModelProvider(this).get(ClientOrdersViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home_client, container, false);
-        setHasOptionsMenu(true);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_client_order_history);
+
+        // Back arrow
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         lstOrder = new ArrayList<>();
         lstOrdersId = new ArrayList<>();
 
@@ -143,7 +118,8 @@ public class ClientOrdersFragment extends Fragment {
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
 
                                 Log.d("Order", String.valueOf(task.getResult()));
-                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())) != 6){
+
+                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())) == 6){
                                     lstOrder.add(new Order(
                                             String.valueOf(task.getResult().child("id").getValue()),
                                             String.valueOf(task.getResult().child("user_id").getValue()),
@@ -159,6 +135,8 @@ public class ClientOrdersFragment extends Fragment {
                                             Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())))
                                     );
                                 }
+
+
                                 Collections.sort(lstOrder, new Comparator<Order>() {
                                     @SuppressLint("SimpleDateFormat")
                                     final
@@ -188,10 +166,10 @@ public class ClientOrdersFragment extends Fragment {
                                 });
 
 
-                                myrv = (RecyclerView) root.findViewById(R.id.recyclerview_client_orders);
-                                myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, ClientOrdersFragment.this);
+                                myrv = (RecyclerView) findViewById(R.id.recyclerview_client_orders);
+                                myAdapter = new RecyclerViewAdapter_client_view_order(ClientOrderHistory.this, lstOrder);
                                 if(myrv != null) {
-                                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                    myrv.setLayoutManager(new GridLayoutManager(ClientOrderHistory.this, 1));
                                     myrv.setAdapter(myAdapter);
                                 }
 
@@ -206,7 +184,7 @@ public class ClientOrdersFragment extends Fragment {
 
         });
 
-        swipeRefreshLayout = root.findViewById(R.id.swipe_refresh_order_client);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_order_client);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -218,40 +196,7 @@ public class ClientOrdersFragment extends Fragment {
 
 
 
-        return root;
-    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.history_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-//
-//        final MenuItem itemTask = menu.findItem(R.id.actionHistory);
-//        View actionViewTask = MenuItemCompat.getActionView(itemTask);
-//        actionViewTask.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), ClientOrderHistory.class);
-//                startActivityForResult(intent, 1);
-//                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//            }
-//        });
-
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.actionHistory) {
-            Intent intent = new Intent(getActivity(), ClientOrderHistory.class);
-            startActivityForResult(intent, 1);
-            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void updateRecycler() {
@@ -279,7 +224,7 @@ public class ClientOrdersFragment extends Fragment {
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
 
                                 Log.d("Order", String.valueOf(task.getResult()));
-                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())) != 6){
+                                if(Integer.parseInt(String.valueOf(task.getResult().child("state").getValue())) == 6){
                                     lstOrder.add(new Order(
                                             String.valueOf(task.getResult().child("id").getValue()),
                                             String.valueOf(task.getResult().child("user_id").getValue()),
@@ -325,9 +270,9 @@ public class ClientOrdersFragment extends Fragment {
                                 });
 
 
-                                myAdapter = new RecyclerViewAdapter_client_view_order(getActivity(), lstOrder, ClientOrdersFragment.this);
+                                myAdapter = new RecyclerViewAdapter_client_view_order(ClientOrderHistory.this, lstOrder);
                                 if (myrv !=null) {
-                                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                    myrv.setLayoutManager(new GridLayoutManager(ClientOrderHistory.this, 1));
                                     myrv.setAdapter(myAdapter);
                                 }
 
@@ -342,5 +287,13 @@ public class ClientOrdersFragment extends Fragment {
 
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

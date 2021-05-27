@@ -181,4 +181,5 @@
     <string name="search_name">Search by Name</string>
     <string name="confirm_notification_delete">The notification will be deleted</string>
     <string name="notification_deleted">Notification deleted</string>
+    <string name="history">Orders\' history</string>
 </resources>
