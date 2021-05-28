@@ -67,4 +67,7 @@ dependencies {
     //libreria da github per number picker orizzontale
     implementation 'com.shawnlin:number-picker:2.4.12'
     implementation 'com.shuhart.stepview:stepview:1.5.1'
+
+    //libreria da github grafi
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
