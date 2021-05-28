@@ -30,6 +30,12 @@
         android:label="@string/menu_notifications"
         tools:layout="@layout/fragment_notifications_restaurant" />
 
+    <fragment
+        android:id="@+id/nav_restaurant_analytics"
+        android:name="mobile.android.upf.ui.restaurant.restaurant_analytics.RestaurantAnalyticsFragment"
+        android:label="@string/menu_analytics"
+        tools:layout="@layout/fragment_analytics_restaurant" />
+
     <activity
         android:id="@+id/nav_restaurant_logout"
         android:name="mobile.android.upf.ui.login.LoginActivity"
