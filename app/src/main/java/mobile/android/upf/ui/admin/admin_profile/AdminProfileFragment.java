@@ -55,8 +55,10 @@ public class AdminProfileFragment extends Fragment {
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
-    private TextView admin_name, admin_surname, admin_phone, admin_address, admin_emailAddress;
-    private EditText admin_password_insert, admin_passwordConfirm_insert, admin_address_insert;
+    private TextView admin_name, admin_surname, admin_phone, admin_city, admin_address,
+            admin_emailAddress;
+    private EditText admin_password_insert, admin_passwordConfirm_insert, admin_city_insert,
+            admin_address_insert;
     private ImageView admin_pic;
     private Button admin_change_address_button, admin_change_password_button;
     private String userId;
@@ -80,6 +82,7 @@ public class AdminProfileFragment extends Fragment {
         admin_name = (TextView) root.findViewById(R.id.admin_name_textview);
         admin_surname = (TextView) root.findViewById(R.id.admin_surname_textview);
         admin_phone = (TextView) root.findViewById(R.id.admin_phone_textview);
+        admin_city = (TextView) root.findViewById(R.id.admin_city_textview);
         admin_address = (TextView) root.findViewById(R.id.admin_address_textview);
         admin_emailAddress = (TextView) root.findViewById(R.id.admin_emailAddress_textview);
 
@@ -87,6 +90,7 @@ public class AdminProfileFragment extends Fragment {
 
         admin_password_insert = (EditText) root.findViewById(R.id.admin_password_insert);
         admin_passwordConfirm_insert = (EditText) root.findViewById(R.id.admin_passwordConfirm_insert);
+        admin_city_insert = (EditText) root.findViewById(R.id.admin_city_insert);
         admin_address_insert = (EditText) root.findViewById(R.id.admin_address_insert);
 
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -101,6 +105,7 @@ public class AdminProfileFragment extends Fragment {
                     admin_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     admin_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
                     admin_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    admin_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     admin_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     admin_emailAddress.setText(String.valueOf(task.getResult().child("email").getValue()));
                 }
@@ -111,6 +116,23 @@ public class AdminProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 choosePicture();
+            }
+        });
+
+        admin_city_insert.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                enableSubmitIfReady(admin_city_insert, admin_change_address_button);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                enableSubmitIfReady(admin_city_insert, admin_change_address_button);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableSubmitIfReady(admin_city_insert, admin_change_address_button);
             }
         });
 
@@ -138,6 +160,7 @@ public class AdminProfileFragment extends Fragment {
                 DatabaseReference userRef = mDatabase.child("Users").child(userId);
 
                 Map<String, Object> updates = new HashMap<>();
+                updates.put("city", admin_city_insert.getText().toString());
                 updates.put("address", admin_address_insert.getText().toString());
 
                 userRef.updateChildren(updates);
@@ -146,6 +169,7 @@ public class AdminProfileFragment extends Fragment {
                 updateTextView(userId);
 
                 //Clean up the edittext
+                admin_city_insert.setText("");
                 admin_address_insert.setText("");
             }
         });
@@ -332,6 +356,7 @@ public class AdminProfileFragment extends Fragment {
                     admin_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     admin_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
                     admin_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    admin_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     admin_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     admin_emailAddress.setText(String.valueOf(task.getResult().child("email").getValue()));
                 }

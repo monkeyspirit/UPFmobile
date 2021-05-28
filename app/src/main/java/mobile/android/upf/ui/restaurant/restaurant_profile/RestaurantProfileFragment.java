@@ -56,8 +56,10 @@ public class RestaurantProfileFragment extends Fragment {
 
     private String userId;
 
-    private TextView restaurateur_name, restaurateur_surname, restaurateur_phone, restaurateur_address, restaurateur_emailAddress;
-    private EditText restaurateur_password_insert, restaurateur_passwordConfirm_insert, restaurateur_address_insert_change;
+    private TextView restaurateur_name, restaurateur_surname, restaurateur_phone, restaurateur_city,
+            restaurateur_address, restaurateur_emailAddress;
+    private EditText restaurateur_password_insert, restaurateur_passwordConfirm_insert,
+            restaurateur_city_insert_change, restaurateur_address_insert_change;
     private CircularImageView restaurateur_pic;
     private Uri imageUri;
     private Button restaurateur_change_password_button, restaurateur_change_address_button;
@@ -81,6 +83,7 @@ public class RestaurantProfileFragment extends Fragment {
         restaurateur_name = (TextView) root.findViewById(R.id.restaurateur_name_textview);
         restaurateur_surname = (TextView) root.findViewById(R.id.restaurateur_surname_textview);
         restaurateur_phone = (TextView) root.findViewById(R.id.restaurateur_phone_textview);
+        restaurateur_city = (TextView) root.findViewById(R.id.restaurateur_city_textview);
         restaurateur_address = (TextView) root.findViewById(R.id.restaurateur_address_textview);
         restaurateur_emailAddress = (TextView) root.findViewById(R.id.restaurateur_emailAddress_textview);
 
@@ -88,6 +91,7 @@ public class RestaurantProfileFragment extends Fragment {
 
         restaurateur_password_insert = (EditText) root.findViewById(R.id.restaurateur_password_insert);
         restaurateur_passwordConfirm_insert = (EditText) root.findViewById(R.id.restaurateur_passwordConfirm_insert);
+        restaurateur_city_insert_change = (EditText) root.findViewById(R.id.restaurateur_city_insert);
         restaurateur_address_insert_change = (EditText) root.findViewById(R.id.restaurateur_address_insert);
 
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -102,6 +106,7 @@ public class RestaurantProfileFragment extends Fragment {
                     restaurateur_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     restaurateur_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
                     restaurateur_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    restaurateur_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     restaurateur_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     restaurateur_emailAddress.setText(String.valueOf(task.getResult().child("email").getValue()));
 
@@ -120,6 +125,23 @@ public class RestaurantProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 choosePicture();
+            }
+        });
+
+        restaurateur_city_insert_change.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                enableSubmitIfReady(restaurateur_city_insert_change, restaurateur_change_address_button);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                enableSubmitIfReady(restaurateur_city_insert_change, restaurateur_change_address_button);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableSubmitIfReady(restaurateur_city_insert_change, restaurateur_change_address_button);
             }
         });
 
@@ -147,6 +169,7 @@ public class RestaurantProfileFragment extends Fragment {
                 DatabaseReference userRef = mDatabase.child("Users").child(userId);
 
                 Map<String, Object> updates = new HashMap<>();
+                updates.put("city", restaurateur_city_insert_change.getText().toString());
                 updates.put("address", restaurateur_address_insert_change.getText().toString());
 
                 userRef.updateChildren(updates);
@@ -156,6 +179,7 @@ public class RestaurantProfileFragment extends Fragment {
 
                 //Clean up the edittext
                 restaurateur_address_insert_change.setText("");
+                restaurateur_city_insert_change.setText("");
             }
         });
 
@@ -325,6 +349,7 @@ public class RestaurantProfileFragment extends Fragment {
                     restaurateur_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     restaurateur_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
                     restaurateur_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    restaurateur_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     restaurateur_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     restaurateur_emailAddress.setText(String.valueOf(task.getResult().child("email").getValue()));
                 }

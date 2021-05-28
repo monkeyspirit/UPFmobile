@@ -63,7 +63,7 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_restaurant_orders, R.id.nav_restaurant_profile, R.id.nav_restaurant_restaurants, R.id.nav_restaurant_logout, R.id.nav_restaurant_notification)
+                R.id.nav_restaurant_orders, R.id.nav_restaurant_profile, R.id.nav_restaurant_restaurants, R.id.nav_restaurant_logout, R.id.nav_restaurant_notification, R.id.nav_restaurant_analytics)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

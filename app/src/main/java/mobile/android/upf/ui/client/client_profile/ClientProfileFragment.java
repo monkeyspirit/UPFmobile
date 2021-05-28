@@ -60,8 +60,10 @@ public class ClientProfileFragment extends Fragment {
 
     private String userId;
 
-    private EditText client_address_insert, client_passwordConfirm_insert, client_password_insert;
-    private TextView client_name, client_surname, client_phone, client_address, client_email;
+    private EditText client_city_insert, client_address_insert, client_passwordConfirm_insert,
+            client_password_insert;
+    private TextView client_name, client_surname, client_phone, client_city, client_address,
+            client_email;
     private Button client_change_address_button, client_change_password_button;
     private ImageView client_pic;
     private Uri imageUri;
@@ -85,6 +87,7 @@ public class ClientProfileFragment extends Fragment {
         client_name = (TextView) root.findViewById(R.id.client_name_textview);
         client_surname = (TextView) root.findViewById(R.id.client_surname_textview);
         client_phone = (TextView) root.findViewById(R.id.client_phone_textview);
+        client_city = (TextView) root.findViewById(R.id.client_city_textview);
         client_address = (TextView) root.findViewById(R.id.client_address_textview);
         client_email = (TextView) root.findViewById(R.id.client_emailAddress_textview);
 
@@ -92,6 +95,7 @@ public class ClientProfileFragment extends Fragment {
 
         client_password_insert = (EditText) root.findViewById(R.id.client_password_insert);
         client_passwordConfirm_insert = (EditText) root.findViewById(R.id.client_passwordConfirm_insert);
+        client_city_insert = (EditText) root.findViewById(R.id.client_city_insert);
         client_address_insert = (EditText) root.findViewById(R.id.client_address_insert);
 
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -105,6 +109,7 @@ public class ClientProfileFragment extends Fragment {
                     client_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     client_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
                     client_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    client_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     client_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     client_email.setText(String.valueOf(task.getResult().child("email").getValue()));
 
@@ -126,6 +131,22 @@ public class ClientProfileFragment extends Fragment {
             }
         });
 
+        client_city_insert.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                enableSubmitIfReady(client_city_insert, client_change_address_button);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                enableSubmitIfReady(client_city_insert, client_change_address_button);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableSubmitIfReady(client_city_insert, client_change_address_button);
+            }
+        });
         client_address_insert.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -151,6 +172,7 @@ public class ClientProfileFragment extends Fragment {
 
                 Map<String, Object> updates = new HashMap<>();
                 updates.put("address", client_address_insert.getText().toString());
+                updates.put("city", client_city_insert.getText().toString());
 
                 userRef.updateChildren(updates);
 
@@ -159,6 +181,7 @@ public class ClientProfileFragment extends Fragment {
 
                 //Clean up the edittext
                 client_address_insert.setText("");
+                client_city_insert.setText("");
             }
         });
 
@@ -331,6 +354,7 @@ public class ClientProfileFragment extends Fragment {
                     client_name.setText(String.valueOf(task.getResult().child("name").getValue()));
                     client_surname.setText(String.valueOf(task.getResult().child("surname").getValue()));
                     client_phone.setText(String.valueOf(task.getResult().child("phone").getValue()));
+                    client_city.setText(String.valueOf(task.getResult().child("city").getValue()));
                     client_address.setText(String.valueOf(task.getResult().child("address").getValue()));
                     client_email.setText(String.valueOf(task.getResult().child("email").getValue()));
                 }

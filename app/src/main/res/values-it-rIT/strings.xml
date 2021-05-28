@@ -157,4 +157,5 @@
     <string name="confirm_notification_delete">La notifica sarà eliminata</string>
     <string name="notification_deleted">Notifica eliminata</string>
     <string name="history">Storico ordini</string>
+    <string name="menu_analytics">Statistiche</string>
 </resources>
