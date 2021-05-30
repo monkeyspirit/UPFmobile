@@ -12,14 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;
@@ -47,10 +46,10 @@ public class RestaurantAnalyticsFragment extends Fragment {
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
-    private ArrayList<Restaurant> lstRest;
     private ArrayList<Dish> lstDishes;
     private ArrayList<BarEntry> lstEntries;
     private ArrayList<String> lstLabels;
+    private ArrayList<BarDataSet> lstBarDataSet;
     private BarDataSet barDataSet;
     private BarChart barChart;
     private String userId;
@@ -73,10 +72,10 @@ public class RestaurantAnalyticsFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         barChart = root.findViewById(R.id.barChart);
-        lstRest = new ArrayList<>();
         lstDishes = new ArrayList<>();
         lstEntries = new ArrayList<>();
         lstLabels = new ArrayList<>();
+        lstBarDataSet = new ArrayList<>();
 
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -89,70 +88,56 @@ public class RestaurantAnalyticsFragment extends Fragment {
 
                     for (DataSnapshot restaurant : restaurants_database) {
                         if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)) {
-                            lstRest.add(new Restaurant(
-                                    String.valueOf(restaurant.getKey()),
-                                    String.valueOf(restaurant.child("name").getValue()),
-                                    String.valueOf(restaurant.child("description").getValue()),
-                                    String.valueOf(restaurant.child("email").getValue()),
-                                    String.valueOf(restaurant.child("city").getValue()),
-                                    String.valueOf(restaurant.child("address").getValue()),
-                                    String.valueOf(restaurant.child("phone").getValue()),
-                                    String.valueOf(restaurant.child("restaurateur_id").getValue()),
-                                    String.valueOf(restaurant.child("imageUrl").getValue()),
-                                    Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))
-                            ));
-                        }
-                    }
-                }
-            }
-        });
+                            lstDishes.clear();
+                            mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    } else {
+                                        Iterable<DataSnapshot> dishes_database = task.getResult().getChildren();
 
-        mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    Iterable<DataSnapshot> dishes_database = task.getResult().getChildren();
-
-                    for (DataSnapshot dish : dishes_database) {
-                        for (Restaurant rest : lstRest) {
-
-                            if (String.valueOf(dish.child("restaurant_id").getValue()).equals(rest.getId())) {
-                                Log.d("firebase", String.valueOf(dish.child("name").getValue()));
-                                lstDishes.add(new Dish(
-                                        String.valueOf(dish.getKey()),
-                                        String.valueOf(dish.child("name").getValue()),
-                                        String.valueOf(dish.child("description").getValue()),
-                                        String.valueOf(dish.child("restaurant_id").getValue()),
-                                        Double.parseDouble(String.valueOf(dish.child("price").getValue())),
-                                        Integer.parseInt(String.valueOf(dish.child("number").getValue()))));
-                                Log.d("LISTA", String.valueOf(lstDishes.size()));
-                                break;
+                                        for (DataSnapshot dish : dishes_database) {
+                                            if (String.valueOf(dish.child("restaurant_id").getValue()).equals(
+                                                    String.valueOf(restaurant.child("id").getValue()))) {
+                                                lstDishes.add(new Dish(
+                                                        String.valueOf(dish.getKey()),
+                                                        String.valueOf(dish.child("name").getValue()),
+                                                        String.valueOf(dish.child("description").getValue()),
+                                                        String.valueOf(dish.child("restaurant_id").getValue()),
+                                                        Double.parseDouble(String.valueOf(dish.child("price").getValue())),
+                                                        Integer.parseInt(String.valueOf(dish.child("number").getValue()))));
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            lstEntries.clear();
+                            lstLabels.clear();
+                            int counter = 0;
+                            for (Dish dish : lstDishes) {
+                                Log.d("Dish", dish.getName());
+                                if (restaurant.child("id").getValue().equals(dish.getRestaurant_id())) {
+                                    lstEntries.add(new BarEntry(counter, dish.getNumber()));
+                                    lstLabels.add(dish.getName());
+                                    counter++;
+                                }
+                            }
+                            if (lstEntries.size() != 0) {
+                                barDataSet = new BarDataSet(lstEntries, String.valueOf(restaurant.child("name").getValue()));
+                                Random rnd = new Random();
+                                int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                                barDataSet.setColor(color);
+                                barDataSet.setValueTextColor(Color.DKGRAY);
+                                barDataSet.setValueTextSize(16f);
+                                lstBarDataSet.add(barDataSet);
                             }
                         }
                     }
-
-                    int counter = 0;
-                    for (Dish dish : lstDishes) {
-                        Log.d("Dish", dish.getName());
-                        for (Restaurant rest : lstRest) {
-                            if (rest.getId().equals(dish.getRestaurant_id())) {
-                                lstEntries.add(new BarEntry(counter, dish.getNumber()));
-                                lstLabels.add(dish.getName());
-                                counter++;
-                                break;
-                            }
-                        }
-                    }
-
-                    barDataSet = new BarDataSet(lstEntries, "Piatti");
-                    barDataSet.setColor(Color.BLUE);
-                    barDataSet.setValueTextColor(Color.DKGRAY);
-                    barDataSet.setValueTextSize(16f);
-
-                    BarData barData = new BarData(barDataSet);
-
+                    // Fine ciclo for ristoranti
+                    Log.d("DATI", "CIAO");
+                    BarData barData = new BarData(lstBarDataSet);
+                    Log.d("DATI", "CIAO2");
                     barChart.setFitBars(true);
                     barChart.setData(barData);
                     barChart.getDescription().setText("Istogramma");
@@ -162,6 +147,7 @@ public class RestaurantAnalyticsFragment extends Fragment {
                     xAxis.setLabelRotationAngle(-45);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     barChart.animateY(2000);
+                    Log.d("DATI", "CIAO3");
                 }
             }
         });
