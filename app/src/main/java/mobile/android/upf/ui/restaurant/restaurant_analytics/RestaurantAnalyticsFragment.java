@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +73,7 @@ public class RestaurantAnalyticsFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        barChart = root.findViewById(R.id.barChart);
+        barChart = root.findViewById(R.id.restaurant_histogram);
         lstDishes = new ArrayList<>();
         lstEntries = new ArrayList<>();
         lstLabels = new ArrayList<>();
@@ -87,23 +88,13 @@ public class RestaurantAnalyticsFragment extends Fragment {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
-//                    int counter = 0;
-//                    for (DataSnapshot restaurant : restaurants_database) {
-//                        if (restaurant.child("restaurateur_id").getValue().equals(userId)) {
-//                            counter++;
-//                        }
-//                    }
-//                    for (int i = 0; i < counter; i++) {
-//                        Random rnd = new Random();
-//                        int color = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-//                        lstColors.add(color);
-//                    }
-//                    int colorCount = 0;
                     for (DataSnapshot restaurant : restaurants_database) {
-                        if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)) {
-                            Log.d("RISTORANTE", String.valueOf(restaurant.child("name").getValue()));
+
+                        if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)
+                                && Integer.parseInt(String.valueOf(restaurant.child("status").getValue())) == 1) {
+
                             lstDishes.clear();
-//                            int finalColorCount = colorCount;
+
                             mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
@@ -115,7 +106,7 @@ public class RestaurantAnalyticsFragment extends Fragment {
                                         for (DataSnapshot dish : dishes_database) {
                                             if (String.valueOf(dish.child("restaurant_id").getValue()).equals(
                                                     String.valueOf(restaurant.child("id").getValue()))) {
-                                                Log.d("PIATTI", String.valueOf(dish.child("name").getValue()));
+
                                                 lstDishes.add(new Dish(
                                                         String.valueOf(dish.getKey()),
                                                         String.valueOf(dish.child("name").getValue()),
@@ -127,46 +118,49 @@ public class RestaurantAnalyticsFragment extends Fragment {
                                         }
                                         lstEntries.clear();
                                         lstLabels.clear();
-                                        int counter = 0;
-                                        Log.d("DISH", String.valueOf(lstDishes.size()));
+                                        int Dishcounter = 0;
                                         for (Dish dish : lstDishes) {
-                                            Log.d("DISH", dish.getName());
-                                            lstEntries.add(new BarEntry(counter, dish.getNumber()));
+                                            lstEntries.add(new BarEntry(Dishcounter, dish.getNumber()));
                                             lstLabels.add(dish.getName());
-                                            counter++;
+                                            Dishcounter++;
                                         }
-                                        Log.d("ENTRIES", String.valueOf(lstEntries.size()));
+
                                         if (lstEntries.size() != 0) {
                                             barDataSet = new BarDataSet(lstEntries, String.valueOf(restaurant.child("name").getValue()));
-//                                            Log.d("COLOR", String.valueOf(lstColors.get(finalColorCount)));
-//                                            barDataSet.setColors(lstColors.get(finalColorCount));
                                             Random rnd = new Random();
                                             int color = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-                                            barDataSet.setColor(color);
+                                            barDataSet.setColors(color);
                                             barDataSet.setValueTextColor(Color.DKGRAY);
                                             barDataSet.setValueTextSize(16f);
                                             barData.addDataSet(barDataSet);
                                         }
 
-                                        barChart.setFitBars(true);
                                         barChart.setData(barData);
-                                        barChart.getDescription().setText("Istogramma");
+                                        Log.d("DATI", String.valueOf(barData.getDataSetCount()));
+//                                        if (barData.getDataSetCount() > 1) {
+//                                            float groupSpace = 0.1f;
+//                                            float barSpace = 0.3f;
+//                                            barChart.groupBars(1, groupSpace, barSpace);
+//                                        }
+                                        barChart.setFitBars(true);
+                                        barChart.setDrawValueAboveBar(true);
+                                        barChart.setDrawGridBackground(true);
+                                        barChart.getDescription().setText("");
+
                                         XAxis xAxis = barChart.getXAxis();
-                                        //xAxis.setLabelCount(lstEntries.size(), true);
                                         xAxis.setValueFormatter(new IndexAxisValueFormatter(lstLabels));
                                         xAxis.setLabelRotationAngle(-90);
+                                        //xAxis.setCenterAxisLabels(true);
                                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                                         barChart.animateY(2000);
-//                                        for (BarDataSet set : lstBarDataSet) {
-//                                            barData.addDataSet(set);
-//                                        }
                                     }
+
                                 }
                             });
                         }
-//                        colorCount++;
                     }
                     // Fine ciclo for ristoranti
+
                 }
             }
         });
