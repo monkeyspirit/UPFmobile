@@ -1,7 +1,9 @@
 package mobile.android.upf;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -154,7 +156,17 @@ public class ClientHomepageActivity extends AppCompatActivity {
 
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+        Intent notificationIntent = new Intent(getApplicationContext(), ClientHomepageActivity.class);
+
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent intent = PendingIntent.getActivity(this, 0,
+                notificationIntent, 0);
+        builder.setContentIntent(intent);
         managerCompat.notify(999, builder.build());
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

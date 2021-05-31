@@ -2,6 +2,7 @@ package mobile.android.upf;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -144,6 +145,14 @@ public class RestaurantHomepageActivity extends AppCompatActivity {
 
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+        Intent notificationIntent = new Intent(getApplicationContext(), RestaurantHomepageActivity.class);
+
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent intent = PendingIntent.getActivity(this, 0,
+                notificationIntent, 0);
+        builder.setContentIntent(intent);
         managerCompat.notify(999, builder.build());
     }
 
