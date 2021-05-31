@@ -70,4 +70,5 @@ dependencies {
 
     //libreria da github grafi
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }

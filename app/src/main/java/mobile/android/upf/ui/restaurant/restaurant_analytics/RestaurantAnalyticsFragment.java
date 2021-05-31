@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -31,7 +34,14 @@ import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import mobile.android.upf.R;
@@ -49,12 +59,14 @@ public class RestaurantAnalyticsFragment extends Fragment {
 
     private ArrayList<Dish> lstDishes;
     private ArrayList<BarEntry> lstEntries;
-    private ArrayList<String> lstLabels;
-    private ArrayList<Integer> lstColors;
+    private ArrayList<String> lstLabels, labelArrayLegend;
+    private ArrayList<Integer> lstColors,lstColorsLegend;
     private BarDataSet barDataSet;
     private BarChart barChart;
     private BarData barData;
     private String userId;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +90,10 @@ public class RestaurantAnalyticsFragment extends Fragment {
         lstEntries = new ArrayList<>();
         lstLabels = new ArrayList<>();
         lstColors = new ArrayList<>();
+        labelArrayLegend = new ArrayList<>();
         barData = new BarData();
+
+        lstColorsLegend = new ArrayList<>();
 
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -88,12 +103,18 @@ public class RestaurantAnalyticsFragment extends Fragment {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
+
+
                     for (DataSnapshot restaurant : restaurants_database) {
+                        Random rnd = new Random();
+                        int color = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
                         if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)
                                 && Integer.parseInt(String.valueOf(restaurant.child("status").getValue())) == 1) {
-
+                            lstColorsLegend.add(color);
+                            labelArrayLegend.add(String.valueOf(restaurant.child("name").getValue()));
                             lstDishes.clear();
+
 
                             mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
@@ -115,7 +136,9 @@ public class RestaurantAnalyticsFragment extends Fragment {
                                                         Double.parseDouble(String.valueOf(dish.child("price").getValue())),
                                                         Integer.parseInt(String.valueOf(dish.child("number").getValue()))));
                                             }
+
                                         }
+
                                         lstEntries.clear();
                                         lstLabels.clear();
                                         int Dishcounter = 0;
@@ -123,18 +146,17 @@ public class RestaurantAnalyticsFragment extends Fragment {
                                             lstEntries.add(new BarEntry(Dishcounter, dish.getNumber()));
                                             lstLabels.add(dish.getName());
                                             Dishcounter++;
+                                            lstColors.add(color);
                                         }
 
                                         if (lstEntries.size() != 0) {
                                             barDataSet = new BarDataSet(lstEntries, String.valueOf(restaurant.child("name").getValue()));
-                                            Random rnd = new Random();
-                                            int color = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-                                            barDataSet.setColors(color);
+
+                                            barDataSet.setColors(lstColors);
                                             barDataSet.setValueTextColor(Color.DKGRAY);
                                             barDataSet.setValueTextSize(16f);
                                             barData.addDataSet(barDataSet);
                                         }
-
                                         barChart.setData(barData);
                                         Log.d("DATI", String.valueOf(barData.getDataSetCount()));
 //                                        if (barData.getDataSetCount() > 1) {
@@ -153,11 +175,28 @@ public class RestaurantAnalyticsFragment extends Fragment {
                                         //xAxis.setCenterAxisLabels(true);
                                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                                         barChart.animateY(2000);
+
+                                        Legend legend = barChart.getLegend();
+                                        ArrayList<LegendEntry> legendEntries = new ArrayList<>();
+
+                                        int i = 0;
+                                        for (String restaurant: labelArrayLegend){
+                                            LegendEntry legendEntryA = new LegendEntry();
+                                            legendEntryA.label = restaurant;
+                                            legendEntryA.formColor = lstColorsLegend.get(i);
+                                            legendEntries.add(legendEntryA);
+                                            i++;
+                                        }
+
+                                        legend.setCustom(legendEntries);
                                     }
 
                                 }
                             });
                         }
+
+
+
                     }
                     // Fine ciclo for ristoranti
 
