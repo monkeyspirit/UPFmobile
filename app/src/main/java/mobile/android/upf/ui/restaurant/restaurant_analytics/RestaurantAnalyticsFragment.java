@@ -106,15 +106,16 @@ public class RestaurantAnalyticsFragment extends Fragment {
 
 
                     for (DataSnapshot restaurant : restaurants_database) {
-                        Random rnd = new Random();
-                        int color = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
                         if (String.valueOf(restaurant.child("restaurateur_id").getValue()).equals(userId)
                                 && Integer.parseInt(String.valueOf(restaurant.child("status").getValue())) == 1) {
-                            lstColorsLegend.add(color);
-                            labelArrayLegend.add(String.valueOf(restaurant.child("name").getValue()));
+
                             lstDishes.clear();
 
+                            Random rnd = new Random();
+                            int color = Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                            lstColorsLegend.add(color);
+                            labelArrayLegend.add(String.valueOf(restaurant.child("name").getValue()));
 
                             mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
