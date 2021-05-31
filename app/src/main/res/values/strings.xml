@@ -182,4 +182,6 @@
     <string name="confirm_notification_delete">The notification will be deleted</string>
     <string name="notification_deleted">Notification deleted</string>
     <string name="history">Orders\' history</string>
+
+    <string name="square" translatable="false">&#x25A0;</string>
 </resources>

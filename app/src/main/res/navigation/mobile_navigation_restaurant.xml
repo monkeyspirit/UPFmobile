@@ -34,7 +34,7 @@
         android:id="@+id/nav_restaurant_analytics"
         android:name="mobile.android.upf.ui.restaurant.restaurant_analytics.RestaurantAnalyticsFragment"
         android:label="@string/menu_analytics"
-        tools:layout="@layout/fragment_analytics_restaurant" />
+        tools:layout="@layout/fragment_restaurant_analytics" />
 
     <activity
         android:id="@+id/nav_restaurant_logout"

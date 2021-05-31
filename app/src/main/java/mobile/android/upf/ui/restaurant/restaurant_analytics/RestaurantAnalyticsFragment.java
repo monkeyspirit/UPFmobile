@@ -1,27 +1,26 @@
 package mobile.android.upf.ui.restaurant.restaurant_analytics;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,20 +32,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.Dish;
-import mobile.android.upf.data.model.Restaurant;
 
 public class RestaurantAnalyticsFragment extends Fragment {
 
@@ -66,13 +58,15 @@ public class RestaurantAnalyticsFragment extends Fragment {
     private BarData barData;
     private String userId;
 
+    private LinearLayout legend;
 
 
+    @SuppressLint("WrongViewCast")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         restaurantAnalyticsViewModel =
                 new ViewModelProvider(this).get(RestaurantsAnalyticsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_analytics_restaurant, container, false);
+        View root = inflater.inflate(R.layout.fragment_restaurant_analytics, container, false);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -95,6 +89,8 @@ public class RestaurantAnalyticsFragment extends Fragment {
 
         lstColorsLegend = new ArrayList<>();
 
+        legend = (LinearLayout) root.findViewById(R.id.legend);
+
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
@@ -103,7 +99,10 @@ public class RestaurantAnalyticsFragment extends Fragment {
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Iterable<DataSnapshot> restaurants_database = task.getResult().getChildren();
-
+                    lstColorsLegend.clear();
+                    labelArrayLegend.clear();
+                    lstColors.clear();
+                    lstLabels.clear();
 
                     for (DataSnapshot restaurant : restaurants_database) {
 
@@ -178,18 +177,20 @@ public class RestaurantAnalyticsFragment extends Fragment {
                                         barChart.animateY(2000);
 
                                         Legend legend = barChart.getLegend();
-                                        ArrayList<LegendEntry> legendEntries = new ArrayList<>();
+                                        legend.setEnabled(false);
 
-                                        int i = 0;
-                                        for (String restaurant: labelArrayLegend){
-                                            LegendEntry legendEntryA = new LegendEntry();
-                                            legendEntryA.label = restaurant;
-                                            legendEntryA.formColor = lstColorsLegend.get(i);
-                                            legendEntries.add(legendEntryA);
-                                            i++;
-                                        }
+//                                        ArrayList<LegendEntry> legendEntries = new ArrayList<>();
+//
+//                                        int i = 0;
+//                                        for (String restaurant: labelArrayLegend){
+//                                            LegendEntry legendEntryA = new LegendEntry();
+//                                            legendEntryA.label = restaurant;
+//                                            legendEntryA.formColor = lstColorsLegend.get(i);
+//                                            legendEntries.add(legendEntryA);
+//                                            i++;
+//                                        }
 
-                                        legend.setCustom(legendEntries);
+//                                        legend.setCustom(legendEntries);
                                     }
 
                                 }
@@ -202,8 +203,21 @@ public class RestaurantAnalyticsFragment extends Fragment {
                     // Fine ciclo for ristoranti
 
                 }
+                int i = 0;
+                for (String restaurant: labelArrayLegend){
+                    TextView label = new TextView(getContext());
+                    String name = getString(R.string.square)+" "+restaurant;
+                    label.setText(name);
+                    label.setTextColor(lstColorsLegend.get(i));
+                    i++;
+                    legend.addView(label);
+                }
+
             }
+
         });
+
+
 
         return root;
     }
