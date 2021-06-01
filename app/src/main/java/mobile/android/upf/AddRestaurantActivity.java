@@ -172,7 +172,6 @@ public class AddRestaurantActivity extends AppCompatActivity {
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
                                         allAdminBusy = false;
                                         admin_id = admin.getKey();
-
                                     }
                                 }
                             }
@@ -181,10 +180,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
                                 int counter = 0;
                                 for (DataSnapshot admin : admins_database) {
                                     if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
+                                        if (counter == 0) {
+                                            Log.d("ADMIN", admin.getKey());
+                                            admin_id = admin.getKey();
+                                        }
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(0);
-                                    }
-                                    if (counter == 0) {
-                                        admin_id = admin.getKey();
                                     }
                                     counter++;
                                 }
@@ -193,13 +193,13 @@ public class AddRestaurantActivity extends AppCompatActivity {
                             /**
                              * Status: 0 = non approvato; 1 = approvato
                              */
-                            restaurant = new Restaurant(name, description, email, city,
-                                    address, phone, restaurateur_id, admin_id, "", 0);
+                            restaurant = new Restaurant(name, description, email, city, address,
+                                    phone, restaurateur_id, admin_id, "", 0);
                             uploadPicture();
 
                             if (noImageLoaded) {
-                                restaurant = new Restaurant(name, description, email,
-                                        city, address, phone, restaurateur_id, admin_id,
+                                restaurant = new Restaurant(name, description, email, city, address,
+                                        phone, restaurateur_id, admin_id,
                                         "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=4777a50d-1445-44e1-a62b-d895d9d7fb82", 0);
                             }
 
@@ -217,13 +217,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-
                         }
                     }
                 });
             }
         });
-
     }
 
     @Override
