@@ -108,7 +108,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                                 mData.get(position).getDescription(), mData.get(position).getEmail(),
                                 mData.get(position).getCity(), mData.get(position).getAddress(),
                                 mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(),
-                                mData.get(position).getImageUrl(), 1);
+                                mData.get(position).getAdmin_id(), mData.get(position).getImageUrl(), 1);
                         mDatabase.child("Restaurants").child(toApprove).setValue(update);
 
                         Calendar cal = Calendar.getInstance();
@@ -120,8 +120,6 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         String msg = mData.get(position).getName()+" " + mContext.getString(R.string.notification_rest_msg_yes);
                         Notification notification = new Notification(mData.get(position).getRestaurateur_id(),date, time, "1",msg);
                         mDatabase.child("Notifications").child(mData.get(position).getRestaurateur_id()).child(String.valueOf(notification.getId())).setValue(notification);
-
-
 
                         ((AdminHomepageFragment) mFragment).updateRecycler();
 
@@ -186,9 +184,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         if (decline_msgEditText.getText().toString().length()>0){
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#FF9800"));
-                        }
-                        else{
-
+                        } else {
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                             myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#D3D3D3"));
                         }
@@ -215,7 +211,8 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                                         mData.get(position).getDescription(), mData.get(position).getEmail(),
                                         mData.get(position).getCity(), mData.get(position).getAddress(),
                                         mData.get(position).getPhone(), mData.get(position).getRestaurateur_id(),
-                                        mData.get(position).getImageUrl(), 2, decline_msgEditText.getText().toString());
+                                        mData.get(position).getAdmin_id(), mData.get(position).getImageUrl(),
+                                        2, decline_msgEditText.getText().toString());
                                 mDatabase.child("Restaurants").child(toDecline).setValue(update);
 
 

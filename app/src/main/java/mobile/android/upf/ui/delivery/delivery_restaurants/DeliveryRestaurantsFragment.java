@@ -104,6 +104,7 @@ public class DeliveryRestaurantsFragment extends Fragment {
                                             String.valueOf(restaurant.child("address").getValue()),
                                             String.valueOf(restaurant.child("phone").getValue()),
                                             String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                            String.valueOf(restaurant.child("admin_id").getValue()),
                                             String.valueOf(restaurant.child("imageUrl").getValue()),
                                             Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                                 }
@@ -170,6 +171,7 @@ public class DeliveryRestaurantsFragment extends Fragment {
                                         String.valueOf(restaurant.child("address").getValue()),
                                         String.valueOf(restaurant.child("phone").getValue()),
                                         String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                        String.valueOf(restaurant.child("admin_id").getValue()),
                                         String.valueOf(restaurant.child("imageUrl").getValue()),
                                         Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                             }

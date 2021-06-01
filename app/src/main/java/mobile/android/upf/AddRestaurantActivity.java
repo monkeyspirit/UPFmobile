@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,10 +35,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import mobile.android.upf.data.model.Restaurant;
+import mobile.android.upf.data.model.User;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -150,29 +155,69 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                /**
-                 * Status: 0 = non approvato; 1 = approvato
-                 */
-                restaurant = new Restaurant(name, description, email, city, address, phone, restaurateur_id, "", 0);
-                uploadPicture();
-
-                if (noImageLoaded) {
-                    restaurant = new Restaurant(name, description, email, city, address, phone, restaurateur_id,
-                            "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=4777a50d-1445-44e1-a62b-d895d9d7fb82",  0);
-                }
-
-
-                mDatabase.child("Restaurants").child(restaurant.getId()).setValue(restaurant).addOnCompleteListener(new OnCompleteListener<Void>() {
+                mDatabase.child("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            progressBar.setVisibility(View.GONE);
-                            Intent returnIntent = new Intent();
-                            setResult(RESULT_OK, returnIntent);
-                            finish();
+                    public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data");
                         } else {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(AddRestaurantActivity.this, getString(R.string.restaurant_registration_db_failed), LENGTH_LONG).show();
+                            Iterable<DataSnapshot> admins_database = task.getResult().getChildren();
+                            boolean allAdminBusy = true;
+                            String admin_id = "";
+
+                            for (DataSnapshot admin : admins_database) {
+                                // Verifico che l'utente sia admin
+                                if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
+                                    if (Integer.parseInt(String.valueOf(admin.child("work").getValue())) == 0) {
+                                        mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
+                                        allAdminBusy = false;
+                                        admin_id = admin.getKey();
+
+                                    }
+                                }
+                            }
+
+                            if (allAdminBusy) {
+                                int counter = 0;
+                                for (DataSnapshot admin : admins_database) {
+                                    if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
+                                        mDatabase.child("Users").child(admin.getKey()).child("work").setValue(0);
+                                    }
+                                    if (counter == 0) {
+                                        admin_id = admin.getKey();
+                                    }
+                                    counter++;
+                                }
+                            }
+
+                            /**
+                             * Status: 0 = non approvato; 1 = approvato
+                             */
+                            restaurant = new Restaurant(name, description, email, city,
+                                    address, phone, restaurateur_id, admin_id, "", 0);
+                            uploadPicture();
+
+                            if (noImageLoaded) {
+                                restaurant = new Restaurant(name, description, email,
+                                        city, address, phone, restaurateur_id, admin_id,
+                                        "https://firebasestorage.googleapis.com/v0/b/ultimatepizzafrisbee.appspot.com/o/ristorante.jpg?alt=media&token=4777a50d-1445-44e1-a62b-d895d9d7fb82", 0);
+                            }
+
+                            mDatabase.child("Restaurants").child(restaurant.getId()).setValue(restaurant).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Intent returnIntent = new Intent();
+                                        setResult(RESULT_OK, returnIntent);
+                                        finish();
+                                    } else {
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.restaurant_registration_db_failed), LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
                         }
                     }
                 });

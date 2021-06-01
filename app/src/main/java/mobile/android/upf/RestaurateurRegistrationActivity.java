@@ -146,7 +146,7 @@ public class RestaurateurRegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            User user = new User(name, surname, password, city, address, phone, email, imageUrl, 3);
+                            User user = new User(name, surname, password, city, address, phone, email, imageUrl, 3, 0);
                             //aggiungo l'utente al db
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

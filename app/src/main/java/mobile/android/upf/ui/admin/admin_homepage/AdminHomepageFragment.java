@@ -34,6 +34,7 @@ public class AdminHomepageFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private String userId;
     private DatabaseReference mDatabase;
 
     private List<Restaurant> lstRest;
@@ -51,6 +52,7 @@ public class AdminHomepageFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        userId = currentUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         lstRest = new ArrayList<>();
@@ -67,7 +69,8 @@ public class AdminHomepageFragment extends Fragment {
                     for (DataSnapshot restaurant : restaurants_database) {
 //                        ID del ristorante
 
-                        if (String.valueOf(restaurant.child("status").getValue()).equals("0")) {
+                        if (String.valueOf(restaurant.child("status").getValue()).equals("0") &&
+                            String.valueOf(restaurant.child("admin_id").getValue()).equals(userId)) {
                             lstRest.add(new Restaurant(
                                     String.valueOf(restaurant.getKey()),
                                     String.valueOf(restaurant.child("name").getValue()),
@@ -77,6 +80,7 @@ public class AdminHomepageFragment extends Fragment {
                                     String.valueOf(restaurant.child("address").getValue()),
                                     String.valueOf(restaurant.child("phone").getValue()),
                                     String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("admin_id").getValue()),
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
                                     Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                         }
@@ -124,7 +128,8 @@ public class AdminHomepageFragment extends Fragment {
                     for (DataSnapshot restaurant : restaurants_database) {
 //                        ID del ristorante
 
-                        if (String.valueOf(restaurant.child("status").getValue()).equals("0")) {
+                        if (String.valueOf(restaurant.child("status").getValue()).equals("0") &&
+                            String.valueOf(restaurant.child("admin_id").getValue()).equals(userId)) {
                             lstRest.add(new Restaurant(
                                     String.valueOf(restaurant.getKey()),
                                     String.valueOf(restaurant.child("name").getValue()),
@@ -134,6 +139,7 @@ public class AdminHomepageFragment extends Fragment {
                                     String.valueOf(restaurant.child("address").getValue()),
                                     String.valueOf(restaurant.child("phone").getValue()),
                                     String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("admin_id").getValue()),
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
                                     Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                         }

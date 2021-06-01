@@ -9,7 +9,7 @@ public class User {
     /**
      * Il type è 1 se cliente, 2 se fattorino, 3 se ristoratore, 4 admin
      */
-    public int type;
+    public int type, work;
 
     public String busy;
 
@@ -17,7 +17,8 @@ public class User {
 
     }
 
-    public User(String name, String surname, String password, String city, String address, String phone, String email, String imageUrl, int type) {
+    public User(String name, String surname, String password, String city, String address,
+                String phone, String email, String imageUrl, int type, int work) {
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -27,10 +28,12 @@ public class User {
         this.phone = phone;
         this.imageUrl = imageUrl;
         this.type = type;
+        this.work = work;
     }
 
 //    Fattorino
-    public User(String name, String surname, String password, String city, String address, String phone, String email, String imageUrl, int type, String busy) {
+    public User(String name, String surname, String password, String city, String address,
+                String phone, String email, String imageUrl, int type, int work, String busy) {
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -40,7 +43,20 @@ public class User {
         this.phone = phone;
         this.imageUrl = imageUrl;
         this.type = type;
+        this.work = work;
         this.busy = busy;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getWork() {
+        return work;
+    }
+
+    public void setWork() {
+        this.work = work;
     }
 
     public String isBusy() {

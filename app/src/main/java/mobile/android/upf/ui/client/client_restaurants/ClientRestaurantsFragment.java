@@ -102,6 +102,7 @@ public class ClientRestaurantsFragment extends Fragment {
                                     String.valueOf(restaurant.child("address").getValue()),
                                     String.valueOf(restaurant.child("phone").getValue()),
                                     String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("admin_id").getValue()),
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
                                     Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                         }
@@ -157,6 +158,7 @@ public class ClientRestaurantsFragment extends Fragment {
                                     String.valueOf(restaurant.child("address").getValue()),
                                     String.valueOf(restaurant.child("phone").getValue()),
                                     String.valueOf(restaurant.child("restaurateur_id").getValue()),
+                                    String.valueOf(restaurant.child("admin_id").getValue()),
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
                                     Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
                         }
@@ -215,8 +217,8 @@ public class ClientRestaurantsFragment extends Fragment {
         ArrayList<Restaurant> filteredList = new ArrayList<>();
 
         for (Restaurant item : lstRest) {
-            Log.d("RICERCATO", text);
-            Log.d("RICERCA", item.getName());
+//            Log.d("RICERCATO", text);
+//            Log.d("RICERCA", item.getName());
             if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }

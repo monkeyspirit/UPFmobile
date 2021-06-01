@@ -6,7 +6,8 @@ import java.security.NoSuchAlgorithmException;
 public class Restaurant {
 
     private String id;
-    private String name, description, email, address, city, phone, restaurateur_id, imageUrl;
+    private String name, description, email, address, city, phone, restaurateur_id, admin_id,
+            imageUrl;
     private int status;
     private String decline_msg;
 
@@ -15,7 +16,8 @@ public class Restaurant {
 
 //    Costruttore per quando si CREA un ristorante quando si aggiunge
     public Restaurant(String name, String description, String email, String city, String address,
-                      String phone, String restaurateur_id, String imageUrl, int status) {
+                      String phone, String restaurateur_id, String admin_id, String imageUrl,
+                      int status) {
         this.name = name;
         this.description = description;
         this.email = email;
@@ -23,6 +25,7 @@ public class Restaurant {
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
+        this.admin_id = admin_id;
         this.imageUrl = imageUrl;
         this.status = status;
         long tsLong = System.currentTimeMillis()/1000;
@@ -32,8 +35,8 @@ public class Restaurant {
 
 //    Costruttore per quando si LEGGE un ristorante
     public Restaurant(String id, String name, String description, String email, String city,
-                      String address, String phone, String restaurateur_id, String imageUrl,
-                      int status) {
+                      String address, String phone, String restaurateur_id, String admin_id,
+                      String imageUrl, int status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -42,14 +45,15 @@ public class Restaurant {
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
+        this.admin_id = admin_id;
         this.imageUrl = imageUrl;
         this.status = status;
 
     }
 
     public Restaurant(String id, String name, String description, String email, String city,
-                      String address, String phone, String restaurateur_id, String imageUrl,
-                      int status, String decline_msg) {
+                      String address, String phone, String restaurateur_id, String admin_id,
+                      String imageUrl, int status, String decline_msg) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -58,6 +62,7 @@ public class Restaurant {
         this.address = address;
         this.phone = phone;
         this.restaurateur_id = restaurateur_id;
+        this.admin_id = admin_id;
         this.imageUrl = imageUrl;
         this.status = status;
         this.decline_msg = decline_msg;
@@ -69,6 +74,14 @@ public class Restaurant {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(String admin_id) {
+        this.admin_id = admin_id;
     }
 
     public String getRestaurateur_id() {
@@ -134,7 +147,6 @@ public class Restaurant {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 
     public int getStatus() {
         return status;
