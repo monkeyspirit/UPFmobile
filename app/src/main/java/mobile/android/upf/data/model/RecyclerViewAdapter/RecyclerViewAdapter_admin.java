@@ -101,7 +101,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                 String toApprove = mData.get(position).getId();
                 Log.d("R. approved id: ", toApprove);
 
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                mDatabase.child("Restaurants").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Restaurant update = new Restaurant(toApprove, mData.get(position).getName(),
