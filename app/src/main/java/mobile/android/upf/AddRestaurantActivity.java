@@ -154,7 +154,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-
+                Log.d("ADMIN", "RICERCA ADMIN");
                 mDatabase.child("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
@@ -162,33 +162,35 @@ public class AddRestaurantActivity extends AppCompatActivity {
                             Log.e("firebase", "Error getting data");
                         } else {
                             Iterable<DataSnapshot> admins_database = task.getResult().getChildren();
-                            boolean allAdminBusy = true;
                             String admin_id = "";
+                            Log.d("ADMIN1", admin_id);
 
                             for (DataSnapshot admin : admins_database) {
                                 // Verifico che l'utente sia admin
                                 if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
                                     if (Integer.parseInt(String.valueOf(admin.child("work").getValue())) == 0) {
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
-                                        allAdminBusy = false;
                                         admin_id = admin.getKey();
                                     }
                                 }
                             }
-
-                            if (allAdminBusy) {
-                                int counter = 0;
+                            Log.d("ADMIN2", admin_id);
+                            if (admin_id == "") {
                                 for (DataSnapshot admin : admins_database) {
                                     if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
-                                        if (counter == 0) {
-                                            Log.d("ADMIN", admin.getKey());
-                                            admin_id = admin.getKey();
-                                        }
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(0);
                                     }
-                                    counter++;
+                                }
+                                for (DataSnapshot admin : admins_database) {
+                                    if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
+                                        if (Integer.parseInt(String.valueOf(admin.child("work").getValue())) == 0) {
+                                            mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
+                                            admin_id = admin.getKey();
+                                        }
+                                    }
                                 }
                             }
+                            Log.d("ADMIN3", admin_id);
 
                             /**
                              * Status: 0 = non approvato; 1 = approvato
@@ -196,7 +198,6 @@ public class AddRestaurantActivity extends AppCompatActivity {
                             restaurant = new Restaurant(name, description, email, city, address,
                                     phone, restaurateur_id, admin_id, "", 0);
                             uploadPicture();
-
                             if (noImageLoaded) {
                                 restaurant = new Restaurant(name, description, email, city, address,
                                         phone, restaurateur_id, admin_id,
@@ -210,10 +211,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
                                         progressBar.setVisibility(View.GONE);
                                         Intent returnIntent = new Intent();
                                         setResult(RESULT_OK, returnIntent);
+                                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.restaurant_registration_db_success), Toast.LENGTH_LONG).show();
                                         finish();
                                     } else {
                                         progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.restaurant_registration_db_failed), LENGTH_LONG).show();
+                                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.restaurant_registration_db_failed), Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -274,51 +276,53 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
     private void uploadPicture() {
 
-        final ProgressDialog pd = new ProgressDialog(AddRestaurantActivity.this);
-        pd.setTitle(getString(R.string.uploading_image));
-        pd.show();
-
         StorageReference picRef = mStorageReference.child(restaurant.getId() + "." + getFileExtension(imageUri));
+
         //StorageReference picImagesRef = mStorageReference.child("images/" + System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
-        picRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                if (!AddRestaurantActivity.this.isFinishing() && pd != null) {
-                    pd.dismiss();
-                }
-                picRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
+        if (!noImageLoaded) {
+            final ProgressDialog pd = new ProgressDialog(AddRestaurantActivity.this);
+            pd.setTitle(getString(R.string.uploading_image));
+            pd.show();
+            picRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    if (!AddRestaurantActivity.this.isFinishing() && pd != null) {
+                        pd.dismiss();
+                    }
+                    picRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
 
-                        DatabaseReference restRef = mDatabase.child("Restaurants").child(restaurant.getId());
+                            DatabaseReference restRef = mDatabase.child("Restaurants").child(restaurant.getId());
 
-                        Map<String, Object> updates = new HashMap<>();
-                        updates.put("imageUrl", uri.toString());
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("imageUrl", uri.toString());
 
-                        restRef.updateChildren(updates);
+                            restRef.updateChildren(updates);
 
 //                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.upload_success), Toast.LENGTH_LONG).show();
-                    }
-                });
+                        }
+                    });
 
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(AddRestaurantActivity.this, getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage(getString(R.string.progress) + (int) progressPercent + "%");
-                    }
-                });
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            Toast.makeText(AddRestaurantActivity.this, getString(R.string.upload_failed), Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                            pd.setMessage(getString(R.string.progress) + (int) progressPercent + "%");
+                        }
+                    });
 
+        }
 
     }
 

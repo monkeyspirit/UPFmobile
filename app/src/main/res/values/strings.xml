@@ -37,7 +37,7 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_restaurants">Restaurants</string>
     <string name="menu_exit">Logout</string>
-
+    <string name="restaurant_registration_db_success">Restaurant successfully registered</string>
     <string name="empty_name">Name is required</string>
     <string name="empty_surname">Surname is required</string>
     <string name="empty_password">Password is required</string>

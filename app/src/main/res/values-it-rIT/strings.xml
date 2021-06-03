@@ -158,4 +158,5 @@
     <string name="notification_deleted">Notifica eliminata</string>
     <string name="history">Storico ordini</string>
     <string name="menu_analytics">Statistiche</string>
+    <string name="restaurant_registration_db_success">Ristorante registrato con successo</string>
 </resources>
