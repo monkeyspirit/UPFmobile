@@ -162,37 +162,45 @@ public class AddRestaurantActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data");
                         } else {
-                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
                             Iterable<DataSnapshot> admins_database = task.getResult().getChildren();
                             String admin_id = "";
-                            Log.d("ADMIN1", admin_id);
+                            Log.d("firebase", "here");
 
+
+                            int counter_admin = 0;
                             for (DataSnapshot admin : admins_database) {
                                 // Verifico che l'utente sia admin
-                                if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
+                                if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4 & counter_admin == 0) {
                                     if (Integer.parseInt(String.valueOf(admin.child("work").getValue())) == 0) {
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
                                         admin_id = admin.getKey();
+                                        counter_admin = 1;
                                     }
                                 }
                             }
-                            Log.d("ADMIN2", admin_id);
-                            if (admin_id == "") {
-                                for (DataSnapshot admin : admins_database) {
+
+                            if (admin_id.equals("")) {
+
+                                Iterable<DataSnapshot> admins_refresh = task.getResult().getChildren();
+                                for (DataSnapshot admin : admins_refresh) {
                                     if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(0);
                                     }
                                 }
-                                for (DataSnapshot admin : admins_database) {
-                                    if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4) {
+                                counter_admin = 0;
+                                Iterable<DataSnapshot> admins_reload = task.getResult().getChildren();
+                                for (DataSnapshot admin : admins_reload) {
+                                    if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4 & counter_admin == 0) {
                                         if (Integer.parseInt(String.valueOf(admin.child("work").getValue())) == 0) {
                                             mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
                                             admin_id = admin.getKey();
+                                            counter_admin = 1;
                                         }
                                     }
                                 }
                             }
-                            Log.d("ADMIN3", admin_id);
+
 
                             /**
                              * Status: 0 = non approvato; 1 = approvato
