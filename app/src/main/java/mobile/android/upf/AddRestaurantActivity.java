@@ -158,9 +158,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
                 mDatabase.child("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
+                        Log.d("ONCOMPLETE", "SONO DENTRO ONCOMPLETE");
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data");
                         } else {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
                             Iterable<DataSnapshot> admins_database = task.getResult().getChildren();
                             String admin_id = "";
                             Log.d("ADMIN1", admin_id);
