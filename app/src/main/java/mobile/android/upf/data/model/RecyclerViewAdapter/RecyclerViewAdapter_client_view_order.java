@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -136,19 +137,24 @@ public class RecyclerViewAdapter_client_view_order extends RecyclerView.Adapter<
 
             holder.tv_delete_btn.setVisibility(View.VISIBLE);
             holder.tv_order_text.setText(R.string.order_waiting);
+            holder.tv_order_text.setTextColor(mContext.getResources().getColor(R.color.orange_500));
             holder.tv_order_text.setVisibility(View.VISIBLE);
 
         } else if(mData.get(position).getState() == 2) { // Ordine accettato dal ristorante
             holder.tv_order_text.setText(R.string.order_accepted);
+            holder.tv_order_text.setTextColor(mContext.getResources().getColor(R.color.dark_green));
             holder.tv_order_text.setVisibility(View.VISIBLE);
         } else if(mData.get(position).getState() == -1) { // Ordine rifiutato dal ristorante
             holder.tv_order_text.setText(R.string.order_rejected);
+            holder.tv_order_text.setTextColor(mContext.getResources().getColor(R.color.red));
             holder.tv_order_text.setVisibility(View.VISIBLE);
         } else if(mData.get(position).getState() == 3) { // Ordine pronto ed in attesa
             holder.tv_order_text.setText(R.string.order_ready_wait);
+            holder.tv_order_text.setTextColor(mContext.getResources().getColor(R.color.cyan));
             holder.tv_order_text.setVisibility(View.VISIBLE);
         } else if(mData.get(position).getState() == 4) { // Ordine in mano al fattorino
             holder.tv_order_text.setText(R.string.order_delivered);
+            holder.tv_order_text.setTextColor(mContext.getResources().getColor(R.color.green_done));
             holder.tv_order_text.setVisibility(View.VISIBLE);
 
             holder.tv_delivered_btn.setVisibility(View.VISIBLE);

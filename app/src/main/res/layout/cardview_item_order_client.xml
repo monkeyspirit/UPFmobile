@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Progress ...."
-            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
             android:textSize="@dimen/text_size_medium"/>
 
         <Button
@@ -86,7 +86,6 @@
             android:text="@string/delivered"
             android:textSize="@dimen/text_size_small"
             android:textColor="@color/white"/>
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -2,6 +2,7 @@ package mobile.android.upf.ui.restaurant.restaurant_restaurants;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import mobile.android.upf.AddRestaurantActivity;
@@ -102,6 +105,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
         counter_wait = 0;
 
         mDatabase.child("Restaurants").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -148,6 +152,7 @@ public class RestaurantRestaurantsFragment extends Fragment {
 
                     }
 
+                    lstRest.sort(Comparator.comparing(Restaurant::getStatus));
 
                     counter_approved_restaurants.setText(String.valueOf(counter_yes));
                     counter_waiting_approved_restaurants.setText(String.valueOf(counter_wait));

@@ -11,6 +11,7 @@
     <color name="red">#FF0000</color>
     <color name="light_grey">#F4F4F4</color>
     <color name="cyan">#03A9F4</color>
+    <color name="green">#00ff00</color>
     <color name="dark_green">#006E14</color>
     <color name="orange_500">#FF9800</color>
     <color name="green_done">#4CAF50</color>
