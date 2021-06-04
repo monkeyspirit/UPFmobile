@@ -50,6 +50,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
+
     public RecyclerViewAdapter_restaurant(Context mContext, List<Restaurant> mData, Fragment mFragment) {
         this.mContext = mContext;
         this.mData = mData;
@@ -92,6 +93,32 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
         holder.tv_restaurant_phone.setText(mData.get(position).getPhone());
         holder.tv_restaurant_email.setText(mData.get(position).getEmail());
+
+        switch (mData.get(position).getStatus()){
+            case 0:{
+                holder.tv_restaurant_status.setText(R.string.label_waiting_restaurants);
+                holder.tv_restaurant_reject_msg.setVisibility(View.GONE);
+                holder.tv_restaurant_status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_access_time_24, 0);
+                break;
+            }
+            case 1:{
+                holder.tv_restaurant_status.setText(R.string.label_approved_restaurants);
+                holder.tv_restaurant_status.setTextColor(mContext.getResources().getColor(R.color.green_done));
+                holder.tv_restaurant_reject_msg.setVisibility(View.GONE);
+                holder.tv_restaurant_status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_celebration_24, 0);
+                break;
+            }
+            case 2:{
+                holder.tv_restaurant_status.setText(R.string.label_not_approved_restaurants);
+                holder.tv_restaurant_status.setTextColor(mContext.getResources().getColor(R.color.ic_delete_background));
+                Log.d("Decline msg", mData.get(position).getDecline_msg());
+                holder.tv_restaurant_reject_msg.setText(mData.get(position).getDecline_msg());
+                holder.tv_restaurant_status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_sentiment_very_dissatisfied_24, 0);
+                break;
+            }
+        }
+
+
         String uriS = mData.get(position).getImageUrl();
 
         if (!uriS.equals("")) {
@@ -322,7 +349,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_restaurant_name, tv_restaurant_city, tv_restaurant_address, tv_restaurant_phone,
-                tv_restaurant_email;
+                tv_restaurant_email, tv_restaurant_status, tv_restaurant_reject_msg;
         ImageView tv_restaurant_pic;
         CardView tv_restaurant_card;
         Button tv_delete_btn, tv_edit_btn;
@@ -337,6 +364,9 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             tv_restaurant_address = (TextView) itemView.findViewById(R.id.restaurant_address_element);
             tv_restaurant_phone = (TextView) itemView.findViewById(R.id.restaurant_phone_element);
             tv_restaurant_email = (TextView) itemView.findViewById(R.id.restaurant_email_element);
+
+            tv_restaurant_status = (TextView) itemView.findViewById(R.id.restaurant_status_element);
+            tv_restaurant_reject_msg = (TextView) itemView.findViewById(R.id.restaurant_reject_msg);
 
             tv_restaurant_pic = (ImageView) itemView.findViewById(R.id.restaurant_card_pic);
 

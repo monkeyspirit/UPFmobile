@@ -160,4 +160,7 @@
     <string name="menu_analytics">Statistiche</string>
     <string name="restaurant_registration_db_success">Ristorante registrato con successo</string>
     <string name="empty_description">Descrizione richiesta</string>
+    <string name="label_approved_restaurants">Approvati</string>
+    <string name="label_waiting_restaurants">In attesa</string>
+    <string name="label_not_approved_restaurants">Respinti</string>
 </resources>

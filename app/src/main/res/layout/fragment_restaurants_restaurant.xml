@@ -14,12 +14,90 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/swipe_refresh_restaurant_restaurant">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_approved_restaurants"
+                        android:layout_weight="1"
+                        android:textColor="@color/green_done"
+                        android:textSize="@dimen/text_size_medium"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_waiting_restaurants"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/text_size_medium"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_not_approved_restaurants"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/ic_delete_background"
+                        android:gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/counter_approved_restaurants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_large"
+                        android:layout_weight="1"
+                        android:textColor="@color/green_done"
+                        android:gravity="center"
+                        android:drawableBottom="@drawable/ic_baseline_celebration_24"/>
+                    <TextView
+                        android:id="@+id/counter_waiting_approved_restaurants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_large"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:drawableBottom="@drawable/ic_baseline_access_time_24"/>
+                    <TextView
+                        android:id="@+id/counter_not_approved_restaurants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_large"
+                        android:layout_weight="1"
+                        android:textColor="@color/ic_delete_background"
+                        android:gravity="center"
+
+                        android:drawableBottom="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_margin="20dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerview_restaurant_restaurants"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -30,7 +108,7 @@
                     </androidx.recyclerview.widget.RecyclerView>
 
 
-        </LinearLayout>
+            </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

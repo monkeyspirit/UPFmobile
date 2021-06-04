@@ -68,6 +68,24 @@ public class Restaurant {
         this.decline_msg = decline_msg;
     }
 
+    public Restaurant(String id, String name, String description, String email, String city,
+                      String address, String phone, String restaurateur_id, String admin_id,
+                      String imageUrl, String decline_msg, int status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.email = email;
+        this.city = city;
+        this.address = address;
+        this.phone = phone;
+        this.restaurateur_id = restaurateur_id;
+        this.admin_id = admin_id;
+        this.imageUrl = imageUrl;
+        this.decline_msg = decline_msg;
+        this.status = status;
+
+    }
+
     public String getId() {
         return id;
     }

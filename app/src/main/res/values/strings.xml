@@ -185,4 +185,7 @@
     <string name="history">Orders\' history</string>
 
     <string name="square" translatable="false">&#x25A0;</string>
+    <string name="label_approved_restaurants">Approved</string>
+    <string name="label_waiting_restaurants">Waiting</string>
+    <string name="label_not_approved_restaurants">Rejected</string>
 </resources>

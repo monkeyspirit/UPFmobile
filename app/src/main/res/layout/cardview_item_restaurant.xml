@@ -17,74 +17,101 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="397dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/restaurant_status_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="status"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_size_medium_large" />
+
+        <TextView
+            android:id="@+id/restaurant_reject_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="message"
+            android:textColor="@color/ic_delete_background"
+            android:textSize="@dimen/text_size_small" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="20dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/restaurant_name_element"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="name"
-            android:textSize="@dimen/text_size_medium_large"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_name_element"/>
+            android:textSize="@dimen/text_size_medium_large" />
 
         <TextView
+            android:id="@+id/restaurant_city_element"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/text_size_mini"
             android:text="city"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_city_element"/>
+            android:textSize="@dimen/text_size_mini" />
 
         <TextView
+            android:id="@+id/restaurant_address_element"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/text_size_mini"
             android:text="address"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_address_element"/>
+            android:textSize="@dimen/text_size_mini" />
 
         <TextView
+            android:id="@+id/restaurant_phone_element"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/text_size_mini"
             android:text="phone"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_phone_element"/>
+            android:textSize="@dimen/text_size_mini" />
 
         <TextView
+            android:id="@+id/restaurant_email_element"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/text_size_mini"
             android:text="email"
             android:textColor="@color/dark_grey"
-            android:id="@+id/restaurant_email_element"/>
+            android:textSize="@dimen/text_size_mini" />
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:textSize="@dimen/text_size_mini"-->
-<!--            android:text="description"-->
-<!--            android:textColor="@color/dark_grey"-->
-<!--            android:id="@+id/restaurant_description_element"/>-->
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:gravity="center"-->
+        <!--            android:textSize="@dimen/text_size_mini"-->
+        <!--            android:text="description"-->
+        <!--            android:textColor="@color/dark_grey"-->
+        <!--            android:id="@+id/restaurant_description_element"/>-->
 
         <ImageView
             android:id="@+id/restaurant_card_pic"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:textColor="@color/dark_grey"
+            android:layout_margin="10dp"
             android:scaleType="centerCrop"
-            android:layout_margin="10dp"/>
+            android:textColor="@color/dark_grey" />
 
         <!--<Button
             android:id="@+id/view_restaurant_card_btn"
@@ -97,16 +124,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/edit_restaurant_card_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
                 android:layout_margin="4dp"
+                android:layout_weight="1"
                 android:backgroundTint="@color/cyan"
                 android:drawableLeft="@drawable/ic_baseline_edit_24"
                 android:text="@string/edit"
@@ -118,15 +145,15 @@
             <Button
                 android:id="@+id/delete_restaurant_card_btn"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="4dp"
+                android:layout_weight="1"
                 android:backgroundTint="@color/red"
                 android:drawableLeft="@drawable/ic_baseline_delete_24"
                 android:text="@string/delete"
                 android:textAlignment="center"
-                android:textSize="@dimen/text_size_mini"/>
+                android:textSize="@dimen/text_size_mini" />
         </LinearLayout>
 
     </LinearLayout>

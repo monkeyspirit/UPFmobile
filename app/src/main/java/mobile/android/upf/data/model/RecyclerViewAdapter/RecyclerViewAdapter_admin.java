@@ -150,6 +150,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
                         .setIcon(R.drawable.ic_baseline_close_black_24)
                         .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -235,7 +236,7 @@ public class RecyclerViewAdapter_admin  extends RecyclerView.Adapter<RecyclerVie
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e("firebase", "Error while editing data from db");
+                                Log.e("firebase", "Error while editing data from db in reject restaurant");
                             }
 
                         });
