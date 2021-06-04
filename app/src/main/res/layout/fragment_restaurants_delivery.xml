@@ -26,17 +26,19 @@
                         android:id="@+id/recyclerview_delivery_restaurants"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/cardview_item_restaurant_delivery">
+                        tools:listitem="@layout/cardview_item_restaurant_delivery"
+                        android:paddingBottom="80dp"
+                        android:clipToPadding="false">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" />
+
 
                 </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="90dp" />
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"

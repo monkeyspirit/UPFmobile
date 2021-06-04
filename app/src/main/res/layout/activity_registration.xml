@@ -26,38 +26,48 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_large"
                 android:text="@string/register_info"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"/>
 
 
-        <Button
-            android:id="@+id/client_r_btn"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:background="#FFFFFF"
-            android:text="@string/client" />
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/client_r_btn"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="@string/client"
+                app:backgroundTint="@color/orange_500"
+                android:textColor="@color/white"/>
 
-            <Button
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/delivery_r_btn"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="100dp"
                 android:text="@string/delivery"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"/>
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                app:backgroundTint="@color/orange_500"
+                android:textColor="@color/white"/>
 
-            <Button
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/restauratour_r_btn"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="100dp"
                 android:text="@string/restaurateur"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"/>
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                app:backgroundTint="@color/orange_500"
+                android:textColor="@color/white"/>
 
 
     </LinearLayout>

@@ -47,6 +47,7 @@
     <string name="empty_phone">Phone number is required</string>
     <string name="empty_city">City is required</string>
     <string name="empty_address">Address is required</string>
+    <string name="empty_description">Description is required</string>
     <string name="password_mismatch">Mismatched passwords</string>
     <string name="invalid_email">Please insert a valid e-mail</string>
     <string name="change_photo">Change photo</string>

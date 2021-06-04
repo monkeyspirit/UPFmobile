@@ -23,13 +23,11 @@
                         android:id="@+id/recyclerview_restaurant_restaurants"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/cardview_item_restaurant">
+                        tools:listitem="@layout/cardview_item_restaurant"
+                        android:paddingBottom="80dp"
+                        android:clipToPadding="false">
 
                     </androidx.recyclerview.widget.RecyclerView>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp" />
 
 
         </LinearLayout>

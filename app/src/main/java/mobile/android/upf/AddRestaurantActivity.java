@@ -118,7 +118,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
                     return;
                 }
                 if (description.isEmpty()) {
-                    restaurant_description.setError(getString(R.string.empty_name));
+                    restaurant_description.setError(getString(R.string.empty_description));
                     restaurant_description.requestFocus();
                     return;
                 }
