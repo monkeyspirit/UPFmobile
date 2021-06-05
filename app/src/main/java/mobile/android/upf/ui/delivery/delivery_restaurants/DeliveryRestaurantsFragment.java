@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -32,6 +36,7 @@ import java.util.List;
 
 import mobile.android.upf.AddSubscriptionActivity;
 import mobile.android.upf.R;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_restaurant;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_restaurant;
 import mobile.android.upf.data.model.Restaurant;
 
@@ -61,7 +66,7 @@ public class DeliveryRestaurantsFragment extends Fragment {
         deliveryRestourantsViewModel =
                 new ViewModelProvider(this).get(DeliveryRestourantsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_restaurants_delivery, container, false);
-
+        setHasOptionsMenu(true);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -191,5 +196,60 @@ public class DeliveryRestaurantsFragment extends Fragment {
             }
 
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+
+        final SearchView searchView = (SearchView) menu.findItem(R.id.actionSearch).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (s.length() > 0) {
+                    filter(String.valueOf(s));
+                } else {
+                    myAdapter = new RecyclerViewAdapter_delivery_restaurant(getActivity(), lstRest);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.length() > 0) {
+                    filter(String.valueOf(s));
+                } else {
+                    myAdapter = new RecyclerViewAdapter_delivery_restaurant(getActivity(), lstRest);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+
+
+    }
+
+    private void filter(String text) {
+        ArrayList<Restaurant> filteredList = new ArrayList<>();
+
+        for (Restaurant item : lstRest) {
+//            Log.d("RICERCATO", text);
+//            Log.d("RICERCA", item.getName());
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(getActivity(), "No data found...", Toast.LENGTH_SHORT).show();
+        }
+        myAdapter = new RecyclerViewAdapter_delivery_restaurant(getActivity(), filteredList);
+
+        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        myrv.setAdapter(myAdapter);
     }
 }

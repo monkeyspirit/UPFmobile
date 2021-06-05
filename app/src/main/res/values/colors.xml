@@ -14,4 +14,5 @@
     <color name="dark_green">#006E14</color>
     <color name="orange_500">#FF9800</color>
     <color name="green_done">#4CAF50</color>
+    <color name="light_orange">#FFC107</color>
 </resources>

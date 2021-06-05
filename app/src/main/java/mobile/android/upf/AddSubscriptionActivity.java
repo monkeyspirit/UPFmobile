@@ -3,13 +3,16 @@ package mobile.android.upf;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +27,6 @@ import java.util.List;
 
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_delivery_restaurant;
 import mobile.android.upf.data.model.Restaurant;
-import mobile.android.upf.ui.delivery.delivery_restaurants.DeliveryRestaurantsFragment;
 
 public class AddSubscriptionActivity extends AppCompatActivity {
 
@@ -206,4 +208,6 @@ public class AddSubscriptionActivity extends AppCompatActivity {
 
         });
     }
+
+
 }

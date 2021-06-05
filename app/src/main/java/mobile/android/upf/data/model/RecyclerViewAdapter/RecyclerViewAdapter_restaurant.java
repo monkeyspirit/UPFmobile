@@ -98,6 +98,7 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
             case 0:{
                 holder.tv_restaurant_status.setText(R.string.label_waiting_restaurants);
                 holder.tv_restaurant_reject_msg.setVisibility(View.GONE);
+                holder.tv_restaurant_status.setTextColor(mContext.getResources().getColor(R.color.dark_grey));
                 holder.tv_restaurant_status.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_access_time_24, 0);
                 break;
             }

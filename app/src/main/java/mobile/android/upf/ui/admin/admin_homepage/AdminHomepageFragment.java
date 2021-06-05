@@ -3,10 +3,14 @@ package mobile.android.upf.ui.admin.admin_homepage;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,6 +30,7 @@ import java.util.List;
 
 import mobile.android.upf.R;
 import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_admin;
+import mobile.android.upf.data.model.RecyclerViewAdapter.RecyclerViewAdapter_client_restaurant;
 import mobile.android.upf.data.model.Restaurant;
 
 public class AdminHomepageFragment extends Fragment {
@@ -49,7 +54,7 @@ public class AdminHomepageFragment extends Fragment {
         adminHomepageViewModel =
                 new ViewModelProvider(this).get(AdminHomepageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home_admin, container, false);
-
+        setHasOptionsMenu(true);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         userId = currentUser.getUid();
@@ -157,5 +162,60 @@ public class AdminHomepageFragment extends Fragment {
 
         });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+
+        final SearchView searchView = (SearchView) menu.findItem(R.id.actionSearch).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (s.length() > 0) {
+                    filter(String.valueOf(s));
+                } else {
+                    myAdapter = new RecyclerViewAdapter_admin(getActivity(), lstRest, AdminHomepageFragment.this);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.length() > 0) {
+                    filter(String.valueOf(s));
+                } else {
+                    myAdapter = new RecyclerViewAdapter_admin(getActivity(), lstRest, AdminHomepageFragment.this);
+
+                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                    myrv.setAdapter(myAdapter);
+                }
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+
+
+    }
+
+    private void filter(String text) {
+        ArrayList<Restaurant> filteredList = new ArrayList<>();
+
+        for (Restaurant item : lstRest) {
+//            Log.d("RICERCATO", text);
+//            Log.d("RICERCA", item.getName());
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(getActivity(), "No data found...", Toast.LENGTH_SHORT).show();
+        }
+        myAdapter = new RecyclerViewAdapter_admin(getActivity(), filteredList, AdminHomepageFragment.this);
+
+        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        myrv.setAdapter(myAdapter);
     }
 }
