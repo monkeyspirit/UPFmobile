@@ -300,7 +300,6 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                     }
                                 });
 
-
                                 dialog.dismiss();
                             }
 

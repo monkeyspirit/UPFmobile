@@ -16,6 +16,37 @@
     android:clickable="true"
     android:focusable="true">
 
+    <FrameLayout
+        android:id="@+id/frame_dark_green"
+        android:visibility="gone"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:background="@color/dark_green"/>
+    <FrameLayout
+        android:id="@+id/frame_red"
+        android:visibility="gone"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:background="@color/red"/>
+    <FrameLayout
+        android:id="@+id/frame_cyan"
+        android:visibility="gone"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:background="@color/cyan"/>
+    <FrameLayout
+        android:id="@+id/frame_light_cyan"
+        android:visibility="gone"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200"/>
+    <FrameLayout
+        android:id="@+id/frame_orange"
+        android:visibility="gone"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:background="@color/orange_500"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
