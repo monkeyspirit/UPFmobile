@@ -63,7 +63,7 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
         holder.tv_order_summary.setText(mData.get(position).getDishes_summary());
         holder.tv_order_date.setText(mData.get(position).getDate());
         holder.tv_order_time.setText(mData.get(position).getTime());
-
+        holder.tv_order_restaurant.setText(mData.get(position).getRestaurant_name());
 
         if(mData.get(position).getState() == 1) {
             holder.tv_yes_btn.setVisibility(View.VISIBLE);
@@ -146,9 +146,7 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                     Toast.makeText(mContext, R.string.order_rejected, Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-
-        if(mData.get(position).getState()==2) {
+        } else if(mData.get(position).getState()==2) {
             holder.tv_complete_btn.setVisibility(View.VISIBLE);
             holder.tv_complete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -169,10 +167,11 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                     Toast.makeText(mContext, R.string.order_completed, Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-
-        if(mData.get(position).getState()==3) {
+        } else if(mData.get(position).getState()==3) {
             holder.tv_order_wait_for_shipping.setVisibility(View.VISIBLE);
+        } else {
+            holder.tv_card.setBackground(mContext.getDrawable(R.drawable.gradient_card_restaurant_order));
+            holder.tv_card.getPreventCornerOverlap();
         }
     }
 
@@ -183,17 +182,22 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_order_summary, tv_order_address, tv_order_wait_for_shipping, tv_order_time, tv_order_date;
+        TextView tv_order_summary, tv_order_address, tv_order_wait_for_shipping, tv_order_time,
+                tv_order_date, tv_order_restaurant;
         Button tv_yes_btn, tv_no_btn, tv_complete_btn;
+        CardView tv_card;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tv_card = (CardView) itemView.findViewById(R.id.card_restaurant_order);
 
             tv_order_summary = (TextView) itemView.findViewById(R.id.restaurant_order_dishes_summary);
             tv_order_address = (TextView) itemView.findViewById(R.id.restaurant_order_address);
             tv_order_wait_for_shipping = (TextView) itemView.findViewById(R.id.restaurant_order_shipping);
             tv_order_date = (TextView) itemView.findViewById(R.id.restaurant_order_date);
             tv_order_time = (TextView) itemView.findViewById(R.id.restaurant_order_time);
+            tv_order_restaurant = (TextView) itemView.findViewById(R.id.restaurant_order_restaurant);
 
             tv_yes_btn = (Button) itemView.findViewById(R.id.order_restaurant_yes_card_btn);
             tv_no_btn = (Button) itemView.findViewById(R.id.order_restaurant_no_card_btn);
