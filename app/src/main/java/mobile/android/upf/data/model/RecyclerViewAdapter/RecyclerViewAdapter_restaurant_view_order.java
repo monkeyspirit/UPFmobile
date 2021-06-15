@@ -146,7 +146,8 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                     Toast.makeText(mContext, R.string.order_rejected, Toast.LENGTH_SHORT).show();
                 }
             });
-        } else if(mData.get(position).getState()==2) {
+        }
+        if(mData.get(position).getState()==2) {
             holder.tv_complete_btn.setVisibility(View.VISIBLE);
             holder.tv_complete_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -167,11 +168,10 @@ public class RecyclerViewAdapter_restaurant_view_order extends RecyclerView.Adap
                     Toast.makeText(mContext, R.string.order_completed, Toast.LENGTH_SHORT).show();
                 }
             });
-        } else if(mData.get(position).getState()==3) {
+        }
+
+        if(mData.get(position).getState()==3) {
             holder.tv_order_wait_for_shipping.setVisibility(View.VISIBLE);
-        } else {
-            holder.tv_card.setBackground(mContext.getDrawable(R.drawable.gradient_card_restaurant_order));
-            holder.tv_card.getPreventCornerOverlap();
         }
     }
 
