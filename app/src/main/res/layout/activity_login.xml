@@ -112,37 +112,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
 
-    <Button
-        android:id="@+id/login_admin_pre_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ADMIN"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/login_client_pre_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CLIENT"
-        app:layout_constraintStart_toEndOf="@+id/login_admin_pre_btn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/login_rest_pre_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REST"
-        app:layout_constraintStart_toEndOf="@+id/login_client_pre_btn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/login_del_pre_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delivery"
-        app:layout_constraintStart_toEndOf="@+id/login_rest_pre_btn"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -95,6 +95,8 @@ public class DeliveryOrdersFragment extends Fragment {
             }
         });
 
+
+
         mDatabase.child("Orders").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
@@ -131,77 +133,104 @@ public class DeliveryOrdersFragment extends Fragment {
                 } else {
                     Iterable<DataSnapshot> orders = task.getResult().getChildren();
 
-                    for (DataSnapshot order : orders) {
-                        if(busy == null) {
-                            if(Integer.parseInt(String.valueOf(order.child("state").getValue())) == 3) {
-                                lstOrder.add(new Order(
-                                        String.valueOf(order.child("id").getValue()),
-                                        String.valueOf(order.child("user_id").getValue()),
-                                        String.valueOf(order.child("restaurant_id").getValue()),
-                                        String.valueOf(order.child("delivery_id").getValue()),
-                                        String.valueOf(order.child("dishes_summary").getValue()),
-                                        String.valueOf(order.child("total").getValue()),
-                                        String.valueOf(order.child("payment_method").getValue()),
-                                        String.valueOf(order.child("city").getValue()),
-                                        String.valueOf(order.child("address").getValue()),
-                                        String.valueOf(order.child("date").getValue()),
-                                        String.valueOf(order.child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                                );
-                            }
-                        } else {
-                            if (String.valueOf(order.child("id").getValue()).equals(busy)) {
 
-                                lstOrder.add(new Order(
-                                        String.valueOf(order.child("id").getValue()),
-                                        String.valueOf(order.child("user_id").getValue()),
-                                        String.valueOf(order.child("restaurant_id").getValue()),
-                                        String.valueOf(order.child("delivery_id").getValue()),
-                                        String.valueOf(order.child("dishes_summary").getValue()),
-                                        String.valueOf(order.child("total").getValue()),
-                                        String.valueOf(order.child("payment_method").getValue()),
-                                        String.valueOf(order.child("city").getValue()),
-                                        String.valueOf(order.child("address").getValue()),
-                                        String.valueOf(order.child("date").getValue()),
-                                        String.valueOf(order.child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                                );
-                            }
 
-                        }
-                        Collections.sort(lstOrder, new Comparator<Order>() {
-                            @SuppressLint("SimpleDateFormat")
-                            final
-                            DateFormat f = new SimpleDateFormat("hh:mm");
+
+                        mDatabase.child("Users").child(userId).child("Subscriptions").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
-                            public int compare(Order lhs, Order rhs) {
-                                try {
-                                    return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
-                                } catch (ParseException e) {
-                                    throw new IllegalArgumentException(e);
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                Iterable<DataSnapshot> subscriptions = task.getResult().getChildren();
+
+                                ArrayList<String> subscriptions_id = new ArrayList<>();
+                                for (DataSnapshot subscription : subscriptions) {
+
+                                    subscriptions_id.add(String.valueOf(subscription.getKey()));
+                                }
+
+                                for (DataSnapshot order : orders) {
+
+                                    if( subscriptions_id.contains(String.valueOf(order.child("restaurant_id").getValue()))){
+
+                                        if(busy == null) {
+                                            if(Integer.parseInt(String.valueOf(order.child("state").getValue())) == 3) {
+                                                lstOrder.add(new Order(
+                                                        String.valueOf(order.child("id").getValue()),
+                                                        String.valueOf(order.child("user_id").getValue()),
+                                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                                        String.valueOf(order.child("delivery_id").getValue()),
+                                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                                        String.valueOf(order.child("total").getValue()),
+                                                        String.valueOf(order.child("payment_method").getValue()),
+                                                        String.valueOf(order.child("city").getValue()),
+                                                        String.valueOf(order.child("address").getValue()),
+                                                        String.valueOf(order.child("date").getValue()),
+                                                        String.valueOf(order.child("time").getValue()),
+                                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                                );
+                                            }
+                                        }
+                                        else {
+                                            if (String.valueOf(order.child("id").getValue()).equals(busy)) {
+
+                                                lstOrder.add(new Order(
+                                                        String.valueOf(order.child("id").getValue()),
+                                                        String.valueOf(order.child("user_id").getValue()),
+                                                        String.valueOf(order.child("restaurant_id").getValue()),
+                                                        String.valueOf(order.child("delivery_id").getValue()),
+                                                        String.valueOf(order.child("dishes_summary").getValue()),
+                                                        String.valueOf(order.child("total").getValue()),
+                                                        String.valueOf(order.child("payment_method").getValue()),
+                                                        String.valueOf(order.child("city").getValue()),
+                                                        String.valueOf(order.child("address").getValue()),
+                                                        String.valueOf(order.child("date").getValue()),
+                                                        String.valueOf(order.child("time").getValue()),
+                                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                                );
+                                            }
+
+                                        }
+                                    }
+
+
+
+                                    Collections.sort(lstOrder, new Comparator<Order>() {
+                                        @SuppressLint("SimpleDateFormat")
+                                        final
+                                        DateFormat f = new SimpleDateFormat("hh:mm");
+                                        @Override
+                                        public int compare(Order lhs, Order rhs) {
+                                            try {
+                                                return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
+                                            } catch (ParseException e) {
+                                                throw new IllegalArgumentException(e);
+                                            }
+                                        }
+                                    });
+
+                                    Collections.sort(lstOrder, new Comparator<Order>() {
+                                        @SuppressLint("SimpleDateFormat")
+                                        final
+                                        DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                                        @Override
+                                        public int compare(Order lhs, Order rhs) {
+                                            try {
+                                                return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
+                                            } catch (ParseException e) {
+                                                throw new IllegalArgumentException(e);
+                                            }
+                                        }
+                                    });
+
+                                    myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
+                                    myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+                                    myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                    myrv.setAdapter(myAdapter);
                                 }
                             }
                         });
 
-                        Collections.sort(lstOrder, new Comparator<Order>() {
-                            @SuppressLint("SimpleDateFormat")
-                            final
-                            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                            @Override
-                            public int compare(Order lhs, Order rhs) {
-                                try {
-                                    return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
-                                } catch (ParseException e) {
-                                    throw new IllegalArgumentException(e);
-                                }
-                            }
-                        });
-                        myrv = (RecyclerView) root.findViewById(R.id.recyclerview_delivery_orders);
-                        myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
-                        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                        myrv.setAdapter(myAdapter);
 
-                    }
+
 
                 }
             }
@@ -237,85 +266,98 @@ public class DeliveryOrdersFragment extends Fragment {
                     Iterable<DataSnapshot> orders = task.getResult().getChildren();
 
 
-                    for (DataSnapshot order : orders) {
-                        if(busy == null) {
-                            if(Integer.parseInt(String.valueOf(order.child("state").getValue()))== 3){
-                                lstOrder.add(new Order(
-                                        String.valueOf(order.child("id").getValue()),
-                                        String.valueOf(order.child("user_id").getValue()),
-                                        String.valueOf(order.child("restaurant_id").getValue()),
-                                        String.valueOf(order.child("delivery_id").getValue()),
-                                        String.valueOf(order.child("dishes_summary").getValue()),
-                                        String.valueOf(order.child("total").getValue()),
-                                        String.valueOf(order.child("payment_method").getValue()),
-                                        String.valueOf(order.child("city").getValue()),
-                                        String.valueOf(order.child("address").getValue()),
-                                        String.valueOf(order.child("date").getValue()),
-                                        String.valueOf(order.child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                                );
 
+                    mDatabase.child("Users").child(userId).child("Subscriptions").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            Iterable<DataSnapshot> subscriptions = task.getResult().getChildren();
 
-
+                            ArrayList<String> subscriptions_id = new ArrayList<>();
+                            for (DataSnapshot subscription : subscriptions) {
+                                subscriptions_id.add(String.valueOf(subscription.getKey()));
                             }
 
+                            for (DataSnapshot order : orders) {
 
+                                if( subscriptions_id.contains(String.valueOf(order.child("restaurant_id").getValue()))){
+                                    if(busy == null) {
+                                        if(Integer.parseInt(String.valueOf(order.child("state").getValue())) == 3) {
+                                            lstOrder.add(new Order(
+                                                    String.valueOf(order.child("id").getValue()),
+                                                    String.valueOf(order.child("user_id").getValue()),
+                                                    String.valueOf(order.child("restaurant_id").getValue()),
+                                                    String.valueOf(order.child("delivery_id").getValue()),
+                                                    String.valueOf(order.child("dishes_summary").getValue()),
+                                                    String.valueOf(order.child("total").getValue()),
+                                                    String.valueOf(order.child("payment_method").getValue()),
+                                                    String.valueOf(order.child("city").getValue()),
+                                                    String.valueOf(order.child("address").getValue()),
+                                                    String.valueOf(order.child("date").getValue()),
+                                                    String.valueOf(order.child("time").getValue()),
+                                                    Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                            );
+                                        }
+                                    }
+                                    else {
+                                        if (String.valueOf(order.child("id").getValue()).equals(busy)) {
 
-                        }
-                        else {
-                            if (String.valueOf(order.child("id").getValue()).equals(busy)) {
+                                            lstOrder.add(new Order(
+                                                    String.valueOf(order.child("id").getValue()),
+                                                    String.valueOf(order.child("user_id").getValue()),
+                                                    String.valueOf(order.child("restaurant_id").getValue()),
+                                                    String.valueOf(order.child("delivery_id").getValue()),
+                                                    String.valueOf(order.child("dishes_summary").getValue()),
+                                                    String.valueOf(order.child("total").getValue()),
+                                                    String.valueOf(order.child("payment_method").getValue()),
+                                                    String.valueOf(order.child("city").getValue()),
+                                                    String.valueOf(order.child("address").getValue()),
+                                                    String.valueOf(order.child("date").getValue()),
+                                                    String.valueOf(order.child("time").getValue()),
+                                                    Integer.parseInt(String.valueOf(order.child("state").getValue())))
+                                            );
+                                        }
 
-                                lstOrder.add(new Order(
-                                        String.valueOf(order.child("id").getValue()),
-                                        String.valueOf(order.child("user_id").getValue()),
-                                        String.valueOf(order.child("restaurant_id").getValue()),
-                                        String.valueOf(order.child("delivery_id").getValue()),
-                                        String.valueOf(order.child("dishes_summary").getValue()),
-                                        String.valueOf(order.child("total").getValue()),
-                                        String.valueOf(order.child("payment_method").getValue()),
-                                        String.valueOf(order.child("city").getValue()),
-                                        String.valueOf(order.child("address").getValue()),
-                                        String.valueOf(order.child("date").getValue()),
-                                        String.valueOf(order.child("time").getValue()),
-                                        Integer.parseInt(String.valueOf(order.child("state").getValue())))
-                                );
-
-                            }
-
-
-                        }
-                        Collections.sort(lstOrder, new Comparator<Order>() {
-                            @SuppressLint("SimpleDateFormat")
-                            final
-                            DateFormat f = new SimpleDateFormat("hh:mm");
-                            @Override
-                            public int compare(Order lhs, Order rhs) {
-                                try {
-                                    return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
-                                } catch (ParseException e) {
-                                    throw new IllegalArgumentException(e);
+                                    }
                                 }
-                            }
-                        });
 
-                        Collections.sort(lstOrder, new Comparator<Order>() {
-                            @SuppressLint("SimpleDateFormat")
-                            final
-                            DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                            @Override
-                            public int compare(Order lhs, Order rhs) {
-                                try {
-                                    return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
-                                } catch (ParseException e) {
-                                    throw new IllegalArgumentException(e);
-                                }
-                            }
-                        });
-                        myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
 
-                        myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                        myrv.setAdapter(myAdapter);
-                    }
+
+                                Collections.sort(lstOrder, new Comparator<Order>() {
+                                    @SuppressLint("SimpleDateFormat")
+                                    final
+                                    DateFormat f = new SimpleDateFormat("hh:mm");
+                                    @Override
+                                    public int compare(Order lhs, Order rhs) {
+                                        try {
+                                            return Objects.requireNonNull(f.parse(rhs.getTime())).compareTo(f.parse(lhs.getTime()));
+                                        } catch (ParseException e) {
+                                            throw new IllegalArgumentException(e);
+                                        }
+                                    }
+                                });
+
+                                Collections.sort(lstOrder, new Comparator<Order>() {
+                                    @SuppressLint("SimpleDateFormat")
+                                    final
+                                    DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                                    @Override
+                                    public int compare(Order lhs, Order rhs) {
+                                        try {
+                                            return Objects.requireNonNull(f.parse(rhs.getDate())).compareTo(f.parse(lhs.getDate()));
+                                        } catch (ParseException e) {
+                                            throw new IllegalArgumentException(e);
+                                        }
+                                    }
+                                });
+
+
+                                myAdapter = new RecyclerViewAdapter_delivery_view_order(getActivity(), lstOrder, DeliveryOrdersFragment.this);
+                                myrv.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                                myrv.setAdapter(myAdapter);
+                            }
+                        }
+                    });
+
 
                 }
             }

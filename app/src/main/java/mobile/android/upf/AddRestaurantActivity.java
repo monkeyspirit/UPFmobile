@@ -154,11 +154,11 @@ public class AddRestaurantActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-                Log.d("ADMIN", "RICERCA ADMIN");
+
                 mDatabase.child("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<DataSnapshot> task) {
-                        Log.d("ONCOMPLETE", "SONO DENTRO ONCOMPLETE");
+
                         if (!task.isSuccessful()) {
                             Log.e("firebase", "Error getting data");
                         } else {
@@ -174,7 +174,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
                                 if (Integer.parseInt(String.valueOf(admin.child("type").getValue())) == 4 & counter_admin == 0) {
                                     if (Integer.parseInt(String.valueOf(admin.child("work").getValue())) == 0) {
                                         mDatabase.child("Users").child(admin.getKey()).child("work").setValue(1);
-                                        admin_id = admin.getKey();
+                                        admin_id = String.valueOf(admin.getKey());
                                         counter_admin = 1;
                                     }
                                 }

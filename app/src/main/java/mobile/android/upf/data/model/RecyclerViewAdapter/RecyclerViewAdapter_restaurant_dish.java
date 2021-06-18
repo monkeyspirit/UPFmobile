@@ -108,7 +108,7 @@ public class RecyclerViewAdapter_restaurant_dish extends RecyclerView.Adapter<Re
                 myQuittingDialogBox.show();
 
                 myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#6200EE"));
+                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.RED);
 
             }
         });
@@ -202,7 +202,7 @@ public class RecyclerViewAdapter_restaurant_dish extends RecyclerView.Adapter<Re
                 myQuittingDialogBox.show();
 
                 myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#6200EE"));
+                myQuittingDialogBox.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#FF9800"));
 
             }
         });

@@ -22,8 +22,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -167,9 +169,24 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                                         mDatabase.child("Restaurants").child(toDeleteId).setValue(null);
                                         ((RestaurantRestaurantsFragment)mFragment).updateRecycler();
                                         Toast.makeText(mContext, R.string.deleted, Toast.LENGTH_SHORT).show();
+
+                                        mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                Iterable<DataSnapshot> dishes = task.getResult().getChildren();
+
+                                                for (DataSnapshot dish : dishes) {
+                                                    //Rimuovo tutti i piatti del ristorante eliminato
+                                                    if (String.valueOf(dish.child("restaurant_id").getValue()).equals(toDeleteId)) {
+                                                        mDatabase.child("Dishes").child(dish.getKey()).setValue(null);
+                                                    }
+                                                }
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -281,11 +298,15 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                             update_phone = mData.get(position).getPhone();
                                         }
 
+                                        int new_status = 0;
+                                        if(mData.get(position).getStatus()==1){
+                                            new_status = 1;
+                                        }
                                         Restaurant update = new Restaurant(toEditId, update_name,
                                                 update_description, update_email, update_city,
                                                 update_address, update_phone,
-                                                mData.get(position).getRestaurateur_id(),
-                                                mData.get(position).getImageUrl(), 0);
+                                                mData.get(position).getRestaurateur_id(), mData.get(position).getAdmin_id(),
+                                                mData.get(position).getImageUrl(), new_status);
 
                                         mDatabase.child("Restaurants").child(toEditId).setValue(update);
 

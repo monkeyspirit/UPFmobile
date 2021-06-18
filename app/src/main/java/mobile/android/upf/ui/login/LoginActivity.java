@@ -75,38 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // LOGIN RAPIDO
-
-        login_admin_pre_btn = (Button) findViewById(R.id.login_admin_pre_btn);
-        login_client_pre_btn = (Button) findViewById(R.id.login_client_pre_btn);
-        login_rest_pre_btn = (Button) findViewById(R.id.login_rest_pre_btn);
-        login_del_pre_btn = (Button) findViewById(R.id.login_del_pre_btn);
-
-        login_admin_pre_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser("admin@gmail.com", "admin1");
-            }
-        });
-        login_client_pre_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser("mario.rossi@gmail.com", "123456");
-            }
-        });
-        login_rest_pre_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser("salvo.calogero@gmail.com", "123456");
-            }
-        });
-        login_del_pre_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser("corrado.collodi@gmail.com", "123456");
-            }
-        });
-
     }
 
     private void updateUI(FirebaseUser user) {
