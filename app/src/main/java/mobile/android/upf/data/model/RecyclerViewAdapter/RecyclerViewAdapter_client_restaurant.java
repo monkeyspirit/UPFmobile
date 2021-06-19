@@ -55,7 +55,6 @@ public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<
             }
         });
 
-
         holder.tv_restaurant_name.setText(mData.get(position).getName());
         holder.tv_restaurant_city.setText(mData.get(position).getCity());
         holder.tv_restaurant_address.setText(mData.get(position).getAddress());
@@ -86,7 +85,7 @@ public class RecyclerViewAdapter_client_restaurant extends RecyclerView.Adapter<
                 emailSelectorIntent.setData(Uri.parse("mailto:"));
 
                 final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"address@mail.com"});
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mData.get(position).getEmail()});
                 emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 emailIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 emailIntent.setSelector( emailSelectorIntent );
