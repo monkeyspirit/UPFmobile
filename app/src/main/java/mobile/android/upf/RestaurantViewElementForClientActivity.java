@@ -46,6 +46,8 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
     private List<Dish> lstDish;
     private String restaurant_id;
 
+    private boolean isAdmin = false;
+
 //    private Button add_restaurant_dish_btn;
 
     @Override
@@ -110,6 +112,12 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
             }
         });
 
+        isAdmin = intent.getExtras().getBoolean("admin");
+
+
+
+
+
         lstDish = new ArrayList<>();
 
         mDatabase.child("Dishes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -125,8 +133,11 @@ public class RestaurantViewElementForClientActivity extends AppCompatActivity {
 
                         Log.d("firebase", String.valueOf(dish.child("name").getValue()));
                         if (String.valueOf(dish.child("restaurant_id").getValue()).equals(restaurant_id)) {
-                            fab.setEnabled(true);
-                            fab.setVisibility(View.VISIBLE);
+                            if(!isAdmin){
+                                fab.setEnabled(true);
+                                fab.setVisibility(View.VISIBLE);
+                            }
+
                             lstDish.add(new Dish(
                                     String.valueOf(dish.getKey()),
                                     String.valueOf(dish.child("name").getValue()),

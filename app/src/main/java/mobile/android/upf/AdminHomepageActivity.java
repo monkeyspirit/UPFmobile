@@ -1,5 +1,6 @@
 package mobile.android.upf;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,7 +60,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_admin_profile, R.id.nav_admin_home, R.id.nav_admin_logout)
+                R.id.nav_admin_profile, R.id.nav_admin_home, R.id.nav_admin_all_restaurants, R.id.nav_admin_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -88,6 +89,7 @@ public class AdminHomepageActivity extends AppCompatActivity {
         String userId = currentUser.getUid();
 
         mDatabase.child("Users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {

@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mobile.android.upf.R;
@@ -187,6 +188,55 @@ public class RecyclerViewAdapter_restaurant extends RecyclerView.Adapter<Recycle
                                                 }
                                             }
                                         });
+
+                                        ArrayList<String> deletedOrders = new ArrayList<>();
+
+                                        mDatabase.child("Orders").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                Iterable<DataSnapshot> orders = task.getResult().getChildren();
+
+                                                for (DataSnapshot order : orders) {
+                                                    //Rimuovo tutti gli ordini del ristorante eliminato
+                                                    if (String.valueOf(order.child("restaurant_id").getValue()).equals(toDeleteId)) {
+                                                        deletedOrders.add(String.valueOf(order.getKey()));
+                                                        mDatabase.child("Orders").child(order.getKey()).setValue(null);
+                                                    }
+                                                }
+
+                                                mDatabase.child("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                        Iterable<DataSnapshot> users = task.getResult().getChildren();
+
+                                                        for (DataSnapshot user : users) {
+                                                            //Rimuovo tutti gli ordini del ristorante eliminato
+                                                            Iterable<DataSnapshot> user_orders = user.child("Orders").getChildren();
+
+                                                            for(DataSnapshot user_oder: user_orders){
+                                                                //Rimuovo tutti gli ordini del ristorante eliminato dalla sezione utente
+                                                                if (deletedOrders.contains(String.valueOf(user_oder.getKey()))) {
+                                                                    mDatabase.child("Users").child(user.getKey()).child("Orders").child(user_oder.getKey()).setValue(null);
+                                                                }
+                                                            }
+
+                                                            Iterable<DataSnapshot> subscriptions = user.child("Subscriptions").getChildren();
+                                                            for(DataSnapshot subscription: subscriptions){
+
+                                                                if (toDeleteId.equals(String.valueOf(subscription.getKey()))) {
+                                                                    mDatabase.child("Users").child(user.getKey()).child("Subscriptions").child(subscription.getKey()).setValue(null);
+                                                                }
+                                                            }
+
+                                                        }
+                                                    }
+                                                });
+
+
+                                            }
+                                        });
+
+
                                     }
 
                                     @Override

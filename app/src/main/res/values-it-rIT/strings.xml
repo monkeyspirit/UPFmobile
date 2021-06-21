@@ -163,4 +163,7 @@
     <string name="label_approved_restaurants">Approvati</string>
     <string name="label_waiting_restaurants">In attesa</string>
     <string name="label_not_approved_restaurants">Respinti</string>
+    <string name="report">Segnala</string>
+    <string name="notification_report_msg">è stato segnalato da un amministratore.</string>
+    <string name="report_msg">Lascia un messaggio all\'utente per informarlo del perché il suo ristorante è stato segnalato:</string>
 </resources>

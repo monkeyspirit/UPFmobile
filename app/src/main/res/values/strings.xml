@@ -188,4 +188,8 @@
     <string name="label_approved_restaurants">Approved</string>
     <string name="label_waiting_restaurants">Waiting</string>
     <string name="label_not_approved_restaurants">Rejected</string>
+    <string name="report">Report</string>
+    <string name="notification_report_msg">was reporteted by an administrator.</string>
+
+    <string name="report_msg">Leave a message for the user to inform he/she why the restaurant was reported:</string>
 </resources>

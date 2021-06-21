@@ -19,6 +19,12 @@
         android:label="@string/menu_restaurants"
         tools:layout="@layout/fragment_home_admin" />
 
+    <fragment
+        android:id="@+id/nav_admin_all_restaurants"
+        android:name="mobile.android.upf.ui.admin.admin_restaurants.AdminRestaurantsFragment"
+        android:label="@string/menu_restaurants"
+        tools:layout="@layout/fragment_restaurants_admin" />
+
     <activity
         android:id="@+id/nav_admin_logout"
         android:name="mobile.android.upf.ui.login.LoginActivity"
