@@ -145,22 +145,24 @@ public class RestaurantRestaurantsFragment extends Fragment {
                                     String.valueOf(restaurant.child("imageUrl").getValue()),
                                     String.valueOf(restaurant.child("decline_msg").getValue()),
                                     Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))));
+
+                            switch (Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))){
+                                case 0:{
+                                    counter_wait += 1;
+                                    break;
+                                }
+                                case 1:{
+                                    counter_yes += 1;
+                                    break;
+                                }
+                                case 2: {
+                                    counter_no += 1;
+                                    break;
+                                }
+                            }
+
                         }
 
-                        switch (Integer.parseInt(String.valueOf(restaurant.child("status").getValue()))){
-                            case 0:{
-                                counter_wait += 1;
-                                break;
-                            }
-                            case 1:{
-                                counter_yes += 1;
-                                break;
-                            }
-                            case 2: {
-                                counter_no += 1;
-                                break;
-                            }
-                        }
 
                     }
 
