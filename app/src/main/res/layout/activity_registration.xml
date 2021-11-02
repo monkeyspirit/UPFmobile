@@ -22,8 +22,6 @@
         android:paddingRight="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="300dp"
@@ -32,7 +30,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/text_size_large"
                 android:text="@string/register_info"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="50dp"/>
 
 
@@ -42,7 +40,7 @@
                 android:layout_height="100dp"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="35dp"
                 android:text="@string/client"
                 app:backgroundTint="@color/orange_500"
                 android:textColor="@color/white"/>
@@ -54,7 +52,7 @@
                 android:text="@string/delivery"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="35dp"
                 app:backgroundTint="@color/orange_500"
                 android:textColor="@color/white"/>
 
@@ -65,7 +63,7 @@
                 android:text="@string/restaurateur"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="35dp"
                 app:backgroundTint="@color/orange_500"
                 android:textColor="@color/white"/>
 
