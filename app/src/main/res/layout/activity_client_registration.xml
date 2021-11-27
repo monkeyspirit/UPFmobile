@@ -19,15 +19,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 app:boxBackgroundColor="@color/white">
 
                 <!--Name-->
                 <EditText
                     android:id="@+id/client_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_name"
@@ -36,14 +38,17 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!--Surname-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/client_surname"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_surname"
@@ -51,14 +56,17 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!--email-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/client_emailAddress"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_email"
@@ -66,14 +74,17 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!--phone-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/client_phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_phone"
@@ -81,14 +92,17 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!--city-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/client_city"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_city"
@@ -96,14 +110,17 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!--address-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white">
 
                 <EditText
                     android:id="@+id/client_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_address"
@@ -111,33 +128,38 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!--password-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white"
                 app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/client_password"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_password"
-                    android:inputType="textPassword"
+                    android:inputType="textPassword" />
 
-                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top_mini"
                 app:boxBackgroundColor="@color/white"
                 app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/client_passwordConfirm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/prompt_confirm_password"
@@ -160,9 +182,17 @@
                 android:enabled="true"
                 android:text="@string/action_register"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"/>
+                android:textSize="@dimen/text_size_large"
+                android:layout_marginTop="@dimen/activity_vertical_margin_top"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/empty_space_height"
+                android:layout_weight="1"
+                tools:ignore="InefficientWeight"/>
 
         </LinearLayout>
+
     </ScrollView>
 
 
